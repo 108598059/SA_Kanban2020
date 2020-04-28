@@ -9,14 +9,14 @@ public class Workflow {
     private List<Column> columns = new ArrayList<Column>();
     private String id;
     private String title;
-
-    public Workflow(String id, String title){
+    private String boardid;
+    public Workflow(String id, String title,String boardid){
         this.id = id;
         this.title = title;
+        this.boardid = boardid;
     }
 
     public String createColumn(String columnName, String workflowId){
-//         這邊要呼叫repository來New嗎?
         Column column = new Column(columnName, UUID.randomUUID().toString(), workflowId);
         columns.add(column);
         return column.getTitle();
@@ -41,6 +41,6 @@ public class Workflow {
     public String getTitle() {
         return title;
     }
-
+    public String getBoardId(){return boardid;}
 
 }

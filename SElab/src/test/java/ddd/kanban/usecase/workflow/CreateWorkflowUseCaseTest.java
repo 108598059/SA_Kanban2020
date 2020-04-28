@@ -16,21 +16,24 @@ import static org.junit.Assert.assertNotNull;
 public class CreateWorkflowUseCaseTest {
     private WorkflowRepository inMemoryWorkflowRepository;
     private String workflowId;
+    private String workflowboardId;
     @Before
     public void setUp(){
         workflowId = UUID.randomUUID().toString();
+        workflowboardId=UUID.randomUUID().toString();
         inMemoryWorkflowRepository = new InMemoryWorkflowRepository();
     }
     @Test
     public void testCreateWorkflow() {
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(inMemoryWorkflowRepository);
 
-        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput(workflowId,"Workflow 1");
+        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput(workflowId,"Workflow 1",workflowboardId);
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
 
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
         assertEquals("Workflow 1", createWorkflowOutput.getWorkflowTitle());
         assertNotNull(createWorkflowOutput.getWorkflowId());
+        assertNotNull(createWorkflowOutput.getWorkflowBoardId());
     }
 }

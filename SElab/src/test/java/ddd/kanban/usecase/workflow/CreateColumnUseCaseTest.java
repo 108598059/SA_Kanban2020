@@ -2,10 +2,8 @@ package ddd.kanban.usecase.workflow;
 
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.workflow.Workflow;
-import ddd.kanban.usecase.workflow.create.CreateColumnInput;
-import ddd.kanban.usecase.workflow.create.CreateColumnOutput;
+import ddd.kanban.usecase.workflow.create.*;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.create.CreateColumnUseCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,13 +14,16 @@ import static junit.framework.TestCase.assertEquals;
 public class CreateColumnUseCaseTest {
     private WorkflowRepository inMemoryWorkflowRepository;
     private String workflowId;
-
+    private String workflowboardId;
     @Before
     public void setUp(){
         workflowId = UUID.randomUUID().toString();
+
         inMemoryWorkflowRepository = new InMemoryWorkflowRepository();
-        Workflow workflow = new Workflow(workflowId, "In Progress");
-        inMemoryWorkflowRepository.add(workflow);
+        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(inMemoryWorkflowRepository);
+        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput(workflowId,"Workflow 1",workflowboardId);
+        CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
+        createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
     }
 
 

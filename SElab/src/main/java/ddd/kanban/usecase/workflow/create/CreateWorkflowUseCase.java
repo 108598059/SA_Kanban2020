@@ -11,9 +11,10 @@ public class CreateWorkflowUseCase {
     }
 
     public void execute(CreateWorkflowInput createWorkflowInput, CreateWorkflowOutput createWorkflowOutput) {
-        Workflow workflow = new Workflow(createWorkflowInput.getWorkflowId(),createWorkflowInput.getWorkflowTitle());
+        Workflow workflow = new Workflow(createWorkflowInput.getWorkflowId(),createWorkflowInput.getWorkflowTitle(),createWorkflowInput.getWorkflowBoardId());
         createWorkflowOutput.setWorkflowId(workflow.getId());
         createWorkflowOutput.setWorkflowTitle(workflow.getTitle());
+        createWorkflowOutput.setWorkflowBoardId(workflow.getBoardId());
         //create default column
 //        CreateColumnInput createColumnInput = new CreateColumnInput("defalut column", workflow.getId());
 //        String columnName=workflow.createColumn(createColumnInput.getColumnTitle(), createColumnInput.getWorkflowId());
