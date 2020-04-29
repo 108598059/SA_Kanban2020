@@ -16,8 +16,10 @@ public class EditCardUseCase {
   public void execute(EditCardUseCaseInput input, EditCardUseCaseOutput output) {
     UUID cardId = input.getCardId();
     String cardName = input.getCardName();
+
     Card card = cardRepository.findCardByUUID(cardId);
     card.setName(cardName);
+
     cardRepository.add(card);
     output.setCardId(card.getUUID().toString());
     output.setCardName(card.getName());

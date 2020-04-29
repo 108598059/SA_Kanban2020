@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
@@ -25,13 +26,13 @@ public class MysqlCreateCardUseCaseTest {
   private String cardID;
 
   @Before
-  public void initialize() {
+  public void setUp() {
     cardRepository = new MysqlCardRepository();
   }
 
   @Test
   public void createCard() {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, new DomainEventBus());
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("Create Card");

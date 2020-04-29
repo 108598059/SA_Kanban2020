@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.*;
@@ -26,12 +27,14 @@ public class MoveCardUseCaseTest {
   private String fromColumnId;
   private String toColumnId;
   private UUID boardId;
+  private DomainEventBus eventBus;
 
   @Before
-  public void initialize() {
+  public void given_a_board_and_two_columns_and_a_card() {
+    this.eventBus = new DomainEventBus();
     cardRepository = new MemoryCardRepository();
     boardRepository = new MemoryBoardRepository();
-    createCardUseCase = new CreateCardUseCase(cardRepository);
+    createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
     createColumnUseCase = new CreateColumnUseCase(boardRepository);
 
     Board board = new Board("phd");
@@ -63,14 +66,18 @@ public class MoveCardUseCaseTest {
     MoveCardUseCase moveCardUseCase = new MoveCardUseCase(boardRepository);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
+
     moveCardUseCaseInput.setBoardId(boardId);
     moveCardUseCaseInput.setCardId(card.getUUID());
     moveCardUseCaseInput.setFromColumnId(UUID.fromString(fromColumnId));
     moveCardUseCaseInput.setToColumnId(UUID.fromString(toColumnId));
+
     moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+
     assertEquals(card.getUUID().toString(), moveCardUseCaseOutput.getCardId());
     assertEquals(fromColumnId, moveCardUseCaseOutput.getOldColumnId());
     assertEquals(toColumnId, moveCardUseCaseOutput.getNewColumnId());
+    Board board = boardRepository.findBoardByUUID(boardId);
   }
 
 }

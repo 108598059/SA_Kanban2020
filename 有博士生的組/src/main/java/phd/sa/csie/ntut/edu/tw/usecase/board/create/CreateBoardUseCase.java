@@ -12,8 +12,10 @@ public class CreateBoardUseCase {
 
   public void execute(CreateBoardUseCaseInput input, CreateBoardUseCaseOutput output) {
     String title = input.getTitle();
+
     Board board = new Board(title);
     boardRepository.add(board);
+
     output.setBoardId(board.getUUID().toString());
     output.setBoardTitle(board.getName());
   }

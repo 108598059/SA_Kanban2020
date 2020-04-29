@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.*;
@@ -19,11 +20,14 @@ public class EditCardUseCaseTest {
   private Card card;
   private CardRepository cardRepository;
   private CreateCardUseCase createCardUseCase;
+  private DomainEventBus eventBus;
 
   @Before
-  public void init() {
+  public void given_a_card() {
+    this.eventBus = new DomainEventBus();
+
     cardRepository = new MemoryCardRepository();
-    createCardUseCase = new CreateCardUseCase(cardRepository);
+    createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();

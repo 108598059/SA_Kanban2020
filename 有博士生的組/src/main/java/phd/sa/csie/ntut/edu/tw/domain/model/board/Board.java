@@ -1,6 +1,11 @@
 package phd.sa.csie.ntut.edu.tw.domain.model.board;
 
+import com.google.common.eventbus.Subscribe;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -9,11 +14,35 @@ public class Board {
   private UUID Id;
   private String name;
   private ArrayList<Column> columns;
+  private Column startColumn;
+  private Column endColumn;
 
   public Board(String name) {
     this.Id = UUID.randomUUID();
     this.name = name;
     this.columns = new ArrayList<>();
+    this.startColumn = new Column("Backlog");
+    this.endColumn = new Column("Archive");
+  }
+
+  @Subscribe
+  public void commit(CardCreatedEvent e) {
+    Card card = e.getEntity();
+    this.startColumn.addCard(card.getUUID());
+    card.setColumnID(this.startColumn.getId());
+  }
+
+  public int getNumberOfColumns() {
+    return 2 + this.columns.size();
+  }
+
+  public Column get(int n) {
+    if (n == 0) {
+      return new Column(this.startColumn);
+    } else if (n == this.getNumberOfColumns() - 1) {
+      return new Column(this.endColumn);
+    }
+    return Collections.unmodifiableList(this.columns).get(n-1);
   }
 
   public UUID getUUID() {

@@ -13,6 +13,7 @@ public class CardTest {
   @Test
   public void createCard() {
     Card card = new Card("create card");
+
     assertEquals("create card", card.getName());
     assertNotEquals("", card.getUUID().toString());
     assertNotNull(card.getUUID());

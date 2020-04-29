@@ -1,6 +1,9 @@
 package phd.sa.csie.ntut.edu.tw.domain.model.board;
 
+import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 public class Column {
@@ -15,6 +18,16 @@ public class Column {
     this.title = title;
     this.wip = 0;
     this.cardIds = new ArrayList<>();
+  }
+
+  public Column(Column col) {
+    this.id = col.id;
+    this.title = col.title;
+    this.wip = wip;
+    this.cardIds = new ArrayList<>();
+    for (UUID cardID: col.cardIds) {
+      this.cardIds.add(cardID);
+    }
   }
 
   public UUID getId() {
@@ -40,5 +53,4 @@ public class Column {
   public void removeCard(UUID uuid) {
     cardIds.remove(uuid);
   }
-
 }

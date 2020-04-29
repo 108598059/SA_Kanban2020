@@ -19,7 +19,9 @@ public class MoveCardUseCase {
     UUID cardId = moveCardUseCaseInput.getCardId();
     UUID fromColumnId = moveCardUseCaseInput.getFromColumnId();
     UUID toColumnId = moveCardUseCaseInput.getToColumnId();
+
     String newColumnId = board.moveCard(cardId, fromColumnId, toColumnId);
+
     moveCardUseCaseOutput.setCardId(cardId);
     moveCardUseCaseOutput.setOldColumnId(fromColumnId.toString());
     moveCardUseCaseOutput.setNewColumnId(toColumnId.toString());
