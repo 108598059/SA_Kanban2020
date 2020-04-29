@@ -81,6 +81,18 @@
       <recent name="domain.entity" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager" selected="JUnit.All in 郭1">
     <configuration name="All in 郭1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
