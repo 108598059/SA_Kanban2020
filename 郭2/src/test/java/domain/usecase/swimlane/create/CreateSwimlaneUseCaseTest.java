@@ -1,5 +1,8 @@
 package domain.usecase.swimlane.create;
+import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import domain.aggregate.workflow.Lane;
+import domain.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
@@ -21,7 +24,7 @@ public class CreateSwimlaneUseCaseTest {
     private CreateWorkflowUseCaseOutput workflowOutput;
     @Before
     public void SetUp(){
-        boardRepository = new InMemoryBoardRepository();
+        boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
@@ -53,5 +56,11 @@ public class CreateSwimlaneUseCaseTest {
         assertEquals(workflowOutput.getWorkflowId(), output.getWorkflowId());
         assertNotNull(output.getSwimlaneId());
         assertEquals("Emergency", output.getSwimlaneName());
+
+        Workflow workflow = workflowRepository.getWorkflowById(workflowOutput.getWorkflowId());
+        Lane lane = workflow.getLaneById(output.getSwimlaneId());
+
+        assertEquals(output.getSwimlaneId(), lane.getLaneId());
+        assertEquals(output.getSwimlaneName(), lane.getLaneName());
     }
 }

@@ -17,7 +17,7 @@ public class CreateCardUseCase {
     public void execute(CreateCardUseCaseInput createCardUseCaseInput, CreateCardUseCaseOutput createCardUseCaseOutput) {
         Card card = new Card(createCardUseCaseInput.getCardName());
         Workflow workflow = workflowRepository.getWorkflowById(createCardUseCaseInput.getWorkflowId());
-        workflow.addCardInStage(createCardUseCaseInput.getStageId(), card.getCardId());
+        workflow.addCardInLane(createCardUseCaseInput.getStageId(), card.getCardId());
 
         cardRepository.add(card);
         workflowRepository.save(workflow);

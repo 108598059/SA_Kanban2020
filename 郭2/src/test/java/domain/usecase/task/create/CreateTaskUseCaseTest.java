@@ -1,6 +1,10 @@
 package domain.usecase.task.create;
 
+import domain.adapter.repository.board.MySqlBoardRepository;
+import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import domain.aggregate.card.Card;
+import domain.aggregate.card.Task;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
@@ -40,8 +44,8 @@ public class CreateTaskUseCaseTest {
     public void SetUp(){
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
-        cardRepository = new InMemoryCardRepository();
-        boardRepository = new InMemoryBoardRepository();
+        cardRepository = new MySqlCardRepository();
+        boardRepository = new MySqlBoardRepository();
 
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
@@ -86,5 +90,12 @@ public class CreateTaskUseCaseTest {
         assertEquals(cardOutput.getCardId(), createTaskUseCaseOutput.getCardId());
         assertNotNull(createTaskUseCaseOutput.getTaskId());
         assertEquals("CreateTask", createTaskUseCaseOutput.getTaskName());
+
+        Card card = cardRepository.getCardById(cardOutput.getCardId());
+        Task task = card.getTaskById(createTaskUseCaseOutput.getTaskId());
+
+        assertEquals(createTaskUseCaseOutput.getTaskId(), task.getTaskId());
+        assertEquals(createTaskUseCaseOutput.getCardId(), task.getCardId());
+        assertEquals(createTaskUseCaseOutput.getTaskName(), task.getTaskName());
     }
 }

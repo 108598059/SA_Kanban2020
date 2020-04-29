@@ -1,6 +1,6 @@
 package domain.usecase.swimlane.create;
 
-import domain.aggregate.workflow.Swimlane;
+import domain.aggregate.workflow.Lane;
 import domain.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
@@ -12,13 +12,13 @@ public class CreateSwimlaneUseCase {
 
     public void execute(CreateSwimlaneUseCaseInput input, CreateSwimlaneUseCaseOutput output) {
         Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
-        Swimlane swimlane = workflow.createSwimlane(input.getSwimlaneName());
+        Lane swimlane = workflow.createSwimlane(input.getSwimlaneName());
 
-        workflow.addSwimlane(swimlane);
+//        workflow.addLane(swimlane);
         workflowRepository.save(workflow);
 
         output.setWorkflowId(swimlane.getWorkflowId());
-        output.setSwimlaneName(swimlane.getSwimlaneName());
-        output.setSwimlaneId(swimlane.getSwimlaneId());
+        output.setSwimlaneName(swimlane.getLaneName());
+        output.setSwimlaneId(swimlane.getLaneId());
     }
 }

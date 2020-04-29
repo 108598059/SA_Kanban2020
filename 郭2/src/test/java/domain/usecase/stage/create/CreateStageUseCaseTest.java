@@ -1,18 +1,22 @@
 package domain.usecase.stage.create;
 
+import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import domain.aggregate.workflow.Lane;
+import domain.aggregate.workflow.Stage;
+import domain.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
-import domain.adapter.repository.board.InMemoryBoardRepository;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
-import domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.*;
 
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,7 +29,7 @@ public class CreateStageUseCaseTest {
 
     @Before
     public void SetUp(){
-        boardRepository = new InMemoryBoardRepository();
+        boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
@@ -56,5 +60,11 @@ public class CreateStageUseCaseTest {
         assertEquals(workflowOutput.getWorkflowId(), output.getWorkflowId());
         assertNotNull(output.getStageId());
         assertEquals("Doing", output.getStageName());
+
+        Workflow workflow = workflowRepository.getWorkflowById(workflowOutput.getWorkflowId());
+        Lane lane = workflow.getLaneById(output.getStageId());
+
+        assertEquals(output.getStageId(), lane.getLaneId());
+        assertEquals(output.getStageName(), lane.getLaneName());
     }
 }

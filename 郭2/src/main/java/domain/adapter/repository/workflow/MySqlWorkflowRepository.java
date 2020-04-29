@@ -1,6 +1,7 @@
 package domain.adapter.repository.workflow;
 
 import domain.adapter.database.DbConn;
+import domain.aggregate.workflow.Lane;
 import domain.aggregate.workflow.Stage;
 import domain.aggregate.workflow.Swimlane;
 import domain.aggregate.workflow.Workflow;
@@ -24,11 +25,8 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         String sql = "INSERT INTO kanban.workflow(workflow_id,workflow_name) VALUES (?,?)";
         PreparedStatement ps = null;
         try {
-            for(Stage stage : workflow.getStageList()) {
-                addStage(stage);
-            }
-            for(Swimlane swimlane : workflow.getSwimlaneList()){
-                addSwimlane(swimlane);
+            for(Lane lane : workflow.getLaneList()) {
+                addLane(lane);
             }
             ps = conn.prepareStatement(sql);
             ps.setString(1,workflow.getWorkflowId());
@@ -55,11 +53,10 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         try {
             ps = conn.prepareStatement(sql);
             rset = ps.executeQuery();
-            while (rset.next()) {
+            if(rset.first()) {
                 workflow = new Workflow(rset.getString("workflow_name"));
                 workflow.setWorkflowId(workflowId);
-                workflow.setStageList(getStagesByWorkflowId(workflowId));
-                workflow.setSwimlaneList(getSwimlanesByWorkflowId(workflowId));
+                workflow.setLaneList(getLaneListByWorkflowId(workflowId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,11 +84,8 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         PreparedStatement ps = null;
         try {
 
-            for(Stage stage : workflow.getStageList()) {
-                addStage(stage);
-            }
-            for(Swimlane swimlane : workflow.getSwimlaneList()) {
-                addSwimlane(swimlane);
+            for(Lane lane : workflow.getLaneList()) {
+                addLane(lane);
             }
 
             ps = conn.prepareStatement(sql);
@@ -112,15 +106,16 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         }
     }
 
-    private void addStage(Stage stage) throws SQLException {
-        String sql = "Insert Into kanban.stage Values (?, ?, ?) On Duplicate Key Update stage_name= ?";
+    private void addLane(Lane lane) throws SQLException {
+        String sql = "Insert Into kanban.lane Values (?, ?, ?, ?) On Duplicate Key Update lane_name= ?";
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, stage.getStageId());
-            ps.setString(2, stage.getWorkflowId());
-            ps.setString(3, stage.getStageName());
-            ps.setString(4, stage.getStageName());
+            ps.setString(1, lane.getLaneId());
+            ps.setString(2, lane.getWorkflowId());
+            ps.setString(3, lane.getLaneName());
+            ps.setString(4, lane.getLaneDirection());
+            ps.setString(5, lane.getLaneName());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,18 +130,24 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         }
     }
 
-    private List<Stage> getStagesByWorkflowId(String workflowId) {
-        List<Stage> stageList = new ArrayList<Stage>();
-        String sql = "SELECT * FROM kanban.stage WHERE workflow_id = '" + workflowId + "'";
+    private List<Lane> getLaneListByWorkflowId(String workflowId) {
+        List<Lane> laneList = new ArrayList<Lane>();
+        String sql = "SELECT * FROM kanban.lane WHERE workflow_id = '" + workflowId + "'";
         PreparedStatement ps = null;
         ResultSet rset = null;
         try {
             ps = conn.prepareStatement(sql);
             rset = ps.executeQuery();
+            Lane lane = null;
             while (rset.next()) {
-                Stage stage = new Stage(workflowId, rset.getString("stage_name"));
-                stage.setStageId(rset.getString("stage_id"));
-                stageList.add(stage);
+                if(rset.getString("lane_direction").equals("VERTICAL")){
+                    lane = new Stage(rset.getString("lane_name"), workflowId);
+                }
+                else if(rset.getString("lane_direction").equals("HORIZONTAL")){
+                    lane = new Swimlane(rset.getString("lane_name"), workflowId);
+                }
+                lane.setLaneId(rset.getString("lane_id"));
+                laneList.add(lane);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,63 +167,6 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
                 }
             }
         }
-        return stageList;
-    }
-
-    private void addSwimlane(Swimlane swimlane) throws SQLException {
-        String sql = "Insert Into kanban.swimlane Values (?, ?, ?) On Duplicate Key Update swimlane_name= ?";
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, swimlane.getSwimlaneId());
-            ps.setString(2, swimlane.getWorkflowId());
-            ps.setString(3, swimlane.getSwimlaneName());
-            ps.setString(4, swimlane.getSwimlaneName());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    private List<Swimlane> getSwimlanesByWorkflowId(String workflowId) {
-        List<Swimlane> swimlaneList = new ArrayList<Swimlane>();
-        String sql = "SELECT * FROM kanban.swimlane WHERE workflow_id = '" + workflowId + "'";
-        PreparedStatement ps = null;
-        ResultSet rset = null;
-        try {
-            ps = conn.prepareStatement(sql);
-            rset = ps.executeQuery();
-            while (rset.next()) {
-                Swimlane swimlane = new Swimlane(workflowId, rset.getString("swimlane_name"));
-                swimlane.setSwimlaneId(rset.getString("swimlane_id"));
-                swimlaneList.add(swimlane);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (rset != null) {
-                try {
-                    rset.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return swimlaneList;
+        return laneList;
     }
 }

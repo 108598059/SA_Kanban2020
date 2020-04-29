@@ -8,21 +8,20 @@ public class Workflow {
     private String boardId;
     private String workflowId;
     private String workflowName;
-    private List<Stage> stageList;
-    private List<Swimlane> swimlaneList;
+    private List<Lane> laneList;
+//    private List<Swimlane> swimlaneList;
 
-    private Stage getStageById(String stageId) {
-        for (Stage each : stageList) {
-            if (each.getStageId().equalsIgnoreCase(stageId)) {
+    public Lane getLaneById(String laneId) {
+        for (Lane each : laneList) {
+            if (each.getLaneId().equalsIgnoreCase(laneId)) {
                 return each;
             }
         }
-        throw new RuntimeException("Stage is not found,id=" + stageId);
+        throw new RuntimeException("Stage is not found,id=" + laneId);
     }
 
     public Workflow(String workflowName) {
-        stageList = new ArrayList<Stage>();
-        swimlaneList = new ArrayList<Swimlane>();
+        laneList = new ArrayList<Lane>();
         this.workflowId = UUID.randomUUID().toString();
         this.workflowName = workflowName;
     }
@@ -35,20 +34,16 @@ public class Workflow {
         return workflowId;
     }
 
-    public void setWorkflowName(String workflowName) {
-        this.workflowName = workflowName;
-    }
-
     public String getWorkflowName() {
         return workflowName;
     }
 
-    public void setStageList(List<Stage> stageList) {
-        this.stageList = stageList;
+    public void setLaneList(List<Lane> laneList) {
+        this.laneList = laneList;
     }
 
-    public List<Stage> getStageList() {
-        return stageList;
+    public List<Lane> getLaneList() {
+        return laneList;
     }
 
     public void setBoardId(String boardId) {
@@ -59,35 +54,24 @@ public class Workflow {
         return boardId;
     }
 
-    public void setSwimlaneList(List<Swimlane> swimlaneList) {
-        this.swimlaneList = swimlaneList;
-    }
-
-    public List<Swimlane> getSwimlaneList() {
-        return swimlaneList;
-    }
-
-    public Swimlane createSwimlane(String swimlanName) {
-        Swimlane swimlane = new Swimlane(workflowId, swimlanName);
+    public Lane createSwimlane(String swimlanName) {
+        Lane swimlane = new Swimlane(swimlanName, workflowId);
+        laneList.add(swimlane);
         return swimlane;
     }
 
-    public void addStage(Stage stage) {
-        stageList.add(stage);
-    }
+//    public void addLane(Lane lane) {
+//        laneList.add(lane);
+//    }
 
-    public Stage createStage(String stageName) {
-        Stage stage = new Stage(workflowId,stageName);
+    public Lane createStage(String stageName) {
+        Lane stage = new Stage(stageName, workflowId);
+        laneList.add(stage);
         return stage;
     }
 
-    public void addCardInStage(String stageId, String cardId) {
-        Stage stage = getStageById(stageId);
+    public void addCardInLane(String laneId, String cardId) {
+        Lane stage = getLaneById(laneId);
         stage.addCardId(cardId);
     }
-
-    public void addSwimlane(Swimlane swimlane) {
-        swimlaneList.add(swimlane);
-    }
-
 }

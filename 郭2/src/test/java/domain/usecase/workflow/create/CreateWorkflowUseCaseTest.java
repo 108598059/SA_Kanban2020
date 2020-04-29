@@ -1,10 +1,10 @@
 package domain.usecase.workflow.create;
+import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import domain.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
-import domain.adapter.repository.board.InMemoryBoardRepository;
-import domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 
 
 import domain.usecase.board.repository.IBoardRepository;
@@ -20,7 +20,7 @@ public class CreateWorkflowUseCaseTest {
 
     @Before
     public void SetUp(){
-        boardRepository = new InMemoryBoardRepository();
+        boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
@@ -45,5 +45,10 @@ public class CreateWorkflowUseCaseTest {
 
         assertNotNull(output.getWorkflowId());
         assertEquals("KanbanDevelopment", output.getWorkflowName());
+
+        Workflow workflow = workflowRepository.getWorkflowById(output.getWorkflowId());
+
+        assertEquals(output.getWorkflowId(), workflow.getWorkflowId());
+        assertEquals(output.getWorkflowName(), workflow.getWorkflowName());
     }
 }

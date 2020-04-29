@@ -1,6 +1,9 @@
 package domain.usecase.card.create;
 
+import domain.adapter.repository.board.MySqlBoardRepository;
+import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import domain.aggregate.card.Card;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
@@ -33,7 +36,7 @@ public class CreateCardUseCaseTest {
 
     @Before
     public void SetUp(){
-        boardRepository = new InMemoryBoardRepository();
+        boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
@@ -57,10 +60,11 @@ public class CreateCardUseCaseTest {
     }
     @Test
     public void CreateCardUseCaseTest(){
-        cardRepository = new InMemoryCardRepository();
+        cardRepository = new MySqlCardRepository();
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(workflowRepository, cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+
         createCardUseCaseInput.setCardName("CreateCard");
         createCardUseCaseInput.setStageId(stageOutput.getStageId());
         createCardUseCaseInput.setWorkflowId(stageOutput.getWorkflowId());
@@ -69,6 +73,11 @@ public class CreateCardUseCaseTest {
 
         assertEquals("CreateCard",createCardUseCaseOutput.getCardName());
         assertNotNull(createCardUseCaseOutput.getCardId());
+
+        Card card = cardRepository.getCardById(createCardUseCaseOutput.getCardId());
+
+        assertEquals(createCardUseCaseOutput.getCardId(), card.getCardId());
+        assertEquals(createCardUseCaseOutput.getCardName(), card.getCardName());
     }
 
 }
