@@ -13,9 +13,10 @@ public class CreateWorkflowUseCase {
     }
 
     public void execute(CreateWorkflowInput createWorkflowInput, CreateWorkflowOutput createWorkflowOutput) {
-        Workflow workflow = new Workflow(UUID.randomUUID().toString(), createWorkflowInput.getWorkflowTitle(), createWorkflowInput.getWorkflowBoardId());
+        Workflow workflow = new Workflow(UUID.randomUUID().toString(), createWorkflowInput.getWorkflowTitle(), createWorkflowInput.getBoardId());
 
         workflowRepository.add(workflow);
+        workflowRepository.save();
 
         createWorkflowOutput.setWorkflowId(workflow.getId());
         createWorkflowOutput.setWorkflowTitle(workflow.getTitle());

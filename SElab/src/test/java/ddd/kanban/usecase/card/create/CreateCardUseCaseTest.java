@@ -44,10 +44,10 @@ public class CreateCardUseCaseTest {
 
     @Test
     public void testCreateCardUseCase(){
-        String cardName = "TestCard";
+        String cardTitle = "TestCard";
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, domainEventBus);
-        CreateCardInput createCardInput = new CreateCardInput(cardName, this.boardId, this.workflowId, this.columnId);
+        CreateCardInput createCardInput = new CreateCardInput(cardTitle, this.boardId, this.workflowId, this.columnId);
         CreateCardOutput createCardOutput = new CreateCardOutput();
 
         createCardUseCase.execute(createCardInput, createCardOutput);
