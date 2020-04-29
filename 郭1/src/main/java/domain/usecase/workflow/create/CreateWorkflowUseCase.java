@@ -1,23 +1,29 @@
 package domain.usecase.workflow.create;
 
-import domain.entity.Workflow;
-import domain.adapter.WorkflowRepositoryImpl;
+import domain.entity.DomainEvent;
+import domain.entity.DomainEventBus;
+import domain.entity.workflow.Workflow;
 import domain.usecase.workflow.WorkflowRepository;
 
 
 public class CreateWorkflowUseCase {
 
     private WorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
 
-    public CreateWorkflowUseCase(WorkflowRepository workflowRepository){
+    public CreateWorkflowUseCase(WorkflowRepository workflowRepository, DomainEventBus eventBus){
         this.workflowRepository = workflowRepository;
+        this.eventBus = eventBus;
     }
 
     public void execute(CreateWorkflowInput createWorkflowInput, CreateWorkflowOutput createWorkflowOutput) {
-        Workflow newWorkflow = new Workflow();
+        Workflow newWorkflow = new Workflow(createWorkflowInput.getBoardId());
+
 
         newWorkflow.setName(createWorkflowInput.getWorkflowName());
-        workflowRepository.save(newWorkflow);
+        workflowRepository.add(newWorkflow);
+
+        eventBus.postAll(newWorkflow);
 
         createWorkflowOutput.setWorkFlowId(newWorkflow.getId());
 

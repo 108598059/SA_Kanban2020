@@ -1,9 +1,7 @@
 package domain.usecase.board.create;
 
-import domain.entity.Board;
+import domain.entity.board.Board;
 import domain.usecase.board.BoardRepository;
-
-import java.sql.SQLException;
 
 public class CreateBoardUseCase {
 
@@ -15,6 +13,7 @@ public class CreateBoardUseCase {
 
     public void execute(CreateBoardInput createBoardInput, CreateBoardOutput createBoardOutput) {
         Board board = new Board();
+
         board.setName(createBoardInput.getName());
         boardRepository.save(board);
 

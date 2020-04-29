@@ -1,4 +1,4 @@
-package domain.entity;
+package domain.entity.workflow;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -20,6 +20,8 @@ public class Stage {
     public String getId() {
         return this.id;
     }
+
+    public void setId(String id){this.id = id;}
 
     public void addSwimlane(Swimlane swimlane){
         swimlanes.put(swimlane.getId(),swimlane);
