@@ -13,8 +13,8 @@ import org.junit.rules.ExpectedException;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.board.column.create.*;
-import phd.sa.csie.ntut.edu.tw.usecase.board.column.setwip.*;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.*;
+import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.*;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.*;
 
 public class SetColumnWIPTest {

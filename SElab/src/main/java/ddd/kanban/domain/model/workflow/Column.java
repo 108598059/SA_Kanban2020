@@ -2,18 +2,18 @@ package ddd.kanban.domain.model.workflow;
 
 public class Column {
 
-    private String name;
+    private String title;
     private String id;
     private String workflowId;
 
-    public Column(String name, String id, String workflowId){
+    public Column(String title, String id, String workflowId){
         this.workflowId = workflowId;
         this.id = id;
-        this.name = name;
+        this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getId() {
