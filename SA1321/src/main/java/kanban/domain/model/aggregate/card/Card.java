@@ -1,8 +1,11 @@
 package kanban.domain.model.aggregate.card;
 
+import kanban.domain.model.aggregate.AggregateRoot;
+import kanban.domain.model.aggregate.card.event.CardCreated;
+
 import java.util.UUID;
 
-public class Card {
+public class Card extends AggregateRoot {
 
     private String cardId;
     private String name;
@@ -12,12 +15,13 @@ public class Card {
 
     public Card() {}
 
-    public Card(String name, String description, String type, String size) {
+    public Card(String workflowId, String stageId, String name, String description, String type, String size) {
         this.cardId = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.type = type;
         this.size = size;
+        addDomainEvent(new CardCreated(workflowId, stageId, cardId, name, description, type, size));
     }
 
     public String getName() {

@@ -1,10 +1,15 @@
 package kanban.domain.model.aggregate.workflow;
 
+import kanban.domain.model.aggregate.AggregateRoot;
+import kanban.domain.model.aggregate.workflow.event.CardCommitted;
+import kanban.domain.model.aggregate.workflow.event.StageCreated;
+import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Workflow {
+public class Workflow extends AggregateRoot {
     private String name;
     private String workflowId;
     private List<Stage> stages;
@@ -13,15 +18,17 @@ public class Workflow {
         stages = new ArrayList<>();
     }
 
-    public Workflow(String name) {
+    public Workflow(String boardId, String name) {
         this.name = name;
         workflowId = UUID.randomUUID().toString();
         stages = new ArrayList<Stage>();
+        addDomainEvent(new WorkflowCreated(boardId, workflowId, name));
     }
 
     public String createStage(String stageName) {
         Stage stage = new Stage(workflowId, stageName);
         stages.add(stage);
+        addDomainEvent(new StageCreated(workflowId, stage.getStageId(), stageName));
         return stage.getStageId();
     }
 
@@ -49,6 +56,7 @@ public class Workflow {
     public String commitCardInStage(String cardId, String stageId) {
         Stage stage = getStageById(stageId);
         String _cardId = stage.commitCard(cardId);
+        addDomainEvent(new CardCommitted(stageId, cardId));
         return _cardId;
     }
 

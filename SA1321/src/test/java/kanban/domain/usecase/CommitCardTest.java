@@ -3,6 +3,7 @@ package kanban.domain.usecase;
 import kanban.domain.Utility;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardOutput;
@@ -19,13 +20,20 @@ public class CommitCardTest {
     private String stageId;
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
     private Utility utility;
 
     @Before
     public void setup() {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
-        utility = new Utility(boardRepository, workflowRepository);
+
+        eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventHandler(
+                boardRepository,
+                workflowRepository));
+
+        utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");
         workflowId = utility.createWorkflow(boardId,"workflowName");
         stageId = utility.createStage(workflowId,"stageName");

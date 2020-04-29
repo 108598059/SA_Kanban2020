@@ -1,8 +1,10 @@
 package kanban.domain.usecase;
 
+import com.google.common.eventbus.EventBus;
 import kanban.domain.Utility;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.workflow.create.CreateWorkflowInput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowOutput;
@@ -18,6 +20,7 @@ public class CreateWorkflowTest {
 
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
     private Utility utility;
     private String boardId;
 
@@ -29,13 +32,22 @@ public class CreateWorkflowTest {
         boardRepository = new MySqlBoardRepository();
         workflowRepository = new MySqlWorkflowRepository();
 
-        utility = new Utility(boardRepository, workflowRepository);
+        eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventHandler(
+                boardRepository,
+                workflowRepository));
+
+        utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");
     }
 
     @Test
     public void Create_workflow_should_success() {
-        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(boardRepository, workflowRepository);
+        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(
+                workflowRepository,
+                eventBus
+        );
+
         CreateWorkflowInput input = new CreateWorkflowInput();
         CreateWorkflowOutput output = new CreateWorkflowOutput();
 
@@ -48,7 +60,7 @@ public class CreateWorkflowTest {
 
     @Test(expected = RuntimeException.class)
     public void Workflow_repository_should_throw_exception() {
-        utility.createWorkflow("boardId", "workflowName");
+        utility.createWorkflow(boardId, "workflowName");
         workflowRepository.getWorkflowById("123-456-789");
     }
 }

@@ -7,6 +7,8 @@ import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.adapter.repository.card.MySqlCardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import kanban.domain.model.DomainEvent;
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.Card;
 import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.usecase.board.repository.IBoardRepository;
@@ -29,6 +31,7 @@ public class CreateCardTest {
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
     private ICardRepository cardRepository;
+    private DomainEventBus eventBus;
     private Utility utility;
 
     @Before
@@ -38,7 +41,13 @@ public class CreateCardTest {
         boardRepository = new MySqlBoardRepository();
         workflowRepository = new MySqlWorkflowRepository();
         cardRepository = new MySqlCardRepository();
-        utility = new Utility(boardRepository, workflowRepository);
+
+        eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventHandler(
+                boardRepository,
+                workflowRepository));
+
+        utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");
         workflowId = utility.createWorkflow(boardId,"workflowName");
         stageId = utility.createStage(workflowId,"stageName");
@@ -49,7 +58,11 @@ public class CreateCardTest {
         Workflow workflow = workflowRepository.getWorkflowById(workflowId);
         assertEquals(0, workflow.getStageCloneById(stageId).getCardIds().size());
 
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(workflowRepository, cardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(
+                workflowRepository,
+                cardRepository,
+                eventBus
+        );
         CreateCardInput input = new CreateCardInput();
         input.setCardName("card");
         input.setDescription("description");

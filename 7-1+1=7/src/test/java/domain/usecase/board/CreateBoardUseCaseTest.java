@@ -1,7 +1,9 @@
 package domain.usecase.board;
 
-import domain.adapter.board.BoardRepository;
 import domain.adapter.board.BoardInMemoryRepository;
+import domain.adapter.board.BoardInDatabaseRepository;
+import domain.adapter.database.IDatabase;
+import domain.database.MySqlDatabase;
 import domain.usecase.board.createBoard.CreateBoardInput;
 import domain.usecase.board.createBoard.CreateBoardOutput;
 import domain.usecase.board.createBoard.CreateBoardUseCase;
@@ -13,8 +15,8 @@ import static org.junit.Assert.assertEquals;
 public class CreateBoardUseCaseTest {
     @Test
     public void createBoard(){
-        BoardRepository boardRepository = new BoardRepository();
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        BoardInMemoryRepository boardInMemoryRepository = new BoardInMemoryRepository();
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardInMemoryRepository);
         CreateBoardInput input = new CreateBoardInput();
         CreateBoardOutput output = new CreateBoardOutput();
 
@@ -23,12 +25,13 @@ public class CreateBoardUseCaseTest {
 
         createBoardUseCase.execute(input, output);
 
-        assertEquals("kanban777", boardRepository.findById(output.getBoardId()).getUsername());
+        assertEquals("kanban777", boardInMemoryRepository.findById(output.getBoardId()).getUsername());
     }
 
     @Test
     public void createBoardInDB(){
-        IBoardRepository boardRepository = new BoardInMemoryRepository();
+        IDatabase database = new MySqlDatabase();
+        IBoardRepository boardRepository = new BoardInDatabaseRepository(database);
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardInput input = new CreateBoardInput();
         CreateBoardOutput output = new CreateBoardOutput();

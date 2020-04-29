@@ -1,5 +1,7 @@
 package kanban.domain.usecase.card.create;
 
+import kanban.domain.model.DomainEvent;
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.Card;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardOutput;
@@ -11,32 +13,32 @@ public class CreateCardUseCase {
 
     private IWorkflowRepository workflowRepository;
     private ICardRepository cardRepository;
-
-    public CreateCardUseCase(IWorkflowRepository workflowRepository, ICardRepository cardRepository) {
+    private DomainEventBus eventBus;
+    public CreateCardUseCase(IWorkflowRepository workflowRepository,
+                             ICardRepository cardRepository,
+                             DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
         this.cardRepository = cardRepository;
+        this.eventBus = eventBus;
     }
 
     public void execute(CreateCardInput input, CreateCardOutput output) {
         Card card = new Card(
+                input.getWorkflowId(),
+                input.getStageId(),
                 input.getCardName(),
                 input.getDescription(),
                 input.getType(),
                 input.getSize()
         );
+
         cardRepository.add(card);
 
         output.setCardId(card.getCardId());
         output.setCardName(card.getName());
 
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
-        CommitCardInput commitCardInput = new CommitCardInput();
-        commitCardInput.setCardId(card.getCardId());
-        commitCardInput.setStageId(input.getStageId());
-        commitCardInput.setWorkflowId(input.getWorkflowId());
-        CommitCardOutput commitCardOutput = new CommitCardOutput();
+        eventBus.postAll(card);
 
-        commitCardUseCase.execute(commitCardInput, commitCardOutput);
     }
 
 }

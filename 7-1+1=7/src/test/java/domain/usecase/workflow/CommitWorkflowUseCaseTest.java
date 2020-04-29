@@ -1,10 +1,11 @@
 package domain.usecase.workflow;
 
-import domain.adapter.board.BoardRepository;
-import domain.adapter.workflow.WorkflowRepository;
-import domain.usecase.board.createBoard.CreateBoardInput;
-import domain.usecase.board.createBoard.CreateBoardOutput;
-import domain.usecase.board.createBoard.CreateBoardUseCase;
+import domain.adapter.board.BoardInMemoryRepository;
+import domain.adapter.workflow.WorkflowInMemoryRepository;
+import domain.model.DomainEventBus;
+import domain.usecase.DomainEventHandler;
+import domain.usecase.TestUtility;
+import domain.usecase.repository.IBoardRepository;
 import domain.usecase.repository.IWorkflowRepository;
 import domain.usecase.workflow.commitWorkflow.CommitWorkflowInput;
 import domain.usecase.workflow.commitWorkflow.CommitWorkflowOutput;
@@ -12,17 +13,26 @@ import domain.usecase.workflow.commitWorkflow.CommitWorkflowUseCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CommitWorkflowUseCaseTest {
 
-    private BoardRepository boardRepository;
-    private String baordId;
+    private IBoardRepository boardRepository;
+    private DomainEventBus eventBus;
+    private String boardId;
+    private TestUtility testUtility;
 
     @Before
     public void setup() {
-        boardRepository = new BoardRepository();
-        baordId = createBoard("kanban777", "kanbanSystem");
+        boardRepository = new BoardInMemoryRepository();
+        eventBus = new DomainEventBus();
+
+        IWorkflowRepository workflowRepository = new WorkflowInMemoryRepository();
+        eventBus.register(new DomainEventHandler(boardRepository, workflowRepository));
+        testUtility = new TestUtility(boardRepository, workflowRepository, eventBus);
+
+        boardId = testUtility.createBoard("kanban777", "kanbanSystem");
     }
 
     @Test
@@ -33,22 +43,9 @@ public class CommitWorkflowUseCaseTest {
         CommitWorkflowOutput output = new CommitWorkflowOutput();
 
         input.setWorkflowId(workflowId);
-        input.setBoardId(baordId);
-
+        input.setBoardId(boardId);
         commitWorkflowUseCase.execute(input, output);
 
-        assertTrue(boardRepository.findById(baordId).isWorkflowContained("W012345678"));
-    }
-
-    private String createBoard(String username, String boardName) {
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
-        CreateBoardInput input = new CreateBoardInput();
-        CreateBoardOutput output = new CreateBoardOutput();
-
-        input.setUsername(username);
-        input.setBoardName(boardName);
-
-        createBoardUseCase.execute(input, output);
-        return output.getBoardId();
+        assertTrue(boardRepository.findById(boardId).isWorkflowContained("W012345678"));
     }
 }
