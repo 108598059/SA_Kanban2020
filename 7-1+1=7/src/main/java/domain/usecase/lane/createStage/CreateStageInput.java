@@ -1,4 +1,4 @@
-package domain.usecase.workflow.lane.createStage;
+package domain.usecase.lane.createStage;
 
 public class CreateStageInput {
     private String stageName;

@@ -1,11 +1,12 @@
 package domain.usecase.workflow.commitWorkflow;
-import domain.adapter.board.BoardRepository;
+import domain.adapter.board.BoardInMemoryRepository;
 import domain.model.board.Board;
+import domain.usecase.repository.IBoardRepository;
 
 public class CommitWorkflowUseCase {
-    private BoardRepository boardRepository;
+    private IBoardRepository boardRepository;
 
-    public CommitWorkflowUseCase(BoardRepository boardRepository) {
+    public CommitWorkflowUseCase(IBoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }
 

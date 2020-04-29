@@ -1,4 +1,4 @@
-package domain.usecase.card;
+package domain.usecase.lane;
 
 import domain.adapter.board.BoardInMemoryRepository;
 import domain.adapter.workflow.WorkflowInMemoryRepository;
@@ -8,27 +8,27 @@ import domain.usecase.TestUtility;
 import domain.usecase.board.createBoard.CreateBoardInput;
 import domain.usecase.board.createBoard.CreateBoardOutput;
 import domain.usecase.board.createBoard.CreateBoardUseCase;
-import domain.usecase.card.commitCard.CommitCardInput;
-import domain.usecase.card.commitCard.CommitCardOutput;
-import domain.usecase.card.commitCard.CommitCardUseCase;
+import domain.usecase.lane.createSwinlane.CreateSwinlaneInput;
+import domain.usecase.lane.createSwinlane.CreateSwinlaneOutput;
+import domain.usecase.lane.createSwinlane.CreateSwinlaneUseCase;
 import domain.usecase.repository.IBoardRepository;
 import domain.usecase.repository.IWorkflowRepository;
-import domain.usecase.lane.createStage.CreateStageInput;
-import domain.usecase.lane.createStage.CreateStageOutput;
-import domain.usecase.lane.createStage.CreateStageUseCase;
 import domain.usecase.workflow.createWorkflow.CreateWorkflowInput;
 import domain.usecase.workflow.createWorkflow.CreateWorkflowOutput;
 import domain.usecase.workflow.createWorkflow.CreateWorkflowUseCase;
+import domain.usecase.lane.createStage.CreateStageInput;
+import domain.usecase.lane.createStage.CreateStageOutput;
+import domain.usecase.lane.createStage.CreateStageUseCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CommitCardUseCaseTest {
+public class CreateSwinlaneUseCaseTest {
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
     private String workflowId;
-    private String laneId;
+    private String topStageId;
     private DomainEventBus eventBus;
     private TestUtility testUtility;
 
@@ -44,23 +44,22 @@ public class CommitCardUseCaseTest {
 
         String boardId = testUtility.createBoard("kanban777", "kanban");
         workflowId = testUtility.createWorkflow(boardId, "defaultWorkflow");
-        laneId = testUtility.createTopStage(workflowId, "developing");
+        topStageId = testUtility.createTopStage(workflowId, "Backlog");
     }
 
     @Test
-    public void commitCard() {
-        String cardId = "C012345678";
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(
-                workflowRepository);
+    public void createSwinlane() {
+        CreateSwinlaneUseCase createSwinlaneUseCase = new CreateSwinlaneUseCase(workflowRepository, boardRepository);
+        CreateSwinlaneInput input = new CreateSwinlaneInput();
+        CreateSwinlaneOutput output = new CreateSwinlaneOutput();
 
-        CommitCardInput input = new CommitCardInput();
-        CommitCardOutput output = new CommitCardOutput();
-
+        input.setSwinlaneName("Urgent");
         input.setWorkflowId(workflowId);
-        input.setLaneId(laneId);
-        input.setCardId(cardId);
+        input.setParentLaneId(topStageId);
 
-        commitCardUseCase.execute(input, output);
-        assertEquals(laneId, workflowRepository.findById(workflowId).findLaneByCardId(cardId).getId());
+        createSwinlaneUseCase.execute(input, output);
+
+        assertEquals(1, workflowRepository.findById(workflowId).findLaneById(topStageId).getChildAmount());
+        assertEquals("Urgent", workflowRepository.findById(workflowId).findLaneById(output.getSwinlaneId()).getName());
     }
 }

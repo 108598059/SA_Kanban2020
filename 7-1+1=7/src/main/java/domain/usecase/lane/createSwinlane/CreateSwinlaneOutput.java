@@ -1,4 +1,4 @@
-package domain.usecase.workflow.lane.createSwinlane;
+package domain.usecase.lane.createSwinlane;
 
 public class CreateSwinlaneOutput {
     private String swinlaneId;
