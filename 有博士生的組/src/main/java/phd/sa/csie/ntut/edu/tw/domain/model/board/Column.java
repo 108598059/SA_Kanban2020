@@ -53,4 +53,14 @@ public class Column {
   public void removeCard(UUID uuid) {
     cardIds.remove(uuid);
   }
+
+  public boolean cardExist(UUID id) {
+      for (int i = 0; i < this.cardIds.size(); ++i) {
+        if (id == this.cardIds.get(i)) {
+          return true;
+        }
+      }
+    return false;
+  }
+
 }

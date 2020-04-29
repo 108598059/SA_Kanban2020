@@ -1,15 +1,17 @@
 package phd.sa.csie.ntut.edu.tw.domain.model.board;
 
 import com.google.common.eventbus.Subscribe;
+import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.ColumnEnteredEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.ColumnLeavedEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
-import java.util.logging.Logger;
 
-public class Board {
+public class Board extends AggregateRoot {
 
   private UUID Id;
   private String name;
@@ -76,17 +78,35 @@ public class Board {
     Column from = this.getColumnById(fromColumnId);
     Column to = this.getColumnById(toColumnId);
     from.removeCard(cardId);
+    this.addDomainEvent(new ColumnLeavedEvent(
+            UUID.randomUUID().toString(),
+            fromColumnId.toString()
+    ));
     to.addCard(cardId);
-    return to.getTitle();
+    this.addDomainEvent(new ColumnEnteredEvent(
+            UUID.randomUUID().toString(),
+            toColumnId.toString()
+    ));
+    return to.getId().toString();
   }
 
   private Column getColumnById(UUID id) {
+    if (this.startColumn.getId().equals(id)) {
+      return this.startColumn;
+    }
+    if (this.endColumn.getId().equals(id)) {
+      return this.endColumn;
+    }
     for (Column column : columns) {
       if(column.getId().equals(id)) {
         return column;
       }
     }
     throw new RuntimeException("Column Not Found");
+  }
+
+  public Column findColumnById(UUID id) {
+      return new Column(this.getColumnById(id));
   }
 
 }
