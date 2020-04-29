@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.board.column.setwip;
+package phd.sa.csie.ntut.edu.tw.usecase.column.setwip;
 
 import java.util.UUID;
 

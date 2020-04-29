@@ -12,7 +12,7 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.*;
-import phd.sa.csie.ntut.edu.tw.usecase.board.column.create.*;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.*;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.*;
 import phd.sa.csie.ntut.edu.tw.usecase.card.move.*;
 

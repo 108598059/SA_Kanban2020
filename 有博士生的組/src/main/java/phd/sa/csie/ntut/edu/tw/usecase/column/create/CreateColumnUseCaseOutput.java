@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.board.column.create;
+package phd.sa.csie.ntut.edu.tw.usecase.column.create;
 
 public class CreateColumnUseCaseOutput {
 
