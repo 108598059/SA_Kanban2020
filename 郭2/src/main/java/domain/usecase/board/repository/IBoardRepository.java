@@ -1,6 +1,6 @@
 package domain.usecase.board.repository;
 
-import domain.aggregate.board.Board;
+import domain.model.aggregate.board.Board;
 
 public interface IBoardRepository {
     void add(Board board);

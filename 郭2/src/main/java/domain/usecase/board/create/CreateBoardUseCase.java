@@ -1,7 +1,6 @@
 package domain.usecase.board.create;
 
-import domain.aggregate.board.Board;
-import domain.adapter.repository.board.InMemoryBoardRepository;
+import domain.model.aggregate.board.Board;
 import domain.usecase.board.repository.IBoardRepository;
 
 public class CreateBoardUseCase {

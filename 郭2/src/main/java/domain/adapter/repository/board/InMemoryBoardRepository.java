@@ -1,6 +1,6 @@
 package domain.adapter.repository.board;
 
-import domain.aggregate.board.Board;
+import domain.model.aggregate.board.Board;
 import domain.usecase.board.repository.IBoardRepository;
 
 import java.util.ArrayList;

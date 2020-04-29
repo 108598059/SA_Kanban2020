@@ -1,7 +1,7 @@
 package domain.usecase.task.create;
 
-import domain.aggregate.card.Card;
-import domain.aggregate.card.Task;
+import domain.model.aggregate.card.Card;
+import domain.model.aggregate.card.Task;
 import domain.usecase.card.repository.ICardRepository;
 
 public class CreateTaskUseCase {

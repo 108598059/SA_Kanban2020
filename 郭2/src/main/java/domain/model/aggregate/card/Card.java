@@ -1,10 +1,12 @@
-package domain.aggregate.card;
+package domain.model.aggregate.card;
+
+import domain.model.aggregate.AggregateRoot;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Card {
+public class Card extends AggregateRoot {
     private String cardId;
     private String cardName;
     private String cardContent;

@@ -1,9 +1,7 @@
 package domain.adapter.repository.board;
 
 import domain.adapter.database.DbConn;
-import domain.aggregate.board.Board;
-import domain.aggregate.workflow.Lane;
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.board.Board;
 import domain.usecase.board.repository.IBoardRepository;
 
 import java.sql.Connection;
@@ -145,8 +143,8 @@ public class MySqlBoardRepository implements IBoardRepository {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1,workflowId);
-            ps.setString(2,boardId);
+            ps.setString(1,boardId);
+            ps.setString(2,workflowId);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

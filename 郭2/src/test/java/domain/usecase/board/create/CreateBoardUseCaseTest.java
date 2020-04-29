@@ -1,7 +1,7 @@
 package domain.usecase.board.create;
 
 import domain.adapter.repository.board.MySqlBoardRepository;
-import domain.aggregate.board.Board;
+import domain.model.aggregate.board.Board;
 import domain.usecase.board.repository.IBoardRepository;
 import org.junit.Test;
 

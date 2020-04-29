@@ -1,4 +1,4 @@
-package domain.aggregate.workflow;
+package domain.model.aggregate.workflow;
 
 
 public class Stage extends Lane {

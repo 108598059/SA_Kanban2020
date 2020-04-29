@@ -1,4 +1,4 @@
-package domain.aggregate.workflow;
+package domain.model.aggregate.workflow;
 
 import java.util.ArrayList;
 import java.util.List;

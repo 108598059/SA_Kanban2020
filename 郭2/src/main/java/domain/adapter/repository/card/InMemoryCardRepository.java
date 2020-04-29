@@ -1,6 +1,6 @@
 package domain.adapter.repository.card;
 
-import domain.aggregate.card.Card;
+import domain.model.aggregate.card.Card;
 import domain.usecase.card.repository.ICardRepository;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package domain.aggregate.card;
+package domain.model.aggregate.card;
 
 import java.util.UUID;
 

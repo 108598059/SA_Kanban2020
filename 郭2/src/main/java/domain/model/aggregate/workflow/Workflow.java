@@ -1,10 +1,12 @@
-package domain.aggregate.workflow;
+package domain.model.aggregate.workflow;
+
+import domain.model.aggregate.AggregateRoot;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Workflow {
+public class Workflow extends AggregateRoot {
     private String boardId;
     private String workflowId;
     private String workflowName;

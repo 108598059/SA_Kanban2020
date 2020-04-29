@@ -3,13 +3,13 @@ package domain.usecase.card.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.aggregate.card.Card;
+import domain.model.aggregate.DomainEventBus;
+import domain.model.aggregate.card.Card;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
-import domain.adapter.repository.board.InMemoryBoardRepository;
-import domain.adapter.repository.card.InMemoryCardRepository;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.card.CardEventHandler;
 import domain.usecase.card.repository.ICardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
@@ -17,7 +17,6 @@ import domain.usecase.stage.create.CreateStageUseCaseOutput;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
-import domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +33,12 @@ public class CreateCardUseCaseTest {
     private CreateStageUseCase createStageUseCase;
     private CreateStageUseCaseOutput stageOutput;
 
+    private DomainEventBus eventBus;
+
     @Before
     public void SetUp(){
+        eventBus = new DomainEventBus();
+
         boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
@@ -44,7 +47,7 @@ public class CreateCardUseCaseTest {
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
         workflowRepository = new MySqlWorkflowRepository();
-        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, boardRepository);
+        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, boardRepository, eventBus);
         CreateWorkflowUseCaseInput workflowInput = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         workflowInput.setWorkflowName("KanbanDevelopment");
@@ -57,11 +60,13 @@ public class CreateCardUseCaseTest {
         stageInput.setStageName("ToDo");
         stageInput.setWorkflowId(workflowOutput.getWorkflowId());
         createStageUseCase.execute(stageInput, stageOutput);
+
+        eventBus.register(new CardEventHandler(workflowRepository));
     }
     @Test
     public void CreateCardUseCaseTest(){
         cardRepository = new MySqlCardRepository();
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(workflowRepository, cardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(workflowRepository, cardRepository, eventBus);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 

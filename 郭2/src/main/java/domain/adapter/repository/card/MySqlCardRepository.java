@@ -1,8 +1,8 @@
 package domain.adapter.repository.card;
 
 import domain.adapter.database.DbConn;
-import domain.aggregate.card.Card;
-import domain.aggregate.card.Task;
+import domain.model.aggregate.card.Card;
+import domain.model.aggregate.card.Task;
 import domain.usecase.card.repository.ICardRepository;
 
 import java.sql.Connection;

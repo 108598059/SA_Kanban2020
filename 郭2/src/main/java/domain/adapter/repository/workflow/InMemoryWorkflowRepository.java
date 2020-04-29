@@ -1,6 +1,6 @@
 package domain.adapter.repository.workflow;
 
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 import java.util.*;

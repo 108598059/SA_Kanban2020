@@ -1,10 +1,10 @@
 package domain.adapter.repository.workflow;
 
 import domain.adapter.database.DbConn;
-import domain.aggregate.workflow.Lane;
-import domain.aggregate.workflow.Stage;
-import domain.aggregate.workflow.Swimlane;
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.workflow.Lane;
+import domain.model.aggregate.workflow.Stage;
+import domain.model.aggregate.workflow.Swimlane;
+import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 import java.sql.Connection;
@@ -27,10 +27,34 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         try {
             for(Lane lane : workflow.getLaneList()) {
                 addLane(lane);
+                for(String cardId : lane.getCardIdList()){
+                    addLaneToCard(lane.getLaneId(), cardId);
+                }
             }
             ps = conn.prepareStatement(sql);
             ps.setString(1,workflow.getWorkflowId());
             ps.setString(2,workflow.getWorkflowName());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void addLaneToCard(String laneId, String cardId) {
+        String sql = "Insert Ignore Into kanban.lane_to_card Values (?, ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,laneId);
+            ps.setString(2,cardId);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,11 +107,12 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         String sql = "Insert Into kanban.workflow Values (? , ?) On Duplicate Key Update workflow_name= ?";
         PreparedStatement ps = null;
         try {
-
             for(Lane lane : workflow.getLaneList()) {
                 addLane(lane);
+                for(String cardId : lane.getCardIdList()){
+                    addLaneToCard(lane.getLaneId(), cardId);
+                }
             }
-
             ps = conn.prepareStatement(sql);
             ps.setString(1,workflow.getWorkflowId());
             ps.setString(2,workflow.getWorkflowName());
