@@ -1,22 +1,11 @@
 package ddd.kanban.domain.model.workflow;
 
-public class Column {
+import java.util.ArrayList;
+import java.util.List;
 
-    private String title;
-    private String id;
-    private String workflowId;
+public class Column extends Lane {
 
-    public Column(String title, String id, String workflowId){
-        this.workflowId = workflowId;
-        this.id = id;
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getId() {
-        return id;
+    public Column(String id, String title, String workflowId){
+        super(id, title, workflowId);
     }
 }

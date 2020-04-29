@@ -1,5 +1,7 @@
 package ddd.kanban.adapter.database;
 
+import ddd.kanban.adapter.repository.board.SqliteBoardRepository;
+
 import java.sql.*;
 
 public class DataBaseUtility {
@@ -17,42 +19,24 @@ public class DataBaseUtility {
             connection = DriverManager.getConnection(url);
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+           throw new RuntimeException(e.getMessage());
         }
         return connection;
     }
 
-    public void closeConnection(){
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void rollbackConnection(){
-        try {
+    public void rollBack(Connection connection){
+        try{
             connection.rollback();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e){
+            throw new RuntimeException("roll back fail");
         }
     }
 
-    public void commitConnection(){
-        try {
-            connection.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void close(Connection connection){
+        try{
+            connection.close();
+        } catch (SQLException e){
+            throw new RuntimeException("close connection fail");
         }
-    }
-
-    public Statement createStatement(){
-        Statement statement = null;
-        try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return statement;
     }
 }

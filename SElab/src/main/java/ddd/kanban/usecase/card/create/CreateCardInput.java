@@ -8,53 +8,32 @@ import java.util.List;
 public class CreateCardInput {
 
     private String cardTitle;
-    private String cardDescription;
-    private CardType cardCardType;
-    private List<String> cardTags;
-    private List<String> cardAssignUsers;
-    private Date cardPlannedStartDate;
-    private Date cardPlannedFinishDate;
-    private int cardPriority;
+    private String boardId;
+    private String workflowId;
+    private String laneId;
 
-    public CreateCardInput(String cardTitle, String cardDescription, CardType cardType, List<String> tags, List<String>assignUsers, Date plannedStartDate, Date plannedFinishDate, int priority){
+    public CreateCardInput(String cardTitle, String boardId, String workflowId, String laneId){
         this.cardTitle = cardTitle;
-        this.cardDescription = cardDescription;
-        this.cardCardType = cardType;
-        this.cardTags = tags;
-        this.cardAssignUsers = assignUsers;
-        this.cardPlannedStartDate = plannedStartDate;
-        this.cardPlannedFinishDate = plannedFinishDate;
-        this.cardPriority = priority;
+        this.boardId = boardId;
+        this.workflowId = workflowId;
+        this.laneId = laneId;
     }
 
     public String getCardTitle() {
         return cardTitle;
     }
 
-    public String getCardDescription() { return cardDescription; }
 
-    public CardType getCardCardType() {
-        return cardCardType;
+    public String getBoardId() {
+        return boardId;
     }
 
-    public List<String> getCardTags() {
-        return cardTags;
+    public String getWorkflowId() {
+        return workflowId;
     }
 
-    public List<String> getCardAssignUsers() {
-        return cardAssignUsers;
-    }
-
-    public Date getCardPlannedStartDate() {
-        return cardPlannedStartDate;
-    }
-
-    public Date getCardPlannedFinishDate() {
-        return cardPlannedFinishDate;
-    }
-
-    public int getCardPriority() {
-        return cardPriority;
+    public String getLaneId(){
+        return laneId;
     }
 
 }

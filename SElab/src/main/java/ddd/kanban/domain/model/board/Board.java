@@ -1,8 +1,9 @@
-package ddd.kanban.domain.model.Board;
+package ddd.kanban.domain.model.board;
 
 
+import ddd.kanban.domain.model.AggregateRoot;
 
-public class Board {
+public class Board extends AggregateRoot {
 
     private String name;
     private final String id;

@@ -1,12 +1,10 @@
 package ddd.kanban.adapter.repository.board;
 
 import ddd.kanban.adapter.database.DataBaseUtility;
-import ddd.kanban.domain.model.Board.Board;
+import ddd.kanban.domain.model.board.Board;
 import ddd.kanban.usecase.repository.BoardRepository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -59,29 +57,33 @@ public class SqliteBoardRepository implements BoardRepository {
     }
 
     private void saveToDatabase(Board board){
-        String saveCommand = String.format("INSERT INTO Board (id, name, description) VALUES ('%1$s', '%2$s', '%3$s')" +
-                "ON CONFLICT(id) DO UPDATE SET name = '%2$s'", board.getId(), board.getName(), board.getDescription());
+        Connection connection = dataBaseUtility.getConnection();
+        String saveCommand = String.format("INSERT INTO Board (id, name, description) VALUES (?, ?, ?)" +
+                "ON CONFLICT(id) DO UPDATE SET name = ?");
 
         try {
-            dataBaseUtility.getConnection();
-            Statement statement = dataBaseUtility.createStatement();
-            boolean resultInformation = statement.execute(saveCommand);
-            dataBaseUtility.commitConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(saveCommand);
+            preparedStatement.setString(1, board.getId());
+            preparedStatement.setString(2, board.getName());
+            preparedStatement.setString(3, board.getDescription());
+            preparedStatement.setString(4, board.getName());
+            boolean resultInformation = preparedStatement.execute();
+            connection.commit();
         } catch (SQLException e) {
-            dataBaseUtility.rollbackConnection();
-            e.printStackTrace();
+            dataBaseUtility.rollBack(connection);
         } finally {
-            dataBaseUtility.closeConnection();
+            dataBaseUtility.close(connection);
         }
     }
 
     private List<Board> findAllBoardFromDatabase(){
+        Connection connection = dataBaseUtility.getConnection();
         String queryCommand = String.format("SELECT * FROM Board");
         List<Board> resultBoards = new ArrayList<>();
 
         try{
-            dataBaseUtility.getConnection();
-            Statement statement = dataBaseUtility.createStatement();
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryCommand);
 
             while (resultSet.next()){
@@ -89,9 +91,9 @@ public class SqliteBoardRepository implements BoardRepository {
                 resultBoards.add(board);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         } finally {
-           dataBaseUtility.closeConnection();
+           dataBaseUtility.close(connection);
         }
         return resultBoards;
     }
