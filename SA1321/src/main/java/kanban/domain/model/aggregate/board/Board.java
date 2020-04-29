@@ -1,10 +1,14 @@
 package kanban.domain.model.aggregate.board;
 
+import kanban.domain.model.aggregate.AggregateRoot;
+import kanban.domain.model.aggregate.board.event.BoardCreated;
+import kanban.domain.model.aggregate.board.event.WorkflowCommitted;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Board {
+public class Board extends AggregateRoot {
 
     private String boardName;
     private String boardId;
@@ -18,6 +22,7 @@ public class Board {
         this.boardName = boardName;
         this.boardId = UUID.randomUUID().toString();
         this.workflowIds = new ArrayList<>();
+        addDomainEvent(new BoardCreated(boardId, boardName));
     }
 
     public void setBoardId(String boardId) {
@@ -46,6 +51,7 @@ public class Board {
 
     public String commitWorkflow(String workflowId) {
         workflowIds.add(workflowId);
+        addDomainEvent(new WorkflowCommitted(boardId, workflowId));
         return workflowId;
     }
 }

@@ -6,6 +6,7 @@ public class Task {
     private String taskId;
     private String cardId;
     private String taskName;
+    private String taskContent;
 
     public Task(String cardId, String taskName) {
         this.cardId = cardId;
@@ -35,5 +36,13 @@ public class Task {
 
     public String getTaskId() {
         return taskId;
+    }
+
+    public void setTaskContent(String taskContent) {
+        this.taskContent = taskContent;
+    }
+
+    public String getTaskContent() {
+        return taskContent;
     }
 }

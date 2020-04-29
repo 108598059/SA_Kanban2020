@@ -5,15 +5,25 @@ import java.util.List;
 import java.util.UUID;
 
 public class Card {
-    private String laneId;
     private String cardId;
     private String cardName;
+    private String cardContent;
+    private String cardType;
     private List<Task> taskList;
 
     public Card(String cardName){
         taskList = new ArrayList<Task>();
         this.cardName = cardName;
         this.cardId = UUID.randomUUID().toString();
+    }
+
+    public Task getTaskById(String taskId) {
+        for (Task each : taskList) {
+            if (each.getTaskId().equalsIgnoreCase(taskId)) {
+                return each;
+            }
+        }
+        throw new RuntimeException("Task is not found,id=" + taskId);
     }
 
     public void setCardId(String cardId) {
@@ -32,8 +42,26 @@ public class Card {
         return cardName;
     }
 
+    public void setCardContent(String cardContent) {
+        this.cardContent = cardContent;
+    }
+
+    public String getCardContent() {
+        return cardContent;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
     public Task createTask(String cardId, String taskName) {
-        return new Task(cardId, taskName);
+        Task task = new Task(cardId, taskName);
+        taskList.add(task);
+        return task;
     }
 
     public void setTaskList(List<Task> taskList) {

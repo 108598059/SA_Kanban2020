@@ -1,6 +1,8 @@
 package kanban.domain;
 
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
+import kanban.domain.usecase.DomainEventHandler;
 import kanban.domain.usecase.board.create.CreateBoardInput;
 import kanban.domain.usecase.board.create.CreateBoardOutput;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
@@ -15,12 +17,17 @@ import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class Utility {
 
-    IWorkflowRepository workflowRepository;
-    IBoardRepository boardRepository;
+    private IWorkflowRepository workflowRepository;
+    private IBoardRepository boardRepository;
+    private DomainEventBus eventBus;
 
-    public Utility(IBoardRepository boardRepository, IWorkflowRepository workflowRepository) {
+    public Utility(
+            IBoardRepository boardRepository,
+            IWorkflowRepository workflowRepository,
+            DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
         this.boardRepository = boardRepository;
+        this.eventBus = eventBus;
     }
 
     public String createBoard(String boardName){
@@ -34,7 +41,9 @@ public class Utility {
     }
 
     public String createWorkflow(String boardId, String workflowName){
-        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(boardRepository, workflowRepository);
+        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(
+                workflowRepository,
+                eventBus);
 
         CreateWorkflowInput input = new CreateWorkflowInput();
         input.setBoardId(boardId);

@@ -3,6 +3,7 @@ package kanban.domain.usecase;
 import kanban.domain.Utility;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowInput;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowOutput;
@@ -15,15 +16,22 @@ import static org.junit.Assert.assertEquals;
 
 public class CommitWorkflowTest {
 
-    IBoardRepository boardRepository;
-    IWorkflowRepository workflowRepository;
-    Utility utility;
+    private IBoardRepository boardRepository;
+    private IWorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
+    private Utility utility;
 
     @Before
     public void setUp() throws Exception {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
-        utility = new Utility(boardRepository, workflowRepository);
+
+        eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventHandler(
+                boardRepository,
+                workflowRepository));
+
+        utility = new Utility(boardRepository, workflowRepository, eventBus);
     }
 
     @Test

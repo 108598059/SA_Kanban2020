@@ -1,8 +1,10 @@
 package kanban.domain.usecase;
 
+import com.google.common.eventbus.EventBus;
 import kanban.domain.Utility;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.usecase.board.repository.IBoardRepository;
@@ -21,6 +23,7 @@ public class CreateStageTest {
     private String workflowId;
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
     private Utility utility;
 
     @Before
@@ -30,7 +33,13 @@ public class CreateStageTest {
         boardRepository = new MySqlBoardRepository();
         workflowRepository = new MySqlWorkflowRepository();
 
-        utility = new Utility(boardRepository, workflowRepository);
+
+        eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventHandler(
+                boardRepository,
+                workflowRepository));
+
+        utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");
         workflowId = utility.createWorkflow(boardId, "workflowName");
     }
