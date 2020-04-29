@@ -29,7 +29,7 @@ public class InMemoryWorkflowRepository implements WorkflowRepository {
     }
 
     @Override
-    public void save(Workflow workflow){
+    public void save(){
     }
 
     private static Predicate<Workflow> findWorkflowById(String workflowId){

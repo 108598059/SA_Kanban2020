@@ -1,4 +1,4 @@
-package domain.entity;
+package domain.entity.card;
 
 import java.util.UUID;
 
@@ -13,6 +13,8 @@ public class Task {
     public void setName(String taskName) {
         this.name = taskName;
     }
+
+    public void setId(String id) {this.id = id;}
 
     public String getName() {
         return this.name;

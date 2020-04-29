@@ -1,9 +1,8 @@
 package ddd.kanban.usecase.board.create;
 
 
-import ddd.kanban.domain.model.Board.Board;
+import ddd.kanban.domain.model.board.Board;
 import ddd.kanban.usecase.repository.BoardRepository;
-
 
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ public class CreateBoardUseCase {
 
 
     public void execute(CreateBoardInput createBoardInput, CreateBoardOutput createBoardOutput) {
-        Board board = new Board(createBoardInput.getBoardId(), createBoardInput.getBoardName(), createBoardInput.getBoardDescription());
+        Board board = new Board(UUID.randomUUID().toString(), createBoardInput.getBoardName(), createBoardInput.getBoardDescription());
         boardRepository.add(board);
         boardRepository.save();
 

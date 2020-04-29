@@ -7,5 +7,5 @@ public interface WorkflowRepository {
 
     Workflow findById(String workflowId);
 
-    void save(Workflow workflow);
+    void save();
 }

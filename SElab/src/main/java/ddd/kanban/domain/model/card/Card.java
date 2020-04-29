@@ -1,15 +1,20 @@
 package ddd.kanban.domain.model.card;
 
+import ddd.kanban.domain.model.AggregateRoot;
+import ddd.kanban.domain.model.card.event.CardCreated;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Card {
-    private final List<Task> tasks;
-    private String id;
-
+public class Card extends AggregateRoot {
+    private List<Task> tasks;
+    private final String id;
+    private String boardId;
+    private String workflowId;
+    private String laneId;
     private String title;
     private String description;
     private CardType cardType;
@@ -19,12 +24,15 @@ public class Card {
     private Date plannedFinishDate;
     private int priority;
 
-    public Card(String id, String title)
+    public Card(String id, String title, String boardId, String workflowId, String laneId)
     {
         this.id = id;
         this.title = title;
-
-        tasks = new ArrayList<Task>();
+        this.boardId = boardId;
+        this.workflowId = workflowId;
+        this.laneId = laneId;
+        tasks = new ArrayList<>();
+        addDomainEvent(new CardCreated(id, workflowId, laneId));
     }
 
     public Card(String id, String title, String description, CardType cardType, List<String> tags, List<String>assignUsers, Date plannedStartDate, Date plannedFinishDate, int priority){

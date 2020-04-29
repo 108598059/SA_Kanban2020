@@ -8,13 +8,8 @@ import java.util.List;
 public class CreateCardOutput {
     private String cardId;
     private String cardTitle;
-    private String cardDescription;
-    private CardType cardCardType;
-    private List<String> cardTags;
-    private List<String> cardAssignUsers;
-    private Date cardPlannedStartDate;
-    private Date cardPlannedFinishDate;
-    private int cardPriority;
+    private String boardId;
+    private String workflowId;
 
     public CreateCardOutput(){
 
@@ -36,60 +31,21 @@ public class CreateCardOutput {
         this.cardTitle = cardTitle;
     }
 
-    public String getCardDescription() {
-        return cardDescription;
+    public String getBoardId() {
+        return boardId;
     }
 
-    public void setCardDescription(String cardDescription) {
-        this.cardDescription = cardDescription;
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
     }
 
-    public CardType getCardCardType() {
-        return cardCardType;
+    public String getWorkflowId() {
+        return workflowId;
     }
 
-    public void setCardCardType(CardType cardCardType) {
-        this.cardCardType = cardCardType;
+    public void setWorkflowId(String workflowId) {
+        this.workflowId = workflowId;
     }
 
-    public List<String> getCardTags() {
-        return cardTags;
-    }
-
-    public void setCardTags(List<String> cardTags) {
-        this.cardTags = cardTags;
-    }
-
-    public List<String> getCardAssignUsers() {
-        return cardAssignUsers;
-    }
-
-    public void setCardAssignUsers(List<String> cardAssignUsers) {
-        this.cardAssignUsers = cardAssignUsers;
-    }
-
-    public Date getCardPlannedStartDate() {
-        return cardPlannedStartDate;
-    }
-
-    public void setCardPlannedStartDate(Date cardPlannedStartDate) {
-        this.cardPlannedStartDate = cardPlannedStartDate;
-    }
-
-    public Date getCardPlannedFinishDate() {
-        return cardPlannedFinishDate;
-    }
-
-    public void setCardPlannedFinishDate(Date cardPlannedFinishDate) {
-        this.cardPlannedFinishDate = cardPlannedFinishDate;
-    }
-
-    public int getCardPriority() {
-        return cardPriority;
-    }
-
-    public void setCardPriority(int cardPriority) {
-        this.cardPriority = cardPriority;
-    }
 
 }

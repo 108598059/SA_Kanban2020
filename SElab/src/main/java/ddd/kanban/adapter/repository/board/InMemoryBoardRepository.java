@@ -1,6 +1,6 @@
 package ddd.kanban.adapter.repository.board;
 
-import ddd.kanban.domain.model.Board.Board;
+import ddd.kanban.domain.model.board.Board;
 import ddd.kanban.usecase.repository.BoardRepository;
 
 

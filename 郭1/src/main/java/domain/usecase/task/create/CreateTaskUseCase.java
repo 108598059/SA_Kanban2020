@@ -1,6 +1,6 @@
 package domain.usecase.task.create;
 
-import domain.entity.Card;
+import domain.entity.card.Card;
 import domain.usecase.card.CardRepository;
 
 public class CreateTaskUseCase {

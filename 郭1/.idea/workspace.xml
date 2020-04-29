@@ -33,7 +33,6 @@
       <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/CreateStageUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/CreateStageUseCase.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/CreateWorkflowUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/CreateWorkflowUseCase.class" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,8 +41,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -51,7 +50,6 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -69,16 +67,18 @@
       <recent name="domain.usecase.workflow" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="domain.entity.board" />
+      <recent name="domain.entity.card" />
+      <recent name="domain.entity.workflow" />
       <recent name="domain.usecase.card" />
       <recent name="domain.usecase.board" />
-      <recent name="domain.adapter" />
-      <recent name="domain.entity" />
-      <recent name="domain.entity.workflowAggregate" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="domain.controller" />
+      <recent name="domain.usecase.card" />
+      <recent name="domain.usecase.card.event" />
+      <recent name="domain.entity.workflow.event" />
+      <recent name="domain.usecase.workflow" />
       <recent name="domain.entity" />
-      <recent name="domain.usecase" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -93,8 +93,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CreateSwimlaneTest.createSwimlane">
-    <configuration name="CreateBoardTest.createBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.All in 郭1">
+    <configuration name="All in 郭1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="郭1" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
@@ -104,60 +112,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="domain.usecase" />
       <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateBoardTest" />
-      <option name="METHOD_NAME" value="createBoard" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateStageTest.createStage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateStageTest" />
-      <option name="METHOD_NAME" value="createStage" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateSwimlaneTest.createSwimlane" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateSwimlaneTest" />
-      <option name="METHOD_NAME" value="createSwimlane" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateTaskTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateTaskTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateTaskTest.CreateTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CreateCardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
@@ -166,20 +126,48 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateTaskTest" />
-      <option name="METHOD_NAME" value="CreateTask" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateCardTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateWorkFlowTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="郭1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="domain.usecase.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="domain.usecase" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateWorkFlowTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="domain.usecase in 郭1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="郭1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="domain.usecase.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="domain.usecase" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CreateSwimlaneTest.createSwimlane" />
-        <item itemvalue="JUnit.CreateTaskTest.CreateTask" />
-        <item itemvalue="JUnit.CreateTaskTest" />
-        <item itemvalue="JUnit.CreateBoardTest.createBoard" />
-        <item itemvalue="JUnit.CreateStageTest.createStage" />
+        <item itemvalue="JUnit.All in 郭1" />
+        <item itemvalue="JUnit.domain.usecase in 郭1" />
+        <item itemvalue="JUnit.CreateCardTest" />
+        <item itemvalue="JUnit.CreateWorkFlowTest" />
+        <item itemvalue="JUnit.CreateBoardTest" />
       </list>
     </recent_temporary>
   </component>
@@ -202,32 +190,39 @@
       <workItem from="1587092192662" duration="5243000" />
       <workItem from="1587190245739" duration="987000" />
       <workItem from="1587520918898" duration="7813000" />
+      <workItem from="1588139455607" duration="794000" />
+      <workItem from="1588140263444" duration="15336000" />
+      <workItem from="1588156172014" duration="271000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="722" y="406" width="414" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1586995163476">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="722" y="406" width="414" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1858.1080@0.0.1858.1080" timestamp="1586995163476" />
-    <state width="1815" height="295" key="GridCell.Tab.0.bottom" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1588156442562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1815" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
-    <state width="1815" height="295" key="GridCell.Tab.0.center" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588156442562" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1588156442562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1815" height="295" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
-    <state width="1815" height="295" key="GridCell.Tab.0.left" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588156442562" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1588156442562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1815" height="295" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
-    <state width="1815" height="295" key="GridCell.Tab.0.right" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588156442562" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1588156442562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1815" height="295" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588156442562" />
   </component>
 </project>

@@ -4,7 +4,7 @@ import domain.controller.CreateStageInputImpl;
 import domain.controller.CreateStageOutputImpl;
 import domain.controller.CreateWorkflowInputImpl;
 import domain.controller.CreateWorkflowOutputImpl;
-import domain.entity.Workflow;
+import domain.entity.DomainEventBus;
 import domain.usecase.stage.create.CreateStageInput;
 import domain.usecase.stage.create.CreateStageOutput;
 import domain.usecase.stage.create.CreateStageUseCase;
@@ -20,14 +20,22 @@ import static org.junit.Assert.assertNotNull;
 public class CreateStageTest {
     private WorkflowRepositoryImpl workflowRepository;
     private String workflowId;
+    private DomainEventBus eventBus;
+
     @Before
     public void setUp(){
         workflowRepository = new WorkflowRepositoryImpl();
-        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository);
+
+        eventBus = new DomainEventBus();
+
+        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository,eventBus);
         CreateWorkflowInput createWorkflowInput = new CreateWorkflowInputImpl();
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutputImpl();
+
         createWorkflowInput.setWorkflowName("workflow1");
+
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
+
         workflowId = createWorkflowOutput.getWorkflowId();
 
     }

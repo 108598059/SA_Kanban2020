@@ -1,6 +1,6 @@
 package domain.adapter;
 
-import domain.entity.Board;
+import domain.entity.board.Board;
 import domain.usecase.board.BoardRepository;
 
 import java.sql.Connection;
@@ -27,7 +27,7 @@ public class BoardRepositoryImpl implements BoardRepository {
         try {
             this.boardRepository.put(board.getId(), board);
             this.conn = DatabaseImpl.getConnection();
-            add(board.getId(), board.getName());
+            add(board);
             conn.close();
         }
         catch (SQLException e){
@@ -35,14 +35,17 @@ public class BoardRepositoryImpl implements BoardRepository {
         }
     }
 
-    public void add(String boardId, String boardName){
+    public void add(Board board){
 
-        String sql = "INSERT INTO kanban.board(id, name) VALUES (?,?)";
+        this.boardRepository.put(board.getId(),board);
+
+        String sql = "INSERT INTO kanban.board(id, name) VALUES (?,?) ON DUPLICATE KEY UPDATE name = ? ";
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1,boardId);
-            ps.setString(2,boardName);
+            ps.setString(1,board.getId());
+            ps.setString(2,board.getName());
+            ps.setString(3,board.getName());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

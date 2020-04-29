@@ -2,7 +2,7 @@ package ddd.kanban.usecase.repository;
 
 
 
-import ddd.kanban.domain.model.Board.Board;
+import ddd.kanban.domain.model.board.Board;
 
 import java.util.List;
 

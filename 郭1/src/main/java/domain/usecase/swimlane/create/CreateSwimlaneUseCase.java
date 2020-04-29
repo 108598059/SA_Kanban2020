@@ -1,6 +1,6 @@
 package domain.usecase.swimlane.create;
 
-import domain.entity.Workflow;
+import domain.entity.workflow.Workflow;
 import domain.usecase.workflow.WorkflowRepository;
 
 public class CreateSwimlaneUseCase {

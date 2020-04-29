@@ -1,6 +1,9 @@
 package ddd.kanban.usecase.workflow;
 
+import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
+import ddd.kanban.usecase.HierarchyInitial;
+import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.workflow.create.CreateWorkflowInput;
 import ddd.kanban.usecase.workflow.create.CreateWorkflowOutput;
 import ddd.kanban.usecase.repository.WorkflowRepository;
@@ -14,26 +17,28 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class CreateWorkflowUseCaseTest {
-    private WorkflowRepository inMemoryWorkflowRepository;
-    private String workflowId;
-    private String workflowboardId;
+    private WorkflowRepository workflowRepository;
+    private BoardRepository boardRepository;
+    private HierarchyInitial hierarchyInitial;
+    private String boardId;
     @Before
     public void setUp(){
-        workflowId = UUID.randomUUID().toString();
-        workflowboardId=UUID.randomUUID().toString();
-        inMemoryWorkflowRepository = new InMemoryWorkflowRepository();
+        workflowRepository = new InMemoryWorkflowRepository();
+        boardRepository = new InMemoryBoardRepository();
+        hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository);
+        this.boardId = hierarchyInitial.CreateBoard();
+
     }
     @Test
     public void testCreateWorkflow() {
-        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(inMemoryWorkflowRepository);
+        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository);
 
-        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput(workflowId,"Workflow 1",workflowboardId);
+        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput("Workflow 1", boardId);
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
 
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
         assertEquals("Workflow 1", createWorkflowOutput.getWorkflowTitle());
         assertNotNull(createWorkflowOutput.getWorkflowId());
-        assertNotNull(createWorkflowOutput.getWorkflowBoardId());
     }
 }
