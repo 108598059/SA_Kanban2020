@@ -32,6 +32,11 @@ public class InMemoryWorkflowRepository implements WorkflowRepository {
     public void save(){
     }
 
+    @Override
+    public List<Workflow> findAll() {
+        return workflows;
+    }
+
     private static Predicate<Workflow> findWorkflowById(String workflowId){
         return workflow -> workflow.getId().equals(workflowId);
     }

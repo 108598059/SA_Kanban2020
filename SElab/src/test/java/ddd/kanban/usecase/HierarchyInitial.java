@@ -21,7 +21,7 @@ public class HierarchyInitial {
 
 
     public String CreateBoard(){
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, workflowRepository);
         CreateBoardInput createBoardInput = new CreateBoardInput("Board1", "New Board");
         CreateBoardOutput createBoardOutput = new CreateBoardOutput();
 

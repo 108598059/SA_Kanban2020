@@ -90,6 +90,7 @@ public class SqliteBoardRepository implements BoardRepository {
                 Board board = new Board(resultSet.getString("id"), resultSet.getString("name"),resultSet.getString("description"));
                 resultBoards.add(board);
             }
+            resultSet.close();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {
