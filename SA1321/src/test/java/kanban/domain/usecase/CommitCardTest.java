@@ -4,6 +4,7 @@ import kanban.domain.Utility;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
+import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardOutput;
@@ -40,7 +41,11 @@ public class CommitCardTest {
     }
 
     @Test
-    public void Should_Card_Can_Commit_In_Stage() {
+    public void Card_should_be_committed_in_its_stage() {
+        Workflow workflow = workflowRepository.getWorkflowById(workflowId);
+
+        assertEquals(0,workflow.getStageCloneById(stageId).getCardIds().size());
+
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
         CommitCardInput input = new CommitCardInput();
         input.setCardId("cardId");
@@ -49,7 +54,9 @@ public class CommitCardTest {
         CommitCardOutput output = new CommitCardOutput();
 
         commitCardUseCase.execute(input, output);
+        workflow = workflowRepository.getWorkflowById(workflowId);
 
+        assertEquals(1,workflow.getStageCloneById(stageId).getCardIds().size());
         assertEquals("cardId", output.getCardId());
     }
 }

@@ -24,7 +24,7 @@ public class CreateBoardTest {
     }
 
     @Test
-    public void Create_board_should_success() {
+    public void Create_board_should_return_boardId() {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardInput input = new CreateBoardInput();
         CreateBoardOutput output = new CreateBoardOutput();
@@ -33,8 +33,7 @@ public class CreateBoardTest {
         createBoardUseCase.execute(input, output);
         assertNotNull(output.getBoardId());
 
-
-        Board board = boardRepository.getBoardById(output.getBoardId());
+        Board board = TransformToEntity.transform(boardRepository.getBoardById(output.getBoardId()));
 
         assertEquals(output.getBoardId(), board.getBoardId());
         assertEquals(output.getBoardName(), board.getBoardName());

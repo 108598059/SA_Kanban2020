@@ -54,7 +54,7 @@ public class CreateCardTest {
     }
 
     @Test
-    public void Create_card_should_success() {
+    public void Create_card_should_commit_card_in_its_stage() {
         Workflow workflow = workflowRepository.getWorkflowById(workflowId);
         assertEquals(0, workflow.getStageCloneById(stageId).getCardIds().size());
 

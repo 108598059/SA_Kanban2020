@@ -5,6 +5,7 @@ import kanban.domain.adapter.database.BoardTable;
 import kanban.domain.adapter.database.BoardWorkflowTable;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.entity.BoardEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,18 +22,18 @@ public class MySqlBoardRepository implements IBoardRepository {
     }
 
     @Override
-    public void add(Board board) {
+    public void add(BoardEntity board) {
         sqlDatabaseHelper.connectToDatabase();
         PreparedStatement preparedStatement = null;
         try {
             sqlDatabaseHelper.transactionStart();
 
-            for(String workflowId : board.getWorkflowIds()) {
+            for (String workflowId : board.getWorkflowIds()) {
                 addBoardWorkflow(workflowId, board.getBoardId());
             }
 
             String sql = String.format("Insert Into %s Values (?, ?)",
-                            BoardTable.tableName);
+                    BoardTable.tableName);
             preparedStatement = sqlDatabaseHelper.getPreparedStatement(sql);
             preparedStatement.setString(1, board.getBoardId());
             preparedStatement.setString(2, board.getBoardName());
@@ -48,12 +49,12 @@ public class MySqlBoardRepository implements IBoardRepository {
     }
 
     @Override
-    public Board getBoardById(String boardId) {
-        if(!sqlDatabaseHelper.isTransacting()) {
+    public BoardEntity getBoardById(String boardId) {
+        if (!sqlDatabaseHelper.isTransacting()) {
             sqlDatabaseHelper.connectToDatabase();
         }
         ResultSet resultSet = null;
-        Board board = null;
+        BoardEntity board = null;
         try {
             String query = String.format("Select * From %s Where %s = '%s'",
                     BoardTable.tableName,
@@ -64,7 +65,7 @@ public class MySqlBoardRepository implements IBoardRepository {
                 String _boardId = resultSet.getString(BoardTable.boardId);
                 String name = resultSet.getString(BoardTable.name);
 
-                board = new Board();
+                board = new BoardEntity();
                 board.setBoardId(_boardId);
                 board.setBoardName(name);
                 board.setWorkflowIds(getWorkflowIdsByBoardId(boardId));
@@ -73,7 +74,7 @@ public class MySqlBoardRepository implements IBoardRepository {
             e.printStackTrace();
         } finally {
             sqlDatabaseHelper.closeResultSet(resultSet);
-            if(!sqlDatabaseHelper.isTransacting()) {
+            if (!sqlDatabaseHelper.isTransacting()) {
                 sqlDatabaseHelper.closeConnection();
             }
         }
@@ -81,13 +82,13 @@ public class MySqlBoardRepository implements IBoardRepository {
     }
 
     @Override
-    public void save(Board board) {
+    public void save(BoardEntity board) {
         sqlDatabaseHelper.connectToDatabase();
         PreparedStatement preparedStatement = null;
         try {
             sqlDatabaseHelper.transactionStart();
 
-            for(String workflowId : board.getWorkflowIds()) {
+            for (String workflowId : board.getWorkflowIds()) {
                 addBoardWorkflow(workflowId, board.getBoardId());
             }
 

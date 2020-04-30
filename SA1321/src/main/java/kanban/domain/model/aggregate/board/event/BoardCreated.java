@@ -15,7 +15,7 @@ public class BoardCreated implements DomainEvent {
         this.occurredOn = DateProvider.now();
         this.boardId = boardId;
         this.boardName = boardName;
-    }
+}
 
     @Override
     public Date getOccurredOn() {
