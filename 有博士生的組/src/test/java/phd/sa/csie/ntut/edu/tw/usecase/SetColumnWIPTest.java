@@ -24,7 +24,7 @@ public class SetColumnWIPTest {
   private String columnId;
 
   @Before
-  public void init() {
+  public void given_a_column_and_a_board() {
     boardRepository = new MemoryBoardRepository();
     CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();

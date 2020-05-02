@@ -2,9 +2,12 @@ package kanban.domain.usecase;
 
 import com.google.common.eventbus.EventBus;
 import kanban.domain.Utility;
+import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
+import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.workflow.create.CreateWorkflowInput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowOutput;
@@ -42,7 +45,11 @@ public class CreateWorkflowTest {
     }
 
     @Test
-    public void Create_workflow_should_success() {
+    public void Create_workflow_should_commit_workflow_in_its_board() {
+        Board board = TransformToEntity.transform(boardRepository.getBoardById(boardId));
+
+        assertEquals(0,board.getWorkflowIds().size());
+
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(
                 workflowRepository,
                 eventBus
@@ -53,13 +60,18 @@ public class CreateWorkflowTest {
 
         input.setBoardId(boardId);
         input.setWorkflowName("workflow");
+
         createWorkflowUseCase.execute(input, output);
+
+        board = TransformToEntity.transform(boardRepository.getBoardById(boardId));
+
+        assertEquals(1,board.getWorkflowIds().size());
         assertNotNull(output.getWorkflowId());
         assertEquals("workflow", output.getWorkflowName());
     }
 
     @Test(expected = RuntimeException.class)
-    public void Workflow_repository_should_throw_exception() {
+    public void Workflow_repository_should_throw_exception_when_workflow_not_found() {
         utility.createWorkflow(boardId, "workflowName");
         workflowRepository.getWorkflowById("123-456-789");
     }

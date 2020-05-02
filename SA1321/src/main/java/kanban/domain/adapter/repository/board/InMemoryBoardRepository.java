@@ -2,26 +2,27 @@ package kanban.domain.adapter.repository.board;
 
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.entity.BoardEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryBoardRepository implements IBoardRepository {
 
-    private List<Board> boards;
+    private List<BoardEntity> boards;
 
     public InMemoryBoardRepository() {
-        boards = new ArrayList<Board>();
+        boards = new ArrayList<BoardEntity>();
     }
 
     @Override
-    public void add(Board board) {
+    public void add(BoardEntity board) {
         boards.add(board);
     }
 
     @Override
-    public Board getBoardById(String boardId) {
-        for (Board each : boards) {
+    public BoardEntity getBoardById(String boardId) {
+        for (BoardEntity each : boards) {
             if (each.getBoardId().equalsIgnoreCase(boardId)) {
                 return each;
             }
@@ -30,8 +31,8 @@ public class InMemoryBoardRepository implements IBoardRepository {
     }
 
     @Override
-    public void save(Board board) {
-        for (Board each : boards) {
+    public void save(BoardEntity board) {
+        for (BoardEntity each : boards) {
             if (each.getBoardId().equalsIgnoreCase(board.getBoardId())) {
                 boards.set(boards.indexOf(each), board);
                 break;

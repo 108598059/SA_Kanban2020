@@ -4,6 +4,7 @@ import kanban.domain.Utility;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
+import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowInput;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowOutput;
@@ -35,8 +36,12 @@ public class CommitWorkflowTest {
     }
 
     @Test
-    public void Should_Workflow_Can_Commit_In_Board() {
+    public void Workflow_should_be_committed_in_its_board() {
         String boardId = utility.createBoard("board");
+        Board board = TransformToEntity.transform(boardRepository.getBoardById(boardId));
+
+        assertEquals(0,board.getWorkflowIds().size());
+
         CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
         CommitWorkflowInput input = new CommitWorkflowInput();
         CommitWorkflowOutput output = new CommitWorkflowOutput();
@@ -44,6 +49,9 @@ public class CommitWorkflowTest {
         input.setBoardId(boardId);
         input.setWorkflowId("workflowId");
         commitWorkflowUseCase.execute(input, output);
+
+        board = TransformToEntity.transform(boardRepository.getBoardById(boardId));
+        assertEquals(1,board.getWorkflowIds().size());
         assertEquals("workflowId",output.getWorkflowId());
 
     }

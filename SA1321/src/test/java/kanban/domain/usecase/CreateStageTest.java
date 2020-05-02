@@ -45,7 +45,11 @@ public class CreateStageTest {
     }
 
     @Test
-    public void Create_stage_should_success() {
+    public void Create_stage_should_return_stageId() {
+        Workflow workflow = workflowRepository.getWorkflowById(workflowId);
+
+        assertEquals(0,workflow.getStages().size());
+
         CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
         CreateStageInput input = new CreateStageInput();
         input.setStageName("stage");
@@ -54,8 +58,12 @@ public class CreateStageTest {
 
         createStageUseCase.execute(input, output);
 
-        Workflow workflow = workflowRepository.getWorkflowById(workflowId);
+        workflow = workflowRepository.getWorkflowById(workflowId);
+
+        assertEquals(1,workflow.getStages().size());
+
         Stage cloneStage = workflow.getStageCloneById(output.getStageId());
+
         assertEquals(output.getStageName(), cloneStage.getName());
     }
 

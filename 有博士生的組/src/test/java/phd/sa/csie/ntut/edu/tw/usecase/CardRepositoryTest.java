@@ -17,6 +17,7 @@ public class CardRepositoryTest {
     Card card = new Card("test card");
     cardRepository.add(card);
     Card resultCard = cardRepository.findCardByUUID(card.getUUID());
+
     assertEquals(card.getName(), resultCard.getName());
     assertEquals(card.getUUID(), resultCard.getUUID());
   }
