@@ -21,8 +21,8 @@ public class CardEventHandler{
         Workflow workflow = workflowRepository.getWorkflowById(cardCreated.getWorkflowId());
         Lane lane = workflow.getLaneById(cardCreated.getLaneId());
         lane.addCardId(cardCreated.getCardId());
+        workflow.addCardInLane(cardCreated.getLaneId(), cardCreated.getCardId());
 
         workflowRepository.save(workflow);
-
     }
 }

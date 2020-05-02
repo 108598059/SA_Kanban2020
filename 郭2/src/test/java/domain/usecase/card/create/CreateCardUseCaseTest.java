@@ -66,7 +66,7 @@ public class CreateCardUseCaseTest {
     @Test
     public void CreateCardUseCaseTest(){
         cardRepository = new MySqlCardRepository();
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(workflowRepository, cardRepository, eventBus);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 

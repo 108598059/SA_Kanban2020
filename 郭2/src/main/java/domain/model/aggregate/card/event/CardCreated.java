@@ -1,6 +1,8 @@
 package domain.model.aggregate.card.event;
 
-public class CardCreated{
+import domain.model.DomainEvent;
+
+public class CardCreated extends DomainEvent {
     private String workflowId;
     private String laneId;
     private String cardId;

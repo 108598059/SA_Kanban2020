@@ -1,6 +1,8 @@
 package domain.model.aggregate.workflow;
 
 import domain.model.aggregate.AggregateRoot;
+import domain.model.aggregate.workflow.event.WorkflowCreated;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,14 @@ public class Workflow extends AggregateRoot {
             }
         }
         throw new RuntimeException("Stage is not found,id=" + laneId);
+    }
+
+    public Workflow(String workflowName, String boardId) {
+        laneList = new ArrayList<Lane>();
+        this.boardId = boardId;
+        this.workflowId = UUID.randomUUID().toString();
+        this.workflowName = workflowName;
+        addDomainEvent(new WorkflowCreated(boardId, this.workflowId));
     }
 
     public Workflow(String workflowName) {

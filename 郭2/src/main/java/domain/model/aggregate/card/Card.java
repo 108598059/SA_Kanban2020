@@ -1,6 +1,7 @@
 package domain.model.aggregate.card;
 
 import domain.model.aggregate.AggregateRoot;
+import domain.model.aggregate.card.event.CardCreated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,18 @@ public class Card extends AggregateRoot {
     private String cardName;
     private String cardContent;
     private String cardType;
+    private String workflowId;
+    private String laneId;
     private List<Task> taskList;
+
+    public Card(String cardName, String workflowId, String laneId){
+        taskList = new ArrayList<Task>();
+        this.workflowId = workflowId;
+        this.laneId = laneId;
+        this.cardName = cardName;
+        this.cardId = UUID.randomUUID().toString();
+        addDomainEvent(new CardCreated(workflowId,laneId,this.cardId));
+    }
 
     public Card(String cardName){
         taskList = new ArrayList<Task>();

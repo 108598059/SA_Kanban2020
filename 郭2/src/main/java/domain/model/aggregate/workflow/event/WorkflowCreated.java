@@ -1,6 +1,8 @@
 package domain.model.aggregate.workflow.event;
 
-public class WorkflowCreated {
+import domain.model.DomainEvent;
+
+public class WorkflowCreated extends DomainEvent {
     private String workflowId;
     private String boardId;
 

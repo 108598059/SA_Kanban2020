@@ -69,7 +69,7 @@ public class CreateTaskUseCaseTest {
         stageInput.setWorkflowId(workflowOutput.getWorkflowId());
         createStageUseCase.execute(stageInput, stageOutput);
 
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(workflowRepository, cardRepository, eventBus);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
         CreateCardUseCaseInput cardInput = new CreateCardUseCaseInput();
         cardOutput = new CreateCardUseCaseOutput();
         cardInput.setCardName("CreateCard");
