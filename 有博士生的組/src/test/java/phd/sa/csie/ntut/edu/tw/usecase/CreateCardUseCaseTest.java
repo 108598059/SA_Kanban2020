@@ -1,20 +1,22 @@
 package phd.sa.csie.ntut.edu.tw.usecase;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class CreateCardUseCaseTest {
   private CardRepository cardRepository;

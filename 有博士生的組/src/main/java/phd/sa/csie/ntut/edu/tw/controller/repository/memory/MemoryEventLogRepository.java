@@ -1,19 +1,18 @@
 package phd.sa.csie.ntut.edu.tw.controller.repository.memory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.eventbus.Subscribe;
+
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class MemoryEventLogRepository implements EventLogRepository {
     private List<DomainEvent> eventList;
 
     public MemoryEventLogRepository() {
-        this.eventList = new ArrayList<>();
+        this.eventList = new ArrayList<DomainEvent>();
     }
 
     @Override

@@ -14,7 +14,7 @@ public class CreateColumnUseCase {
   }
 
   public void execute(CreateColumnUseCaseInput createColumnUseCaseInput,
-                      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
+      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
     String title = createColumnUseCaseInput.getTitle();
     UUID boardId = createColumnUseCaseInput.getBoardId();
 

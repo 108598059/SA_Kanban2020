@@ -15,6 +15,6 @@ public class CardCreatedEvent extends AbstractDomainEvent {
 
     @Override
     public Card getEntity() {
-        return (Card)super.getEntity();
+        return (Card) super.getEntity();
     }
 }

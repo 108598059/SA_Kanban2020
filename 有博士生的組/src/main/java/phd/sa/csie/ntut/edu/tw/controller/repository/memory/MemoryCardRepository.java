@@ -7,20 +7,20 @@ import java.util.UUID;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 
-public class MemoryCardRepository implements CardRepository{
+public class MemoryCardRepository implements CardRepository {
 
   private Map<UUID, Card> map;
 
   public MemoryCardRepository() {
-    this.map = new HashMap<>();
+    this.map = new HashMap<UUID, Card>();
   }
 
   public void add(Card card) {
-    map.put(card.getUUID(), card);
+    this.map.put(card.getUUID(), card);
   }
 
   public Card findCardByUUID(UUID uuid) {
-    return map.get(uuid);
+    return this.map.get(uuid);
   }
 
 }

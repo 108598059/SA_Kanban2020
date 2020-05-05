@@ -2,7 +2,6 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.move;
 
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
@@ -17,8 +16,7 @@ public class MoveCardUseCase {
     this.eventBus = eventBus;
   }
 
-  public void execute(MoveCardUseCaseInput moveCardUseCaseInput,
-                      MoveCardUseCaseOutput moveCardUseCaseOutput) {
+  public void execute(MoveCardUseCaseInput moveCardUseCaseInput, MoveCardUseCaseOutput moveCardUseCaseOutput) {
     Board board = boardRepository.findBoardByUUID(moveCardUseCaseInput.getBoardId());
     UUID cardId = moveCardUseCaseInput.getCardId();
     UUID fromColumnId = moveCardUseCaseInput.getFromColumnId();

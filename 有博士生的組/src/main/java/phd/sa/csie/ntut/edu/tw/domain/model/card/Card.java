@@ -1,10 +1,9 @@
 package phd.sa.csie.ntut.edu.tw.domain.model.card;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.domain.model.Entity;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
-
 import java.util.UUID;
+
+import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 
 public class Card extends AggregateRoot {
   private String name;

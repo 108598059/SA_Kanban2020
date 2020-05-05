@@ -32,7 +32,7 @@ public class SetColumnWIPTest {
     createBoardUseCaseInput.setTitle("Software Architecture");
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
     board = boardRepository.findBoardByUUID(UUID.fromString(createBoardUseCaseOutput.getBoardId()));
-    
+
     CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(boardRepository);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
@@ -57,6 +57,7 @@ public class SetColumnWIPTest {
 
   @Rule
   public ExpectedException exception = ExpectedException.none();
+
   @Test
   public void setWIPWithNegativeValue() {
     exception.expect(IllegalArgumentException.class);

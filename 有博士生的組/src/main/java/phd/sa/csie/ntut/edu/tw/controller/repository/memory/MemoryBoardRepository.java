@@ -7,12 +7,12 @@ import java.util.UUID;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
-public class MemoryBoardRepository implements BoardRepository{
+public class MemoryBoardRepository implements BoardRepository {
 
   private Map<UUID, Board> boards;
 
   public MemoryBoardRepository() {
-    this.boards = new HashMap<>();
+    this.boards = new HashMap<UUID, Board>();
   }
 
   public void add(Board board) {
