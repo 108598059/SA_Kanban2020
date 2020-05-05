@@ -39,6 +39,7 @@ public class CreateColumnUseCaseTest {
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
     assertNotNull(createColumnUseCaseOutput.getId());
+    // TODO assert column title
   }
 
 }

@@ -106,6 +106,17 @@ public class MoveCardUseCaseTest {
     List<DomainEvent> eventList = repo.getAll();
     assertEquals("Leaved column event: " + fromColumnId, eventList.get(0).getSourceName());
     assertEquals("Entered column event: " + toColumnId, eventList.get(1).getSourceName());
+    // TODO register event bus to assert
+  }
+
+  @Test
+  public void when_card_moved_to_done_caculate_lead_time() {
+    throw new UnsupportedOperationException("not implemented yet");
+  } 
+
+  @Test
+  public void when_the_WIP_achieved_card_cannot_move_to_the_column() {
+    throw new UnsupportedOperationException("not implemented yet");
   }
 
 }
