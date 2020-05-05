@@ -57,9 +57,14 @@ public class SetColumnWIPTest {
 
   @Rule
   public ExpectedException exception = ExpectedException.none();
+  
+  @Test
+  public void the_default_value_of_column_WIP_should_be_zero() {
+    throw new UnsupportedOperationException("not implemented yet");
+  }
 
   @Test
-  public void setWIPWithNegativeValue() {
+  public void column_WIP_should_be_positive() {
     exception.expect(IllegalArgumentException.class);
     SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(boardRepository);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();

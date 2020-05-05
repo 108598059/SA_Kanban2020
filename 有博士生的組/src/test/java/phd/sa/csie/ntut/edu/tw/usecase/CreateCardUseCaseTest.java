@@ -33,7 +33,7 @@ public class CreateCardUseCaseTest {
   }
 
   @Test
-  public void testCreateCard() {
+  public void creating_a_new_card_should_commit_the_card_to_the_backlog_column() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
