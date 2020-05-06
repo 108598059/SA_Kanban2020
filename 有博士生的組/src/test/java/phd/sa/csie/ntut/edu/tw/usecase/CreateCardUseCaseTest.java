@@ -102,6 +102,6 @@ public class CreateCardUseCaseTest {
     this.eventBus.register(mockListener);
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
-    assertEquals(mockListener.getEventCount(), 1);
+    assertEquals(1, mockListener.getEventCount());
   }
 }
