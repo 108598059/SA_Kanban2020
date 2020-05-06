@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.UUID;
 
+import com.google.common.eventbus.Subscribe;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +15,7 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -22,6 +25,20 @@ public class CreateCardUseCaseTest {
   private CardRepository cardRepository;
   private Board board;
   private DomainEventBus eventBus;
+
+  private class MockCardCreatedEventListener {
+
+    private int count = 0;
+
+    @Subscribe
+    public void cardCreatedListener(CardCreatedEvent e) {
+      this.count += 1;
+    }
+
+    public int getEventCount() {
+      return this.count;
+    }
+  }
 
   @Before
   public void given_a_board() {
@@ -49,5 +66,21 @@ public class CreateCardUseCaseTest {
 
     Card card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
     assertEquals(this.board.get(0).getId().toString(), card.getColumnID().toString());
+  }
+
+  @Test
+  public void create_card_event_should_be_issued_when_a_card_being_created() {
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
+    CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+
+    createCardUseCaseInput.setCardName("Create Card");
+    createCardUseCaseInput.setBoardID(this.board.getId().toString());
+
+    MockCardCreatedEventListener mockListener = new MockCardCreatedEventListener();
+    this.eventBus.register(mockListener);
+
+    createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+    assertEquals(mockListener.getEventCount(), 1);
   }
 }

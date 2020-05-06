@@ -19,4 +19,10 @@ public class CardTest {
     assertNotNull(card.getId());
   }
 
+  @Test
+  public void cardCreatedEvent() {
+    Card card = new Card("create card");
+    assertEquals(1, card.getDomainEvents().size());
+  }
+
 }
