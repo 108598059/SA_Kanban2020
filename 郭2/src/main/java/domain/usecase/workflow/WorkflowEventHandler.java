@@ -4,6 +4,9 @@ import com.google.common.eventbus.Subscribe;
 import domain.model.aggregate.board.Board;
 import domain.model.aggregate.workflow.event.WorkflowCreated;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.workflow.commit.CommitWorkflowUseCase;
+import domain.usecase.workflow.commit.CommitWorkflowUseCaseInput;
+import domain.usecase.workflow.commit.CommitWorkflowUseCaseOutput;
 
 public class WorkflowEventHandler {
     private IBoardRepository boardRepository;
@@ -14,10 +17,13 @@ public class WorkflowEventHandler {
 
     @Subscribe
     public void commitWorkflowHandleEvent(WorkflowCreated workflowCreated){
+        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
+        CommitWorkflowUseCaseInput input = new CommitWorkflowUseCaseInput();
+        CommitWorkflowUseCaseOutput output = new CommitWorkflowUseCaseOutput();
 
-        Board board = boardRepository.getBoardById(workflowCreated.getBoardId());
-        board.addWorkflowId(workflowCreated.getWorkflowId());
+        input.setBoardId(workflowCreated.getBoardId());
+        input.setWorkflowId(workflowCreated.getWorkflowId());
 
-        boardRepository.save(board);
+        commitWorkflowUseCase.execute(input, output);
     }
 }

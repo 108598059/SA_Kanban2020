@@ -55,7 +55,7 @@ public class CreateTaskUseCaseTest {
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, boardRepository, eventBus);
+        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
         CreateWorkflowUseCaseInput workflowInput = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         workflowInput.setWorkflowName("KanbanDevelopment");
@@ -73,7 +73,7 @@ public class CreateTaskUseCaseTest {
         CreateCardUseCaseInput cardInput = new CreateCardUseCaseInput();
         cardOutput = new CreateCardUseCaseOutput();
         cardInput.setCardName("CreateCard");
-        cardInput.setStageId(stageOutput.getStageId());
+        cardInput.setLaneId(stageOutput.getStageId());
         cardInput.setWorkflowId(stageOutput.getWorkflowId());
         createCardUseCase.execute(cardInput, cardOutput);
     }

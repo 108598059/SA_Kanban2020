@@ -41,7 +41,7 @@ public class CreateWorkflowUseCaseTest {
     public void createWorkflowTest(){
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
-        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, boardRepository, eventBus);
+        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
         CreateWorkflowUseCaseInput input = new CreateWorkflowUseCaseInput();
         CreateWorkflowUseCaseOutput output = new CreateWorkflowUseCaseOutput();
 

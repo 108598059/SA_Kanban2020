@@ -2,7 +2,7 @@ package domain.model.aggregate.card.event;
 
 import domain.model.DomainEvent;
 
-public class CardCreated extends DomainEvent {
+public class CardCreated implements DomainEvent {
     private String workflowId;
     private String laneId;
     private String cardId;
@@ -23,5 +23,9 @@ public class CardCreated extends DomainEvent {
 
     public String getCardId() {
         return cardId;
+    }
+
+    public String detail() {
+        return "CardCreated " + "cardId = " + cardId;
     }
 }

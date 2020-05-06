@@ -2,8 +2,10 @@ package domain.usecase.card;
 
 import com.google.common.eventbus.Subscribe;
 import domain.model.aggregate.card.event.CardCreated;
-import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
+import domain.usecase.card.commit.CommitCardUseCase;
+import domain.usecase.card.commit.CommitCardUseCaseInput;
+import domain.usecase.card.commit.CommitCardUseCaseOutput;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 
@@ -16,13 +18,15 @@ public class CardEventHandler{
     }
 
     @Subscribe
-    public void commitCardHandleEvent(CardCreated cardCreated){
+    public void createCardHandleEvent(CardCreated cardCreated){
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
+        CommitCardUseCaseInput commitCardUseCaseInput = new CommitCardUseCaseInput();
+        CommitCardUseCaseOutput commitCardUseCaseOutput = new CommitCardUseCaseOutput();
 
-        Workflow workflow = workflowRepository.getWorkflowById(cardCreated.getWorkflowId());
-        Lane lane = workflow.getLaneById(cardCreated.getLaneId());
-        lane.addCardId(cardCreated.getCardId());
-        workflow.addCardInLane(cardCreated.getLaneId(), cardCreated.getCardId());
+        commitCardUseCaseInput.setCardId(cardCreated.getCardId());
+        commitCardUseCaseInput.setLaneId(cardCreated.getLaneId());
+        commitCardUseCaseInput.setWorkflowId(cardCreated.getWorkflowId());
 
-        workflowRepository.save(workflow);
+        commitCardUseCase.execute(commitCardUseCaseInput, commitCardUseCaseOutput);
     }
 }
