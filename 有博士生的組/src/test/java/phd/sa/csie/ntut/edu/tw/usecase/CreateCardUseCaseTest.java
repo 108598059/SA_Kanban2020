@@ -39,7 +39,7 @@ public class CreateCardUseCaseTest {
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
     createCardUseCaseInput.setCardName("Create Card");
-    createCardUseCaseInput.setBoardID(this.board.getUUID().toString());
+    createCardUseCaseInput.setBoardID(this.board.getId().toString());
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 

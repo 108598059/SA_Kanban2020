@@ -1,25 +1,34 @@
 package domain.usecase.workflow;
 
 import com.google.common.eventbus.Subscribe;
-import domain.entity.board.Board;
+import domain.controller.CommitWorkflowInputImpl;
+import domain.controller.CommitWorkflowOutputImpl;
 import domain.entity.workflow.event.WorkflowCreated;
 import domain.usecase.board.BoardRepository;
+import domain.usecase.board.commit.CommitWorkflowInput;
+import domain.usecase.board.commit.CommitWorkflowOutput;
+import domain.usecase.board.commit.CommitWorkflowUseCase;
 
 public class WorkflowEventHandler {
 
-    private BoardRepository boardRepository;
+        private BoardRepository boardRepository;
 
-    public WorkflowEventHandler(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
+        public WorkflowEventHandler(BoardRepository boardRepository) {
+            this.boardRepository = boardRepository;
+        }
 
-    @Subscribe
-    public void commitWorkflowHandleEvent(WorkflowCreated workflowCreated){
+        @Subscribe
+        public void commitWorkflowHandleEvent(WorkflowCreated workflowCreated){
 
-        Board board = boardRepository.getBoardById(workflowCreated.getBoardId());
+            CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInputImpl();
+            CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutputImpl();
+            CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
 
-        board.add(workflowCreated.getWorkflowId());
+            commitWorkflowInput.setBoardId(workflowCreated.getBoardId());
+            commitWorkflowInput.setWorkflowId(workflowCreated.getWorkflowId());
 
-        boardRepository.save(board);
-    }
+            commitWorkflowUseCase.execute(commitWorkflowInput,commitWorkflowOutput);
+
+        }
 }
+

@@ -7,6 +7,8 @@ import domain.controller.CreateBoardOutputImpl;
 import domain.controller.CreateWorkflowInputImpl;
 import domain.controller.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
+import domain.entity.board.Board;
+import domain.usecase.board.BoardDTO;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.create.CreateBoardInput;
 import domain.usecase.board.create.CreateBoardOutput;
@@ -54,7 +56,7 @@ public class CreateWorkFlowTest {
     }
 
     @Test
-    public void createWorkflow(){
+    public void Create_workflow_should_commit_workflow_in_its_board(){
         WorkflowRepository workflowRepository = new WorkflowRepositoryImpl();
 
 
@@ -68,9 +70,12 @@ public class CreateWorkFlowTest {
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
         assertNotNull(createWorkflowOutput.getWorkflowId());
-        assertEquals(1,boardRepository.getBoardById(boardId).getSize());
+
+
+        assertEquals(1,boardRepository.getBoardById(boardId).getWorkflows().size());
 
     }
+
 
 
 }

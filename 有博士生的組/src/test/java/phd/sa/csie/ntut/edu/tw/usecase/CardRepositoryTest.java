@@ -15,10 +15,10 @@ public class CardRepositoryTest {
     CardRepository cardRepository = new MemoryCardRepository();
     Card card = new Card("test card");
     cardRepository.add(card);
-    Card resultCard = cardRepository.findCardByUUID(card.getUUID());
+    Card resultCard = cardRepository.findCardByUUID(card.getId());
 
     assertEquals(card.getName(), resultCard.getName());
-    assertEquals(card.getUUID(), resultCard.getUUID());
+    assertEquals(card.getId(), resultCard.getId());
   }
 
 }

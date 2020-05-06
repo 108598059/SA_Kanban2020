@@ -3,7 +3,9 @@ package domain.usecase.card.create;
 public class CreateCardUseCaseInput {
     private String cardName;
     private String workflowId;
-    private String stageId;
+    private String laneId;
+    private String cardContent;
+    private String cardType;
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
@@ -21,11 +23,27 @@ public class CreateCardUseCaseInput {
         return workflowId;
     }
 
-    public String getStageId() {
-        return stageId;
+    public void setLaneId(String laneId) {
+        this.laneId = laneId;
     }
 
-    public void setStageId(String stageId) {
-        this.stageId = stageId;
+    public String getLaneId() {
+        return laneId;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardContent(String cardContent) {
+        this.cardContent = cardContent;
+    }
+
+    public String getCardContent() {
+        return cardContent;
     }
 }

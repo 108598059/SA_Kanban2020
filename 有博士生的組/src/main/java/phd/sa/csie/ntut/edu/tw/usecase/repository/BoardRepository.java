@@ -8,6 +8,6 @@ public interface BoardRepository {
 
   public void add(Board board);
 
-  public Board findBoardByUUID(UUID uuid);
+  public Board findBoardById(UUID uuid);
 
 }

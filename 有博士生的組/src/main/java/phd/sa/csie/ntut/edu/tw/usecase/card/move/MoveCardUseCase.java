@@ -17,7 +17,7 @@ public class MoveCardUseCase {
   }
 
   public void execute(MoveCardUseCaseInput moveCardUseCaseInput, MoveCardUseCaseOutput moveCardUseCaseOutput) {
-    Board board = boardRepository.findBoardByUUID(moveCardUseCaseInput.getBoardId());
+    Board board = boardRepository.findBoardById(moveCardUseCaseInput.getBoardId());
     UUID cardId = moveCardUseCaseInput.getCardId();
     UUID fromColumnId = moveCardUseCaseInput.getFromColumnId();
     UUID toColumnId = moveCardUseCaseInput.getToColumnId();

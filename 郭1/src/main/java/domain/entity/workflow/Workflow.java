@@ -78,13 +78,14 @@ public class Workflow extends Aggregate {
         return this.stages;
     }
 
-    public Boolean isCardExist(String cardId) {
+
+    public String getCard(String cardId) {
         for (Stage stage: stages.values()){
             for (Swimlane swimlane: stage.getSwimlaneMap().values()){
                 if(swimlane.isCardExist(cardId))
-                    return true;
+                    return cardId;
             }
         }
-        return false;
+        return "";
     }
 }

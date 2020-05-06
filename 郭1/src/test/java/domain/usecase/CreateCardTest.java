@@ -36,7 +36,6 @@ public class CreateCardTest {
     private String swimlaneId;
 
 
-    private BoardRepository boardRepository;
     private WorkflowRepository workflowRepository;
     private DomainEventBus eventBus;
 
@@ -83,23 +82,23 @@ public class CreateCardTest {
     }
 
     @Test
-    public void CreateCard() {
+    public void Create_Card_should_commit_its_workflow() {
 
         CardRepository cardRepository = new CardRepositoryImpl();
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository,eventBus);
-        CreateCardInput CreateCardInput = new CreateCardInputImpl();
-        CreateCardOutput CreateCardOutput = new CreateCardOutputImpl();
+        CreateCardInput createCardInput = new CreateCardInputImpl();
+        CreateCardOutput createCardOutput = new CreateCardOutputImpl();
 
 
-        CreateCardInput.setCardName( "card1" ) ;
-        CreateCardInput.setWorkflowId(workflowId);
-        CreateCardInput.setStageId(stageId);
-        CreateCardInput.setSwimlaneId(swimlaneId);
+        createCardInput.setCardName( "card1" ) ;
+        createCardInput.setWorkflowId(workflowId);
+        createCardInput.setStageId(stageId);
+        createCardInput.setSwimlaneId(swimlaneId);
 
-        createCardUseCase.execute( CreateCardInput, CreateCardOutput ) ;
+        createCardUseCase.execute( createCardInput, createCardOutput ) ;
 
-        assertNotNull(CreateCardOutput.getCardId());
-        assertEquals(true, workflowRepository.getWorkFlowById(workflowId).isCardExist(CreateCardOutput.getCardId()));
+        assertNotNull(createCardOutput.getCardId());
+        assertEquals(createCardOutput.getCardId(), workflowRepository.getWorkFlowById(workflowId).getCard(createCardOutput.getCardId()));
 
     }
 }

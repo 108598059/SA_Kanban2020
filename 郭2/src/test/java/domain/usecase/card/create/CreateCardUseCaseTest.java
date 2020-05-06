@@ -5,6 +5,7 @@ import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.card.Card;
+import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
@@ -14,6 +15,7 @@ import domain.usecase.card.repository.ICardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
+import domain.usecase.workflow.WorkflowEventHandler;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -46,13 +48,16 @@ public class CreateCardUseCaseTest {
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
+        eventBus.register(new WorkflowEventHandler(boardRepository));
+
         workflowRepository = new MySqlWorkflowRepository();
-        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, boardRepository, eventBus);
+        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
         CreateWorkflowUseCaseInput workflowInput = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         workflowInput.setWorkflowName("KanbanDevelopment");
         workflowInput.setBoardId(createBoardUseCaseOutput.getBoardId());
         createWorkflowUseCase.execute(workflowInput, workflowOutput);
+
 
         createStageUseCase = new CreateStageUseCase(workflowRepository);
         stageOutput = new CreateStageUseCaseOutput();
@@ -71,12 +76,16 @@ public class CreateCardUseCaseTest {
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
         createCardUseCaseInput.setCardName("CreateCard");
-        createCardUseCaseInput.setStageId(stageOutput.getStageId());
+        createCardUseCaseInput.setCardContent("implement card class");
+        createCardUseCaseInput.setCardType("People Development");
+        createCardUseCaseInput.setLaneId(stageOutput.getStageId());
         createCardUseCaseInput.setWorkflowId(stageOutput.getWorkflowId());
 
         createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
         assertEquals("CreateCard",createCardUseCaseOutput.getCardName());
+        assertEquals("implement card class", createCardUseCaseOutput.getCardContent());
+        assertEquals("People Development", createCardUseCaseOutput.getCardType());
         assertNotNull(createCardUseCaseOutput.getCardId());
 
         Card card = cardRepository.getCardById(createCardUseCaseOutput.getCardId());
@@ -84,5 +93,4 @@ public class CreateCardUseCaseTest {
         assertEquals(createCardUseCaseOutput.getCardId(), card.getCardId());
         assertEquals(createCardUseCaseOutput.getCardName(), card.getCardName());
     }
-
 }

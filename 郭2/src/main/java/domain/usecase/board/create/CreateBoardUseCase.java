@@ -1,7 +1,9 @@
 package domain.usecase.board.create;
 
 import domain.model.aggregate.board.Board;
+import domain.usecase.BoardDTO;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.entity.BoardEntity;
 
 public class CreateBoardUseCase {
     private IBoardRepository boardRepository;
@@ -13,8 +15,12 @@ public class CreateBoardUseCase {
 
     public void execute(CreateBoardUseCaseInput input, CreateBoardUseCaseOutput output) {
         board = new Board(input.getBoardName());
-        boardRepository.add(board);
-        output.setBoardId(board.getBoardId());
-        output.setBoardName(board.getBoardName());
+
+        BoardEntity boardEntity =BoardDTO.BoardToBoardEntity(board);
+
+        boardRepository.add(boardEntity);
+
+        output.setBoardId(boardEntity.getBoardId());
+        output.setBoardName(boardEntity.getBoardName());
     }
 }

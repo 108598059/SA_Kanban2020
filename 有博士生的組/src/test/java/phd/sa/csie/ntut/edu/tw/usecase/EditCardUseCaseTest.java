@@ -45,11 +45,11 @@ public class EditCardUseCaseTest {
     EditCardUseCaseInput editCardUseCaseInput = new EditCardUseCaseInput();
     EditCardUseCaseOutput editCardUseCaseOutput = new EditCardUseCaseOutput();
     
-    editCardUseCaseInput.setCardId(card.getUUID());
+    editCardUseCaseInput.setCardId(card.getId());
     editCardUseCaseInput.setCardName("New Name");
     editCardUseCase.execute(editCardUseCaseInput, editCardUseCaseOutput);
    
-    assertEquals(card.getUUID().toString(), editCardUseCaseOutput.getCardId());
+    assertEquals(card.getId().toString(), editCardUseCaseOutput.getCardId());
     assertEquals("New Name", editCardUseCaseOutput.getCardName());
   }
 

@@ -1,5 +1,6 @@
 package domain.model;
 
 
-public class DomainEvent {
+public interface DomainEvent {
+    String detail();
 }

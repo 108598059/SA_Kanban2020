@@ -39,7 +39,7 @@ public class CreateStageUseCaseTest {
 
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
-        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, boardRepository, eventBus);
+        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
         CreateWorkflowUseCaseInput input = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         input.setWorkflowName("KanbanDevelopment");

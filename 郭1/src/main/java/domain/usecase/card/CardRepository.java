@@ -5,5 +5,5 @@ import domain.entity.card.Card;
 public interface CardRepository {
     void save(Card card);
     void add(Card card);
-    Card get(String id);
+    Card getCardById(String id);
 }

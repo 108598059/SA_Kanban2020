@@ -18,9 +18,10 @@ public class Column {
   }
 
   public Column(Column col) {
+    // TODO Not sure whether this is the correct way of copying an object.
     this.id = col.id;
     this.title = col.title;
-    this.wip = wip;
+    this.wip = col.wip;
     this.cardIds = new ArrayList<UUID>();
     for (UUID cardID : col.cardIds) {
       this.cardIds.add(cardID);
@@ -44,7 +45,11 @@ public class Column {
   }
 
   public void addCard(UUID uuid) {
-    cardIds.add(uuid);
+    if (this.wip != 0 && cardIds.size() == this.wip) {
+      throw new IllegalStateException("The card cannot be moved to the column that has achieved its WIP limit.");
+    } else {
+      cardIds.add(uuid);
+    }
   }
 
   public void removeCard(UUID uuid) {

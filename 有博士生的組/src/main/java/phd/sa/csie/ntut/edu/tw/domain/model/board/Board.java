@@ -30,7 +30,7 @@ public class Board extends AggregateRoot {
   @Subscribe
   public void commit(CardCreatedEvent e) {
     Card card = e.getEntity();
-    this.startColumn.addCard(card.getUUID());
+    this.startColumn.addCard(card.getId());
     card.setColumnID(this.startColumn.getId());
   }
 
@@ -47,7 +47,7 @@ public class Board extends AggregateRoot {
     return Collections.unmodifiableList(this.columns).get(n - 1);
   }
 
-  public UUID getUUID() {
+  public UUID getId() {
     return this.Id;
   }
 
@@ -68,7 +68,7 @@ public class Board extends AggregateRoot {
 
   public void setColumnWIP(UUID columnId, int wip) {
     if (wip < 0) {
-      throw new IllegalArgumentException("WIP should not be negative");
+      throw new IllegalArgumentException("Column WIP should be positive.");
     }
     Column column = this.getColumnById(columnId);
     column.setWIP(wip);

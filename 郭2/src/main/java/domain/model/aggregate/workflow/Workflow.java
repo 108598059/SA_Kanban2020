@@ -13,16 +13,6 @@ public class Workflow extends AggregateRoot {
     private String workflowId;
     private String workflowName;
     private List<Lane> laneList;
-//    private List<Swimlane> swimlaneList;
-
-    public Lane getLaneById(String laneId) {
-        for (Lane each : laneList) {
-            if (each.getLaneId().equalsIgnoreCase(laneId)) {
-                return each;
-            }
-        }
-        throw new RuntimeException("Stage is not found,id=" + laneId);
-    }
 
     public Workflow(String workflowName, String boardId) {
         laneList = new ArrayList<Lane>();
@@ -72,10 +62,6 @@ public class Workflow extends AggregateRoot {
         return swimlane;
     }
 
-//    public void addLane(Lane lane) {
-//        laneList.add(lane);
-//    }
-
     public Lane createStage(String stageName) {
         Lane stage = new Stage(stageName, workflowId);
         laneList.add(stage);
@@ -83,7 +69,18 @@ public class Workflow extends AggregateRoot {
     }
 
     public void addCardInLane(String laneId, String cardId) {
-        Lane stage = getLaneById(laneId);
-        stage.addCardId(cardId);
+        Lane toLane = getLaneById(laneId);
+        if (null == toLane)
+            throw new RuntimeException("Cannot commit a card to a non-existing land '" + laneId + "'");
+        toLane.addCardId(cardId);
+    }
+
+   public Lane getLaneById(String laneId) {
+        for (Lane each : laneList) {
+            if (each.getLaneId().equalsIgnoreCase(laneId)) {
+                return each;
+            }
+        }
+        throw new RuntimeException("Stage is not found,id=" + laneId);
     }
 }

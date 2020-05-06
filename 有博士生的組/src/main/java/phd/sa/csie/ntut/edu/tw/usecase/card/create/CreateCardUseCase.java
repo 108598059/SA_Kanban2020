@@ -21,7 +21,7 @@ public class CreateCardUseCase {
 
     this.eventBus.postAll(card);
     createCardOutput.setCardName(card.getName());
-    createCardOutput.setCardId(card.getUUID());
+    createCardOutput.setCardId(card.getId());
   }
 
 }
