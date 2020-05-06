@@ -11,6 +11,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.*;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class CreateBoardUseCaseTest {
@@ -18,7 +19,20 @@ public class CreateBoardUseCaseTest {
 
   @Before
   public void setUp() {
-    boardRepository = new MemoryBoardRepository();
+    boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
+  }
+
+  @Test
+  public void board_created() {
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+    CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
+    CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+
+    createBoardUseCaseInput.setTitle("Software Architecture");
+    createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+
+    assertNotNull(createBoardUseCaseOutput.getBoardId());
+    assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardTitle());
   }
 
   @Test
@@ -28,12 +42,9 @@ public class CreateBoardUseCaseTest {
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
     createBoardUseCaseInput.setTitle("Software Architecture");
-
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-    assertNotNull(createBoardUseCaseOutput.getBoardId());
-    assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardTitle());
-    Board board = boardRepository.findBoardByUUID(UUID.fromString(createBoardUseCaseOutput.getBoardId()));
+    Board board = boardRepository.findBoardById(UUID.fromString(createBoardUseCaseOutput.getBoardId()));
 
     assertEquals(2, board.getNumberOfColumns());
     assertEquals("Backlog", board.get(0).getTitle());

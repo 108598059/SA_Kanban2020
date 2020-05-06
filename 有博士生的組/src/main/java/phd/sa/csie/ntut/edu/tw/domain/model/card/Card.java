@@ -25,7 +25,7 @@ public class Card extends AggregateRoot {
     return this.name;
   }
 
-  public UUID getUUID() {
+  public UUID getId() {
     return this.uuid;
   }
 

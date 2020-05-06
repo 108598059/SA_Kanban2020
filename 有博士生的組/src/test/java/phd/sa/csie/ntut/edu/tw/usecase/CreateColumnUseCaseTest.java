@@ -2,6 +2,7 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -21,9 +22,9 @@ public class CreateColumnUseCaseTest {
 
   @Before
   public void given_a_board() {
-    boardRepository = new MemoryBoardRepository();
+    boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
     Board board = new Board("phd");
-    boardUUID = board.getUUID();
+    boardUUID = board.getId();
     boardRepository.add(board);
   }
 

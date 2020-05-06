@@ -16,7 +16,7 @@ public class MemoryCardRepository implements CardRepository {
   }
 
   public void add(Card card) {
-    this.map.put(card.getUUID(), card);
+    this.map.put(card.getId(), card);
   }
 
   public Card findCardByUUID(UUID uuid) {

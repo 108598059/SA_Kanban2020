@@ -16,11 +16,16 @@ public class CreateCardUseCase {
 
     public void execute(CreateCardUseCaseInput createCardUseCaseInput, CreateCardUseCaseOutput createCardUseCaseOutput) {
         Card card = new Card(createCardUseCaseInput.getCardName(), createCardUseCaseInput.getWorkflowId(), createCardUseCaseInput.getLaneId());
+        card.setCardContent(createCardUseCaseInput.getCardContent());
+        card.setCardType(createCardUseCaseInput.getCardType());
+
         cardRepository.add(card);
 
         eventBus.postAll(card);
 
         createCardUseCaseOutput.setCardName(card.getCardName());
         createCardUseCaseOutput.setCardId(card.getCardId());
+        createCardUseCaseOutput.setCardContent(card.getCardContent());
+        createCardUseCaseOutput.setCardType(card.getCardType());
     }
 }

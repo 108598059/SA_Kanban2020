@@ -14,7 +14,7 @@ public class MysqlCardRepository implements CardRepository {
     try {
       Connection connection = DB_connector.getConnection();
       PreparedStatement stmt = connection.prepareStatement("INSERT INTO Card VALUES(?, ?, ?)");
-      stmt.setString(1, card.getUUID().toString());
+      stmt.setString(1, card.getId().toString());
       stmt.setString(2, card.getName());
       stmt.setString(3, null);
 

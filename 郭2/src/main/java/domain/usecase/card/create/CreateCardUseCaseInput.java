@@ -4,6 +4,8 @@ public class CreateCardUseCaseInput {
     private String cardName;
     private String workflowId;
     private String laneId;
+    private String cardContent;
+    private String cardType;
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
@@ -27,5 +29,21 @@ public class CreateCardUseCaseInput {
 
     public String getLaneId() {
         return laneId;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardContent(String cardContent) {
+        this.cardContent = cardContent;
+    }
+
+    public String getCardContent() {
+        return cardContent;
     }
 }

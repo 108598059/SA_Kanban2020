@@ -30,7 +30,7 @@ public class Board extends AggregateRoot {
   @Subscribe
   public void commit(CardCreatedEvent e) {
     Card card = e.getEntity();
-    this.startColumn.addCard(card.getUUID());
+    this.startColumn.addCard(card.getId());
     card.setColumnID(this.startColumn.getId());
   }
 
@@ -47,7 +47,7 @@ public class Board extends AggregateRoot {
     return Collections.unmodifiableList(this.columns).get(n - 1);
   }
 
-  public UUID getUUID() {
+  public UUID getId() {
     return this.Id;
   }
 
