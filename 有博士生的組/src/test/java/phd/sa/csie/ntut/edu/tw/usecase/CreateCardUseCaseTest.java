@@ -16,13 +16,16 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class CreateCardUseCaseTest {
+
   private CardRepository cardRepository;
+  private CardCreatedEventHandler cardCreatedEventHandler;
   private Board board;
   private DomainEventBus eventBus;
 
@@ -43,14 +46,14 @@ public class CreateCardUseCaseTest {
   @Before
   public void given_a_board() {
     this.cardRepository = new MemoryCardRepository();
-
     this.board = new Board("Kanban");
     this.eventBus = new DomainEventBus();
-    this.eventBus.register(this.board);
   }
 
   @Test
   public void creating_a_new_card_should_commit_the_card_to_the_backlog_column() {
+    this.eventBus.register(this.board);
+
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
@@ -63,6 +66,24 @@ public class CreateCardUseCaseTest {
     assertEquals("Create Card", createCardUseCaseOutput.getCardName());
     assertNotEquals("", createCardUseCaseOutput.getCardId());
     assertNotNull(createCardUseCaseOutput.getCardId());
+
+    Card card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
+    assertEquals(this.board.get(0).getId().toString(), card.getColumnID().toString());
+  }
+
+  @Test
+  public void committed_card_change_should_be_save_to_the_board_repository() {
+    this.cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository);
+    this.eventBus.register(this.board);
+    this.eventBus.register(cardCreatedEventHandler);
+    
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
+    CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+
+    createCardUseCaseInput.setCardName("Create Card");
+    createCardUseCaseInput.setBoardID(this.board.getId().toString());
+    createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     Card card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
     assertEquals(this.board.get(0).getId().toString(), card.getColumnID().toString());

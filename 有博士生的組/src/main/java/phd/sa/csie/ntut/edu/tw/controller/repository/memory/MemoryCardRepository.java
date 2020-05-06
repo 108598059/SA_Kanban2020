@@ -23,4 +23,10 @@ public class MemoryCardRepository implements CardRepository {
     return this.map.get(uuid);
   }
 
+  @Override
+  public void save(Card card) {
+    this.map.remove(card.getId());
+    this.map.put(card.getId(), card);
+  }
+
 }

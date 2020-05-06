@@ -10,4 +10,6 @@ public interface CardRepository {
 
   public Card findCardByUUID(UUID uuid);
 
+  public void save(Card card);
+
 }
