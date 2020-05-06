@@ -66,6 +66,7 @@ public class MoveCardUseCaseTest {
     createCardUseCaseInput.setCardName("test card");
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
+    this.eventBus.register(card);
 
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
@@ -131,7 +132,7 @@ public class MoveCardUseCaseTest {
     List<DomainEvent> eventList = repo.getAll();
     assertEquals("Leaved column event: " + fromColumnId, eventList.get(0).getSourceName());
     assertEquals("Entered column event: " + toColumnId, eventList.get(1).getSourceName());
-    // TODO register event bus to assert
+    assertEquals(toColumnId, this.card.getColumnID().toString());
   }
 
   @Ignore

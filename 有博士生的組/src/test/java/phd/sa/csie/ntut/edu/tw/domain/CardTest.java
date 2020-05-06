@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 
 public class CardTest {
 
@@ -22,7 +23,9 @@ public class CardTest {
   @Test
   public void cardCreatedEvent() {
     Card card = new Card("create card");
+    
     assertEquals(1, card.getDomainEvents().size());
+    assertEquals(CardCreatedEvent.class, card.getDomainEvents().get(0).getClass());
   }
 
 }

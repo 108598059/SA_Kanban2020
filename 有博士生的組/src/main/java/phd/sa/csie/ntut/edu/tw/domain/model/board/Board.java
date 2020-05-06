@@ -80,7 +80,7 @@ public class Board extends AggregateRoot {
     from.removeCard(cardId);
     this.addDomainEvent(new ColumnLeavedEvent(UUID.randomUUID().toString(), fromColumnId.toString()));
     to.addCard(cardId);
-    this.addDomainEvent(new ColumnEnteredEvent(UUID.randomUUID().toString(), toColumnId.toString()));
+    this.addDomainEvent(new ColumnEnteredEvent(UUID.randomUUID().toString(), toColumnId));
     return to.getId().toString();
   }
 
