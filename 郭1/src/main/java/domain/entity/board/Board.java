@@ -17,6 +17,12 @@ public class Board extends Aggregate {
         this.id = UUID.randomUUID().toString();
     }
 
+    public Board(String id, String name, List<String> workflows) {
+        this.id = id;
+        this.name = name;
+        this.workflows = workflows;
+    }
+
     public void add(String workflowId){
         workflows.add(workflowId);
     }
@@ -40,7 +46,11 @@ public class Board extends Aggregate {
         return false;
     }
 
-    public int getSize() {
+    public List<String> getWorkflows() {
+        return workflows;
+    }
+
+    public int getNumberOfWorkflow() {
         return workflows.size();
     }
 }
