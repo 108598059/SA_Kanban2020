@@ -44,7 +44,11 @@ public class Column {
   }
 
   public void addCard(UUID uuid) {
+    if (this.wip != 0 && cardIds.size() == this.wip) {
+      throw new IllegalStateException("The card cannot be moved to the column that has achieved its WIP limit.");
+    } else {
     cardIds.add(uuid);
+  }
   }
 
   public void removeCard(UUID uuid) {
