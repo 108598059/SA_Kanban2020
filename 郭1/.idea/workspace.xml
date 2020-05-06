@@ -105,7 +105,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.domain.unit_test in 郭1">
+  <component name="RunManager" selected="JUnit.domain.usecase in 郭1">
     <configuration name="CommitWorkflowTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
       <extension name="coverage">
@@ -181,8 +181,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.domain.unit_test in 郭1" />
         <item itemvalue="JUnit.domain.usecase in 郭1" />
+        <item itemvalue="JUnit.domain.unit_test in 郭1" />
         <item itemvalue="JUnit.CommitWorkflowTest" />
         <item itemvalue="JUnit.CreateWorkFlowTest" />
         <item itemvalue="JUnit.CreateBoardTest" />
@@ -214,6 +214,7 @@
       <workItem from="1588645568423" duration="4883000" />
       <workItem from="1588650475593" duration="97000" />
       <workItem from="1588738307798" duration="10734000" />
+      <workItem from="1588756724346" duration="80000" />
     </task>
     <servers />
   </component>

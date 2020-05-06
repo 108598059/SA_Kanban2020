@@ -14,11 +14,14 @@ public class DomainEventBus extends EventBus {
     }
 
     public void postAll(Aggregate aggregate){
+
         List<DomainEvent> domainEvents = aggregate.getEvents();
+
         for (DomainEvent event: domainEvents){
-            System.out.println();
             post(event);
         }
+
+        aggregate.clearEvents();
     }
 
 }
