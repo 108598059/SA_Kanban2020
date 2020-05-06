@@ -18,9 +18,10 @@ public class Column {
   }
 
   public Column(Column col) {
+    // TODO Not sure whether this is the correct way of copying an object.
     this.id = col.id;
     this.title = col.title;
-    this.wip = wip;
+    this.wip = col.wip;
     this.cardIds = new ArrayList<UUID>();
     for (UUID cardID : col.cardIds) {
       this.cardIds.add(cardID);

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,12 +51,12 @@ public class MoveCardUseCaseTest {
   public void given_a_board_and_two_columns_and_a_card() {
     this.eventBus = new DomainEventBus();
     cardRepository = new MemoryCardRepository();
-    boardRepository = new MemoryBoardRepository();
+    boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
     createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
     createColumnUseCase = new CreateColumnUseCase(boardRepository);
 
     Board board = new Board("phd");
-    boardId = board.getUUID();
+    boardId = board.getId();
     boardRepository.add(board);
     this.eventBus.register(board);
 
@@ -79,7 +80,7 @@ public class MoveCardUseCaseTest {
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardId(board.getUUID());
+    setColumnWIPUseCaseInput.setBoardId(board.getId());
     setColumnWIPUseCaseInput.setColumnId(UUID.fromString(toColumnId));
     setColumnWIPUseCaseInput.setColumnWIP(1);
 
@@ -93,18 +94,18 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
     moveCardUseCaseInput.setBoardId(boardId);
-    moveCardUseCaseInput.setCardId(card.getUUID());
+    moveCardUseCaseInput.setCardId(card.getId());
     moveCardUseCaseInput.setFromColumnId(UUID.fromString(fromColumnId));
     moveCardUseCaseInput.setToColumnId(UUID.fromString(toColumnId));
 
     moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
-    assertEquals(card.getUUID().toString(), moveCardUseCaseOutput.getCardId());
+    assertEquals(card.getId().toString(), moveCardUseCaseOutput.getCardId());
     assertEquals(fromColumnId, moveCardUseCaseOutput.getOldColumnId());
     assertEquals(toColumnId, moveCardUseCaseOutput.getNewColumnId());
 
-    Board board = boardRepository.findBoardByUUID(boardId);
-    assertTrue(board.findColumnById(UUID.fromString(toColumnId)).cardExist(card.getUUID()));
+    Board board = boardRepository.findBoardById(boardId);
+    assertTrue(board.findColumnById(UUID.fromString(toColumnId)).cardExist(card.getId()));
   }
 
   @Test
@@ -117,7 +118,7 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
     moveCardUseCaseInput.setBoardId(boardId);
-    moveCardUseCaseInput.setCardId(card.getUUID());
+    moveCardUseCaseInput.setCardId(card.getId());
     moveCardUseCaseInput.setFromColumnId(UUID.fromString(fromColumnId));
     moveCardUseCaseInput.setToColumnId(UUID.fromString(toColumnId));
 
@@ -151,7 +152,7 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
     moveCardUseCaseInput.setBoardId(boardId);
-    moveCardUseCaseInput.setCardId(card.getUUID());
+    moveCardUseCaseInput.setCardId(card.getId());
     moveCardUseCaseInput.setFromColumnId(UUID.fromString(fromColumnId));
     moveCardUseCaseInput.setToColumnId(UUID.fromString(toColumnId));
 
@@ -162,7 +163,7 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseOutput moveCardUseCaseOutput2 = new MoveCardUseCaseOutput();
 
     moveCardUseCaseInput2.setBoardId(boardId);
-    moveCardUseCaseInput2.setCardId(card.getUUID());
+    moveCardUseCaseInput2.setCardId(card.getId());
     moveCardUseCaseInput2.setFromColumnId(UUID.fromString(fromColumnId));
     moveCardUseCaseInput2.setToColumnId(UUID.fromString(toColumnId));
 

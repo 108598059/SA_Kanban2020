@@ -16,7 +16,7 @@ public class CreateBoardUseCase {
     Board board = new Board(title);
     boardRepository.add(board);
 
-    output.setBoardId(board.getUUID().toString());
+    output.setBoardId(board.getId().toString());
     output.setBoardTitle(board.getName());
   }
 }

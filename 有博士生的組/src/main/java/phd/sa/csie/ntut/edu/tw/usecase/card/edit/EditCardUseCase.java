@@ -21,7 +21,7 @@ public class EditCardUseCase {
     card.setName(cardName);
 
     cardRepository.add(card);
-    output.setCardId(card.getUUID().toString());
+    output.setCardId(card.getId().toString());
     output.setCardName(card.getName());
   }
 

@@ -18,7 +18,7 @@ public class SetColumnWIPUseCase {
     UUID columnId = input.getColumnId();
     int wip = input.getColumnWIP();
 
-    Board board = boardRepository.findBoardByUUID(boardId);
+    Board board = boardRepository.findBoardById(boardId);
     board.setColumnWIP(columnId, wip);
 
     boardRepository.add(board);
