@@ -21,8 +21,8 @@ public class CreateWorkflowUseCase {
 
 
         newWorkflow.setName(createWorkflowInput.getWorkflowName());
-        workflowRepository.add(newWorkflow);
 
+        workflowRepository.add(newWorkflow);
         eventBus.postAll(newWorkflow);
 
         createWorkflowOutput.setWorkFlowId(newWorkflow.getId());

@@ -1,10 +1,10 @@
 package domain.usecase.board;
 
-import domain.entity.board.Board;
+
 
 public interface BoardRepository {
 
-    Board getBoardById(String id);
-    void add(Board board);
-    void save(Board board);
+    BoardDTO getBoardById(String id);
+    void add(BoardDTO boardDTO);
+    void save(BoardDTO boardDTO);
 }

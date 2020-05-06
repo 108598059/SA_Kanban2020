@@ -2,18 +2,15 @@ package domain.usecase;
 
 import domain.adapter.BoardRepositoryImpl;
 import domain.adapter.WorkflowRepositoryImpl;
-import domain.controller.CreateBoardInputImpl;
-import domain.controller.CreateBoardOutputImpl;
-import domain.controller.CreateWorkflowInputImpl;
-import domain.controller.CreateWorkflowOutputImpl;
+import domain.controller.*;
 import domain.entity.DomainEventBus;
-import domain.entity.board.Board;
-import domain.usecase.board.BoardDTO;
 import domain.usecase.board.BoardRepository;
+import domain.usecase.board.commit.CommitWorkflowInput;
+import domain.usecase.board.commit.CommitWorkflowOutput;
+import domain.usecase.board.commit.CommitWorkflowUseCase;
 import domain.usecase.board.create.CreateBoardInput;
 import domain.usecase.board.create.CreateBoardOutput;
 import domain.usecase.board.create.CreateBoardUseCase;
-import domain.usecase.workflow.WorkflowEventHandler;
 import domain.usecase.workflow.WorkflowRepository;
 import domain.usecase.workflow.create.CreateWorkflowInput;
 import domain.usecase.workflow.create.CreateWorkflowOutput;
@@ -22,13 +19,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-public class CreateWorkFlowTest {
+public class CommitWorkflowTest {
 
     private String boardId;
     private BoardRepository boardRepository;
     private WorkflowRepository workflowRepository;
+    private String workflowId;
     private DomainEventBus eventBus;
 
     @Before
@@ -48,17 +45,8 @@ public class CreateWorkFlowTest {
 
         boardId = createBoardOutput.getBoardId();
 
-
         workflowRepository = new WorkflowRepositoryImpl();
-
         eventBus = new DomainEventBus();
-        eventBus.register(new WorkflowEventHandler(boardRepository));
-    }
-
-    @Test
-    public void Create_workflow_should_commit_workflow_in_its_board(){
-        WorkflowRepository workflowRepository = new WorkflowRepositoryImpl();
-
 
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository,eventBus);
         CreateWorkflowInput createWorkflowInput = new CreateWorkflowInputImpl();
@@ -69,13 +57,24 @@ public class CreateWorkFlowTest {
 
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
-        assertNotNull(createWorkflowOutput.getWorkflowId());
-
-
-        assertEquals(1,boardRepository.getBoardById(boardId).getWorkflows().size());
+        workflowId = createWorkflowOutput.getWorkflowId();
 
     }
 
+    @Test
+    public void CommitWorkflowTest(){
 
 
+        CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInputImpl();
+        CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutputImpl();
+        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
+
+        commitWorkflowInput.setBoardId(boardId);
+        commitWorkflowInput.setWorkflowId(workflowId);
+
+        commitWorkflowUseCase.execute(commitWorkflowInput,commitWorkflowOutput);
+
+        assertEquals(1,commitWorkflowOutput.getNumberOfWorkflow());
+
+    }
 }

@@ -1,7 +1,7 @@
 package domain.adapter;
 
 import domain.entity.card.Card;
-import domain.entity.card.Task;
+import domain.entity.card.Subtask;
 import domain.usecase.card.CardRepository;
 
 import java.sql.Connection;
@@ -18,7 +18,7 @@ public class CardRepositoryImpl implements CardRepository {
         _cardRepository = new HashMap<String, Card>() ;
     }
 
-    public Card get(String id){
+    public Card getCardById(String id){
         String sql;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
@@ -51,10 +51,10 @@ public class CardRepositoryImpl implements CardRepository {
             resultSet = ps.executeQuery();
 
             while(resultSet.next()){
-                Task task = new Task();
-                task.setId(resultSet.getString("id"));
-                task.setName(resultSet.getString("name"));
-                card.addTask(task);
+                Subtask subtask = new Subtask();
+                subtask.setId(resultSet.getString("id"));
+                subtask.setName(resultSet.getString("name"));
+                card.addSubtask(subtask);
             }
 
         } catch (SQLException e) {
@@ -88,13 +88,13 @@ public class CardRepositoryImpl implements CardRepository {
         try {
             ps = conn.prepareStatement(sql);
 
-            for(Task task: card.getTaskMap().values())
+            for(Subtask subtask : card.getTaskMap().values())
             {
 
-                ps.setString(1, task.getId());
-                ps.setString(2, task.getName());
+                ps.setString(1, subtask.getId());
+                ps.setString(2, subtask.getName());
                 ps.setString(3, card.getId());
-                ps.setString(4, task.getName());
+                ps.setString(4, subtask.getName());
                 ps.setString(5, card.getId());
                 ps.executeUpdate();
             }

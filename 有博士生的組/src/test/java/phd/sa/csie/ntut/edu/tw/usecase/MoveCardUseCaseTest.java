@@ -17,13 +17,22 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.*;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.*;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.*;
-import phd.sa.csie.ntut.edu.tw.usecase.card.move.*;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
+
 
 public class MoveCardUseCaseTest {
 
@@ -69,7 +78,7 @@ public class MoveCardUseCaseTest {
     SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(boardRepository);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
-    
+
     setColumnWIPUseCaseInput.setBoardId(board.getUUID());
     setColumnWIPUseCaseInput.setColumnId(UUID.fromString(toColumnId));
     setColumnWIPUseCaseInput.setColumnWIP(1);
@@ -126,7 +135,7 @@ public class MoveCardUseCaseTest {
   @Test
   public void when_card_moved_to_done_caculate_lead_time() {
     throw new UnsupportedOperationException("not implemented yet");
-  } 
+  }
 
   @Test
   public void the_card_cannot_be_moved_to_the_column_that_has_achieved_its_WIP_limit() {
@@ -151,19 +160,18 @@ public class MoveCardUseCaseTest {
     MoveCardUseCase moveCardUseCase2 = new MoveCardUseCase(boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput2 = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput2 = new MoveCardUseCaseOutput();
-    
+
     moveCardUseCaseInput2.setBoardId(boardId);
     moveCardUseCaseInput2.setCardId(card.getUUID());
     moveCardUseCaseInput2.setFromColumnId(UUID.fromString(fromColumnId));
     moveCardUseCaseInput2.setToColumnId(UUID.fromString(toColumnId));
-    
+
     try {
       moveCardUseCase2.execute(moveCardUseCaseInput2, moveCardUseCaseOutput2);
       fail("The card cannot be moved to the column that has achieved its WIP limit.");
     } catch (IllegalStateException e) {
       assertEquals("The card cannot be moved to the column that has achieved its WIP limit.", e.getMessage());
     }
-
 
   }
 

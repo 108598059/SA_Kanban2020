@@ -103,8 +103,9 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
             resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                workflow.addCard(resultSet.getString("stageid"),resultSet.getString("swimlaneid"),resultSet.getString("cardid"));
-
+                workflow.addCard(resultSet.getString("stageid"),
+                        resultSet.getString("swimlaneid"),
+                        resultSet.getString("cardid"));
             }
 
         } catch (SQLException e) {
