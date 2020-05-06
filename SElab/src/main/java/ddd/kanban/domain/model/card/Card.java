@@ -11,11 +11,9 @@ import java.util.function.Predicate;
 
 public class Card extends AggregateRoot {
     private List<Task> tasks;
-    private final String id;
     private String boardId;
     private String workflowId;
     private String laneId;
-    private String title;
     private String description;
     private CardType cardType;
     private List<String> tags;
@@ -24,10 +22,8 @@ public class Card extends AggregateRoot {
     private Date plannedFinishDate;
     private int priority;
 
-    public Card(String id, String title, String boardId, String workflowId, String laneId)
-    {
-        this.id = id;
-        this.title = title;
+    public Card(final String id, String title, String boardId, String workflowId, String laneId) {
+        super(id, title);
         this.boardId = boardId;
         this.workflowId = workflowId;
         this.laneId = laneId;
@@ -35,9 +31,8 @@ public class Card extends AggregateRoot {
         addDomainEvent(new CardCreated(id, workflowId, laneId));
     }
 
-    public Card(String id, String title, String description, CardType cardType, List<String> tags, List<String>assignUsers, Date plannedStartDate, Date plannedFinishDate, int priority){
-        this.id = id;
-        this.title = title;
+    public Card(final String id, String title, String description, CardType cardType, List<String> tags, List<String> assignUsers, Date plannedStartDate, Date plannedFinishDate, int priority) {
+        super(id, title);
         this.description = description;
         this.cardType = cardType;
         this.tags = tags;
@@ -49,16 +44,13 @@ public class Card extends AggregateRoot {
         tasks = new ArrayList<Task>();
     }
 
-    public String createTask(Task task) {
-        String taskId = UUID.randomUUID().toString();
-        Task newTask = new Task(taskId, task.getTitle(), task.getDescription(), task.getTaskType(), task.getTags(), task.getAssignUsers(), task.getPlannedStartDate(), task.getPlannedFinishDate(), task.getHeader(), task.getPriority(), task.getExternalLink());
-
-        tasks.add(newTask);
-
-        return taskId;
+    public String createTask(String taskTitle, String cardId) {
+        Task task = new Task(UUID.randomUUID().toString(), taskTitle);
+        tasks.add(task);
+        return task.getId();
     }
 
-    public Task findTaskById(String taskId){
+    public Task findTaskById(String taskId) {
         return tasks.stream()
                 .filter(given(taskId))
                 .findFirst()
@@ -66,22 +58,12 @@ public class Card extends AggregateRoot {
 
     }
 
-    public static Predicate<Task> given(String id){
+    public static Predicate<Task> given(String id) {
         return task -> task.getId().equals(id);
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() { return description; }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {

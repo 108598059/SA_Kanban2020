@@ -5,23 +5,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class AggregateRoot {
+public abstract class AggregateRoot extends Entity {
 
     private List<DomainEvent> domainEvents;
 
-    public AggregateRoot() {
+    public AggregateRoot(final String id, String title) {
+        super(id, title);
         domainEvents = new ArrayList<>();
     }
 
-    public void addDomainEvent(DomainEvent event){
+    public void addDomainEvent(DomainEvent event) {
         domainEvents.add(event);
     }
 
-    public List<DomainEvent> getDomainEvents(){
+    public List<DomainEvent> getDomainEvents() {
         return Collections.unmodifiableList(domainEvents);
     }
 
-    public void clearDomainEvents(){
+    public void clearDomainEvents() {
         domainEvents.clear();
     }
 }

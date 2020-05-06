@@ -2,7 +2,11 @@ package phd.sa.csie.ntut.edu.tw.domain.model.card;
 
 import java.util.UUID;
 
+import com.google.common.eventbus.Subscribe;
+
 import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardLeaveColumnEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 
 public class Card extends AggregateRoot {
@@ -15,6 +19,16 @@ public class Card extends AggregateRoot {
     this.uuid = UUID.randomUUID();
 
     this.addDomainEvent(new CardCreatedEvent(this));
+  }
+
+  @Subscribe
+  public void entered(CardEnterColumnEvent e) {
+    this.columnID = e.getColumnId();
+  }
+
+  @Subscribe
+  public void leaved(CardLeaveColumnEvent e) {
+    
   }
 
   public void setName(String name) {

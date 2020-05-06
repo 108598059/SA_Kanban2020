@@ -2,8 +2,8 @@ package phd.sa.csie.ntut.edu.tw.domain.model.board;
 
 import com.google.common.eventbus.Subscribe;
 import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.ColumnEnteredEvent;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.ColumnLeavedEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardLeaveColumnEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 
@@ -78,9 +78,9 @@ public class Board extends AggregateRoot {
     Column from = this.getColumnById(fromColumnId);
     Column to = this.getColumnById(toColumnId);
     from.removeCard(cardId);
-    this.addDomainEvent(new ColumnLeavedEvent(UUID.randomUUID().toString(), fromColumnId.toString()));
+    this.addDomainEvent(new CardLeaveColumnEvent(UUID.randomUUID().toString(), fromColumnId.toString()));
     to.addCard(cardId);
-    this.addDomainEvent(new ColumnEnteredEvent(UUID.randomUUID().toString(), toColumnId.toString()));
+    this.addDomainEvent(new CardEnterColumnEvent(UUID.randomUUID().toString(), toColumnId));
     return to.getId().toString();
   }
 

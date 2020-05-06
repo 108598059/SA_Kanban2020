@@ -9,18 +9,9 @@ public class CreateTaskOutput {
 
     private String taskId;
     private String taskTitle;
-    private String taskDescription;
-    private CardType taskTaskType;
-    private List<String> taskTags;
-    private List<String> taskAssignUsers;
-    private Date taskPlannedStartDate;
-    private Date taskPlannedFinishDate;
-    private String taskHeader;
-    private int taskPriority;
-    private String taskExternalLink;
+    private String cardId;
 
-    public CreateTaskOutput(){
-
+    public CreateTaskOutput() {
     }
 
     public String getTaskId() {
@@ -39,76 +30,11 @@ public class CreateTaskOutput {
         this.taskTitle = taskTitle;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
+    public String getCardId() {
+        return cardId;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
-
-    public CardType getTaskTaskType() {
-        return taskTaskType;
-    }
-
-    public void setTaskTaskType(CardType taskTaskType) {
-        this.taskTaskType = taskTaskType;
-    }
-
-    public List<String> getTaskTags() {
-        return taskTags;
-    }
-
-    public void setTaskTags(List<String> taskTags) {
-        this.taskTags = taskTags;
-    }
-
-    public List<String> getTaskAssignUsers() {
-        return taskAssignUsers;
-    }
-
-    public void setTaskAssignUsers(List<String> taskAssignUsers) {
-        this.taskAssignUsers = taskAssignUsers;
-    }
-
-    public Date getTaskPlannedStartDate() {
-        return taskPlannedStartDate;
-    }
-
-    public void setTaskPlannedStartDate(Date taskPlannedStartDate) {
-        this.taskPlannedStartDate = taskPlannedStartDate;
-    }
-
-    public Date getTaskPlannedFinishDate() {
-        return taskPlannedFinishDate;
-    }
-
-    public void setTaskPlannedFinishDate(Date taskPlannedFinishDate) {
-        this.taskPlannedFinishDate = taskPlannedFinishDate;
-    }
-
-    public String getTaskHeader() {
-        return taskHeader;
-    }
-
-    public void setTaskHeader(String taskHeader) {
-        this.taskHeader = taskHeader;
-    }
-
-    public int getTaskPriority() {
-        return taskPriority;
-    }
-
-    public void setTaskPriority(int taskPriority) {
-        this.taskPriority = taskPriority;
-    }
-
-    public String getTaskExternalLink() {
-        return taskExternalLink;
-    }
-
-    public void setTaskExternalLink(String taskExternalLink) {
-        this.taskExternalLink = taskExternalLink;
-    }
-
 }

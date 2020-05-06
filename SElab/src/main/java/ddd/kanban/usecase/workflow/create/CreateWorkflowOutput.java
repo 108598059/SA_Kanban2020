@@ -3,7 +3,8 @@ package ddd.kanban.usecase.workflow.create;
 public class CreateWorkflowOutput {
     private String workflowTitle;
     private String workflowId;
-    private  String workflowBoardId;
+    private String workflowBoardId;
+    private String defaultColumnId;
 
     public String getWorkflowTitle() {
         return workflowTitle;
@@ -22,5 +23,14 @@ public class CreateWorkflowOutput {
     }
 
     public String getWorkflowBoardId() {return workflowBoardId; }
+
     public void setWorkflowBoardId(String workflowBoardId) { this.workflowBoardId = workflowBoardId; }
+
+    public String getDefaultColumnId() {
+        return defaultColumnId;
+    }
+
+    public void setDefaultColumnId(String defaultColumnId) {
+        this.defaultColumnId = defaultColumnId;
+    }
 }

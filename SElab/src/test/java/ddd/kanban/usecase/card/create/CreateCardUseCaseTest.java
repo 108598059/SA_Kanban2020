@@ -34,12 +34,12 @@ public class CreateCardUseCaseTest {
 
         this.workflowRepository = new InMemoryWorkflowRepository();
         this.boardRepository = new InMemoryBoardRepository();
-        hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository);
+        this.domainEventBus = new DomainEventBus();
+        hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
         this.boardId = hierarchyInitial.CreateBoard();
         this.workflowId = hierarchyInitial.CreateWorkflow(this.boardId);
         this.columnId = hierarchyInitial.CreateColumn(this.workflowId);
-        this.domainEventBus = new DomainEventBus();
-        domainEventBus.register(new DomainEventHandler(this.workflowRepository));
+        domainEventBus.register(new DomainEventHandler(this.workflowRepository, boardRepository, domainEventBus));
     }
 
     @Test
