@@ -7,11 +7,11 @@ public class DB_connector {
   private final static String user = "SA";
   private final static String password = "sa";
 
-  public final static Connection getConnection() throws SQLException{
+  public final static Connection getConnection() throws SQLException {
     return DriverManager.getConnection(url, user, password);
   }
 
-  public final static void closeConnection(Connection connection) throws SQLException{
+  public final static void closeConnection(Connection connection) throws SQLException {
     connection.close();
   }
 

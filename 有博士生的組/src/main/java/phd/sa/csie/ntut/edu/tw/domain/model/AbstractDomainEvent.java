@@ -32,10 +32,9 @@ public class AbstractDomainEvent implements DomainEvent {
         sourceName = null;
     }
 
-    public Entity getEntity(){
+    public Entity getEntity() {
         return entity;
     }
-
 
     @Override
     public int eventVersion() {
@@ -50,10 +49,8 @@ public class AbstractDomainEvent implements DomainEvent {
     @Override
     public String detail() {
         String formatDate = String.format("occurredOn='%1$tY-%1$tm-%1$td %1$tH:%1$tM']", occurredOn());
-        String format = String.format(
-                "%s[Name='%s', id='%s'] ",
-                this.getClass().getSimpleName(),
-                this.getSourceName(), this.getSourceId());
+        String format = String.format("%s[Name='%s', id='%s'] ", this.getClass().getSimpleName(), this.getSourceName(),
+                this.getSourceId());
         return format + formatDate;
     }
 

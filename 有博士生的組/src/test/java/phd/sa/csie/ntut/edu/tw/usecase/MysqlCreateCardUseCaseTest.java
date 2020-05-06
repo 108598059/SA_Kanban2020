@@ -4,21 +4,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.sql.SQLDataException;
-import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlCardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.*;
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class MysqlCreateCardUseCaseTest {
 
@@ -38,7 +38,7 @@ public class MysqlCreateCardUseCaseTest {
     createCardUseCaseInput.setCardName("Create Card");
     try {
       createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
-    } catch(Exception e) {
+    } catch (Exception e) {
       assertEquals("", e.toString());
     }
     assertEquals("Create Card", createCardUseCaseOutput.getCardName());

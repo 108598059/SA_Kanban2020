@@ -1,7 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import java.util.UUID;
 
@@ -11,9 +10,13 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.*;
-import phd.sa.csie.ntut.edu.tw.usecase.card.edit.*;
 
 public class EditCardUseCaseTest {
 
@@ -41,9 +44,11 @@ public class EditCardUseCaseTest {
     EditCardUseCase editCardUseCase = new EditCardUseCase(cardRepository);
     EditCardUseCaseInput editCardUseCaseInput = new EditCardUseCaseInput();
     EditCardUseCaseOutput editCardUseCaseOutput = new EditCardUseCaseOutput();
+    
     editCardUseCaseInput.setCardId(card.getUUID());
     editCardUseCaseInput.setCardName("New Name");
     editCardUseCase.execute(editCardUseCaseInput, editCardUseCaseOutput);
+   
     assertEquals(card.getUUID().toString(), editCardUseCaseOutput.getCardId());
     assertEquals("New Name", editCardUseCaseOutput.getCardName());
   }

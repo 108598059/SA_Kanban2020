@@ -1,6 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.UUID;
@@ -10,8 +9,10 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.*;
 
 public class CreateColumnUseCaseTest {
 
@@ -38,6 +39,7 @@ public class CreateColumnUseCaseTest {
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
     assertNotNull(createColumnUseCaseOutput.getId());
+    // TODO assert column title
   }
 
 }

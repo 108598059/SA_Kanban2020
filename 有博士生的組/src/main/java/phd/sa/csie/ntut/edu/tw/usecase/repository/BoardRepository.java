@@ -7,6 +7,7 @@ import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 public interface BoardRepository {
 
   public void add(Board board);
+
   public Board findBoardByUUID(UUID uuid);
 
 }

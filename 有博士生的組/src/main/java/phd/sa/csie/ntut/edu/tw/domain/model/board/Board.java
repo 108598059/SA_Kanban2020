@@ -22,7 +22,7 @@ public class Board extends AggregateRoot {
   public Board(String name) {
     this.Id = UUID.randomUUID();
     this.name = name;
-    this.columns = new ArrayList<>();
+    this.columns = new ArrayList<Column>();
     this.startColumn = new Column("Backlog");
     this.endColumn = new Column("Archive");
   }
@@ -44,7 +44,7 @@ public class Board extends AggregateRoot {
     } else if (n == this.getNumberOfColumns() - 1) {
       return new Column(this.endColumn);
     }
-    return Collections.unmodifiableList(this.columns).get(n-1);
+    return Collections.unmodifiableList(this.columns).get(n - 1);
   }
 
   public UUID getUUID() {
@@ -67,8 +67,8 @@ public class Board extends AggregateRoot {
   }
 
   public void setColumnWIP(UUID columnId, int wip) {
-    if(wip < 0) {
-      throw new IllegalArgumentException( "WIP should not be negative");
+    if (wip < 0) {
+      throw new IllegalArgumentException("Column WIP should be positive.");
     }
     Column column = this.getColumnById(columnId);
     column.setWIP(wip);
@@ -78,15 +78,9 @@ public class Board extends AggregateRoot {
     Column from = this.getColumnById(fromColumnId);
     Column to = this.getColumnById(toColumnId);
     from.removeCard(cardId);
-    this.addDomainEvent(new ColumnLeavedEvent(
-            UUID.randomUUID().toString(),
-            fromColumnId.toString()
-    ));
+    this.addDomainEvent(new ColumnLeavedEvent(UUID.randomUUID().toString(), fromColumnId.toString()));
     to.addCard(cardId);
-    this.addDomainEvent(new ColumnEnteredEvent(
-            UUID.randomUUID().toString(),
-            toColumnId.toString()
-    ));
+    this.addDomainEvent(new ColumnEnteredEvent(UUID.randomUUID().toString(), toColumnId.toString()));
     return to.getId().toString();
   }
 
@@ -98,7 +92,7 @@ public class Board extends AggregateRoot {
       return this.endColumn;
     }
     for (Column column : columns) {
-      if(column.getId().equals(id)) {
+      if (column.getId().equals(id)) {
         return column;
       }
     }
@@ -106,7 +100,7 @@ public class Board extends AggregateRoot {
   }
 
   public Column findColumnById(UUID id) {
-      return new Column(this.getColumnById(id));
+    return new Column(this.getColumnById(id));
   }
 
 }

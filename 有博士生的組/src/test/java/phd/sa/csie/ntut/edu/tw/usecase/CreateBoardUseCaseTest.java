@@ -22,7 +22,7 @@ public class CreateBoardUseCaseTest {
   }
 
   @Test
-  public void createBoard() {
+  public void creating_a_new_board_should_generate_backlog_column_and_archive_column() {
     CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
@@ -37,7 +37,7 @@ public class CreateBoardUseCaseTest {
 
     assertEquals(2, board.getNumberOfColumns());
     assertEquals("Backlog", board.get(0).getTitle());
-    assertEquals("Archive", board.get(board.getNumberOfColumns()-1).getTitle());
+    assertEquals("Archive", board.get(board.getNumberOfColumns() - 1).getTitle());
   }
 
 }

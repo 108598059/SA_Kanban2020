@@ -1,9 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.domain.model.board;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.UUID;
 
 public class Column {
@@ -17,15 +14,15 @@ public class Column {
     this.id = UUID.randomUUID();
     this.title = title;
     this.wip = 0;
-    this.cardIds = new ArrayList<>();
+    this.cardIds = new ArrayList<UUID>();
   }
 
   public Column(Column col) {
     this.id = col.id;
     this.title = col.title;
     this.wip = wip;
-    this.cardIds = new ArrayList<>();
-    for (UUID cardID: col.cardIds) {
+    this.cardIds = new ArrayList<UUID>();
+    for (UUID cardID : col.cardIds) {
       this.cardIds.add(cardID);
     }
   }
@@ -47,7 +44,11 @@ public class Column {
   }
 
   public void addCard(UUID uuid) {
+    if (this.wip != 0 && cardIds.size() == this.wip) {
+      throw new IllegalStateException("The card cannot be moved to the column that has achieved its WIP limit.");
+    } else {
     cardIds.add(uuid);
+  }
   }
 
   public void removeCard(UUID uuid) {
@@ -55,11 +56,11 @@ public class Column {
   }
 
   public boolean cardExist(UUID id) {
-      for (int i = 0; i < this.cardIds.size(); ++i) {
-        if (id == this.cardIds.get(i)) {
-          return true;
-        }
+    for (int i = 0; i < this.cardIds.size(); ++i) {
+      if (id == this.cardIds.get(i)) {
+        return true;
       }
+    }
     return false;
   }
 

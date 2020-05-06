@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface EventLogRepository {
     void save(DomainEvent e);
+
     int size();
+
     List<DomainEvent> getAll();
 }

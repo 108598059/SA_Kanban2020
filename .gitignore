@@ -428,3 +428,6 @@ __pycache__/
 *.xsd.cs
 
 # End of https://www.gitignore.io/api/eclipse,intellij,visualstudio
+
+# Compiled java file
+.class

@@ -1,6 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.move;
 
-
 import java.util.UUID;
 
 public class MoveCardUseCaseInput {

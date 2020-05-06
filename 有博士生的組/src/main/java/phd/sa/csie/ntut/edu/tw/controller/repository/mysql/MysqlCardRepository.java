@@ -13,16 +13,14 @@ public class MysqlCardRepository implements CardRepository {
   public void add(Card card) {
     try {
       Connection connection = DB_connector.getConnection();
-      PreparedStatement stmt = connection.prepareStatement(
-        "INSERT INTO Card VALUES(?, ?, ?)"
-      );
+      PreparedStatement stmt = connection.prepareStatement("INSERT INTO Card VALUES(?, ?, ?)");
       stmt.setString(1, card.getUUID().toString());
       stmt.setString(2, card.getName());
       stmt.setString(3, null);
 
       stmt.executeUpdate();
       DB_connector.closeConnection(connection);
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       throw new RuntimeException(e.getMessage());
     }
   }
@@ -30,7 +28,7 @@ public class MysqlCardRepository implements CardRepository {
   @Override
   public Card findCardByUUID(UUID uuid) {
     // TODO Auto-generated method stub
-    return null;
+    throw new UnsupportedOperationException("Not implemented yet.");
   }
-  
+
 }
