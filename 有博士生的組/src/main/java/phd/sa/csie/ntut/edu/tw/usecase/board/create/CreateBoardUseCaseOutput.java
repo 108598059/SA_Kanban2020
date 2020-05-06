@@ -1,6 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 
-
 public class CreateBoardUseCaseOutput {
   private String boardID;
   private String boardTitle;
@@ -8,7 +7,7 @@ public class CreateBoardUseCaseOutput {
   public void setBoardId(String uuid) {
     this.boardID = uuid;
   }
-  
+
   public String getBoardId() {
     return this.boardID;
   }

@@ -14,9 +14,8 @@ public class DomainEventBus extends EventBus {
                 new ArrayList(aggregateRoot.getDomainEvents());
         aggregateRoot.clearDomainEvents();
 
-        for(DomainEvent each : events){
-            post(each);
-        }
+        events.forEach(this::post);
+
         events.clear();
     }
 }

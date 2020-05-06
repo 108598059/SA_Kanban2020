@@ -14,7 +14,7 @@ public class Board extends AggregateRoot {
     private String boardId;
     private List<String> workflowIds;
 
-    public Board(){
+    public Board() {
         this.workflowIds = new ArrayList<>();
     }
 
@@ -23,6 +23,12 @@ public class Board extends AggregateRoot {
         this.boardId = UUID.randomUUID().toString();
         this.workflowIds = new ArrayList<>();
         addDomainEvent(new BoardCreated(boardId, boardName));
+    }
+
+    public String commitWorkflow(String workflowId) {
+        workflowIds.add(workflowId);
+        addDomainEvent(new WorkflowCommitted(boardId, workflowId));
+        return workflowId;
     }
 
     public void setBoardId(String boardId) {
@@ -47,11 +53,5 @@ public class Board extends AggregateRoot {
 
     public void setWorkflowIds(List<String> workflowIds) {
         this.workflowIds = workflowIds;
-    }
-
-    public String commitWorkflow(String workflowId) {
-        workflowIds.add(workflowId);
-        addDomainEvent(new WorkflowCommitted(boardId, workflowId));
-        return workflowId;
     }
 }

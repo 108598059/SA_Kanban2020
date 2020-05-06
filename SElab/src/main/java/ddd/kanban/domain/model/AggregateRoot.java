@@ -3,6 +3,7 @@ package ddd.kanban.domain.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AggregateRoot {
 
@@ -11,6 +12,7 @@ public abstract class AggregateRoot {
     public AggregateRoot() {
         domainEvents = new ArrayList<>();
     }
+
     public void addDomainEvent(DomainEvent event){
         domainEvents.add(event);
     }

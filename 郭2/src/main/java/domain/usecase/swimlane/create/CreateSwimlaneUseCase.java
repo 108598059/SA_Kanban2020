@@ -1,7 +1,7 @@
 package domain.usecase.swimlane.create;
 
-import domain.aggregate.workflow.Lane;
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.workflow.Lane;
+import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CreateSwimlaneUseCase {

@@ -1,42 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4754ad40-31aa-4fa6-9ef2-0feb637a83d6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/database/StageCardTable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/card/MySqlCardRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEventBus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/AggregateRoot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/board/event/BoardCreated.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/board/event/WorkflowCommitted.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/card/event/CardCreated.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/event/CardCommitted.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/event/StageCreated.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/event/WorkflowCreated.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/common/DateProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/DomainEventHandler.java" afterDir="false" />
+    <list default="true" id="df9253e9-b264-44f2-a98d-f9ed942f9cff" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/TransformToDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/TransformToEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/entity/BoardEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/unit_test/BoardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/unit_test/CardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/unit_test/WorkflowTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/database/BoardTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/database/BoardTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/database/CardTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/database/CardTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/database/MySqlDatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/database/MySqlDatabaseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/InMemoryBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/InMemoryBoardRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/MySqlBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/MySqlBoardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/card/InMemoryCardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/card/InMemoryCardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Workflow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Workflow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/repository/BoardRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/CardRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/create/CreateCardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/create/CreateCardInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/create/CreateCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/create/CreateCardUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/repository/ICardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/repository/ICardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/board/event/BoardCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/board/event/BoardCreated.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/create/CreateBoardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/create/CreateBoardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/repository/IBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/repository/IBoardRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/repository/WorkflowRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CommitCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CommitCardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CommitWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CommitWorkflowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateBoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateCardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateStageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateStageTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/CreateWorkflowTest.java" afterDir="false" />
@@ -50,6 +32,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Arquillian JUnit Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -57,21 +40,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1aysbUGSp3L5cndoTO3Zw8qRuJJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="1bFbrLLielvLMkpGzB3sYdEgIsP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="kanban.domain.model.aggregate.workflow.event" />
+    <key name="CreateTestDialog.RecentsKey">
       <recent name="kanban.domain.model.aggregate.workflow" />
-      <recent name="kanban.domain.model.aggregate.board.event" />
-      <recent name="kanban.domain.model.aggregate.card" />
-      <recent name="kanban.domain.model.aggregate" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="kanban.domain.usecase" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -86,90 +71,86 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.kanban.domain.usecase in SA1321">
-    <configuration name="CreateCardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.All in SA1321">
+    <configuration name="All in SA1321" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.CreateCardTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateWorkflowTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SA1321" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.CreateWorkflowTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateWorkflowTest.Create_workflow_should_success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SA1321" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.CreateWorkflowTest" />
-      <option name="METHOD_NAME" value="Create_workflow_should_success" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateWorkflowTest.Workflow_repository_should_throw_exception" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SA1321" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.CreateWorkflowTest" />
-      <option name="METHOD_NAME" value="Workflow_repository_should_throw_exception" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="kanban.domain.usecase in SA1321" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SA1321" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
+      <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardTest.Create_card_should_have_CardCreated_event_in_domainEvent_list" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SA1321" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kanban.domain.unit_test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="kanban.domain.unit_test" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.unit_test.CardTest" />
+      <option name="METHOD_NAME" value="Create_card_should_have_CardCreated_event_in_domainEvent_list" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommitWorkflowTest.Workflow_should_be_committed_in_its_board" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SA1321" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kanban.domain.usecase.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.CommitWorkflowTest" />
+      <option name="METHOD_NAME" value="Workflow_should_be_committed_in_its_board" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateStageTest.Create_stage_should_return_stageId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SA1321" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kanban.domain.usecase.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.CreateStageTest" />
+      <option name="METHOD_NAME" value="Create_stage_should_return_stageId" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateWorkflowTest.Create_workflow_should_commit_workflow_in_its_board" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SA1321" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kanban.domain.usecase.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.CreateWorkflowTest" />
+      <option name="METHOD_NAME" value="Create_workflow_should_commit_workflow_in_its_board" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.kanban.domain.usecase in SA1321" />
-        <item itemvalue="JUnit.CreateCardTest" />
-        <item itemvalue="JUnit.CreateWorkflowTest" />
-        <item itemvalue="JUnit.CreateWorkflowTest.Workflow_repository_should_throw_exception" />
-        <item itemvalue="JUnit.CreateWorkflowTest.Create_workflow_should_success" />
+        <item itemvalue="JUnit.All in SA1321" />
+        <item itemvalue="JUnit.CreateWorkflowTest.Create_workflow_should_commit_workflow_in_its_board" />
+        <item itemvalue="JUnit.CreateStageTest.Create_stage_should_return_stageId" />
+        <item itemvalue="JUnit.CommitWorkflowTest.Workflow_should_be_committed_in_its_board" />
+        <item itemvalue="JUnit.CardTest.Create_card_should_have_CardCreated_event_in_domainEvent_list" />
       </list>
     </recent_temporary>
   </component>
@@ -178,13 +159,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4754ad40-31aa-4fa6-9ef2-0feb637a83d6" name="Default Changelist" comment="" />
-      <created>1587719239521</created>
+      <changelist id="df9253e9-b264-44f2-a98d-f9ed942f9cff" name="Default Changelist" comment="" />
+      <created>1588230987231</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1587719239521</updated>
-      <workItem from="1587719244506" duration="7777000" />
-      <workItem from="1587727608989" duration="199000" />
+      <updated>1588230987231</updated>
+      <workItem from="1588230989811" duration="8514000" />
     </task>
     <servers />
   </component>
@@ -196,12 +176,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SA1321$All_in_SA1321.ic" NAME="All in SA1321 Coverage Results" MODIFIED="1588236009660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

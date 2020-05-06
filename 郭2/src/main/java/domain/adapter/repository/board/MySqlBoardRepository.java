@@ -1,10 +1,9 @@
 package domain.adapter.repository.board;
 
 import domain.adapter.database.DbConn;
-import domain.aggregate.board.Board;
-import domain.aggregate.workflow.Lane;
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.board.Board;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.entity.BoardEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +19,7 @@ public class MySqlBoardRepository implements IBoardRepository {
         conn = DbConn.getConnection();
     }
 
-    public void add(Board board) {
+    public void add(BoardEntity board) {
         String sql = "INSERT INTO kanban.board(board_id,board_name) VALUES (?,?)";
         PreparedStatement ps = null;
         try {
@@ -44,16 +43,17 @@ public class MySqlBoardRepository implements IBoardRepository {
         }
     }
 
-    public Board getBoardById(String boardId) {
+    public BoardEntity getBoardById(String boardId) {
         String sql = "SELECT * FROM kanban.board WHERE board_id = '" + boardId + "'";
-        Board board = null;
+        BoardEntity board = null;
         PreparedStatement ps = null;
         ResultSet rset = null;
         try {
             ps = conn.prepareStatement(sql);
             rset = ps.executeQuery();
             while (rset.next()) {
-                board = new Board(rset.getString("board_name"));
+                board = new BoardEntity();
+                board.setBoardName(rset.getString("board_name"));
                 board.setBoardId(boardId);
                 board.setWorkflowIds(getWorkflowIdsByBoardId(boardId));
             }
@@ -78,7 +78,7 @@ public class MySqlBoardRepository implements IBoardRepository {
         return board;
     }
 
-    public void save(Board board) {
+    public void save(BoardEntity board) {
         String sql = "Insert Into kanban.board Values (? , ?) On Duplicate Key Update board_name= ?";
         PreparedStatement ps = null;
         try {
@@ -145,8 +145,8 @@ public class MySqlBoardRepository implements IBoardRepository {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1,workflowId);
-            ps.setString(2,boardId);
+            ps.setString(1,boardId);
+            ps.setString(2,workflowId);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

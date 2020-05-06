@@ -1,6 +1,6 @@
 package domain.usecase.workflow.repository;
 
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.workflow.Workflow;
 
 public interface IWorkflowRepository {
     void add(Workflow workflow);

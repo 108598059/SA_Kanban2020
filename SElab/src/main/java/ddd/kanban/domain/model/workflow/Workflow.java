@@ -38,7 +38,6 @@ public class Workflow extends AggregateRoot {
         return column -> column.getId().equals(columnId);
     }
 
-
     public String getId() {
         return id;
     }
@@ -46,6 +45,7 @@ public class Workflow extends AggregateRoot {
     public String getTitle() {
         return this.title;
     }
+
     public String getBoardId(){return boardId;}
 
     public String commitCard(String cardId, String laneId) {

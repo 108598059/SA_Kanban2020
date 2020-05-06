@@ -1,10 +1,10 @@
 package domain.adapter.repository.workflow;
 
 import domain.adapter.database.DbConn;
-import domain.aggregate.workflow.Lane;
-import domain.aggregate.workflow.Stage;
-import domain.aggregate.workflow.Swimlane;
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.workflow.Lane;
+import domain.model.aggregate.workflow.Stage;
+import domain.model.aggregate.workflow.Swimlane;
+import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 import java.sql.Connection;
@@ -27,10 +27,34 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         try {
             for(Lane lane : workflow.getLaneList()) {
                 addLane(lane);
+                for(String cardId : lane.getCardIdList()){
+                    addLaneToCard(lane.getLaneId(), cardId);
+                }
             }
             ps = conn.prepareStatement(sql);
             ps.setString(1,workflow.getWorkflowId());
             ps.setString(2,workflow.getWorkflowName());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void addLaneToCard(String laneId, String cardId) {
+        String sql = "Insert Ignore Into kanban.lane_to_card Values (?, ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,laneId);
+            ps.setString(2,cardId);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,11 +107,12 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         String sql = "Insert Into kanban.workflow Values (? , ?) On Duplicate Key Update workflow_name= ?";
         PreparedStatement ps = null;
         try {
-
             for(Lane lane : workflow.getLaneList()) {
                 addLane(lane);
+                for(String cardId : lane.getCardIdList()){
+                    addLaneToCard(lane.getLaneId(), cardId);
+                }
             }
-
             ps = conn.prepareStatement(sql);
             ps.setString(1,workflow.getWorkflowId());
             ps.setString(2,workflow.getWorkflowName());
@@ -147,6 +172,7 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
                     lane = new Swimlane(rset.getString("lane_name"), workflowId);
                 }
                 lane.setLaneId(rset.getString("lane_id"));
+                lane.setCardIdList(getCardIdListByLaneId(rset.getString("lane_id")));
                 laneList.add(lane);
             }
         } catch (SQLException e) {
@@ -168,5 +194,38 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
             }
         }
         return laneList;
+    }
+
+    private List<String> getCardIdListByLaneId(String laneId) {
+        List<String> cardIdList = new ArrayList<String>();
+        String sql = "SELECT * FROM kanban.lane_to_card WHERE lane_id = '" + laneId + "'";
+        PreparedStatement ps = null;
+        ResultSet rset = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            rset = ps.executeQuery();
+            Lane lane = null;
+            while (rset.next()) {
+                cardIdList.add(rset.getString("card_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rset != null) {
+                try {
+                    rset.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return cardIdList;
     }
 }

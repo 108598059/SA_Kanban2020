@@ -2,9 +2,9 @@ package domain.usecase.stage.create;
 
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.aggregate.workflow.Lane;
-import domain.aggregate.workflow.Stage;
-import domain.aggregate.workflow.Workflow;
+import domain.model.aggregate.DomainEventBus;
+import domain.model.aggregate.workflow.Lane;
+import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
@@ -16,8 +16,6 @@ import domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.*;
 
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -26,10 +24,13 @@ public class CreateStageUseCaseTest {
     private IBoardRepository boardRepository;
     private CreateWorkflowUseCase createWorkflowUseCase;
     private CreateWorkflowUseCaseOutput workflowOutput;
+    private DomainEventBus eventBus;
 
     @Before
     public void SetUp(){
+        eventBus = new DomainEventBus();
         boardRepository = new MySqlBoardRepository();
+
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
@@ -38,7 +39,7 @@ public class CreateStageUseCaseTest {
 
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
-        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, boardRepository);
+        createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
         CreateWorkflowUseCaseInput input = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         input.setWorkflowName("KanbanDevelopment");

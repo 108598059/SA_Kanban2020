@@ -1,11 +1,12 @@
 package kanban.domain.usecase.board.repository;
 
-import kanban.domain.model.aggregate.board.Board;
+
+import kanban.domain.usecase.entity.BoardEntity;
 
 public interface IBoardRepository {
-    void add(Board board);
+    void add(BoardEntity board);
 
-    Board getBoardById(String boardId);
+    BoardEntity getBoardById(String boardId);
 
-    void save(Board board);
+    void save(BoardEntity board);
 }

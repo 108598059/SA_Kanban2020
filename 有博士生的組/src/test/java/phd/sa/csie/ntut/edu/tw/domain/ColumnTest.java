@@ -11,6 +11,7 @@ public class ColumnTest {
   @Test
   public void createColumn() {
     Column column = new Column("develop");
+
     assertEquals("develop", column.getTitle());
   }
 

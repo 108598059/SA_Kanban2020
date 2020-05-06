@@ -14,11 +14,13 @@ public class CreateColumnUseCase {
   }
 
   public void execute(CreateColumnUseCaseInput createColumnUseCaseInput,
-                      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
+      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
     String title = createColumnUseCaseInput.getTitle();
     UUID boardId = createColumnUseCaseInput.getBoardId();
+
     Board board = this.boardRepository.findBoardByUUID(boardId);
     UUID columnId = board.createColumn(title);
+
     this.boardRepository.add(board);
     createColumnUseCaseOutput.setId(columnId.toString());
   }
