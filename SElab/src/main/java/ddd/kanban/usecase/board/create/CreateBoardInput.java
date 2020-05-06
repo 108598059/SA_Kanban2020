@@ -2,16 +2,16 @@ package ddd.kanban.usecase.board.create;
 
 public class CreateBoardInput {
 
-    private String boardName;
+    private String boardTitle;
     private String boardDescription;
 
-    public CreateBoardInput(String boardName, String boardDescription){
-        this.boardName = boardName;
+    public CreateBoardInput(String boardTitle, String boardDescription){
+        this.boardTitle = boardTitle;
         this.boardDescription = boardDescription;
     }
 
-    public String getBoardName() {
-        return boardName;
+    public String getBoardTitle() {
+        return boardTitle;
     }
 
     public String getBoardDescription() {

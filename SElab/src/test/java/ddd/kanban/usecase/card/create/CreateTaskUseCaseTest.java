@@ -3,6 +3,7 @@ package ddd.kanban.usecase.card.create;
 import ddd.kanban.adapter.repository.card.InMemoryCardRepository;
 import ddd.kanban.domain.model.card.Card;
 import ddd.kanban.domain.model.card.CardType;
+import ddd.kanban.domain.model.card.Task;
 import ddd.kanban.usecase.repository.CardRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,32 +42,18 @@ public class CreateTaskUseCaseTest {
     @Test
     public void testCreateTask(){
         String taskTitle = "TestTask";
-        String taskDescription = "taskDescription";
-        CardType taskTaskType = new CardType();
-        List<String> taskTags = new ArrayList<String>(); taskTags.add("taskTag1"); taskTags.add("taskTag2");
-        List<String> taskAssignUsers = new ArrayList<String>(); taskAssignUsers.add("108598034"); taskAssignUsers.add("108598087");
-        Date taskPlannedStartDate = new Date();
-        Date taskPlannedFinishDate = new Date();
-        String taskHeader = "taskHeader";
-        int taskPriority = 1;
-        String taskExternalLink = "www.google.com";
 
-        CreateTaskInput createTaskInput = new CreateTaskInput(cardId, taskTitle, taskDescription, taskTaskType, taskTags, taskAssignUsers, taskPlannedStartDate, taskPlannedFinishDate, taskHeader, taskPriority, taskExternalLink);
-        CreateTaskOutput createTaskOutput = new CreateTaskOutput();
         CreateTaskUseCase createTaskUseCase = new CreateTaskUseCase(inMemoryCardRepository);
+        CreateTaskInput createTaskInput = new CreateTaskInput(taskTitle, cardId);
+        CreateTaskOutput createTaskOutput = new CreateTaskOutput();
 
         createTaskUseCase.execute(createTaskInput, createTaskOutput);
 
-        assertEquals(taskTitle, createTaskOutput.getTaskTitle());
-        assertEquals(taskDescription, createTaskOutput.getTaskDescription());
-        assertEquals(taskTaskType, createTaskOutput.getTaskTaskType());
-        assertEquals(taskTags, createTaskOutput.getTaskTags());
-        assertEquals(taskAssignUsers, createTaskOutput.getTaskAssignUsers());
-        assertEquals(taskPlannedStartDate, createTaskOutput.getTaskPlannedStartDate());
-        assertEquals(taskPlannedFinishDate, createTaskOutput.getTaskPlannedFinishDate());
-        assertEquals(taskHeader, createTaskOutput.getTaskHeader());
-        assertEquals(taskPriority, createTaskOutput.getTaskPriority());
-        assertEquals(taskExternalLink, createTaskOutput.getTaskExternalLink());
+        Card card = inMemoryCardRepository.findById(createTaskOutput.getCardId());
+        Task task = card.findTaskById(createTaskOutput.getTaskId());
+
+        assertEquals(task.getTitle(), createTaskOutput.getTaskTitle());
+        assertEquals(task.getId(), createTaskOutput.getTaskId());
     }
 
 }

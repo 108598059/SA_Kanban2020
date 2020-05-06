@@ -52,8 +52,10 @@ public class EditCardUseCaseTest {
 
         editCardUseCase.execute(editCardUseCaseInput, editCardUseCaseOutput);
 
-        assertEquals(newCardName, editCardUseCaseOutput.getCardName());
-        assertEquals(newCardDescription, editCardUseCaseOutput.getCardDescription());
+        card = cardRepository.findById(card.getId());
+
+        assertEquals(editCardUseCaseOutput.getCardName(), card.getTitle());
+        assertEquals(editCardUseCaseOutput.getCardDescription(), card.getDescription());
     }
 
 }
