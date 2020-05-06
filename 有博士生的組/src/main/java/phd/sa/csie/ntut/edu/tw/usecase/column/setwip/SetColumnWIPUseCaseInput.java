@@ -5,7 +5,7 @@ import java.util.UUID;
 public class SetColumnWIPUseCaseInput {
 
   private UUID columnId;
-  private int columnWIP;
+  private int columnWIP = 0;
   private UUID boardId;
 
   public void setColumnId(UUID id) {

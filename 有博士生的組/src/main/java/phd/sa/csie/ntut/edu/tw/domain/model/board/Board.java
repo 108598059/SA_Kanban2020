@@ -68,7 +68,7 @@ public class Board extends AggregateRoot {
 
   public void setColumnWIP(UUID columnId, int wip) {
     if (wip < 0) {
-      throw new IllegalArgumentException("WIP should not be negative");
+      throw new IllegalArgumentException("Column WIP should be positive.");
     }
     Column column = this.getColumnById(columnId);
     column.setWIP(wip);
