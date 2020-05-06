@@ -18,19 +18,17 @@ public class EditCardUseCase {
         card.setPlannedStartDate(editCardUseCaseInput.getCardPlannedStartDate());
         card.setPlannedFinishDate(editCardUseCaseInput.getCardPlannedFinishDate());
         card.setPriority(editCardUseCaseInput.getCardPriority());
-        cardRepository.update(card);
+
         cardRepository.save(card);
 
-        Card outputCard = cardRepository.findById( editCardUseCaseInput.getCardId() );
-
-        editCardUseCaseOutput.setCardId(outputCard.getId());
-        editCardUseCaseOutput.setCardName(outputCard.getTitle());
-        editCardUseCaseOutput.setCardDescription(outputCard.getDescription());
-        editCardUseCaseOutput.setCardCardType(outputCard.getCardType());
-        editCardUseCaseOutput.setCardTags(outputCard.getTags());
-        editCardUseCaseOutput.setCardAssignUsers(outputCard.getAssignUsers());
-        editCardUseCaseOutput.setCardPlannedStartDate(outputCard.getPlannedStartDate());
-        editCardUseCaseOutput.setCardPlannedFinishDate(outputCard.getPlannedFinishDate());
-        editCardUseCaseOutput.setCardPriority(outputCard.getPriority());
+        editCardUseCaseOutput.setCardId(card.getId());
+        editCardUseCaseOutput.setCardName(card.getTitle());
+        editCardUseCaseOutput.setCardDescription(card.getDescription());
+        editCardUseCaseOutput.setCardCardType(card.getCardType());
+        editCardUseCaseOutput.setCardTags(card.getTags());
+        editCardUseCaseOutput.setCardAssignUsers(card.getAssignUsers());
+        editCardUseCaseOutput.setCardPlannedStartDate(card.getPlannedStartDate());
+        editCardUseCaseOutput.setCardPlannedFinishDate(card.getPlannedFinishDate());
+        editCardUseCaseOutput.setCardPriority(card.getPriority());
     }
 }
