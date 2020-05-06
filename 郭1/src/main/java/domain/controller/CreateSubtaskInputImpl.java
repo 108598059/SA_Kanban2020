@@ -1,15 +1,15 @@
 package domain.controller;
 
-import domain.usecase.task.create.CreateTaskInput;
+import domain.usecase.subtask.create.CreateSubtaskInput;
 
-public class CreateTaskInputImpl implements CreateTaskInput {
+public class CreateSubtaskInputImpl implements CreateSubtaskInput {
     private String taskName;
     private String cardId;
-    public void setTaskName(String name) {
+    public void setSubtaskName(String name) {
         this.taskName = name;
     }
 
-    public String getTaskName() {
+    public String getSubtaskName() {
         return this.taskName;
     }
 

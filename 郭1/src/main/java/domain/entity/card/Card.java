@@ -10,16 +10,16 @@ import java.util.UUID;
 public class Card extends Aggregate {
     private String _id ;
     private String _name ;
-    private Map<String, Task> taskMap;
+    private Map<String, Subtask> taskMap;
 
     public Card(){
         this._id = UUID.randomUUID().toString();
-        this.taskMap = new HashMap<String, Task>();
+        this.taskMap = new HashMap<String, Subtask>();
     }
 
     public Card(String workflowId, String stageId, String swimlaneId){
         this._id = UUID.randomUUID().toString();
-        this.taskMap = new HashMap<String, Task>();
+        this.taskMap = new HashMap<String, Subtask>();
         addEvent(new CardCreated(workflowId,stageId,swimlaneId,this._id));
     }
     public void setName( String name) {
@@ -38,19 +38,19 @@ public class Card extends Aggregate {
         return this._id ;
     }
 
-    public Map<String, Task> getTaskMap(){
+    public Map<String, Subtask> getTaskMap(){
         return taskMap;
     }
 
-    public String createTask(String taskName) {
-        Task newTask = new Task();
-        newTask.setName(taskName);
-        taskMap.put(newTask.getId(), newTask);
+    public String createSubtask(String taskName) {
+        Subtask newSubtask = new Subtask();
+        newSubtask.setName(taskName);
+        taskMap.put(newSubtask.getId(), newSubtask);
         System.out.println("size:"+taskMap.size());
-        return newTask.getId();
+        return newSubtask.getId();
     }
 
-    public void addTask(Task task){
-        this.taskMap.put(task.getId(),task);
+    public void addSubtask(Subtask subtask){
+        this.taskMap.put(subtask.getId(), subtask);
     }
 }

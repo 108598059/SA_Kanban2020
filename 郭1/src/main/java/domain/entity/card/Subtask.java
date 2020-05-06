@@ -2,11 +2,11 @@ package domain.entity.card;
 
 import java.util.UUID;
 
-public class Task {
+public class Subtask {
     private String id;
     private String name;
 
-    public Task(){
+    public Subtask(){
         this.id = UUID.randomUUID().toString();
     }
 
