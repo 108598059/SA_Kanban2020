@@ -1,16 +1,16 @@
-package domain.usecase.card.create;
+package domain.usecase.card.commit;
 
-public class CreateCardUseCaseInput {
-    private String cardName;
+public class CommitCardUseCaseInput {
+    private String cardId;
     private String workflowId;
     private String laneId;
 
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
 
-    public String getCardName() {
-        return cardName;
+    public String getCardId() {
+        return cardId;
     }
 
     public void setWorkflowId(String workflowId) {

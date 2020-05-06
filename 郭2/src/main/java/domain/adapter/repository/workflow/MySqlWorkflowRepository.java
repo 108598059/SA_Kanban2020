@@ -172,6 +172,7 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
                     lane = new Swimlane(rset.getString("lane_name"), workflowId);
                 }
                 lane.setLaneId(rset.getString("lane_id"));
+                lane.setCardIdList(getCardIdListByLaneId(rset.getString("lane_id")));
                 laneList.add(lane);
             }
         } catch (SQLException e) {
@@ -193,5 +194,38 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
             }
         }
         return laneList;
+    }
+
+    private List<String> getCardIdListByLaneId(String laneId) {
+        List<String> cardIdList = new ArrayList<String>();
+        String sql = "SELECT * FROM kanban.lane_to_card WHERE lane_id = '" + laneId + "'";
+        PreparedStatement ps = null;
+        ResultSet rset = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            rset = ps.executeQuery();
+            Lane lane = null;
+            while (rset.next()) {
+                cardIdList.add(rset.getString("card_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rset != null) {
+                try {
+                    rset.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return cardIdList;
     }
 }

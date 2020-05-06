@@ -2,7 +2,7 @@ package domain.model.aggregate.workflow.event;
 
 import domain.model.DomainEvent;
 
-public class WorkflowCreated extends DomainEvent {
+public class WorkflowCreated implements DomainEvent {
     private String workflowId;
     private String boardId;
 
@@ -17,5 +17,9 @@ public class WorkflowCreated extends DomainEvent {
 
     public String getWorkflowId() {
         return workflowId;
+    }
+
+    public String detail() {
+        return "WorkflowCreated " + "workflowId = " + workflowId;
     }
 }

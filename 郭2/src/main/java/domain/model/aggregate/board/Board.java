@@ -11,6 +11,8 @@ public class Board extends AggregateRoot {
     private String boardId;
     private String boardName;
 
+    public Board(){}
+
     public Board(String boardName){
         workflowIds = new ArrayList<String>();
         this.boardId = UUID.randomUUID().toString();
@@ -21,16 +23,16 @@ public class Board extends AggregateRoot {
         this.boardId = boardId;
     }
 
+    public String getBoardId() {
+        return boardId;
+    }
+
     public void setBoardName(String boardName) {
         this.boardName = boardName;
     }
 
     public String getBoardName() {
         return boardName;
-    }
-
-    public String getBoardId() {
-        return boardId;
     }
 
     public void addWorkflowId(String workflowId) {
