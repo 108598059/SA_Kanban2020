@@ -1,23 +1,25 @@
-package domain.usecase.card;
+package domain.model.card;
 
 import domain.adapter.board.BoardInMemoryRepository;
+import domain.adapter.card.CardRepository;
 import domain.adapter.workflow.WorkflowInMemoryRepository;
 import domain.model.DomainEventBus;
 import domain.usecase.DomainEventHandler;
 import domain.usecase.TestUtility;
-import domain.usecase.card.commitCard.CommitCardInput;
-import domain.usecase.card.commitCard.CommitCardOutput;
-import domain.usecase.card.commitCard.CommitCardUseCase;
+import domain.usecase.card.CardDTOConverter;
 import domain.usecase.repository.IBoardRepository;
+import domain.usecase.repository.ICardRepository;
 import domain.usecase.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CommitCardUseCaseTest {
+public class CardTest {
+
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
+    private ICardRepository cardRepository;
     private String workflowId;
     private String laneId;
     private DomainEventBus eventBus;
@@ -28,6 +30,7 @@ public class CommitCardUseCaseTest {
     public void setup() {
         boardRepository = new BoardInMemoryRepository();
         workflowRepository = new WorkflowInMemoryRepository();
+        cardRepository = new CardRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(boardRepository, workflowRepository));
@@ -39,19 +42,19 @@ public class CommitCardUseCaseTest {
     }
 
     @Test
-    public void commitCard() {
-        String cardId = "C012345678";
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(
-                workflowRepository);
+    public void cardEventHandler() {
 
-        CommitCardInput input = new CommitCardInput();
-        CommitCardOutput output = new CommitCardOutput();
+        Card card = new Card("firstEvent", laneId, workflowId);
 
-        input.setWorkflowId(workflowId);
-        input.setLaneId(laneId);
-        input.setCardId(cardId);
+        assertEquals(1, card.getDomainEvents().size());
+        assertEquals("Card Created: firstEvent", card.getDomainEvents().get(0).getDetail());
+    }
 
-        commitCardUseCase.execute(input, output);
-        assertEquals(laneId, workflowRepository.findById(workflowId).findLaneByCardId(cardId).getId());
+    @Test
+    public void cardEventHandlerError() {
+
+        Card card = new Card("firstEvent", "0", "0");
+        cardRepository.save(CardDTOConverter.toDTO(card));
+//        eventBus.postAll(card);
     }
 }
