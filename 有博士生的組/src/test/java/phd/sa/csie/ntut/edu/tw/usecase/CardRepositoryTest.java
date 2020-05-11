@@ -2,6 +2,10 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
@@ -12,10 +16,16 @@ public class CardRepositoryTest {
 
   @Test
   public void createCard() {
-    CardRepository cardRepository = new MemoryCardRepository();
+    Map<UUID, DTO> storage = new HashMap<UUID, DTO>();
+    CardRepository cardRepository = new MemoryCardRepository(storage);
     Card card = new Card("test card");
-    cardRepository.add(card);
-    Card resultCard = cardRepository.findCardByUUID(card.getId());
+
+    DTOConverter dtoConverter = new DTOConverter();
+    DTO cardDTO = dtoConverter.toDTO(card);
+
+    cardRepository.add(cardDTO);
+
+    Card resultCard = (Card) dtoConverter.toEntity(cardRepository.findById(cardDTO.getId()));
 
     assertEquals(card.getName(), resultCard.getName());
     assertEquals(card.getId(), resultCard.getId());

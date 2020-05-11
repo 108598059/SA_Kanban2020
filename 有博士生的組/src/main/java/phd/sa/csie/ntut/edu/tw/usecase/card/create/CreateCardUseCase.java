@@ -2,6 +2,8 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.DTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class CreateCardUseCase {
@@ -17,7 +19,12 @@ public class CreateCardUseCase {
     String cardName = createCardInput.getCardName();
 
     Card card = new Card(cardName);
-    cardRepository.add(card);
+
+    
+    DTOConverter dtoConverter = new DTOConverter();
+    DTO cardDTO = dtoConverter.toDTO(card);
+
+    cardRepository.add(cardDTO);
 
     this.eventBus.postAll(card);
     createCardOutput.setCardName(card.getName());

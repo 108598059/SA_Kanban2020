@@ -2,6 +2,7 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -24,19 +25,22 @@ public class EditCardUseCaseTest {
   private CardRepository cardRepository;
   private CreateCardUseCase createCardUseCase;
   private DomainEventBus eventBus;
+  private DTOConverter dtoConverter;
 
   @Before
   public void given_a_card() {
     this.eventBus = new DomainEventBus();
 
-    cardRepository = new MemoryCardRepository();
+    cardRepository = new MemoryCardRepository(new HashMap<UUID, DTO>());
     createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
+    dtoConverter = new DTOConverter();
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("Old Name");
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
-    card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
+    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
+    card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
   }
 
   @Test

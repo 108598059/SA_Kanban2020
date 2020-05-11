@@ -47,11 +47,13 @@ public class MoveCardUseCaseTest {
   private String toColumnId;
   private UUID boardId;
   private DomainEventBus eventBus;
+  private DTOConverter dtoConverter;
 
   @Before
   public void given_a_board_and_two_columns_and_a_card() {
     this.eventBus = new DomainEventBus();
-    cardRepository = new MemoryCardRepository();
+    this.dtoConverter = new DTOConverter();
+    cardRepository = new MemoryCardRepository(new HashMap<UUID, DTO>());
     boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
     createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
     createColumnUseCase = new CreateColumnUseCase(boardRepository);
@@ -65,7 +67,8 @@ public class MoveCardUseCaseTest {
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("test card");
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
-    card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
+    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
+    card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
     this.eventBus.register(card);
 
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
@@ -148,7 +151,8 @@ public class MoveCardUseCaseTest {
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("User can move card.");
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
-    card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
+    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
+    card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
 
     MoveCardUseCase moveCardUseCase = new MoveCardUseCase(boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();

@@ -4,18 +4,20 @@ import java.sql.*;
 import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class MysqlCardRepository implements CardRepository {
 
+  // TODO DI for the DB connector
+
   @Override
-  public void add(Card card) {
+  public void add(DTO entity) {
     try {
       Connection connection = DB_connector.getConnection();
       PreparedStatement stmt = connection.prepareStatement("INSERT INTO Card VALUES(?, ?, ?)");
-      stmt.setString(1, card.getId().toString());
-      stmt.setString(2, card.getName());
+      stmt.setString(1, entity.getId().toString());
+      stmt.setString(2, entity.getName());
       stmt.setString(3, null);
 
       stmt.executeUpdate();
@@ -26,13 +28,13 @@ public class MysqlCardRepository implements CardRepository {
   }
 
   @Override
-  public Card findCardByUUID(UUID uuid) {
+  public DTO findById(UUID uuid) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Not implemented yet.");
   }
 
   @Override
-  public void save(Card card) {
+  public void save(DTO entity) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Not implemented yet.");
   }

@@ -1,32 +1,33 @@
 package phd.sa.csie.ntut.edu.tw.controller.repository.memory;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 
 public class MemoryCardRepository implements CardRepository {
 
-  private Map<UUID, Card> map;
+  private Map<UUID, DTO> map;
 
-  public MemoryCardRepository() {
-    this.map = new HashMap<UUID, Card>();
+  public MemoryCardRepository(Map<UUID, DTO> storage) {
+    this.map = storage;
   }
 
-  public void add(Card card) {
+  @Override
+  public void add(DTO card) {
     this.map.put(card.getId(), card);
   }
-
-  public Card findCardByUUID(UUID uuid) {
+  
+  @Override
+  public DTO findById(UUID uuid) {
     return this.map.get(uuid);
   }
 
   @Override
-  public void save(Card card) {
-    this.map.remove(card.getId());
-    this.map.put(card.getId(), card);
+  public void save(DTO entity) {
+    this.map.remove(entity.getId());
+    this.map.put(entity.getId(), entity);
   }
 
 }

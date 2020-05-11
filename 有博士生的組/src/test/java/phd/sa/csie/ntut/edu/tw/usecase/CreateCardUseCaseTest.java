@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import com.google.common.eventbus.Subscribe;
@@ -13,6 +14,7 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.domain.model.Entity;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
@@ -25,6 +27,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 public class CreateCardUseCaseTest {
 
   private CardRepository cardRepository;
+  private DTOConverter dtoConverter;
   private CardCreatedEventHandler cardCreatedEventHandler;
   private Board board;
   private DomainEventBus eventBus;
@@ -45,9 +48,10 @@ public class CreateCardUseCaseTest {
 
   @Before
   public void given_a_board() {
-    this.cardRepository = new MemoryCardRepository();
+    this.cardRepository = new MemoryCardRepository(new HashMap<UUID, DTO>());
     this.board = new Board("Kanban");
     this.eventBus = new DomainEventBus();
+    this.dtoConverter = new DTOConverter();
   }
 
   @Test
@@ -67,7 +71,8 @@ public class CreateCardUseCaseTest {
     assertNotEquals("", createCardUseCaseOutput.getCardId());
     assertNotNull(createCardUseCaseOutput.getCardId());
 
-    Card card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
+    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
+    Card card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
     assertEquals(this.board.get(0).getId().toString(), card.getColumnID().toString());
   }
 
@@ -85,7 +90,8 @@ public class CreateCardUseCaseTest {
     createCardUseCaseInput.setBoardID(this.board.getId().toString());
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
-    Card card = cardRepository.findCardByUUID(UUID.fromString(createCardUseCaseOutput.getCardId()));
+    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
+    Card card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
     assertEquals(this.board.get(0).getId().toString(), card.getColumnID().toString());
   }
 

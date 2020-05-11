@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -13,14 +11,12 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepositor
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardNameUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
@@ -33,7 +29,6 @@ public class EditCardNameUseCaseTest {
   private CardRepository cardRepository;
   private DomainEventBus eventBus;
   private UUID boardId;
-  private Card card;
 
   @Before
   public void given_there_is_a_card() {
@@ -45,7 +40,7 @@ public class EditCardNameUseCaseTest {
 
   private void setup_respository() {
     this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
-    this.cardRepository = new MemoryCardRepository();
+    this.cardRepository = new MemoryCardRepository(new HashMap<UUID, DTO>());
     this.eventBus = new DomainEventBus();
   }
 

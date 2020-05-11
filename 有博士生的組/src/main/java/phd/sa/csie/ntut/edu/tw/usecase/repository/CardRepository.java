@@ -2,14 +2,14 @@ package phd.sa.csie.ntut.edu.tw.usecase.repository;
 
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public interface CardRepository {
 
-  public void add(Card card);
+  public void add(DTO entity);
 
-  public Card findCardByUUID(UUID uuid);
+  public DTO findById(UUID uuid);
 
-  public void save(Card card);
+  public void save(DTO entity);
 
 }
