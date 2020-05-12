@@ -1,13 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase.repository;
 
-import java.util.UUID;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.dto.BoardDTO;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-
-public interface BoardRepository {
-
-  public void add(Board board);
-
-  public Board findBoardById(UUID uuid);
+public abstract class BoardRepository implements IRepository<BoardDTO> {
 
 }

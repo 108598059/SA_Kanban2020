@@ -3,15 +3,15 @@ package phd.sa.csie.ntut.edu.tw.domain.model.board;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Column {
+import phd.sa.csie.ntut.edu.tw.domain.model.Entity;
 
-  private UUID id;
+public class Column extends Entity {
+
   private String title;
   private int wip;
   private ArrayList<UUID> cardIds;
 
   public Column(String title) {
-    this.id = UUID.randomUUID();
     this.title = title;
     this.wip = 0;
     this.cardIds = new ArrayList<UUID>();
@@ -26,10 +26,6 @@ public class Column {
     for (UUID cardID : col.cardIds) {
       this.cardIds.add(cardID);
     }
-  }
-
-  public UUID getId() {
-    return this.id;
   }
 
   public String getTitle() {
@@ -63,6 +59,10 @@ public class Column {
       }
     }
     return false;
+  }
+
+  public ArrayList<UUID> getCardIds() {
+    return this.cardIds;
   }
 
 }

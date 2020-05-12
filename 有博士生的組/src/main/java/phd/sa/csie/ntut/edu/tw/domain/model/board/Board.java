@@ -13,14 +13,12 @@ import java.util.UUID;
 
 public class Board extends AggregateRoot {
 
-  private UUID Id;
   private String name;
   private ArrayList<Column> columns;
   private Column startColumn;
   private Column endColumn;
 
   public Board(String name) {
-    this.Id = UUID.randomUUID();
     this.name = name;
     this.columns = new ArrayList<Column>();
     this.startColumn = new Column("Backlog");
@@ -45,10 +43,6 @@ public class Board extends AggregateRoot {
       return new Column(this.endColumn);
     }
     return Collections.unmodifiableList(this.columns).get(n - 1);
-  }
-
-  public UUID getId() {
-    return this.Id;
   }
 
   public String getName() {
@@ -101,6 +95,10 @@ public class Board extends AggregateRoot {
 
   public Column findColumnById(UUID id) {
     return new Column(this.getColumnById(id));
+  }
+
+  public ArrayList<Column> getColumns() {
+    return this.columns;
   }
 
 }
