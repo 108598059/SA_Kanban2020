@@ -2,9 +2,10 @@ package phd.sa.csie.ntut.edu.tw.domain.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class AggregateRoot implements Entity {
+public abstract class AggregateRoot extends Entity {
 
     private final List<DomainEvent> domainEvents;
 

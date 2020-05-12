@@ -19,9 +19,12 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCaseOutput;
@@ -31,6 +34,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.dto.DTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
@@ -47,46 +52,47 @@ public class MoveCardUseCaseTest {
   private String toColumnId;
   private UUID boardId;
   private DomainEventBus eventBus;
-  private DTOConverter dtoConverter;
+  private CardDTOConverter cardDTOConverter;
 
   @Before
   public void given_a_board_and_two_columns_and_a_card() {
     this.eventBus = new DomainEventBus();
-    this.dtoConverter = new DTOConverter();
-    cardRepository = new MemoryCardRepository(new HashMap<UUID, DTO>());
-    boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
-    createCardUseCase = new CreateCardUseCase(cardRepository, this.eventBus);
-    createColumnUseCase = new CreateColumnUseCase(boardRepository);
+    this.cardDTOConverter = new CardDTOConverter();
+    this.cardRepository = new MemoryCardRepository(new HashMap<UUID, CardDTO>());
+    this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
+    this.createCardUseCase = new CreateCardUseCase(this.cardRepository, this.eventBus, this.cardDTOConverter);
+    this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
 
     Board board = new Board("phd");
-    boardId = board.getId();
-    boardRepository.add(board);
+    this.boardId = board.getId();
+    this.boardRepository.add(board);
     this.eventBus.register(board);
+    this.eventBus.register(new CardCreatedEventHandler(this.cardRepository));
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("test card");
-    createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+    this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
+    card = this.cardDTOConverter.toEntity(cardRepository.findById(cardId));
     this.eventBus.register(card);
 
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
     createColumnUseCaseInput.setBoardId(boardId);
     createColumnUseCaseInput.setTitle("develop column");
-    fromColumnId = card.getColumnID().toString();
-    createColumnUseCaseInput.setBoardId(boardId);
+    this.fromColumnId = card.getColumnId().toString();
+    createColumnUseCaseInput.setBoardId(this.boardId);
     createColumnUseCaseInput.setTitle("test column");
-    createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
-    toColumnId = createColumnUseCaseOutput.getId();
+    this.createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
+    this.toColumnId = createColumnUseCaseOutput.getId();
 
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(boardRepository);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
     setColumnWIPUseCaseInput.setBoardId(board.getId());
-    setColumnWIPUseCaseInput.setColumnId(UUID.fromString(toColumnId));
+    setColumnWIPUseCaseInput.setColumnId(UUID.fromString(this.toColumnId));
     setColumnWIPUseCaseInput.setColumnWIP(1);
 
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
@@ -135,7 +141,7 @@ public class MoveCardUseCaseTest {
     List<DomainEvent> eventList = repo.getAll();
     assertEquals("Leaved column event: " + fromColumnId, eventList.get(0).getSourceName());
     assertEquals("Entered column event: " + toColumnId, eventList.get(1).getSourceName());
-    assertEquals(toColumnId, this.card.getColumnID().toString());
+    assertEquals(toColumnId, this.card.getColumnId().toString());
   }
 
   @Ignore
@@ -152,7 +158,7 @@ public class MoveCardUseCaseTest {
     createCardUseCaseInput.setCardName("User can move card.");
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
+    card = cardDTOConverter.toEntity(cardRepository.findById(cardId));
 
     MoveCardUseCase moveCardUseCase = new MoveCardUseCase(boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();

@@ -3,8 +3,8 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 import com.google.common.eventbus.Subscribe;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
-import phd.sa.csie.ntut.edu.tw.usecase.DTO;
-import phd.sa.csie.ntut.edu.tw.usecase.DTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class CardCreatedEventHandler {
@@ -18,9 +18,9 @@ public class CardCreatedEventHandler {
   @Subscribe
   public void execute(CardCreatedEvent e) {
     // TODO CardCreaded or CardUpdated?
-    DTOConverter dtoConverter = new DTOConverter();
-    DTO card = dtoConverter.toDTO(e.getEntity());
-    this.cardRepository.save(card);
+    CardDTOConverter cardDTOConverter = new CardDTOConverter();
+    CardDTO card = cardDTOConverter.toDTO(e.getEntity());
+    this.cardRepository.update(card);
   }
 
 }

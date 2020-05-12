@@ -9,6 +9,8 @@ import java.util.UUID;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 
@@ -16,16 +18,17 @@ public class CardRepositoryTest {
 
   @Test
   public void createCard() {
-    Map<UUID, DTO> storage = new HashMap<UUID, DTO>();
+    Map<UUID, CardDTO> storage = new HashMap<UUID, CardDTO>();
     CardRepository cardRepository = new MemoryCardRepository(storage);
     Card card = new Card("test card");
 
-    DTOConverter dtoConverter = new DTOConverter();
-    DTO cardDTO = dtoConverter.toDTO(card);
+    CardDTOConverter dtoConverter = new CardDTOConverter();
+    CardDTO cardDTO = dtoConverter.toDTO(card);
 
-    cardRepository.add(cardDTO);
+    cardRepository.save(cardDTO);
 
-    Card resultCard = (Card) dtoConverter.toEntity(cardRepository.findById(cardDTO.getId()));
+    CardDTO resultCardDTO = cardRepository.findById(card.getId());
+    Card resultCard = (Card) dtoConverter.toEntity(resultCardDTO);
 
     assertEquals(card.getName(), resultCard.getName());
     assertEquals(card.getId(), resultCard.getId());

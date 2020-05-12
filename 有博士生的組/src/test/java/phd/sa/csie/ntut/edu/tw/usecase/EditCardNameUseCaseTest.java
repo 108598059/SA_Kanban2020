@@ -17,6 +17,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
@@ -27,21 +29,23 @@ public class EditCardNameUseCaseTest {
 
   private BoardRepository boardRepository;
   private CardRepository cardRepository;
+  private CardDTOConverter cardDTOConverter;
   private DomainEventBus eventBus;
   private UUID boardId;
 
   @Before
   public void given_there_is_a_card() {
-    setup_respository();
+    setup_context_for_use_case();
     this.boardId = create_board("Software Architecture", this.boardRepository);
     create_column("Develop", this.boardRepository, this.boardId);
-    create_card("User can edit nane.", this.cardRepository, this.eventBus);
+    create_card("User can edit nane.", this.cardRepository, this.eventBus, this.cardDTOConverter);
   }
 
-  private void setup_respository() {
+  private void setup_context_for_use_case() {
     this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
-    this.cardRepository = new MemoryCardRepository(new HashMap<UUID, DTO>());
+    this.cardRepository = new MemoryCardRepository(new HashMap<UUID, CardDTO>());
     this.eventBus = new DomainEventBus();
+    this.cardDTOConverter = new CardDTOConverter();
   }
 
   private UUID create_board(String boardTitle, BoardRepository repository) {
@@ -65,8 +69,8 @@ public class EditCardNameUseCaseTest {
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
   }
 
-  private void create_card(String cardTitle, CardRepository repository, DomainEventBus eventBus) {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(repository, eventBus);
+  private void create_card(String cardTitle, CardRepository repository, DomainEventBus eventBus, CardDTOConverter dtoConverter) {
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(repository, eventBus, dtoConverter);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 

@@ -14,6 +14,8 @@ import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseOutput;
@@ -25,22 +27,23 @@ public class EditCardUseCaseTest {
   private CardRepository cardRepository;
   private CreateCardUseCase createCardUseCase;
   private DomainEventBus eventBus;
-  private DTOConverter dtoConverter;
+  private CardDTOConverter cardDTOConverter;
 
   @Before
   public void given_a_card() {
     this.eventBus = new DomainEventBus();
+    this.cardDTOConverter = new CardDTOConverter();
 
-    cardRepository = new MemoryCardRepository(new HashMap<UUID, DTO>());
-    createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
-    dtoConverter = new DTOConverter();
+    cardRepository = new MemoryCardRepository(new HashMap<UUID, CardDTO>());
+    createCardUseCase = new CreateCardUseCase(cardRepository, eventBus, cardDTOConverter);
+    cardDTOConverter = new CardDTOConverter();
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("Old Name");
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = (Card) dtoConverter.toEntity(cardRepository.findById(cardId));
+    card = cardDTOConverter.toEntity(cardRepository.findById(cardId));
   }
 
   @Test

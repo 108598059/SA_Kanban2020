@@ -23,7 +23,7 @@ public class CardTest {
   @Test
   public void cardCreatedEvent() {
     Card card = new Card("create card");
-    
+
     assertEquals(1, card.getDomainEvents().size());
     assertEquals(CardCreatedEvent.class, card.getDomainEvents().get(0).getClass());
   }

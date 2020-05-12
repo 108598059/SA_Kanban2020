@@ -31,7 +31,7 @@ public class Board extends AggregateRoot {
   public void commit(CardCreatedEvent e) {
     Card card = e.getEntity();
     this.startColumn.addCard(card.getId());
-    card.setColumnID(this.startColumn.getId());
+    card.setColumnId(this.startColumn.getId());
   }
 
   public int getNumberOfColumns() {
