@@ -3,6 +3,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
@@ -17,7 +18,7 @@ public class CreateBoardUseCase extends UseCase<BoardRepository, BoardDTOConvert
 
     Board board = new Board(title);
     BoardDTO boardDTO = this.dtoConverter.toDTO(board);
-    this.boardRepository.save(boardDTO);
+    this.repository.save(boardDTO);
 
     output.setBoardId(board.getId().toString());
     output.setBoardTitle(board.getName());

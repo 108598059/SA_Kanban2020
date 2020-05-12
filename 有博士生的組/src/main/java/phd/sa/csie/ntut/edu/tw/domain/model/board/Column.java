@@ -15,6 +15,7 @@ public class Column extends Entity {
     this.title = title;
     this.wip = 0;
     this.cardIds = new ArrayList<UUID>();
+    // TODO issue an event.
   }
 
   public Column(Column col) {
@@ -34,6 +35,7 @@ public class Column extends Entity {
 
   public void setWIP(int wip) {
     this.wip = wip;
+    // TODO issue an event.
   }
 
   public int getWIP() {
@@ -45,11 +47,13 @@ public class Column extends Entity {
       throw new IllegalStateException("The card cannot be moved to the column that has achieved its WIP limit.");
     } else {
       cardIds.add(uuid);
+      // TODO issue an event.
     }
   }
 
   public void removeCard(UUID uuid) {
     cardIds.remove(uuid);
+    // TODO issue an event.
   }
 
   public boolean cardExist(UUID id) {

@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 
-public class CreateBoardUseCaseOutput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
+
+public class CreateBoardUseCaseOutput implements UseCaseOutput{
   private String boardID;
   private String boardTitle;
 

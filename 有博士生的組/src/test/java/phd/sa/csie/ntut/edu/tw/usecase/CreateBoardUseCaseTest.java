@@ -46,9 +46,9 @@ public class CreateBoardUseCaseTest {
 
     Board board = boardRepository.findBoardById(UUID.fromString(createBoardUseCaseOutput.getBoardId()));
 
-    assertEquals(2, board.getNumberOfColumns());
+    assertEquals(2, board.getColumnNumber());
     assertEquals("Backlog", board.get(0).getTitle());
-    assertEquals("Archive", board.get(board.getNumberOfColumns() - 1).getTitle());
+    assertEquals("Archive", board.get(board.getColumnNumber() - 1).getTitle());
   }
 
 }

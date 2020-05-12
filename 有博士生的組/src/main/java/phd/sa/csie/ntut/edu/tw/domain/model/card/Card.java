@@ -53,5 +53,6 @@ public class Card extends AggregateRoot {
 
   public void setColumnId(UUID columnId) {
     this.columnId = columnId;
+    // TODO issue an event.
   }
 }

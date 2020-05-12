@@ -14,13 +14,12 @@ public class BoardDTOConverter implements DTOConverter<Board> {
     private ColumnDTOConverter columnDTOConverter = new ColumnDTOConverter();
 
     @Override
-    public DTO toDTO(Board entity) {
+    public BoardDTO toDTO(Board entity) {
         BoardDTO boardDTO = new BoardDTO();
         boardDTO.setName(entity.getName());
         ArrayList<ColumnDTO> columnDTOs = new ArrayList<ColumnDTO>();
-        for (int i = 0; i < entity.getNumberOfColumns(); i++) {
-            ColumnDTO columnDTO = this.columnDTOConverter.toDTO(entity.get(i));
-            columnDTOs.add(columnDTO);
+        for (int i = 0; i < entity.getColumnNumber(); i++) {
+            columnDTOs.add(this.columnDTOConverter.toDTO(entity.get(i)));
         }
         boardDTO.setColumnDTOs(columnDTOs);
         return boardDTO;
@@ -29,8 +28,13 @@ public class BoardDTOConverter implements DTOConverter<Board> {
     @Override
     public Board toEntity(DTO dto) {
         BoardDTO boardDTO = (BoardDTO) dto;
-        // TODO Auto-generated method stub1
-        return null;
+        ArrayList<Column> columns = new ArrayList<Column>();
+        ArrayList<ColumnDTO> columnDTOs = boardDTO.getColumnDTOs();
+        for (int i = 0; i < columnDTOs.size(); i++) {
+            columns.add(this.columnDTOConverter.toEntity(columnDTOs.get(i)));
+        }
+        Board board = new Board(boardDTO.getId(), boardDTO.getName(), columns);
+        return board;
     }
 
     
