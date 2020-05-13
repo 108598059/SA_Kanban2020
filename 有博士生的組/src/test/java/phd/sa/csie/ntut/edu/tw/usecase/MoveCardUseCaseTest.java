@@ -48,13 +48,11 @@ public class MoveCardUseCaseTest {
   private String toColumnId;
   private UUID boardId;
   private DomainEventBus eventBus;
-  private CardDTOConverter cardDTOConverter;
   private BoardDTOConverter boardDTOConverter;
 
   @Before
   public void given_a_board_and_two_columns_and_a_card() {
     this.eventBus = new DomainEventBus();
-    this.cardDTOConverter = new CardDTOConverter();
     this.boardDTOConverter = new BoardDTOConverter();
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
@@ -73,7 +71,7 @@ public class MoveCardUseCaseTest {
     createCardUseCaseInput.setBoardID(this.boardId.toString());
     this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = this.cardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
+    card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
     this.eventBus.register(card);
 
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
@@ -157,7 +155,7 @@ public class MoveCardUseCaseTest {
     createCardUseCaseInput.setBoardID(this.boardId.toString());
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = cardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
+    card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
 
     MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();

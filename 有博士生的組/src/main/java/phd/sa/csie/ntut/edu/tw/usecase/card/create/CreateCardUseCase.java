@@ -5,9 +5,6 @@ import org.springframework.stereotype.Service;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 import java.util.UUID;
 

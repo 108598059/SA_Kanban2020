@@ -3,7 +3,6 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.UUID;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,11 +19,9 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-import static java.lang.Thread.sleep;
 import static org.junit.Assert.*;
 
 public class MysqlCreateCardUseCaseTest {

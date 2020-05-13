@@ -2,8 +2,6 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -22,13 +20,12 @@ public class CardRepositoryTest {
     Card card = new Card("test card", UUID.randomUUID());
     card.setColumnId(UUID.randomUUID());
 
-    CardDTOConverter dtoConverter = new CardDTOConverter();
-    CardDTO cardDTO = dtoConverter.toDTO(card);
+    CardDTO cardDTO = CardDTOConverter.toDTO(card);
 
     cardRepository.save(cardDTO);
 
     CardDTO resultCardDTO = cardRepository.findById(card.getId().toString());
-    Card resultCard = (Card) dtoConverter.toEntity(resultCardDTO);
+    Card resultCard = CardDTOConverter.toEntity(resultCardDTO);
 
     assertEquals(card.getName(), resultCard.getName());
     assertEquals(card.getId(), resultCard.getId());

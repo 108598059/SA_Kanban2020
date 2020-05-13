@@ -1,18 +1,15 @@
 package phd.sa.csie.ntut.edu.tw.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlBoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
@@ -33,11 +30,6 @@ public class AppConfig {
     @Bean
     public DomainEventBus getDomainEventBus() {
         return new DomainEventBus();
-    }
-
-    @Bean
-    public CardDTOConverter getCardDTOConverter() {
-        return new CardDTOConverter();
     }
 
     @Bean

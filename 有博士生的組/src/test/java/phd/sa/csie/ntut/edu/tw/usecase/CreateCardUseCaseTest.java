@@ -30,7 +30,6 @@ public class CreateCardUseCaseTest {
 
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
-  private CardDTOConverter cardDTOConverter;
   private BoardDTOConverter boardDTOConverter;
   private CommitCardUsecase commitCardUsecase;
   private Board board;
@@ -58,7 +57,6 @@ public class CreateCardUseCaseTest {
     this.boardDTOConverter = new BoardDTOConverter();
     this.boardRepository.save(this.boardDTOConverter.toDTO(this.board));
     this.eventBus = new DomainEventBus();
-    this.cardDTOConverter = new CardDTOConverter();
   }
 
   @Test
@@ -81,7 +79,7 @@ public class CreateCardUseCaseTest {
 
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
     CardDTO cardDTO = cardRepository.findById(cardId.toString());
-    Card card = cardDTOConverter.toEntity(cardDTO);
+    Card card = CardDTOConverter.toEntity(cardDTO);
     BoardDTO boardDTO = this.boardRepository.findById(this.board.getId().toString());
     BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
     Board boardResult = boardDTOConverter.toEntity(boardDTO);
@@ -102,7 +100,7 @@ public class CreateCardUseCaseTest {
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    Card card = cardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
+    Card card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
     assertEquals(this.board.get(0).getId().toString(), card.getColumnId().toString());
   }
 

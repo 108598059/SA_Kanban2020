@@ -30,8 +30,7 @@ public class CommitCardUsecase {
     BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
     Board board = boardDTOConverter.toEntity(this.boardRepository.findById(card.getBoardId().toString()));
     board.commitCard(card);
-    CardDTOConverter cardDTOConverter = new CardDTOConverter();
-    CardDTO cardDto = cardDTOConverter.toDTO(card);
+    CardDTO cardDto = CardDTOConverter.toDTO(card);
     this.cardRepository.save(cardDto);
 
     BoardDTO boardDTO = boardDTOConverter.toDTO(board);

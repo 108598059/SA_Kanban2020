@@ -6,10 +6,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.dto.DTOConverter;
 
 import java.util.UUID;
 
-public class CardDTOConverter implements DTOConverter<Card> {
-
-    @Override
-    public CardDTO toDTO(Card entity) {
+public class CardDTOConverter {
+    public static CardDTO toDTO(Card entity) {
         CardDTO cardDTO = new CardDTO();
         cardDTO.setId(entity.getId().toString());
         cardDTO.setName(entity.getName());
@@ -17,11 +15,9 @@ public class CardDTOConverter implements DTOConverter<Card> {
         return cardDTO;
     }
 
-    @Override
-    public Card toEntity(DTO dto) {
+    public static Card toEntity(DTO dto) {
         CardDTO cardDTO = (CardDTO) dto;
         Card card = new Card(UUID.fromString(cardDTO.getId()), cardDTO.getName(), UUID.fromString(cardDTO.getColumnId()));
         return card;
     }
-    
 }
