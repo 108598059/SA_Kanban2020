@@ -48,20 +48,18 @@ public class MoveCardUseCaseTest {
   private String toColumnId;
   private UUID boardId;
   private DomainEventBus eventBus;
-  private BoardDTOConverter boardDTOConverter;
 
   @Before
   public void given_a_board_and_two_columns_and_a_card() {
     this.eventBus = new DomainEventBus();
-    this.boardDTOConverter = new BoardDTOConverter();
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
     this.createCardUseCase = new CreateCardUseCase(this.eventBus);
-    this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+    this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
 
     Board board = new Board("phd");
     this.boardId = board.getId();
-    this.boardRepository.save(this.boardDTOConverter.toDTO(board));
+    this.boardRepository.save(BoardDTOConverter.toDTO(board));
     this.eventBus.register(board);
     this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
 
@@ -84,7 +82,7 @@ public class MoveCardUseCaseTest {
     this.createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
     this.toColumnId = createColumnUseCaseOutput.getId();
 
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
@@ -97,7 +95,7 @@ public class MoveCardUseCaseTest {
 
   @Test
   public void moveCard() {
-    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -112,7 +110,7 @@ public class MoveCardUseCaseTest {
     assertEquals(fromColumnId, moveCardUseCaseOutput.getOldColumnId());
     assertEquals(toColumnId, moveCardUseCaseOutput.getNewColumnId());
 
-    Board board = this.boardDTOConverter.toEntity(boardRepository.findById(boardId.toString()));
+    Board board = BoardDTOConverter.toEntity(boardRepository.findById(boardId.toString()));
     assertTrue(board.findColumnById(UUID.fromString(toColumnId)).cardExist(card.getId()));
   }
 
@@ -121,7 +119,7 @@ public class MoveCardUseCaseTest {
     EventLogRepository repo = new MemoryEventLogRepository();
     this.eventBus.register(repo);
 
-    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -157,7 +155,7 @@ public class MoveCardUseCaseTest {
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
     card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
 
-    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -168,7 +166,7 @@ public class MoveCardUseCaseTest {
 
     moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
-    MoveCardUseCase moveCardUseCase2 = new MoveCardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+    MoveCardUseCase moveCardUseCase2 = new MoveCardUseCase(this.boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput2 = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput2 = new MoveCardUseCaseOutput();
 
@@ -183,7 +181,5 @@ public class MoveCardUseCaseTest {
     } catch (IllegalStateException e) {
       assertEquals("The card cannot be moved to the column that has achieved its WIP limit.", e.getMessage());
     }
-
   }
-
 }

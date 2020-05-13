@@ -27,13 +27,12 @@ public class CommitCardUsecase {
   @Subscribe
   public void execute(CardCreatedEvent e) {
     Card card = e.getEntity();
-    BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
-    Board board = boardDTOConverter.toEntity(this.boardRepository.findById(card.getBoardId().toString()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(card.getBoardId().toString()));
     board.commitCard(card);
     CardDTO cardDto = CardDTOConverter.toDTO(card);
     this.cardRepository.save(cardDto);
 
-    BoardDTO boardDTO = boardDTOConverter.toDTO(board);
+    BoardDTO boardDTO = BoardDTOConverter.toDTO(board);
     this.boardRepository.update(boardDTO);
   }
 }

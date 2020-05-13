@@ -10,11 +10,9 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, CreateColumnUseCaseOutput> {
   private BoardRepository boardRepository;
-  private BoardDTOConverter boardDTOConverter;
-  public CreateColumnUseCase(BoardRepository boardRepository, DomainEventBus eventBus, BoardDTOConverter boardDTOConverter) {
+  public CreateColumnUseCase(BoardRepository boardRepository, DomainEventBus eventBus) {
     super(eventBus);
     this.boardRepository = boardRepository;
-    this.boardDTOConverter = boardDTOConverter;
   }
 
   public void execute(CreateColumnUseCaseInput createColumnUseCaseInput,
@@ -22,10 +20,10 @@ public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, Creat
     String title = createColumnUseCaseInput.getTitle();
     UUID boardId = createColumnUseCaseInput.getBoardId();
 
-    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
     UUID columnId = board.createColumn(title);
 
-    this.boardRepository.update(this.boardDTOConverter.toDTO(board));
+    this.boardRepository.update(BoardDTOConverter.toDTO(board));
     createColumnUseCaseOutput.setId(columnId.toString());
   }
 }

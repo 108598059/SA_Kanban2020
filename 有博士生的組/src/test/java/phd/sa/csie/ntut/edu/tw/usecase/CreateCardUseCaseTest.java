@@ -30,7 +30,6 @@ public class CreateCardUseCaseTest {
 
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
-  private BoardDTOConverter boardDTOConverter;
   private CommitCardUsecase commitCardUsecase;
   private Board board;
   private DomainEventBus eventBus;
@@ -54,8 +53,7 @@ public class CreateCardUseCaseTest {
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
     this.board = new Board("Kanban");
-    this.boardDTOConverter = new BoardDTOConverter();
-    this.boardRepository.save(this.boardDTOConverter.toDTO(this.board));
+    this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
     this.eventBus = new DomainEventBus();
   }
 

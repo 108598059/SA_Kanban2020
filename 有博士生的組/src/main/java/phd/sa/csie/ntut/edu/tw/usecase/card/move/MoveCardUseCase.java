@@ -7,29 +7,26 @@ import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCaseOutput> {
   private BoardRepository boardRepository;
-  private BoardDTOConverter boardDTOConverter;
 
-  public MoveCardUseCase(BoardRepository boardRepository, DomainEventBus eventBus, BoardDTOConverter boardDTOConverter) {
+  public MoveCardUseCase(BoardRepository boardRepository, DomainEventBus eventBus) {
     super(eventBus);
     this.boardRepository = boardRepository;
-    this.boardDTOConverter = boardDTOConverter;
   }
 
   public void execute(MoveCardUseCaseInput moveCardUseCaseInput, MoveCardUseCaseOutput moveCardUseCaseOutput) {
     BoardDTO boardDTO = this.boardRepository.findById(moveCardUseCaseInput.getBoardId().toString());
-    Board board = this.boardDTOConverter.toEntity(boardDTO);
+    Board board = BoardDTOConverter.toEntity(boardDTO);
     UUID cardId = moveCardUseCaseInput.getCardId();
     UUID fromColumnId = moveCardUseCaseInput.getFromColumnId();
     UUID toColumnId = moveCardUseCaseInput.getToColumnId();
 
     String newColumnId = board.moveCard(cardId, fromColumnId, toColumnId);
 
-    this.boardRepository.update(this.boardDTOConverter.toDTO(board));
+    this.boardRepository.update(BoardDTOConverter.toDTO(board));
     this.eventBus.postAll(board);
 
     moveCardUseCaseOutput.setCardId(cardId);

@@ -28,8 +28,7 @@ public class GetColumnsByBoardIDUsecase extends UseCase<GetColumnsByBoardIDUseca
     @Override
     public void execute(GetColumnsByBoardIDUsecaseInput input, GetColumnsByBoardIDUsecaseOutput output) {
         BoardDTO boardDTO = this.boardRepository.findById(input.getBoardID());
-        BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
-        Board board = boardDTOConverter.toEntity(boardDTO);
+        Board board = BoardDTOConverter.toEntity(boardDTO);
         List<Column> columnList = board.getColumns();
 
         List<GetColumnsByBoardIDUsecaseOutput.ColumnViewObject> columnViewList = new ArrayList<>();

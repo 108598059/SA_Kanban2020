@@ -14,23 +14,20 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class MysqlCreateBoardUseCaseTest {
     private DomainEventBus eventBus;
-    private BoardDTOConverter boardDTOConverter;
     private BoardRepository boardRepository;
 
     @Before
     public void setUp() {
         this.eventBus = new DomainEventBus();
-        this.boardDTOConverter = new BoardDTOConverter();
         this.boardRepository = new MysqlBoardRepository();
     }
 
     @Test
     public void create_board() {
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
@@ -38,7 +35,7 @@ public class MysqlCreateBoardUseCaseTest {
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
         UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());
-        Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
 
         assertEquals(2, board.getColumnNumber());
         assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardName());

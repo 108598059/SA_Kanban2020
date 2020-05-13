@@ -11,7 +11,6 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -23,27 +22,24 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 public class EditCardNameUseCaseTest {
 
   private BoardRepository boardRepository;
-  private BoardDTOConverter boardDTOConverter;
   private DomainEventBus eventBus;
   private UUID boardId;
 
   @Before
   public void given_there_is_a_card() {
     this.setup_context_for_use_case();
-    this.boardId = create_board("Software Architecture", this.boardRepository, this.eventBus, this.boardDTOConverter);
-    this.create_column("Develop", this.boardId, this.boardRepository, this.eventBus, this.boardDTOConverter);
+    this.boardId = create_board("Software Architecture", this.boardRepository, this.eventBus);
+    this.create_column("Develop", this.boardId, this.boardRepository, this.eventBus);
     this.create_card("User can edit nane.");
   }
 
   private void setup_context_for_use_case() {
     this.boardRepository = new MemoryBoardRepository();
-    this.boardDTOConverter = new BoardDTOConverter();
     this.eventBus = new DomainEventBus();
   }
 
-  private UUID create_board(String boardTitle, BoardRepository repository, DomainEventBus eventBus,
-      BoardDTOConverter dtoConverter) {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(repository, eventBus, dtoConverter);
+  private UUID create_board(String boardTitle, BoardRepository repository, DomainEventBus eventBus) {
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(repository, eventBus);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
@@ -52,9 +48,8 @@ public class EditCardNameUseCaseTest {
     return UUID.fromString(createBoardUseCaseOutput.getBoardId());
   }
 
-  private void create_column(String columnTitle, UUID boardId, BoardRepository repository, DomainEventBus eventBus,
-      BoardDTOConverter dtoConverter) {
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(repository, eventBus, dtoConverter);
+  private void create_column(String columnTitle, UUID boardId, BoardRepository repository, DomainEventBus eventBus) {
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(repository, eventBus);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 

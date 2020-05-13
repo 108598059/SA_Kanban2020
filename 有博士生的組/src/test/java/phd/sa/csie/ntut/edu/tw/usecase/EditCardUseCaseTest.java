@@ -38,9 +38,8 @@ public class EditCardUseCaseTest {
 
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
-    BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
     Board board = new Board("Kanban");
-    this.boardRepository.save(boardDTOConverter.toDTO(board));
+    this.boardRepository.save(BoardDTOConverter.toDTO(board));
     this.createCardUseCase = new CreateCardUseCase(this.eventBus);
     this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
 

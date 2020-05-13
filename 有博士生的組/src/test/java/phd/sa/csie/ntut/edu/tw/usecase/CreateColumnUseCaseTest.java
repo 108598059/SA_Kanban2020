@@ -21,23 +21,21 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 public class CreateColumnUseCaseTest {
 
   private BoardRepository boardRepository;
-  private BoardDTOConverter boardDTOConverter;
   private DomainEventBus eventBus;
   private UUID boardId;
 
   @Before
   public void given_a_board() {
     this.eventBus = new DomainEventBus();
-    this.boardDTOConverter = new BoardDTOConverter();
     this.boardRepository = new MemoryBoardRepository();
     Board board = new Board("phd");
     this.boardId = board.getId();
-    boardRepository.save(this.boardDTOConverter.toDTO(board));
+    boardRepository.save(BoardDTOConverter.toDTO(board));
   }
 
   @Test
   public void createColumn() {
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 

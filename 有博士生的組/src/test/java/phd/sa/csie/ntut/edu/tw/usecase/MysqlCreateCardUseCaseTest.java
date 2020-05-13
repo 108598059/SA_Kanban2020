@@ -37,8 +37,7 @@ public class MysqlCreateCardUseCaseTest {
     this.cardRepository = new MysqlCardRepository();
     this.boardRepository = new MemoryBoardRepository();
     this.board = new Board("Kanban");
-    BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
-    this.boardRepository.save(boardDTOConverter.toDTO(this.board));
+    this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
     this.eventBus = new DomainEventBus();
     this.commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
     this.eventBus.register(this.commitCardUsecase);

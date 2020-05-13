@@ -10,11 +10,9 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetColumnWIPUseCaseOutput> {
   private BoardRepository boardRepository;
-  private BoardDTOConverter boardDTOConverter;
-  public SetColumnWIPUseCase(BoardRepository boardRepository, DomainEventBus eventBus, BoardDTOConverter boardDTOConverter) {
+  public SetColumnWIPUseCase(BoardRepository boardRepository, DomainEventBus eventBus) {
     super(eventBus);
     this.boardRepository = boardRepository;
-    this.boardDTOConverter = boardDTOConverter;
   }
 
   public void execute(SetColumnWIPUseCaseInput input, SetColumnWIPUseCaseOutput output) {
@@ -22,10 +20,10 @@ public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetCo
     UUID columnId = input.getColumnId();
     int wip = input.getColumnWIP();
 
-    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
     board.setColumnWIP(columnId, wip);
 
-    this.boardRepository.update(this.boardDTOConverter.toDTO(board));
+    this.boardRepository.update(BoardDTOConverter.toDTO(board));
     output.setColumnId(columnId.toString());
     output.setColumnWIP(wip);
   }

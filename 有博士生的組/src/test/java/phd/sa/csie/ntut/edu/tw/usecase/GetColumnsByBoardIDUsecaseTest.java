@@ -34,8 +34,7 @@ public class GetColumnsByBoardIDUsecaseTest {
 
         Board board = new Board("Kanban");
         this.boardID = board.getId();
-        BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
-        this.boardRepository.save(boardDTOConverter.toDTO(board));
+        this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
         CommitCardUsecase commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
         DomainEventBus eventBus = new DomainEventBus();

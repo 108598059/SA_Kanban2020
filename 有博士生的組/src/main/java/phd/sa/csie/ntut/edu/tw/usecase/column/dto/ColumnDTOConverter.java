@@ -2,16 +2,13 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.dto;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTOConverter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ColumnDTOConverter implements DTOConverter<Column> {
-
-    @Override
-    public ColumnDTO toDTO(Column entity) {
+public class ColumnDTOConverter {
+    public static ColumnDTO toDTO(Column entity) {
         ColumnDTO columnDTO = new ColumnDTO();
         columnDTO.setId(entity.getId().toString());
         columnDTO.setTitle(entity.getTitle());
@@ -25,8 +22,7 @@ public class ColumnDTOConverter implements DTOConverter<Column> {
         return columnDTO;
     }
 
-    @Override
-    public Column toEntity(DTO dto) {
+    public static Column toEntity(DTO dto) {
         ColumnDTO columnDTO = (ColumnDTO) dto;
         List<String> idStringList = columnDTO.getCardIds();
         List<UUID> idList = new ArrayList<>();
@@ -37,5 +33,4 @@ public class ColumnDTOConverter implements DTOConverter<Column> {
         Column column = new Column(UUID.fromString(columnDTO.getId()), columnDTO.getTitle(), idList, columnDTO.getWip());
         return column;
     }
-    
 }

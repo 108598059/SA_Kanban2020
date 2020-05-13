@@ -12,20 +12,18 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 @Service
 public class CreateBoardUseCase extends UseCase<CreateBoardUseCaseInput, CreateBoardUseCaseOutput> {
   private BoardRepository boardRepository;
-  private BoardDTOConverter boardDTOConverter;
 
-  public CreateBoardUseCase(@Autowired BoardRepository boardRepository, @Autowired DomainEventBus eventBus, @Autowired BoardDTOConverter boardDTOConverter) {
+  public CreateBoardUseCase(@Autowired BoardRepository boardRepository, @Autowired DomainEventBus eventBus) {
     super(eventBus);
 
     this.boardRepository = boardRepository;
-    this.boardDTOConverter = boardDTOConverter;
   }
 
   public void execute(CreateBoardUseCaseInput input, CreateBoardUseCaseOutput output) {
     String title = input.getBoardName();
 
     Board board = new Board(title);
-    BoardDTO boardDTO = this.boardDTOConverter.toDTO(board);
+    BoardDTO boardDTO = BoardDTOConverter.toDTO(board);
     this.boardRepository.save(boardDTO);
 
     output.setBoardId(board.getId().toString());
