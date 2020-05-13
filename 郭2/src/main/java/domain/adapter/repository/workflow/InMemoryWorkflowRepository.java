@@ -6,7 +6,7 @@ import domain.usecase.workflow.repository.IWorkflowRepository;
 import java.util.*;
 
 public class InMemoryWorkflowRepository implements IWorkflowRepository {
-    private ArrayList<Workflow> workflowList = new ArrayList<Workflow>();
+    private List<Workflow> workflowList = new ArrayList<Workflow>();
 
     public void add(Workflow workflow) {
         workflowList.add(workflow);

@@ -1,4 +1,4 @@
-package domain.usecase.entity;
+package domain.usecase.board;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package domain.usecase;
+package domain.usecase.board;
 
 import domain.model.aggregate.board.Board;
-import domain.usecase.entity.BoardEntity;
 
 public class BoardDTO {
     public static BoardEntity BoardToBoardEntity(Board board) {
