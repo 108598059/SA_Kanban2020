@@ -1,8 +1,8 @@
 package domain.usecase.workflow;
 
 import com.google.common.eventbus.Subscribe;
-import domain.controller.CommitWorkflowInputImpl;
-import domain.controller.CommitWorkflowOutputImpl;
+import domain.adapters.controller.workflow.CommitWorkflowInputImpl;
+import domain.adapters.controller.workflow.CommitWorkflowOutputImpl;
 import domain.entity.workflow.event.WorkflowCreated;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.commit.CommitWorkflowInput;

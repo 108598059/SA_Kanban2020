@@ -1,7 +1,7 @@
 package domain.usecase;
 
-import domain.adapter.WorkflowRepositoryImpl;
-import domain.controller.*;
+import domain.adapters.repository.WorkflowRepositoryImpl;
+import domain.adapters.controller.workflow.*;
 import domain.entity.DomainEventBus;
 import domain.usecase.stage.create.CreateStageInput;
 import domain.usecase.stage.create.CreateStageOutput;
@@ -49,7 +49,7 @@ public class CreateSwimlaneTest {
 
     }
     @Test
-    public void createSwimlane() {
+    public void createSwimlaneTest() {
 
         CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository);
         CreateSwimlaneInput createSwimlaneInput = new CreateSwimlaneInputImpl();

@@ -1,11 +1,9 @@
 package domain.usecase.card;
 
 import com.google.common.eventbus.Subscribe;
-import domain.controller.CommitCardInputImpl;
-import domain.controller.CommitCardOutputImpl;
-import domain.entity.card.Card;
+import domain.adapters.controller.card.CommitCardInputImpl;
+import domain.adapters.controller.card.CommitCardOutputImpl;
 import domain.entity.card.event.CardCreated;
-import domain.entity.workflow.Workflow;
 import domain.usecase.workflow.WorkflowRepository;
 import domain.usecase.workflow.commit.CommitCardInput;
 import domain.usecase.workflow.commit.CommitCardOutput;
