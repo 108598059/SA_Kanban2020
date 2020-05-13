@@ -31,7 +31,7 @@ export default {
       while(this.columnList.length) {
         this.columnList.pop();
       }
-      axios.get(process.env.VUE_APP_HOST + "/columns?boardID=" + this.id)
+      axios.get(process.env.VUE_APP_API_HOST + "/columns?boardID=" + this.id)
         .then(res => {
           const columnList = res.data.columnList;
           columnList.forEach(column => {

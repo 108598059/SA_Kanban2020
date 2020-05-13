@@ -9,7 +9,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUsecaseInp
 import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUsecaseOutput;
 
 @RestController
-@RequestMapping(value = "/columns")
+@RequestMapping(value = "/api/columns")
 public class ColumnApi {
     @Autowired
     private GetColumnsByBoardIDUsecase getColumnsByBoardIDUsecase;

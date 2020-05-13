@@ -12,7 +12,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
 
 @RestController
-@RequestMapping(value = "/board")
+@RequestMapping(value = "/api/board")
 public class BoardApi {
     @Autowired
     private CreateBoardUseCase createBoardUseCase;

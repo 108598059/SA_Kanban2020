@@ -50,23 +50,13 @@ public class AppConfig {
         config.setAllowCredentials(true);
 
         //允許使用那些請求方式
-//        config.addAllowedMethods("GET", "PUT", "POST","DELETE");
         config.setAllowedMethods(Arrays.asList("GET", "PUT", "POST","DELETE"));
-//        config.addAllowedMethod(HttpMethod.POST);
 
         //允許哪些Header
         config.addAllowedHeader("*");
-        //config.addAllowedHeader("x-firebase-auth");
 
         //可獲取哪些Header（因為跨網域預設不能取得全部Header資訊）
         config.addExposedHeader("/*");
-//        config.addExposedHeader("Content-Type");
-//        config.addExposedHeader( "X-Requested-With");
-//        config.addExposedHeader("accept");
-//        config.addExposedHeader("Origin");
-//        config.addExposedHeader( "Access-Control-Request-Method");
-//        config.addExposedHeader("Access-Control-Request-Headers");
-
 
         //映射路徑
         UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();

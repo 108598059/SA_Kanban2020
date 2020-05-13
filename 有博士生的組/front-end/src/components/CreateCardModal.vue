@@ -44,7 +44,7 @@ export default {
         boardID: this.boardID,
         cardName: this.form.cardName
       }
-      axios.post(process.env.VUE_APP_HOST + '/card/create', body).then(() => {
+      axios.post(process.env.VUE_APP_API_HOST + '/card/create', body).then(() => {
         this.closeModal();
         this.$emit('cardCreated');
       }).catch(console.error);
