@@ -51,6 +51,9 @@ public class MainFrame extends JFrame implements View, ActionListener{
         buttonListContainer.add(boardNameInput);
         buttonListContainer.add(boardCreate);
         boardListContainer.add(boardList);
+
+        boardList.setFixedCellWidth(100);
+        boardList.setFixedCellHeight(20);
     }
 
 
