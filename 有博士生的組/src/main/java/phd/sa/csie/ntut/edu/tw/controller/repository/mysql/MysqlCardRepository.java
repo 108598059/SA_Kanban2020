@@ -2,10 +2,12 @@ package phd.sa.csie.ntut.edu.tw.controller.repository.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
@@ -18,9 +20,9 @@ public class MysqlCardRepository extends CardRepository {
     try {
       Connection connection = DB_connector.getConnection();
       PreparedStatement stmt = connection.prepareStatement("INSERT INTO Card VALUES(?, ?, ?)");
-      stmt.setString(1, cardDTO.getId().toString());
+      stmt.setString(1, cardDTO.getId());
       stmt.setString(2, cardDTO.getName());
-      stmt.setString(3, null);
+      stmt.setString(3, cardDTO.getColumnId());
 
       stmt.executeUpdate();
       DB_connector.closeConnection(connection);
@@ -30,8 +32,23 @@ public class MysqlCardRepository extends CardRepository {
   }
 
   @Override
-  public CardDTO findById(UUID id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Not implemented yet.");
+  public CardDTO findById(String id) {
+    try {
+      Connection connection = DB_connector.getConnection();
+      PreparedStatement stmt = connection.prepareStatement("SELECT * FROM `Card` WHERE ID=?");
+      stmt.setString(1, id);
+
+      ResultSet resultSet = stmt.executeQuery();
+      CardDTO result = new CardDTO();
+      while (resultSet.next()) {
+        result.setId(resultSet.getString("ID"));
+        result.setName(resultSet.getString("Name"));
+        result.setColumnId(resultSet.getString("ColumnID"));
+      }
+      DB_connector.closeConnection(connection);
+      return result;
+    } catch (SQLException e) {
+      throw new RuntimeException(e.getMessage());
+    }
   }
 }

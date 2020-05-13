@@ -26,7 +26,7 @@ public class MysqlBoardRepository extends BoardRepository {
     }
 
     @Override
-    public BoardDTO findById(UUID id) {
+    public BoardDTO findById(String id) {
         return null;
     }
 }

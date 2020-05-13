@@ -21,7 +21,7 @@ public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCa
   }
 
   public void execute(MoveCardUseCaseInput moveCardUseCaseInput, MoveCardUseCaseOutput moveCardUseCaseOutput) {
-    BoardDTO boardDTO = this.boardRepository.findById(moveCardUseCaseInput.getBoardId());
+    BoardDTO boardDTO = this.boardRepository.findById(moveCardUseCaseInput.getBoardId().toString());
     Board board = this.boardDTOConverter.toEntity(boardDTO);
     UUID cardId = moveCardUseCaseInput.getCardId();
     UUID fromColumnId = moveCardUseCaseInput.getFromColumnId();

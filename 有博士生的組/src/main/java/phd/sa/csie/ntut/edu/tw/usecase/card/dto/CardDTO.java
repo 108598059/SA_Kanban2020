@@ -7,17 +7,17 @@ import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
 public class CardDTO extends DTO {
 
     private String name;
-    private UUID columnId;
+    private String columnId;
 
     public String getName() {
         return name;
     }
 
-    public UUID getColumnId() {
+    public String getColumnId() {
         return columnId;
     }
 
-    public void setColumnId(UUID columnId) {
+    public void setColumnId(String columnId) {
         this.columnId = columnId;
     }
 

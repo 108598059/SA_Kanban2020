@@ -22,7 +22,7 @@ public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetCo
     UUID columnId = input.getColumnId();
     int wip = input.getColumnWIP();
 
-    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId));
+    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
     board.setColumnWIP(columnId, wip);
 
     this.boardRepository.save(this.boardDTOConverter.toDTO(board));

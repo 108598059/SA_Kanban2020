@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.dto;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Column;
@@ -16,7 +17,7 @@ public class BoardDTOConverter implements DTOConverter<Board> {
     @Override
     public BoardDTO toDTO(Board entity) {
         BoardDTO boardDTO = new BoardDTO();
-        boardDTO.setId(entity.getId());
+        boardDTO.setId(entity.getId().toString());
         boardDTO.setName(entity.getName());
         ArrayList<ColumnDTO> columnDTOs = new ArrayList<ColumnDTO>();
         for (int i = 0; i < entity.getColumnNumber(); i++) {
@@ -34,10 +35,7 @@ public class BoardDTOConverter implements DTOConverter<Board> {
         for (int i = 0; i < columnDTOs.size(); i++) {
             columns.add(this.columnDTOConverter.toEntity(columnDTOs.get(i)));
         }
-        Board board = new Board(boardDTO.getId(), boardDTO.getName(), columns);
+        Board board = new Board(UUID.fromString(boardDTO.getId()), boardDTO.getName(), columns);
         return board;
     }
-
-    
-
 }

@@ -52,6 +52,7 @@ public class Board extends AggregateRoot {
 
   public UUID createColumn(String columnTitle) {
     Column column = new Column(columnTitle);
+    this.columns.add(column);
     return column.getId();
   }
 
@@ -82,7 +83,7 @@ public class Board extends AggregateRoot {
   }
 
   private Column getColumnById(UUID id) {
-    for (Column column : columns) {
+    for (Column column : this.columns) {
       if (column.getId().equals(id)) {
         return column;
       }

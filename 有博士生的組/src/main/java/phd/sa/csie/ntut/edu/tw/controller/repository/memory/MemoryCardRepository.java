@@ -9,7 +9,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class MemoryCardRepository extends CardRepository {
 
-  private Map<UUID, CardDTO> storage;
+  private Map<String, CardDTO> storage;
 
   public MemoryCardRepository() {
     this.storage = new HashMap<>();
@@ -21,7 +21,7 @@ public class MemoryCardRepository extends CardRepository {
   }
 
   @Override
-  public CardDTO findById(UUID id) {
+  public CardDTO findById(String id) {
     return this.storage.get(id);
   }
 }

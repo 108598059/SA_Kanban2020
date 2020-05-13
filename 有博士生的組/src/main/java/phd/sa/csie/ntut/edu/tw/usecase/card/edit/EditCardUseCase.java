@@ -21,7 +21,7 @@ public class EditCardUseCase {
     UUID cardId = input.getCardId();
     String cardName = input.getCardName();
 
-    Card card = cardDTOConverter.toEntity(cardRepository.findById(cardId));
+    Card card = cardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
     card.setName(cardName);
 
     CardDTO cardDTO = cardDTOConverter.toDTO(card);

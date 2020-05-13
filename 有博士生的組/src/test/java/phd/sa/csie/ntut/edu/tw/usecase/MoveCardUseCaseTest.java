@@ -58,7 +58,7 @@ public class MoveCardUseCaseTest {
     this.boardDTOConverter = new BoardDTOConverter();
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
-    this.createCardUseCase = new CreateCardUseCase(this.cardRepository, this.eventBus, this.cardDTOConverter);
+    this.createCardUseCase = new CreateCardUseCase(this.eventBus);
     this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
 
     Board board = new Board("phd");
@@ -70,9 +70,10 @@ public class MoveCardUseCaseTest {
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("test card");
+    createCardUseCaseInput.setBoardID(this.boardId.toString());
     this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = this.cardDTOConverter.toEntity(cardRepository.findById(cardId));
+    card = this.cardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
     this.eventBus.register(card);
 
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
@@ -113,7 +114,7 @@ public class MoveCardUseCaseTest {
     assertEquals(fromColumnId, moveCardUseCaseOutput.getOldColumnId());
     assertEquals(toColumnId, moveCardUseCaseOutput.getNewColumnId());
 
-    Board board = this.boardDTOConverter.toEntity(boardRepository.findById(boardId));
+    Board board = this.boardDTOConverter.toEntity(boardRepository.findById(boardId.toString()));
     assertTrue(board.findColumnById(UUID.fromString(toColumnId)).cardExist(card.getId()));
   }
 
@@ -150,13 +151,13 @@ public class MoveCardUseCaseTest {
 
   @Test
   public void the_card_cannot_be_moved_to_the_column_that_has_achieved_its_WIP_limit() {
-
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("User can move card.");
+    createCardUseCaseInput.setBoardID(this.boardId.toString());
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = cardDTOConverter.toEntity(cardRepository.findById(cardId));
+    card = cardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
 
     MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();

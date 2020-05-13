@@ -22,7 +22,7 @@ public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, Creat
     String title = createColumnUseCaseInput.getTitle();
     UUID boardId = createColumnUseCaseInput.getBoardId();
 
-    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId));
+    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
     UUID columnId = board.createColumn(title);
 
     this.boardRepository.save(this.boardDTOConverter.toDTO(board));

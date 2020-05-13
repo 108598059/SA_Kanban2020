@@ -4,13 +4,13 @@ import java.util.UUID;
 
 public abstract class DTO {
 
-	private UUID id;
+	private String id;
 
-	public UUID getId() {
+	public String getId() {
 		return this.id;
 	};
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

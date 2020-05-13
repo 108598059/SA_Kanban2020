@@ -9,28 +9,10 @@ public class BoardDTO extends DTO {
 
     private String name;
     private ArrayList<ColumnDTO> columnDTOs;
-    // private ColumnDTO startColumnDTO;
-    // private ColumnDTO endColumnDTO;
 
     public String getName() {
         return name;
     }
-
-    // public ColumnDTO getEndColumnDTO() {
-    //     return endColumnDTO;
-    // }
-
-    // public void setEndColumnDTO(ColumnDTO endColumnDTO) {
-    //     this.endColumnDTO = endColumnDTO;
-    // }
-
-    // public ColumnDTO getStartColumnDTO() {
-    //     return startColumnDTO;
-    // }
-
-    // public void setStartColumnDTO(ColumnDTO startColumnDTO) {
-    //     this.startColumnDTO = startColumnDTO;
-    // }
 
     public ArrayList<ColumnDTO> getColumnDTOs() {
         return columnDTOs;

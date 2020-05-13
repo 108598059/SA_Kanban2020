@@ -52,7 +52,7 @@ public class CreateBoardUseCaseTest {
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
     UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());
-    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId));
+    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
 
     assertEquals(2, board.getColumnNumber());
     assertEquals("Backlog", board.get(0).getTitle());

@@ -26,7 +26,7 @@ public class CommitCardUsecase {
   public void execute(CardCreatedEvent e) {
     Card card = e.getEntity();
     BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
-    Board board = boardDTOConverter.toEntity(this.boardRepository.findById(card.getBoardId()));
+    Board board = boardDTOConverter.toEntity(this.boardRepository.findById(card.getBoardId().toString()));
     board.commitCard(card);
     CardDTOConverter cardDTOConverter = new CardDTOConverter();
     CardDTO cardDto = cardDTOConverter.toDTO(card);

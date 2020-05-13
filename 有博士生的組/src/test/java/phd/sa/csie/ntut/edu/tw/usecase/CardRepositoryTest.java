@@ -19,18 +19,18 @@ public class CardRepositoryTest {
   @Test
   public void createCard() {
     CardRepository cardRepository = new MemoryCardRepository();
-    Card card = new Card("test card");
+    Card card = new Card("test card", UUID.randomUUID());
+    card.setColumnId(UUID.randomUUID());
 
     CardDTOConverter dtoConverter = new CardDTOConverter();
     CardDTO cardDTO = dtoConverter.toDTO(card);
 
     cardRepository.save(cardDTO);
 
-    CardDTO resultCardDTO = cardRepository.findById(card.getId());
+    CardDTO resultCardDTO = cardRepository.findById(card.getId().toString());
     Card resultCard = (Card) dtoConverter.toEntity(resultCardDTO);
 
     assertEquals(card.getName(), resultCard.getName());
     assertEquals(card.getId(), resultCard.getId());
   }
-
 }

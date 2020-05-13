@@ -10,7 +10,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class MemoryBoardRepository extends BoardRepository {
 
-  private Map<UUID, BoardDTO> storage;
+  private Map<String, BoardDTO> storage;
 
   public MemoryBoardRepository() {
     this.storage = new HashMap<>();
@@ -22,7 +22,7 @@ public class MemoryBoardRepository extends BoardRepository {
   }
 
   @Override
-  public BoardDTO findById(UUID id) {
+  public BoardDTO findById(String id) {
     return this.storage.get(id);
   }
 }

@@ -76,7 +76,7 @@ public class EditCardNameUseCaseTest {
 
   private void create_card(String cardTitle, CardRepository repository, DomainEventBus eventBus,
       CardDTOConverter dtoConverter) {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(repository, eventBus, dtoConverter);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(eventBus);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 

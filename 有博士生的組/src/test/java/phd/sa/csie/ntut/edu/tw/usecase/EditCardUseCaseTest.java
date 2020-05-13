@@ -8,9 +8,15 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -19,12 +25,15 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.dto.DTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class EditCardUseCaseTest {
 
   private Card card;
   private CardRepository cardRepository;
+  private BoardRepository boardRepository;
   private CreateCardUseCase createCardUseCase;
   private DomainEventBus eventBus;
   private CardDTOConverter cardDTOConverter;
@@ -34,16 +43,22 @@ public class EditCardUseCaseTest {
     this.eventBus = new DomainEventBus();
     this.cardDTOConverter = new CardDTOConverter();
 
-    cardRepository = new MemoryCardRepository();
-    createCardUseCase = new CreateCardUseCase(cardRepository, eventBus, cardDTOConverter);
-    cardDTOConverter = new CardDTOConverter();
+    this.cardRepository = new MemoryCardRepository();
+    this.boardRepository = new MemoryBoardRepository();
+    BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
+    Board board = new Board("Kanban");
+    this.boardRepository.save(boardDTOConverter.toDTO(board));
+    this.createCardUseCase = new CreateCardUseCase(this.eventBus);
+    this.cardDTOConverter = new CardDTOConverter();
+    this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("Old Name");
+    createCardUseCaseInput.setBoardID(board.getId().toString());
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = cardDTOConverter.toEntity(cardRepository.findById(cardId));
+    card = cardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
   }
 
   @Test
