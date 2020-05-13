@@ -29,11 +29,11 @@ public class CreateWorkflowTest {
 
     @Before
     public void setUp() {
-//        boardRepository = new InMemoryBoardRepository();
-//        workflowRepository = new InMemoryWorkflowRepository();
+        boardRepository = new InMemoryBoardRepository();
+        workflowRepository = new InMemoryWorkflowRepository();
 
-        boardRepository = new MySqlBoardRepository();
-        workflowRepository = new MySqlWorkflowRepository();
+//        boardRepository = new MySqlBoardRepository();
+//        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(

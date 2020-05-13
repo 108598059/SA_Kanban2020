@@ -1,9 +1,9 @@
 package domain.usecase;
 
 
-import domain.controller.CreateBoardInputImpl;
-import domain.controller.CreateBoardOutputImpl;
-import domain.adapter.BoardRepositoryImpl;
+import domain.adapters.controller.board.CreateBoardInputImpl;
+import domain.adapters.controller.board.CreateBoardOutputImpl;
+import domain.adapters.repository.BoardRepositoryImpl;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.create.CreateBoardInput;
 import domain.usecase.board.create.CreateBoardOutput;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class CreateBoardTest {
     @Test
-    public void createBoard(){
+    public void createBoardTest(){
 
         BoardRepository boardRepository = new BoardRepositoryImpl();
 

@@ -1,14 +1,14 @@
 package domain.usecase;
 
-import domain.controller.CreateStageInputImpl;
-import domain.controller.CreateStageOutputImpl;
-import domain.controller.CreateWorkflowInputImpl;
-import domain.controller.CreateWorkflowOutputImpl;
+import domain.adapters.controller.workflow.CreateStageInputImpl;
+import domain.adapters.controller.workflow.CreateStageOutputImpl;
+import domain.adapters.controller.workflow.CreateWorkflowInputImpl;
+import domain.adapters.controller.workflow.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
 import domain.usecase.stage.create.CreateStageInput;
 import domain.usecase.stage.create.CreateStageOutput;
 import domain.usecase.stage.create.CreateStageUseCase;
-import domain.adapter.WorkflowRepositoryImpl;
+import domain.adapters.repository.WorkflowRepositoryImpl;
 import domain.usecase.workflow.create.CreateWorkflowInput;
 import domain.usecase.workflow.create.CreateWorkflowOutput;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
@@ -40,7 +40,7 @@ public class CreateStageTest {
 
     }
     @Test
-    public void createStage() {
+    public void createStageTest() {
 
         CreateStageUseCase createStage = new CreateStageUseCase(workflowRepository) ;
         CreateStageInput createStageInput = new CreateStageInputImpl() ;

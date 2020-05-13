@@ -15,10 +15,16 @@ public class WorkflowTest {
 
     @Test
     public void Create_workflow_should_have_the_WorkflowCreated_event_in_domainEvent_list() {
-        Workflow workflow = new Workflow("workflowName", "boardId");
+        Workflow workflow = new Workflow("boardId", "workflowName");
 
         assertEquals(1, workflow.getDomainEvents().size());
         assertEquals(WorkflowCreated.class, workflow.getDomainEvents().get(0).getClass());
+
+        WorkflowCreated workflowCreated = (WorkflowCreated) workflow.getDomainEvents().get(0);
+
+        assertEquals("boardId", workflowCreated.getBoardId());
+        assertEquals(workflow.getName(), workflowCreated.getName());
+        assertEquals(workflow.getWorkflowId(), workflowCreated.getWorkflowId());
     }
 
     @Test
@@ -33,6 +39,12 @@ public class WorkflowTest {
         assertEquals("stageName", workflow.getStages().get(0).getName());
         assertEquals(2, workflow.getDomainEvents().size());
         assertEquals(StageCreated.class, workflow.getDomainEvents().get(1).getClass());
+
+        StageCreated stageCreated = (StageCreated) workflow.getDomainEvents().get(1);
+
+        assertEquals("stageName", stageCreated.getName());
+        assertEquals(workflow.getStages().get(0).getStageId(), stageCreated.getStageId());
+        assertEquals(workflow.getWorkflowId(), stageCreated.getWorkflowId());
     }
 
     @Test
@@ -47,5 +59,10 @@ public class WorkflowTest {
         assertEquals(1, workflow.getStageCloneById(stageId).getCardIds().size());
         assertEquals(3, workflow.getDomainEvents().size());
         assertEquals(CardCommitted.class, workflow.getDomainEvents().get(2).getClass());
+
+        CardCommitted cardCommitted = (CardCommitted) workflow.getDomainEvents().get(2);
+
+        assertEquals("cardId", cardCommitted.getCardId());
+        assertEquals(stageId, cardCommitted.getStageId());
     }
 }

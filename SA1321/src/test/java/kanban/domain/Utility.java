@@ -34,8 +34,8 @@ public class Utility {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardInput input = new CreateBoardInput();
         CreateBoardOutput output = new CreateBoardOutput();
-
-        input.setBoardName("Board");
+        input.setUserId("1");
+        input.setBoardName(boardName);
         createBoardUseCase.execute(input, output);
         return output.getBoardId();
     }

@@ -19,11 +19,10 @@ public class CreateBoardUseCase {
         board.setName(createBoardInput.getName());
 
         BoardDTO boardDTO = BoardTransformer.toDTO(board);
-
         boardRepository.add(boardDTO);
 
 
         createBoardOutput.setBoardId(board.getId());
-
+        createBoardOutput.setBoardName(createBoardInput.getName());
     }
 }

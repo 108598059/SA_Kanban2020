@@ -1,9 +1,8 @@
 package domain.adapter.repository.board;
 
 import domain.adapter.database.DbConn;
-import domain.model.aggregate.board.Board;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.entity.BoardEntity;
+import domain.usecase.board.BoardEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

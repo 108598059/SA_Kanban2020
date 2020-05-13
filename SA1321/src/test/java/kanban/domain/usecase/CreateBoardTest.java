@@ -1,6 +1,7 @@
 package kanban.domain.usecase;
 
 
+import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.create.CreateBoardInput;
@@ -19,8 +20,8 @@ public class CreateBoardTest {
 
     @Before
     public void setUp() {
-//        boardRepository = new InMemoryBoardRepository();
-        boardRepository = new MySqlBoardRepository();
+        boardRepository = new InMemoryBoardRepository();
+//        boardRepository = new MySqlBoardRepository();
     }
 
     @Test
@@ -28,13 +29,14 @@ public class CreateBoardTest {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardInput input = new CreateBoardInput();
         CreateBoardOutput output = new CreateBoardOutput();
-
+        input.setUserId("1");
         input.setBoardName("Board");
         createBoardUseCase.execute(input, output);
         assertNotNull(output.getBoardId());
 
         Board board = TransformToEntity.transform(boardRepository.getBoardById(output.getBoardId()));
 
+        assertEquals("1", board.getUserId());
         assertEquals(output.getBoardId(), board.getBoardId());
         assertEquals(output.getBoardName(), board.getBoardName());
     }
