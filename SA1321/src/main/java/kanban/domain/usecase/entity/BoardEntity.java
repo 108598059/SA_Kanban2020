@@ -3,10 +3,18 @@ package kanban.domain.usecase.entity;
 import java.util.List;
 
 public class BoardEntity {
-
+    private String userId;
     private String boardName;
     private String boardId;
     private List<String> workflowIds;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getBoardName() {
         return boardName;

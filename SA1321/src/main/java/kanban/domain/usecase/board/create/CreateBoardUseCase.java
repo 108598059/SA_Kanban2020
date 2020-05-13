@@ -13,7 +13,7 @@ public class CreateBoardUseCase {
     }
 
     public void execute(CreateBoardInput input, CreateBoardOutput output) {
-        Board board = new Board(input.getBoardName());
+        Board board = new Board(input.getUserId(), input.getBoardName());
 
         boardRepository.add(TransformToDTO.transform(board));
         output.setBoardId(board.getBoardId());

@@ -8,6 +8,7 @@ public class TransformToEntity {
     public static Board transform(BoardEntity boardEntity) {
         Board board = new Board();
 
+        board.setUserId(boardEntity.getUserId());
         board.setBoardId(boardEntity.getBoardId());
         board.setBoardName(boardEntity.getBoardName());
         board.setWorkflowIds(boardEntity.getWorkflowIds());

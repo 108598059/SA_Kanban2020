@@ -35,6 +35,7 @@ public class MySqlDatabaseHelper {
         connectToDatabase();
         Statement statement = null;
         String sql = "Create Table If Not Exists " + BoardTable.tableName + " ("
+                + BoardTable.userId + " Varchar(50) Not Null, "
                 + BoardTable.boardId + " Varchar(50) Not Null, "
                 + BoardTable.name + " Varchar(50) Not Null, "
                 + "Primary Key (" + BoardTable.boardId + ") "
