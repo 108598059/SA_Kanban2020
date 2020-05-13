@@ -24,9 +24,10 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.board.move.MoveCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.move.MoveCardUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.board.move.MoveCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardColumnUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
@@ -60,7 +61,6 @@ public class MoveCardUseCaseTest {
     Board board = new Board("phd");
     this.boardId = board.getId();
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
-    this.eventBus.register(board);
     this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
@@ -69,14 +69,16 @@ public class MoveCardUseCaseTest {
     createCardUseCaseInput.setBoardID(this.boardId.toString());
     this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
-    this.eventBus.register(card);
+    this.card = CardDTOConverter.toEntity(this.cardRepository.findById(cardId.toString()));
+
+    EditCardColumnUsecase editCardColumnUsecase = new EditCardColumnUsecase(this.cardRepository);
+    this.eventBus.register(editCardColumnUsecase);
 
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
-    createColumnUseCaseInput.setBoardId(boardId);
+    createColumnUseCaseInput.setBoardId(this.boardId);
     createColumnUseCaseInput.setTitle("develop column");
-    this.fromColumnId = card.getColumnId().toString();
+    this.fromColumnId = this.card.getColumnId().toString();
     createColumnUseCaseInput.setBoardId(this.boardId);
     createColumnUseCaseInput.setTitle("test column");
     this.createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
@@ -99,19 +101,19 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
-    moveCardUseCaseInput.setBoardId(boardId);
-    moveCardUseCaseInput.setCardId(card.getId());
-    moveCardUseCaseInput.setFromColumnId(UUID.fromString(fromColumnId));
-    moveCardUseCaseInput.setToColumnId(UUID.fromString(toColumnId));
+    moveCardUseCaseInput.setBoardId(this.boardId);
+    moveCardUseCaseInput.setCardId(this.card.getId());
+    moveCardUseCaseInput.setFromColumnId(UUID.fromString(this.fromColumnId));
+    moveCardUseCaseInput.setToColumnId(UUID.fromString(this.toColumnId));
 
     moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
-    assertEquals(card.getId().toString(), moveCardUseCaseOutput.getCardId());
-    assertEquals(fromColumnId, moveCardUseCaseOutput.getOldColumnId());
-    assertEquals(toColumnId, moveCardUseCaseOutput.getNewColumnId());
+    assertEquals(this.card.getId().toString(), moveCardUseCaseOutput.getCardId());
+    assertEquals(this.fromColumnId, moveCardUseCaseOutput.getOldColumnId());
+    assertEquals(this.toColumnId, moveCardUseCaseOutput.getNewColumnId());
 
-    Board board = BoardDTOConverter.toEntity(boardRepository.findById(boardId.toString()));
-    assertTrue(board.findColumnById(UUID.fromString(toColumnId)).cardExist(card.getId()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(this.boardId.toString()));
+    assertTrue(board.findColumnById(UUID.fromString(this.toColumnId)).cardExist(this.card.getId()));
   }
 
   @Test
@@ -134,9 +136,10 @@ public class MoveCardUseCaseTest {
 
     assertEquals(2, repo.size());
     List<DomainEvent> eventList = repo.getAll();
+    Card resultCard = CardDTOConverter.toEntity(this.cardRepository.findById(this.card.getId().toString()));
     assertEquals("Leaved column event: " + fromColumnId, eventList.get(0).getSourceName());
     assertEquals("Entered column event: " + toColumnId, eventList.get(1).getSourceName());
-    assertEquals(toColumnId, this.card.getColumnId().toString());
+    assertEquals(toColumnId, resultCard.getColumnId().toString());
   }
 
   @Ignore

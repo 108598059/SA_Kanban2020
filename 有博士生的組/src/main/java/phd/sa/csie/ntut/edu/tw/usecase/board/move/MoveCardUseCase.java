@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.card.move;
+package phd.sa.csie.ntut.edu.tw.usecase.board.move;
 
 import java.util.UUID;
 

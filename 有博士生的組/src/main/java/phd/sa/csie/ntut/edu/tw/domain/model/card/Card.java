@@ -32,16 +32,6 @@ public class Card extends AggregateRoot {
     // this.addDomainEvent(new CardCreatedEvent(this));
   }
 
-  @Subscribe
-  public void entered(CardEnterColumnEvent e) {
-    this.columnId = e.getColumnId();
-  }
-
-  @Subscribe
-  public void leaved(CardLeaveColumnEvent e) {
-
-  }
-
   public void setName(String name) {
     this.name = name;
   }
