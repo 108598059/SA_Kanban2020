@@ -2,7 +2,7 @@
   <div id="column">
     <div class="column_name">{{name}}</div>
     <div class="column_content">
-      <Card card-name="Develop"></Card>
+      <Card v-for="card in cards" :key="card.id" :card="card"></Card>
     </div>
   </div>
 </template>
@@ -16,7 +16,8 @@ export default {
     Card
   },
   props: {
-    name: String
+    name: String,
+    cards: Array
   }
 };
 </script>
