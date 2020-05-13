@@ -13,6 +13,7 @@ public class Column extends Entity {
   private List<UUID> cardIds;
 
   public Column(String title) {
+    super();
     this.title = title;
     this.wip = 0;
     this.cardIds = new ArrayList<UUID>();
@@ -68,7 +69,7 @@ public class Column extends Entity {
 
   public boolean cardExist(UUID id) {
     for (int i = 0; i < this.cardIds.size(); ++i) {
-      if (id == this.cardIds.get(i)) {
+      if (id.equals(this.cardIds.get(i))) {
         return true;
       }
     }

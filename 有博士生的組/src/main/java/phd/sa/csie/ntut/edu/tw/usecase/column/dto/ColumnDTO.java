@@ -8,17 +8,17 @@ import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
 public class ColumnDTO extends DTO {
     private String title;
     private int wip;
-    private List<UUID> cardIds;
+    private List<String> cardIds;
 
     public String getTitle() {
         return title;
     }
 
-    public List<UUID> getCardIds() {
+    public List<String> getCardIds() {
         return cardIds;
     }
 
-    public void setCardIds(List<UUID> cardIds) {
+    public void setCardIds(List<String> cardIds) {
         this.cardIds = cardIds;
     }
 

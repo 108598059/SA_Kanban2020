@@ -13,6 +13,7 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
@@ -81,7 +82,10 @@ public class CreateCardUseCaseTest {
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
     CardDTO cardDTO = cardRepository.findById(cardId.toString());
     Card card = cardDTOConverter.toEntity(cardDTO);
-    assertTrue(this.board.get(0).getCardIds().contains(card.getId()));
+    BoardDTO boardDTO = this.boardRepository.findById(this.board.getId().toString());
+    BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
+    Board boardResult = boardDTOConverter.toEntity(boardDTO);
+    assertTrue(boardResult.get(0).getCardIds().contains(card.getId()));
   }
 
   @Test

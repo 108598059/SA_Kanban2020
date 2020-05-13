@@ -17,6 +17,7 @@ public class Board extends AggregateRoot {
   private List<Column> columns;
 
   public Board(String name) {
+    super();
     this.name = name;
     this.columns = new ArrayList<Column>();
     Column backlog = new Column("Backlog");

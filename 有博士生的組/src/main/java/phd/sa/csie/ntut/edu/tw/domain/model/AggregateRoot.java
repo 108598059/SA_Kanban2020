@@ -9,6 +9,7 @@ public abstract class AggregateRoot extends Entity {
     private final List<DomainEvent> domainEvents;
 
     public AggregateRoot() {
+        super();
         domainEvents = new CopyOnWriteArrayList<DomainEvent>();
     }
 
