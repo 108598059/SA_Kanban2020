@@ -39,12 +39,12 @@ public class CreateSwimlaneUseCaseTest {
     }
 
     @Test
-    public void createSwimlaneUnderTopStage() {
+    public void create_a_SwimLane_under_top_Stage() {
         CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository, boardRepository);
         CreateSwimlaneInput input = new CreateSwimlaneInput();
         CreateSwimlaneOutput output = new CreateSwimlaneOutput();
 
-        input.setSwinlaneName("Urgent");
+        input.setSwimlaneName("Urgent");
         input.setWorkflowId(workflowId);
         input.setParentLaneId(topStageId);
 
@@ -57,19 +57,19 @@ public class CreateSwimlaneUseCaseTest {
 
         assertEquals("Urgent", workflowRepository
                                         .findById(workflowId)
-                                        .findLaneById(output.getSwinlaneId())
+                                        .findLaneById(output.getSwimlaneId())
                                         .getName());
     }
 
     @Test
-    public void createSwimlaneUnderStage() {
+    public void create_a_SwimLane_under_Stage() {
         String parenStageId = testUtility.createStage(workflowId, topStageId, "Developing");
 
         CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository, boardRepository);
         CreateSwimlaneInput input = new CreateSwimlaneInput();
         CreateSwimlaneOutput output = new CreateSwimlaneOutput();
 
-        input.setSwinlaneName("Urgent");
+        input.setSwimlaneName("Urgent");
         input.setWorkflowId(workflowId);
         input.setParentLaneId(parenStageId);
 
@@ -85,13 +85,13 @@ public class CreateSwimlaneUseCaseTest {
                                         .findById(workflowId)
                                         .findLaneById(topStageId)
                                         .findById(parenStageId)
-                                        .findById(output.getSwinlaneId())
+                                        .findById(output.getSwimlaneId())
                                         .getName());
 
     }
 
     @Test
-    public void createSwimlaneUnderSwimlane() {
+    public void create_a_SwimLane_under_SwimLane() {
 
         String parenStageId = testUtility.createSwimLane(workflowId, topStageId, "Undo");
 
@@ -99,7 +99,7 @@ public class CreateSwimlaneUseCaseTest {
         CreateSwimlaneInput input = new CreateSwimlaneInput();
         CreateSwimlaneOutput output = new CreateSwimlaneOutput();
 
-        input.setSwinlaneName("Urgent");
+        input.setSwimlaneName("Urgent");
         input.setWorkflowId(workflowId);
         input.setParentLaneId(parenStageId);
 
@@ -115,7 +115,7 @@ public class CreateSwimlaneUseCaseTest {
                                         .findById(workflowId)
                                         .findLaneById(topStageId)
                                         .findById(parenStageId)
-                                        .findById(output.getSwinlaneId())
+                                        .findById(output.getSwimlaneId())
                                         .getName());
     }
 }
