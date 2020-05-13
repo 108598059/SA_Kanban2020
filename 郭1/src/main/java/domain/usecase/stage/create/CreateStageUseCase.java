@@ -1,8 +1,8 @@
 package domain.usecase.stage.create;
 
 import domain.entity.workflow.Workflow;
-import domain.adapter.WorkflowRepositoryImpl;
 import domain.usecase.workflow.WorkflowRepository;
+
 
 public class CreateStageUseCase {
 
@@ -11,6 +11,7 @@ public class CreateStageUseCase {
     public CreateStageUseCase(WorkflowRepository workflowRepository){
         this.workflowRepository = workflowRepository;
     }
+
 
     public void execute(CreateStageInput createStageInput, CreateStageOutput createStageOutput) {
 

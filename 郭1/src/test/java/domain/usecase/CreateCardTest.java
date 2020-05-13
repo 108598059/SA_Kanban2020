@@ -1,10 +1,11 @@
 package domain.usecase;
 
-import domain.adapter.CardRepositoryImpl;
-import domain.adapter.WorkflowRepositoryImpl;
-import domain.controller.*;
+import domain.adapters.repository.CardRepositoryImpl;
+import domain.adapters.repository.WorkflowRepositoryImpl;
+import domain.adapters.controller.card.CreateCardInputImpl;
+import domain.adapters.controller.card.CreateCardOutputImpl;
+import domain.adapters.controller.workflow.*;
 import domain.entity.DomainEventBus;
-import domain.usecase.board.BoardRepository;
 
 import domain.usecase.card.CardEventHandler;
 import domain.usecase.card.CardRepository;
