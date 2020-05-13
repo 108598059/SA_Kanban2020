@@ -21,6 +21,11 @@ public class MemoryCardRepository extends CardRepository {
   }
 
   @Override
+  public void update(CardDTO dto) {
+    this.save(dto);
+  }
+
+  @Override
   public CardDTO findById(String id) {
     return this.storage.get(id);
   }

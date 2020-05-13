@@ -25,7 +25,7 @@ public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, Creat
     Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
     UUID columnId = board.createColumn(title);
 
-    this.boardRepository.save(this.boardDTOConverter.toDTO(board));
+    this.boardRepository.update(this.boardDTOConverter.toDTO(board));
     createColumnUseCaseOutput.setId(columnId.toString());
   }
 }

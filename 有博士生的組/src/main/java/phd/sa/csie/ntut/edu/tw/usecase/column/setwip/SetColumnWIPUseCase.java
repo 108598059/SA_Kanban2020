@@ -25,7 +25,7 @@ public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetCo
     Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
     board.setColumnWIP(columnId, wip);
 
-    this.boardRepository.save(this.boardDTOConverter.toDTO(board));
+    this.boardRepository.update(this.boardDTOConverter.toDTO(board));
     output.setColumnId(columnId.toString());
     output.setColumnWIP(wip);
   }

@@ -26,7 +26,9 @@ public class MysqlBoardRepository extends BoardRepository {
 
             List<ColumnDTO> columnList = boardDto.getColumnDTOs();
             for (ColumnDTO columnDTO: columnList) {
-                PreparedStatement columnStmt = connection.prepareStatement("INSERT INTO `Column`(`ID`, `Title`, `WIP`, `BoardID`, `Position`) VALUES (?, ?, ?, ?, ?)");
+                PreparedStatement columnStmt = connection.prepareStatement(
+                        "INSERT INTO `Column`(`ID`, `Title`, `WIP`, `BoardID`, `Position`) " +
+                            "VALUES (?, ?, ?, ?, ?)");
                 columnStmt.setString(1, columnDTO.getId());
                 columnStmt.setString(2, columnDTO.getTitle());
                 columnStmt.setInt(3, columnDTO.getWip());
@@ -42,10 +44,43 @@ public class MysqlBoardRepository extends BoardRepository {
     }
 
     @Override
+    public void update(BoardDTO boardDto) {
+        try {
+            Connection connection = DB_connector.getConnection();
+            PreparedStatement stmt = connection.prepareStatement("UPDATE `Board` SET `Name`=? WHERE `ID`=?");
+            stmt.setString(1, boardDto.getName());
+            stmt.setString(2, boardDto.getId());
+
+            stmt.executeUpdate();
+
+            List<ColumnDTO> columnList = boardDto.getColumnDTOs();
+            for (ColumnDTO columnDTO: columnList) {
+                PreparedStatement columnStmt = connection.prepareStatement(
+                        "UPDATE `Column` " +
+                            "SET `Title`=?,`WIP`=?,`BoardID`=?,`Position`=? " +
+                            "WHERE `ID`=?");
+                columnStmt.setString(1, columnDTO.getTitle());
+                columnStmt.setInt(2, columnDTO.getWip());
+                columnStmt.setString(3, boardDto.getId());
+                columnStmt.setInt(4, columnList.indexOf(columnDTO));
+                columnStmt.setString(5, columnDTO.getId());;
+                columnStmt.executeUpdate();
+            }
+
+            DB_connector.closeConnection(connection);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
     public BoardDTO findById(String id) {
         try {
             Connection connection = DB_connector.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM `Board`, `Column` WHERE `Board`.`ID`=? AND`Column`.`BoardID`=`Board`.`ID` ORDER BY `Column`.`Position` ASC");
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM `Board`, `Column` " +
+                        "WHERE `Board`.`ID`=? AND`Column`.`BoardID`=`Board`.`ID` " +
+                        "ORDER BY `Column`.`Position` ASC");
             stmt.setString(1, id);
             ResultSet resultSet = stmt.executeQuery();
             BoardDTO boardDTO = new BoardDTO();
@@ -60,7 +95,10 @@ public class MysqlBoardRepository extends BoardRepository {
                 columnDTO.setTitle(resultSet.getString("Column.Title"));
                 columnDTO.setWip(resultSet.getInt("Column.WIP"));
 
-                PreparedStatement cardStmt = connection.prepareStatement("SELECT `Card`.`ID` FROM `Column`, `Card` WHERE `Column`.`ID`=? AND`Card`.`ColumnID`=`Column`.`ID`");
+                PreparedStatement cardStmt = connection.prepareStatement(
+                        "SELECT `Card`.`ID` " +
+                            "FROM `Column`, `Card` " +
+                            "WHERE `Column`.`ID`=? AND`Card`.`ColumnID`=`Column`.`ID`");
                 cardStmt.setString(1, columnDTO.getId());
                 ResultSet cardsResult = cardStmt.executeQuery();
 

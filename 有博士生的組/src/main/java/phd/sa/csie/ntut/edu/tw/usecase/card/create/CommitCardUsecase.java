@@ -35,6 +35,6 @@ public class CommitCardUsecase {
     this.cardRepository.save(cardDto);
 
     BoardDTO boardDTO = boardDTOConverter.toDTO(board);
-    this.boardRepository.save(boardDTO);
+    this.boardRepository.update(boardDTO);
   }
 }

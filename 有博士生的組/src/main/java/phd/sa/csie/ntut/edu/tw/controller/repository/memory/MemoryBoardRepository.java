@@ -22,6 +22,11 @@ public class MemoryBoardRepository extends BoardRepository {
   }
 
   @Override
+  public void update(BoardDTO dto) {
+    this.save(dto);
+  }
+
+  @Override
   public BoardDTO findById(String id) {
     return this.storage.get(id);
   }

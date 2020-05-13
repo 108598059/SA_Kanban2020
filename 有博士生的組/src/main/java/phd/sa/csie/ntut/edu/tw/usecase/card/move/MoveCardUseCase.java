@@ -29,7 +29,7 @@ public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCa
 
     String newColumnId = board.moveCard(cardId, fromColumnId, toColumnId);
 
-    this.boardRepository.save(this.boardDTOConverter.toDTO(board));
+    this.boardRepository.update(this.boardDTOConverter.toDTO(board));
     this.eventBus.postAll(board);
 
     moveCardUseCaseOutput.setCardId(cardId);

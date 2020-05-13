@@ -12,9 +12,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class MysqlCardRepository extends CardRepository {
-
-  // TODO DI for the DB connector
-
   @Override
   public void save(CardDTO cardDTO) {
     try {
@@ -29,6 +26,26 @@ public class MysqlCardRepository extends CardRepository {
     } catch (SQLException e) {
       throw new RuntimeException(e.getMessage());
     }
+  }
+
+  @Override
+  public void update(CardDTO cardDTO) {
+    try {
+      Connection connection = DB_connector.getConnection();
+      PreparedStatement stmt = connection.prepareStatement(
+              "UPDATE `Card` " +
+                  "SET `Name`=?,`ColumnID`=? " +
+                  "WHERE `ID`=?");
+      stmt.setString(1, cardDTO.getName());
+      stmt.setString(2, cardDTO.getColumnId());
+      stmt.setString(3, cardDTO.getId());
+
+      stmt.executeUpdate();
+      DB_connector.closeConnection(connection);
+    } catch (SQLException e) {
+      throw new RuntimeException(e.getMessage());
+    }
+
   }
 
   @Override
