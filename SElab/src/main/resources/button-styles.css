@@ -1,0 +1,50 @@
+.button-raised{
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 14px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(77,102,204);
+    -fx-pref-width: 200;
+    -fx-text-fill: WHITE;
+}
+
+.banner-home-button{
+-fx-padding: 0.7em 0.57em;
+    -fx-font-size: 10px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(116, 101, 230);
+    -fx-pref-width: 80;
+    -fx-pref-height: 30;
+    -fx-text-fill: WHITE;
+    -fx-background-image: url("/img/home1.png");
+}
+
+.banner-search-input{
+    -fx-pref-width: 120;
+    -fx-pref-height: 30;
+    -jfx-focus-color: rgb(255, 255, 255);
+    -jfx-unfocus-color: rgb(116, 101, 230);
+}
+
+.banner-title-label{
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+    -fx-font-size: 26px;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-family: "Segoe Print";
+}
+
+.banner-account-button{
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 10px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(116, 101, 230);
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-text-fill: WHITE;
+}
+
+.banner{
+    -fx-background-color: rgb(19, 190, 242);
+    -fx-pref-width: 800;
+    -fx-pref-height: 60;
+}

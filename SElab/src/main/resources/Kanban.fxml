@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ddd.kanban.view.Kanban">
+   <children>
+      <AnchorPane prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #6B7BFF;" AnchorPane.bottomAnchor="540.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField layoutX="85.0" layoutY="15.0" prefHeight="30.0" prefWidth="160.0" promptText="Search Board" style="-fx-background-color: rgba(255, 255, 255, .7);" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="555.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </TextField>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="150.0" text="Kanban" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font name="Arial Hebrew" size="24.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" layoutX="20.0" layoutY="15.0" maxHeight="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" style="-fx-background-color: rgba(255, 255, 255, .7);" text="Home" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="725.0" AnchorPane.topAnchor="15.0">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Button>
+         </children></AnchorPane>
+      <AnchorPane layoutY="60.0" prefHeight="540.0" prefWidth="200.0" style="-fx-background-color: rgba(255, 255, 255, .5);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="60.0" />
+      <AnchorPane layoutX="200.0" layoutY="60.0" prefHeight="540.0" prefWidth="600.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+   </children>
+</AnchorPane>

@@ -36,12 +36,10 @@ public class InMemoryBoardRepository implements BoardRepository {
 
     @Override
     public void save(BoardDTO boardDTO) {
-        boards.stream()
-                .filter(findBoardById(boardDTO.getId()))
-                .map(board -> {
-                    board = boardDTO;
-                    return board;
-                });
+        for (BoardDTO each : boards){
+            if (each.getId().equals(boardDTO.getId()))
+                boards.set(boards.indexOf(each), boardDTO);
+        }
     }
 
     @Override
