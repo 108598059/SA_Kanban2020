@@ -1,38 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="becc22e7-3450-45f6-95ab-dd2854e53baa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/subtask/create/CreateSubtaskInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/subtask/create/CreateSubtaskOutput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/subtask/create/CreateSubtaskUseCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/CreateSubtaskTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateCardInputImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/controller/CreateCardInputImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateCardInputInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateCardOutputImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/controller/CreateCardOutputImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateCardOutputInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateStageInputInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateStageOutputImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/controller/CreateStageOutputImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateStageOutputInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateWorkflowInputInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/controller/CreateWorkflowOutputInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/entity/CardRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/entity/StageRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/entity/WorkflowRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/CreateCardUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/CreateStageUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/CreateWorkflowUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/CreateCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/CreateCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/controller/CreateCardInputInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/controller/CreateCardOutputInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/controller/CreateStageInputInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/controller/CreateStageOutputInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/controller/CreateWorkflowInputInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/controller/CreateWorkflowOutputInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/entity/CardRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/CreateCardUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/CreateCardUseCase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/CreateStageUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/CreateStageUseCase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/CreateWorkflowUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/CreateWorkflowUseCase.class" afterDir="false" />
-    </list>
+    <list default="true" id="becc22e7-3450-45f6-95ab-dd2854e53baa" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
