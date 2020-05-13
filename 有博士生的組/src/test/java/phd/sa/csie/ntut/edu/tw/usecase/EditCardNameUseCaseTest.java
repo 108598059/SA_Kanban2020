@@ -44,9 +44,9 @@ public class EditCardNameUseCaseTest {
   }
 
   private void setup_context_for_use_case() {
-    this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
+    this.boardRepository = new MemoryBoardRepository();
     this.boardDTOConverter = new BoardDTOConverter();
-    this.cardRepository = new MemoryCardRepository(new HashMap<UUID, CardDTO>());
+    this.cardRepository = new MemoryCardRepository();
     this.cardDTOConverter = new CardDTOConverter();
     this.eventBus = new DomainEventBus();
   }

@@ -18,8 +18,7 @@ public class CardRepositoryTest {
 
   @Test
   public void createCard() {
-    Map<UUID, CardDTO> storage = new HashMap<UUID, CardDTO>();
-    CardRepository cardRepository = new MemoryCardRepository(storage);
+    CardRepository cardRepository = new MemoryCardRepository();
     Card card = new Card("test card");
 
     CardDTOConverter dtoConverter = new CardDTOConverter();

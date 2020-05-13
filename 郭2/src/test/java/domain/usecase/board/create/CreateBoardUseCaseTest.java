@@ -2,9 +2,8 @@ package domain.usecase.board.create;
 
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.model.aggregate.board.Board;
-import domain.usecase.BoardDTO;
+import domain.usecase.board.BoardDTO;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.entity.BoardEntity;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

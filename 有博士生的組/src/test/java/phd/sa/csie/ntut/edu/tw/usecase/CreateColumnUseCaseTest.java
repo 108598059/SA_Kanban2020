@@ -29,7 +29,7 @@ public class CreateColumnUseCaseTest {
   public void given_a_board() {
     this.eventBus = new DomainEventBus();
     this.boardDTOConverter = new BoardDTOConverter();
-    this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
+    this.boardRepository = new MemoryBoardRepository();
     Board board = new Board("phd");
     this.boardId = board.getId();
     boardRepository.save(this.boardDTOConverter.toDTO(board));

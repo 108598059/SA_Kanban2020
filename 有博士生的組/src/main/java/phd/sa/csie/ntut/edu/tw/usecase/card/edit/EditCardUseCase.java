@@ -26,7 +26,7 @@ public class EditCardUseCase {
 
     CardDTO cardDTO = cardDTOConverter.toDTO(card);
 
-    cardRepository.update(cardDTO);
+    cardRepository.save(cardDTO);
     output.setCardId(card.getId().toString());
     output.setCardName(card.getName());
   }

@@ -1,14 +1,14 @@
 package domain.adapter.repository.board;
 
-import domain.model.aggregate.board.Board;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.entity.BoardEntity;
+import domain.usecase.board.BoardEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryBoardRepository implements IBoardRepository {
 
-    private ArrayList<BoardEntity> boardList = new ArrayList<BoardEntity>();
+    private List<BoardEntity> boardList = new ArrayList<BoardEntity>();
 
     public void add(BoardEntity board) {
         boardList.add(board);

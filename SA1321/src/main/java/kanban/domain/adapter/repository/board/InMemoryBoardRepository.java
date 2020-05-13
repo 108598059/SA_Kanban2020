@@ -39,4 +39,17 @@ public class InMemoryBoardRepository implements IBoardRepository {
             }
         }
     }
+
+    @Override
+    public List<BoardEntity> getBoardsByUserId(String userId) {
+        List<BoardEntity> boardEntities = new ArrayList<>();
+
+        for (BoardEntity each : boards) {
+            if (each.getUserId().equalsIgnoreCase(userId)) {
+                boardEntities.add(each);
+            }
+        }
+
+        return boardEntities;
+    }
 }

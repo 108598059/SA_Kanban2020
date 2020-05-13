@@ -26,7 +26,7 @@ public class CreateBoardUseCaseTest {
   public void setUp() {
     this.eventBus = new DomainEventBus();
     this.boardDTOConverter = new BoardDTOConverter();
-    this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
+    this.boardRepository = new MemoryBoardRepository();
   }
 
   @Test

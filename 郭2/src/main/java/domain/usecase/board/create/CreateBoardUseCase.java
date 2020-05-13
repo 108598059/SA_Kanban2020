@@ -1,9 +1,9 @@
 package domain.usecase.board.create;
 
 import domain.model.aggregate.board.Board;
-import domain.usecase.BoardDTO;
+import domain.usecase.board.BoardDTO;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.entity.BoardEntity;
+import domain.usecase.board.BoardEntity;
 
 public class CreateBoardUseCase {
     private IBoardRepository boardRepository;

@@ -1,5 +1,5 @@
 <template>
-  <b-card v-bind:title="cardTitle" class="mb-2">
+  <b-card v-bind:name="cardName" class="mb-2">
   </b-card>
 </template>
 
@@ -7,7 +7,7 @@
 export default {
   name: "Card",
   props: {
-    cardTitle: String
+    cardName: String
   }
 };
 </script>

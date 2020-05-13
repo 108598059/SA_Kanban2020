@@ -4,15 +4,11 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.dto.DTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.IRepository;
 
-public abstract class UseCase<R extends IRepository<?>, C extends DTOConverter<?>, I extends UseCaseInput, O extends UseCaseOutput> {
-    protected R repository;
-    protected C dtoConverter;
+public abstract class UseCase<I extends UseCaseInput, O extends UseCaseOutput> {
     protected DomainEventBus eventBus;
 
-    public UseCase(R repository, DomainEventBus eventBus, C dtoConverter) {
-        this.repository = repository;
+    public UseCase(DomainEventBus eventBus) {
         this.eventBus = eventBus;
-        this.dtoConverter = dtoConverter;
     }
 
     public abstract void execute(I input, O output);

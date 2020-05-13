@@ -1,6 +1,6 @@
 <template>
   <div id="board" class="d-flex flex-row flex-grow-1">
-    <Column title="Develop"></Column>
+    <Column name="Develop"></Column>
     <CreateCardModal @cardCreated="cardCreated"></CreateCardModal>
   </div>
 </template>

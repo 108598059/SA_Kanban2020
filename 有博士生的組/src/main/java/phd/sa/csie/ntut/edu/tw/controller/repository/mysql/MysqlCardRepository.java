@@ -34,11 +34,4 @@ public class MysqlCardRepository extends CardRepository {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Not implemented yet.");
   }
-
-  @Override
-  public void update(CardDTO cardDTO) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Not implemented yet.");
-  }
-
 }

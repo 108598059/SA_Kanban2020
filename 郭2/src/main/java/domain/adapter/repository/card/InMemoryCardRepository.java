@@ -4,9 +4,10 @@ import domain.model.aggregate.card.Card;
 import domain.usecase.card.repository.ICardRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryCardRepository implements ICardRepository {
-    private ArrayList<Card> cardList = new ArrayList<Card>();
+    private List<Card> cardList = new ArrayList<Card>();
 
     public void add(Card card) {
         cardList.add(card);

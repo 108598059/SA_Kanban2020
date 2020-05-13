@@ -38,7 +38,7 @@ public class SetColumnWIPTest {
   public void given_there_are_a_column_and_a_board() {
     this.eventBus = new DomainEventBus();
     this.boardDTOConverter = new BoardDTOConverter();
-    boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
+    boardRepository = new MemoryBoardRepository();
     CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus,
         this.boardDTOConverter);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();

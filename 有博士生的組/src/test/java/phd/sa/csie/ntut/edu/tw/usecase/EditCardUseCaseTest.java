@@ -34,7 +34,7 @@ public class EditCardUseCaseTest {
     this.eventBus = new DomainEventBus();
     this.cardDTOConverter = new CardDTOConverter();
 
-    cardRepository = new MemoryCardRepository(new HashMap<UUID, CardDTO>());
+    cardRepository = new MemoryCardRepository();
     createCardUseCase = new CreateCardUseCase(cardRepository, eventBus, cardDTOConverter);
     cardDTOConverter = new CardDTOConverter();
 
