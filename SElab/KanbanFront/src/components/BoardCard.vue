@@ -7,7 +7,7 @@
         <vk-grid gutter="medium" class="uk-child-width-1-5@m uk-text-center">
             <div  v-for="(board, i) in boards" :key = "i" >
                 <vk-card id="boardCard" padding="large" hover>
-                <vk-card-title id="cardTitle">{{ board.boardTitle }}</vk-card-title>
+                <vk-card-title id="cardTitle">{{ board.title }}</vk-card-title>
                 </vk-card>
             </div>
         </vk-grid>
@@ -22,11 +22,11 @@
                     <legend id="modalLegend" class="uk-legend">Create Board</legend>
 
                     <div class="uk-margin">
-                        <input id="modalBoardTitle" class="uk-input" type="text" placeholder="Board Title" v-model="boardTitle">
+                        <input id="modalBoardTitle" class="uk-input" type="text" placeholder="Board Title" v-model="title">
                     </div>
 
                     <div class="uk-margin">
-                        <textarea class="uk-textarea" rows="5" placeholder="Board Description" v-model="boardDescription"></textarea>
+                        <textarea class="uk-textarea" rows="5" placeholder="Board Description" v-model="description"></textarea>
                     </div>
                     <p v-vk-margin>
                         <vk-button type="primary" id="modalCreateButton" @click="createBoard">Create</vk-button>
@@ -47,32 +47,31 @@ export default {
             show: false,
             messages: [],
             boards: [],
-            boardTitle: "",
-            boardDescription: ""
+            title: "",
+            description: ""
         }
     },
     methods:{
         clearModalForm: function(){
-            this.boardTitle = "";
-            this.boardDescription = "";
+            this.title = "";
+            this.description = "";
             this.show = false;
 
         },
         createBoard: function(){
-            this.axios.post('http://140.124.183.93:8080/baord',{
-                boardTitle: this.boardTitle,
-                boardDescription: this.boardDescription
-            }).then(function (response) {
-                this.boards.push({boardTitle: response.boardTitle})
-                this.messages.push({ message: 'Success', status: 'success' });
+            this.axios.post('http://140.124.183.93:8080/board',{
+                title: this.title,
+                description: this.description
+            }).then(data => data)
+            .then(({data}) => {
+                console.log(data);
+                this.boards.push({title: data.title});
+                this.messages.push({ message: 'Create Board Success', status: 'success' });
             })
-            .catch(function (error) {
-                console.log(error);
-                this.messages.push({ message: 'Fail', status: 'Danger' });
-            });
-
-            // this.messages.push({ message: 'Success', status: 'success' });
-            // this.boards.push({boardTitle: this.boardTitle})
+            .catch(data => {
+                this.messages.push({ message: 'Create Board Fail', status: 'danger' });
+                console.log(data);
+            })
             this.clearModalForm();
         }
     }
