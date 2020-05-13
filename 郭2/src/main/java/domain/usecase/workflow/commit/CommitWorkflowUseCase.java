@@ -1,7 +1,7 @@
 package domain.usecase.workflow.commit;
 
 import domain.model.aggregate.board.Board;
-import domain.usecase.BoardDTO;
+import domain.usecase.board.BoardDTO;
 import domain.usecase.board.repository.IBoardRepository;
 
 public class CommitWorkflowUseCase {

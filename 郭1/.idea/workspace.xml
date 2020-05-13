@@ -42,8 +42,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -66,7 +66,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -76,21 +79,21 @@
       <recent name="domain.usecase.workflow" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="domain.controller" />
+      <recent name="domain.adapter.repository" />
       <recent name="domain.entity.board" />
       <recent name="domain.entity.card" />
       <recent name="domain.entity.workflow" />
-      <recent name="domain.usecase.card" />
-      <recent name="domain.usecase.board" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="domain.usecase.workflow" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="domain.viewmodel" />
+      <recent name="domain.presenter" />
+      <recent name="domain.controller.presenter" />
       <recent name="domain.controller" />
       <recent name="domain.usecase.workflow.commit" />
-      <recent name="domain.usecase.card" />
-      <recent name="domain.usecase.card.event" />
-      <recent name="domain.entity.workflow.event" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -105,18 +108,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.domain.usecase in 郭1">
-    <configuration name="CommitWorkflowTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="郭1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="domain.view.MainFrame" />
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.*" />
+          <option name="PATTERN" value="domain.adapters.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.CommitWorkflowTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -151,20 +161,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="domain.unit_test in 郭1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="domain.unit_test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="domain.unit_test" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="domain.usecase in 郭1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
       <extension name="coverage">
@@ -179,13 +175,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.MainFrame" />
+      <item itemvalue="JUnit.CreateWorkFlowTest" />
+      <item itemvalue="JUnit.domain.usecase in 郭1" />
+      <item itemvalue="JUnit.CreateBoardTest" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.domain.usecase in 郭1" />
-        <item itemvalue="JUnit.domain.unit_test in 郭1" />
-        <item itemvalue="JUnit.CommitWorkflowTest" />
-        <item itemvalue="JUnit.CreateWorkFlowTest" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.CreateBoardTest" />
+        <item itemvalue="Application.MainFrame" />
+        <item itemvalue="JUnit.CreateWorkFlowTest" />
+        <item itemvalue="JUnit.domain.usecase in 郭1" />
       </list>
     </recent_temporary>
   </component>
@@ -215,6 +218,11 @@
       <workItem from="1588650475593" duration="97000" />
       <workItem from="1588738307798" duration="10734000" />
       <workItem from="1588756724346" duration="80000" />
+      <workItem from="1588757595153" duration="4427000" />
+      <workItem from="1588830428668" duration="43000" />
+      <workItem from="1589264672040" duration="378000" />
+      <workItem from="1589267840929" duration="16308000" />
+      <workItem from="1589350497491" duration="9839000" />
     </task>
     <servers />
   </component>

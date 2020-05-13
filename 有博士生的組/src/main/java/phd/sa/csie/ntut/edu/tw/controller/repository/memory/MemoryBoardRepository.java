@@ -3,23 +3,30 @@ package phd.sa.csie.ntut.edu.tw.controller.repository.memory;
 import java.util.Map;
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
-public class MemoryBoardRepository implements BoardRepository {
+public class MemoryBoardRepository extends BoardRepository {
 
-  private Map<UUID, Board> boards;
+  private Map<UUID, BoardDTO> storage;
 
-  public MemoryBoardRepository(Map<UUID, Board> storage) {
-    this.boards = storage;
+  public MemoryBoardRepository(Map<UUID, BoardDTO> storage) {
+    this.storage = storage;
   }
 
-  public void add(Board board) {
-    this.boards.put(board.getId(), board);
+  @Override
+  public void save(BoardDTO boardDTO) {
+    this.storage.put(boardDTO.getId(), boardDTO);
   }
 
-  public Board findBoardById(UUID uuid) {
-    return this.boards.get(uuid);
+  @Override
+  public BoardDTO findById(UUID id) {
+    return this.storage.get(id);
+  }
+
+  @Override
+  public void update(BoardDTO dto) {
+    // TODO Auto-generated method stub
   }
 
 }

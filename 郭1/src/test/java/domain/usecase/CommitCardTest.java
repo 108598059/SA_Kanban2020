@@ -1,8 +1,12 @@
 package domain.usecase;
 
-import domain.adapter.CardRepositoryImpl;
-import domain.adapter.WorkflowRepositoryImpl;
-import domain.controller.*;
+import domain.adapters.repository.CardRepositoryImpl;
+import domain.adapters.repository.WorkflowRepositoryImpl;
+import domain.adapters.controller.card.CommitCardInputImpl;
+import domain.adapters.controller.card.CommitCardOutputImpl;
+import domain.adapters.controller.card.CreateCardInputImpl;
+import domain.adapters.controller.card.CreateCardOutputImpl;
+import domain.adapters.controller.workflow.*;
 import domain.entity.DomainEventBus;
 import domain.usecase.card.CardRepository;
 import domain.usecase.card.create.CreateCardInput;
@@ -91,7 +95,7 @@ public class CommitCardTest {
     }
 
     @Test
-    public void CommitCard() {
+    public void CommitCardTest() {
 
         CommitCardInput commitCardInput = new CommitCardInputImpl();
         CommitCardOutput commitCardOutput = new CommitCardOutputImpl();

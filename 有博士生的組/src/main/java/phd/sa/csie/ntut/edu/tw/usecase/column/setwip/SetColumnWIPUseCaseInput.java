@@ -2,7 +2,9 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.setwip;
 
 import java.util.UUID;
 
-public class SetColumnWIPUseCaseInput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
+
+public class SetColumnWIPUseCaseInput implements UseCaseInput {
 
   private UUID columnId;
   private int columnWIP = 0;

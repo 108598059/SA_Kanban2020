@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 
-public class CreateBoardUseCaseInput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
+
+public class CreateBoardUseCaseInput implements UseCaseInput {
   private String title;
 
   public void setTitle(String title) {

@@ -2,7 +2,9 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.move;
 
 import java.util.UUID;
 
-public class MoveCardUseCaseOutput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
+
+public class MoveCardUseCaseOutput implements UseCaseOutput {
 
   private String cardId;
   private String oldColumnId;

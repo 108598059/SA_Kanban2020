@@ -1,9 +1,12 @@
 package domain.usecase.workflow.create;
 
-import domain.entity.DomainEvent;
+
 import domain.entity.DomainEventBus;
 import domain.entity.workflow.Workflow;
 import domain.usecase.workflow.WorkflowRepository;
+
+
+import javax.naming.InitialContext;
 
 
 public class CreateWorkflowUseCase {
@@ -15,6 +18,7 @@ public class CreateWorkflowUseCase {
         this.workflowRepository = workflowRepository;
         this.eventBus = eventBus;
     }
+
 
     public void execute(CreateWorkflowInput createWorkflowInput, CreateWorkflowOutput createWorkflowOutput) {
         Workflow newWorkflow = new Workflow(createWorkflowInput.getBoardId());

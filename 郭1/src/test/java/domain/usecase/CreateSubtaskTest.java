@@ -1,10 +1,10 @@
 package domain.usecase;
 
-import domain.adapter.CardRepositoryImpl;
-import domain.controller.CreateCardInputImpl;
-import domain.controller.CreateCardOutputImpl;
-import domain.controller.CreateSubtaskInputImpl;
-import domain.controller.CreateSubtaskOutputImpl;
+import domain.adapters.repository.CardRepositoryImpl;
+import domain.adapters.controller.card.CreateCardInputImpl;
+import domain.adapters.controller.card.CreateCardOutputImpl;
+import domain.adapters.controller.card.CreateSubtaskInputImpl;
+import domain.adapters.controller.card.CreateSubtaskOutputImpl;
 import domain.entity.DomainEventBus;
 import domain.usecase.card.CardRepository;
 import domain.usecase.card.create.CreateCardInput;
@@ -40,7 +40,7 @@ public class CreateSubtaskTest {
     }
 
     @Test
-    public void CreateSubtask(){
+    public void CreateSubtaskTest(){
         CreateSubtaskUseCase createSubtaskUseCase = new CreateSubtaskUseCase(cardRepository);
         CreateSubtaskInput createSubtaskInput = new CreateSubtaskInputImpl();
         CreateSubtaskOutput createSubtaskOutput = new CreateSubtaskOutputImpl();
