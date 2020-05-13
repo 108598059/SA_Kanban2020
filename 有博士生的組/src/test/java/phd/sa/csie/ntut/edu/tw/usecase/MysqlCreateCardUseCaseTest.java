@@ -1,5 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -7,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
@@ -66,11 +69,11 @@ public class MysqlCreateCardUseCaseTest {
 
   @After
   public void tearDown() throws SQLException {
-//    Connection conn = DB_connector.getConnection();
-//    PreparedStatement statement = conn.prepareStatement("DELETE FROM Card Where ID = ?");
-//    statement.setString(1, this.cardID);
-//    statement.executeUpdate();
-//    DB_connector.closeConnection(conn);
+    Connection conn = DB_connector.getConnection();
+    PreparedStatement statement = conn.prepareStatement("DELETE FROM Card Where ID = ?");
+    statement.setString(1, this.cardID);
+    statement.executeUpdate();
+    DB_connector.closeConnection(conn);
   }
 
 }

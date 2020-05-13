@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.domain.model.board;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.Entity;
@@ -9,7 +10,7 @@ public class Column extends Entity {
 
   private String title;
   private int wip;
-  private ArrayList<UUID> cardIds;
+  private List<UUID> cardIds;
 
   public Column(String title) {
     this.title = title;
@@ -30,7 +31,7 @@ public class Column extends Entity {
     // TODO Should issue an event?
   }
 
-  public Column(UUID id, String title, ArrayList<UUID> cardIds, int wip) {
+  public Column(UUID id, String title, List<UUID> cardIds, int wip) {
     this.id = id;
     this.title = title;
     this.cardIds = cardIds;
@@ -74,7 +75,7 @@ public class Column extends Entity {
     return false;
   }
 
-  public ArrayList<UUID> getCardIds() {
+  public List<UUID> getCardIds() {
     return this.cardIds;
   }
 

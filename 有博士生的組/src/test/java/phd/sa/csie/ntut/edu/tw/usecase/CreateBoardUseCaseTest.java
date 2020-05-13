@@ -55,8 +55,8 @@ public class CreateBoardUseCaseTest {
     Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
 
     assertEquals(2, board.getColumnNumber());
+    assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardTitle());
     assertEquals("Backlog", board.get(0).getTitle());
     assertEquals("Archive", board.get(board.getColumnNumber() - 1).getTitle());
   }
-
 }

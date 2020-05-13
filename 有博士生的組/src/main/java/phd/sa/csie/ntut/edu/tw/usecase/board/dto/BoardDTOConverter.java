@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.dto;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
@@ -30,8 +31,8 @@ public class BoardDTOConverter implements DTOConverter<Board> {
     @Override
     public Board toEntity(DTO dto) {
         BoardDTO boardDTO = (BoardDTO) dto;
-        ArrayList<Column> columns = new ArrayList<Column>();
-        ArrayList<ColumnDTO> columnDTOs = boardDTO.getColumnDTOs();
+        List<Column> columns = new ArrayList<Column>();
+        List<ColumnDTO> columnDTOs = boardDTO.getColumnDTOs();
         for (int i = 0; i < columnDTOs.size(); i++) {
             columns.add(this.columnDTOConverter.toEntity(columnDTOs.get(i)));
         }

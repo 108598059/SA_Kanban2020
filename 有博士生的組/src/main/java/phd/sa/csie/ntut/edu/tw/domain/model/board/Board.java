@@ -8,12 +8,13 @@ import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class Board extends AggregateRoot {
 
   private String name;
-  private ArrayList<Column> columns;
+  private List<Column> columns;
 
   public Board(String name) {
     this.name = name;
@@ -24,7 +25,7 @@ public class Board extends AggregateRoot {
     this.columns.add(archive);
   }
 
-  public Board(UUID id, String name, ArrayList<Column> columns) {
+  public Board(UUID id, String name, List<Column> columns) {
     this.id = id;
     this.name = name;
     this.columns = columns;
