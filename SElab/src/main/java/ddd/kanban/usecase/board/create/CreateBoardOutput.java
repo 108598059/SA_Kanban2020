@@ -2,7 +2,7 @@ package ddd.kanban.usecase.board.create;
 
 public class CreateBoardOutput {
     private String boardId;
-    private String boardName;
+    private String boardTitle;
     private String boardDescription;
 
     public CreateBoardOutput(){
@@ -17,12 +17,12 @@ public class CreateBoardOutput {
         this.boardId = boardId;
     }
 
-    public String getBoardName() {
-        return boardName;
+    public String getBoardTitle() {
+        return boardTitle;
     }
 
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
+    public void setBoardTitle(String boardName) {
+        this.boardTitle = boardName;
     }
 
     public String getBoardDescription() {

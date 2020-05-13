@@ -14,35 +14,12 @@ public class CreateTaskUseCase {
     public void execute(CreateTaskInput createTaskInput, CreateTaskOutput createTaskOutput) {
         Card card = cardRepository.findById(createTaskInput.getCardId());
 
-        //String taskId = card.createTask(createTaskInput.getTaskTitle());
-        String taskId = card.createTask(new Task("",
-                                            createTaskInput.getTaskTitle(),
-                                            createTaskInput.getTaskDescription(),
-                                            createTaskInput.getTaskTaskType(),
-                                            createTaskInput.getTaskTags(),
-                                            createTaskInput.getTaskAssignUsers(),
-                                            createTaskInput.getTaskPlannedStartDate(),
-                                            createTaskInput.getTaskPlannedFinishDate(),
-                                            createTaskInput.getTaskHeader(),
-                                            createTaskInput.getTaskPriority(),
-                                            createTaskInput.getTaskExternalLink()
-                                            )
-                                        );
+        String taskId = card.createTask(createTaskInput.getTaskTitle(), createTaskInput.getCardId());
 
         cardRepository.save(card);
 
-        Card outputCard = cardRepository.findById(card.getId());
-        Task outputTask = outputCard.findTaskById(taskId);
-
-        createTaskOutput.setTaskTitle(outputTask.getTitle());
-        createTaskOutput.setTaskDescription(outputTask.getDescription());
-        createTaskOutput.setTaskTaskType(outputTask.getTaskType());
-        createTaskOutput.setTaskTags(outputTask.getTags());
-        createTaskOutput.setTaskAssignUsers(outputTask.getAssignUsers());
-        createTaskOutput.setTaskPlannedStartDate(outputTask.getPlannedStartDate());
-        createTaskOutput.setTaskPlannedFinishDate(outputTask.getPlannedFinishDate());
-        createTaskOutput.setTaskHeader(outputTask.getHeader());
-        createTaskOutput.setTaskPriority(outputTask.getPriority());
-        createTaskOutput.setTaskExternalLink(outputTask.getExternalLink());
+        createTaskOutput.setTaskTitle(createTaskInput.getTaskTitle());
+        createTaskOutput.setTaskId(taskId);
+        createTaskOutput.setCardId(card.getId());
     }
 }

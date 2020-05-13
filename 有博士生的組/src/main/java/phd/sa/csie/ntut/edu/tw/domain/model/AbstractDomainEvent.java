@@ -12,8 +12,6 @@ public class AbstractDomainEvent implements DomainEvent {
 
     private Entity entity;
 
-    private static final long serialVersionUID = 1L;
-
     public AbstractDomainEvent(String sourceId, String sourceName) {
         super();
         this.id = UUID.randomUUID().toString();

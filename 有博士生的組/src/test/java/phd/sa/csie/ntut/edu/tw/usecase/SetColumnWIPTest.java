@@ -4,16 +4,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
@@ -25,23 +29,30 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 public class SetColumnWIPTest {
 
   private BoardRepository boardRepository;
+  private DomainEventBus eventBus;
+  private BoardDTOConverter boardDTOConverter;
   private Board board;
   private String columnId;
 
   @Before
   public void given_there_are_a_column_and_a_board() {
-    boardRepository = new MemoryBoardRepository();
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+    this.eventBus = new DomainEventBus();
+    this.boardDTOConverter = new BoardDTOConverter();
+    boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus,
+        this.boardDTOConverter);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
     createBoardUseCaseInput.setTitle("Software Architecture");
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
-    board = boardRepository.findBoardByUUID(UUID.fromString(createBoardUseCaseOutput.getBoardId()));
+    UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());
+    board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId));
 
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(boardRepository);
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus,
+        this.boardDTOConverter);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
-    createColumnUseCaseInput.setBoardId(board.getUUID());
+    createColumnUseCaseInput.setBoardId(board.getId());
     createColumnUseCaseInput.setTitle("develop");
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
     columnId = createColumnUseCaseOutput.getId();
@@ -49,11 +60,12 @@ public class SetColumnWIPTest {
 
   @Test
   public void set_WIP_with_a_positive_number_3() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(boardRepository);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus,
+        this.boardDTOConverter);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardId(board.getUUID());
+    setColumnWIPUseCaseInput.setBoardId(board.getId());
     setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
     setColumnWIPUseCaseInput.setColumnWIP(3);
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
@@ -64,11 +76,12 @@ public class SetColumnWIPTest {
 
   @Test
   public void the_default_number_of_the_column_WIP_should_be_zero() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(boardRepository);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus,
+        this.boardDTOConverter);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardId(board.getUUID());
+    setColumnWIPUseCaseInput.setBoardId(board.getId());
     setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
 
@@ -78,11 +91,11 @@ public class SetColumnWIPTest {
 
   @Test
   public void column_WIP_should_be_positive() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(boardRepository);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardId(board.getUUID());
+    setColumnWIPUseCaseInput.setBoardId(board.getId());
     setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
     setColumnWIPUseCaseInput.setColumnWIP(-1);
 

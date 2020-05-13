@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
-public class CreateCardUseCaseInput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
+
+public class CreateCardUseCaseInput implements UseCaseInput {
   private String cardName;
   private String boardID;
 

@@ -18,6 +18,7 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class MysqlCreateCardUseCaseTest {
@@ -32,7 +33,7 @@ public class MysqlCreateCardUseCaseTest {
 
   @Test
   public void createCard() {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, new DomainEventBus());
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, new DomainEventBus(), new CardDTOConverter());
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("Create Card");

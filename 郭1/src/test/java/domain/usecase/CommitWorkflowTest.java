@@ -1,8 +1,13 @@
 package domain.usecase;
 
-import domain.adapter.BoardRepositoryImpl;
-import domain.adapter.WorkflowRepositoryImpl;
-import domain.controller.*;
+import domain.adapters.repository.BoardRepositoryImpl;
+import domain.adapters.repository.WorkflowRepositoryImpl;
+import domain.adapters.controller.board.CreateBoardInputImpl;
+import domain.adapters.controller.board.CreateBoardOutputImpl;
+import domain.adapters.controller.workflow.CommitWorkflowInputImpl;
+import domain.adapters.controller.workflow.CommitWorkflowOutputImpl;
+import domain.adapters.controller.workflow.CreateWorkflowInputImpl;
+import domain.adapters.controller.workflow.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.commit.CommitWorkflowInput;

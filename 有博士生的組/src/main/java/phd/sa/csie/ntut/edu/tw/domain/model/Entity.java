@@ -2,8 +2,16 @@ package phd.sa.csie.ntut.edu.tw.domain.model;
 
 import java.util.UUID;
 
-public interface Entity {
-    public String getName();
+public abstract class Entity {
 
-    public UUID getUUID();
+    protected UUID id;
+
+    public Entity() {
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return this.id;
+    }
+
 }
