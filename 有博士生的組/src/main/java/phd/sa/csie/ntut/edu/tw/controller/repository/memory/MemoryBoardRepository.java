@@ -1,17 +1,19 @@
 package phd.sa.csie.ntut.edu.tw.controller.repository.memory;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class MemoryBoardRepository extends BoardRepository {
 
   private Map<UUID, BoardDTO> storage;
 
-  public MemoryBoardRepository(Map<UUID, BoardDTO> storage) {
-    this.storage = storage;
+  public MemoryBoardRepository() {
+    this.storage = new HashMap<>();
   }
 
   @Override
@@ -23,10 +25,4 @@ public class MemoryBoardRepository extends BoardRepository {
   public BoardDTO findById(UUID id) {
     return this.storage.get(id);
   }
-
-  @Override
-  public void update(BoardDTO dto) {
-    // TODO Auto-generated method stub
-  }
-
 }

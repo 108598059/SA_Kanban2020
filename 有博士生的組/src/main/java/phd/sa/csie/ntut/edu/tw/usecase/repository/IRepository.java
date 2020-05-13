@@ -8,6 +8,4 @@ public interface IRepository<T extends DTO> {
     public void save(T dto);
 
     public T findById(UUID id);
-
-    public void update(T dto);
 }

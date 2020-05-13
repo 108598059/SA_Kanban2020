@@ -1,8 +1,8 @@
 <template>
   <div id="column">
-    <div class="column_title">{{title}}</div>
+    <div class="column_name">{{name}}</div>
     <div class="column_content">
-      <Card card-title="Develop"></Card>
+      <Card card-name="Develop"></Card>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
     Card
   },
   props: {
-    title: String
+    name: String
   }
 };
 </script>

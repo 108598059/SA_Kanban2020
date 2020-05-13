@@ -8,13 +8,13 @@
 
     <b-modal id="modal-create-card" title="Create Card" @ok="onSubmit" v-model="modalShow">
       <b-form>
-        <b-form-group id="input-group-card-title" label="Card Title:" label-for="input-1">
+        <b-form-group id="input-group-card-name" label="Card Name:" label-for="input-1">
           <b-form-input
-            id="input-card-title"
-            v-model="form.title"
+            id="input-card-name"
+            v-model="form.cardName"
             type="text"
             required
-            placeholder="Enter title"
+            placeholder="Enter name"
           ></b-form-input>
         </b-form-group>
       </b-form>
@@ -30,14 +30,18 @@ export default {
     return {
       modalShow: false,
       form: {
-        title: ""
+        cardName: ""
       }
     };
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      axios.post(process.env.VUE_APP_HOST + 'card').then(res => {
+      const body = {
+        boardID: String,
+        cardName: String
+      }
+      axios.post(process.env.VUE_APP_HOST + '/card/create', body).then(res => {
         console.log(res);
         this.closeModal();
         this.$emit('cardCreated');

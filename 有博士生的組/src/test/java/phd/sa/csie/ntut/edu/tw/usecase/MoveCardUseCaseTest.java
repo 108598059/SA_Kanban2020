@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,13 +18,11 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CardCreatedEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.move.MoveCardUseCaseInput;
@@ -59,8 +56,8 @@ public class MoveCardUseCaseTest {
     this.eventBus = new DomainEventBus();
     this.cardDTOConverter = new CardDTOConverter();
     this.boardDTOConverter = new BoardDTOConverter();
-    this.cardRepository = new MemoryCardRepository(new HashMap<UUID, CardDTO>());
-    this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
+    this.cardRepository = new MemoryCardRepository();
+    this.boardRepository = new MemoryBoardRepository();
     this.createCardUseCase = new CreateCardUseCase(this.cardRepository, this.eventBus, this.cardDTOConverter);
     this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
 
@@ -68,7 +65,7 @@ public class MoveCardUseCaseTest {
     this.boardId = board.getId();
     this.boardRepository.save(this.boardDTOConverter.toDTO(board));
     this.eventBus.register(board);
-    this.eventBus.register(new CardCreatedEventHandler(this.cardRepository));
+    this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();

@@ -12,9 +12,11 @@ import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 public class Card extends AggregateRoot {
   private String name;
   private UUID columnId;
+  private UUID boardId;
 
-  public Card(String name) {
+  public Card(String name, UUID boardId) {
     this.name = name;
+    this.boardId = boardId;
     this.addDomainEvent(new CardCreatedEvent(this));
   }
 
@@ -54,5 +56,13 @@ public class Card extends AggregateRoot {
   public void setColumnId(UUID columnId) {
     this.columnId = columnId;
     // TODO issue an event.
+  }
+
+  public UUID getBoardId() {
+    return boardId;
+  }
+
+  public void setBoardId(UUID boardId) {
+    this.boardId = boardId;
   }
 }
