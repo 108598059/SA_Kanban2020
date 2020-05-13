@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -35,10 +37,15 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      // TODO send to back-end.
-      console.log(JSON.stringify(this.form));
-      this.modalShow = false;
+      axios.post(process.env.VUE_APP_HOST + 'card').then(res => {
+        console.log(res);
+        this.closeModal();
+        this.$emit('cardCreated');
+      }).catch(console.error);
     },
+    closeModal() {
+      this.modalShow = false;
+    }
   }
 };
 </script>

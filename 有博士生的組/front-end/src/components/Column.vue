@@ -23,7 +23,6 @@ export default {
 
 <style scoped>
 #column {
-
   margin: 5px;
   width: 300px;
   border-radius: 10px;

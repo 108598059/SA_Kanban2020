@@ -1,18 +1,13 @@
 <template>
   <div id="nav">
-    <img alt="Kanban" src="../assets/logo.png" width="50" />
-    <CreateCardModal></CreateCardModal>
+    <img alt="Kanban" src="logo.png" width="50" />
   </div>
 </template>
 
 <script>
-import CreateCardModal from "./CreateCardModal";
 
 export default {
-  name: "Nav",
-  components: {
-    CreateCardModal
-  }
+  name: "Nav"
 };
 </script>
 
