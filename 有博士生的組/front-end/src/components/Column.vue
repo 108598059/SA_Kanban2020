@@ -1,8 +1,8 @@
 <template>
   <div id="column">
-    <div class="column_title">{{title}}</div>
+    <div class="column_title">{{ column.title }}</div>
     <div class="column_content">
-      <Card v-for="card in cards" :key="card.id" :card="card"></Card>
+      <Card v-for="(card, idx) in column.cardList" :key="idx" :card="card"></Card>
     </div>
   </div>
 </template>
@@ -16,8 +16,7 @@ export default {
     Card
   },
   props: {
-    title: String,
-    cards: Array
+    column: Object
   }
 };
 </script>

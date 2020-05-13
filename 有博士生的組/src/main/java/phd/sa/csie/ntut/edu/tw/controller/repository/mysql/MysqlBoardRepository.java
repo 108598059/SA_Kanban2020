@@ -45,7 +45,7 @@ public class MysqlBoardRepository extends BoardRepository {
     public BoardDTO findById(String id) {
         try {
             Connection connection = DB_connector.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM `Board`, `Column`, `Card` WHERE `Board`.`ID`=? AND`Column`.`BoardID`=`Board`.`ID` ORDER BY `Column`.`Position` ASC");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM `Board`, `Column` WHERE `Board`.`ID`=? AND`Column`.`BoardID`=`Board`.`ID` ORDER BY `Column`.`Position` ASC");
             stmt.setString(1, id);
             ResultSet resultSet = stmt.executeQuery();
             BoardDTO boardDTO = new BoardDTO();
@@ -71,8 +71,6 @@ public class MysqlBoardRepository extends BoardRepository {
                 stmt.setString(1, id);
                 columnDTO.setCardIds(cardIDs);
                 columnDTOList.add(columnDTO);
-
-
             }
             boardDTO.setColumnDTOs(columnDTOList);
             return boardDTO;

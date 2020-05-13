@@ -6,6 +6,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.IRepository;
 
 public abstract class UseCase<I extends UseCaseInput, O extends UseCaseOutput> {
     protected DomainEventBus eventBus;
+    public UseCase() {}
 
     public UseCase(DomainEventBus eventBus) {
         this.eventBus = eventBus;

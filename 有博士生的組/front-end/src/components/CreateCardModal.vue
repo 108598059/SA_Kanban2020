@@ -26,6 +26,9 @@
 import axios from 'axios';
 
 export default {
+  props: {
+    boardID: String
+  },
   data() {
     return {
       modalShow: false,
@@ -38,11 +41,10 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       const body = {
-        boardID: String,
-        cardName: String
+        boardID: this.boardID,
+        cardName: this.form.cardName
       }
-      axios.post(process.env.VUE_APP_HOST + '/card/create', body).then(res => {
-        console.log(res);
+      axios.post(process.env.VUE_APP_HOST + '/card/create', body).then(() => {
         this.closeModal();
         this.$emit('cardCreated');
       }).catch(console.error);

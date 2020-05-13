@@ -1,7 +1,10 @@
 <template>
   <div id="board" class="d-flex flex-row flex-grow-1">
-    <Column name="Develop" :cards="cards"></Column>
-    <CreateCardModal @cardCreated="cardCreated"></CreateCardModal>
+    <Column v-for="(column, idx) in columnList"
+      :key="idx"
+      :column="column"
+      />
+    <CreateCardModal :boardID="id" @cardCreated="cardCreated"></CreateCardModal>
   </div>
 </template>
 
@@ -16,14 +19,28 @@ export default {
   components: { Column, CreateCardModal },
   data: function() {
     return {
-      cards: []
+      columnList: [],
+      id: "7793dd07-74ea-423a-9e01-3bff3f32d79f"
     };
   },
+  created() {
+    this.updateView();
+  },
   methods: {
+    updateView() {
+      while(this.columnList.length) {
+        this.columnList.pop();
+      }
+      axios.get(process.env.VUE_APP_HOST + "/columns?boardID=" + this.id)
+        .then(res => {
+          const columnList = res.data.columnList;
+          columnList.forEach(column => {
+            this.columnList.push(column);
+          });
+        })
+    },
     cardCreated() {
-      axios.get(process.env.VUE_APP_HOST + "card").then(res => {
-        this.cards = res.data;
-      });
+      this.updateView();
     }
   }
 };

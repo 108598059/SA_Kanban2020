@@ -1,6 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -13,12 +12,10 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
@@ -57,7 +54,7 @@ public class EditCardNameUseCaseTest {
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
-    createBoardUseCaseInput.setTitle(boardTitle);
+    createBoardUseCaseInput.setBoardName(boardTitle);
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
     return UUID.fromString(createBoardUseCaseOutput.getBoardId());
   }

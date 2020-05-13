@@ -4,7 +4,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class CreateBoardUseCaseOutput implements UseCaseOutput{
   private String boardID;
-  private String boardTitle;
+  private String boardName;
 
   public void setBoardId(String uuid) {
     this.boardID = uuid;
@@ -14,11 +14,11 @@ public class CreateBoardUseCaseOutput implements UseCaseOutput{
     return this.boardID;
   }
 
-  public void setBoardTitle(String title) {
-    this.boardTitle = title;
+  public void setBoardName(String title) {
+    this.boardName = title;
   }
 
-  public String getBoardTitle() {
-    return this.boardTitle;
+  public String getBoardName() {
+    return this.boardName;
   }
 }

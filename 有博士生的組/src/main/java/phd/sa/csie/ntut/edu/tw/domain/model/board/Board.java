@@ -97,8 +97,8 @@ public class Board extends AggregateRoot {
     return new Column(this.getColumnById(id));
   }
 
-  public ArrayList<Column> getColumns() {
-    return (ArrayList<Column>) Collections.unmodifiableList(this.columns);
+  public List<Column> getColumns() {
+    return Collections.unmodifiableList(this.columns);
   }
 
 }
