@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
@@ -56,12 +54,14 @@ public class MysqlCardRepository extends CardRepository {
       stmt.setString(1, id);
 
       ResultSet resultSet = stmt.executeQuery();
+
       CardDTO result = new CardDTO();
       while (resultSet.next()) {
         result.setId(resultSet.getString("ID"));
         result.setName(resultSet.getString("Name"));
         result.setColumnId(resultSet.getString("ColumnID"));
       }
+
       DB_connector.closeConnection(connection);
       return result;
     } catch (SQLException e) {

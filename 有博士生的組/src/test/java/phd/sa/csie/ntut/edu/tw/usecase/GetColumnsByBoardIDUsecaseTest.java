@@ -44,6 +44,7 @@ public class GetColumnsByBoardIDUsecaseTest {
         CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
         createCardInput.setBoardID(board.getId().toString());
+
         createCardInput.setCardName("Card1");
         createCardUseCase.execute(createCardInput, createCardOutput);
 
@@ -53,11 +54,12 @@ public class GetColumnsByBoardIDUsecaseTest {
 
     @Test
     public void test_get_columns_structure_by_board_id() {
+        GetColumnsByBoardIDUsecase usecase = new GetColumnsByBoardIDUsecase(this.boardRepository, this.cardRepository);
         GetColumnsByBoardIDUsecaseInput input = new GetColumnsByBoardIDUsecaseInput();
         GetColumnsByBoardIDUsecaseOutput output = new GetColumnsByBoardIDUsecaseOutput();
+
         input.setBoardID(this.boardID.toString());
 
-        GetColumnsByBoardIDUsecase usecase = new GetColumnsByBoardIDUsecase(this.boardRepository, this.cardRepository);
         usecase.execute(input, output);
 
         assertEquals(2, output.getColumnList().size());

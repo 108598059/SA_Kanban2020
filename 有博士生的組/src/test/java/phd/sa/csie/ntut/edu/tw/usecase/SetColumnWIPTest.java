@@ -35,6 +35,7 @@ public class SetColumnWIPTest {
   public void given_there_are_a_column_and_a_board() {
     this.eventBus = new DomainEventBus();
     boardRepository = new MemoryBoardRepository();
+
     CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
@@ -61,6 +62,7 @@ public class SetColumnWIPTest {
     setColumnWIPUseCaseInput.setBoardId(board.getId());
     setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
     setColumnWIPUseCaseInput.setColumnWIP(3);
+
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
 
     assertNotNull(setColumnWIPUseCaseOutput.getColumnId());
@@ -75,6 +77,7 @@ public class SetColumnWIPTest {
 
     setColumnWIPUseCaseInput.setBoardId(board.getId());
     setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
+
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
 
     assertNotNull(setColumnWIPUseCaseOutput.getColumnId());

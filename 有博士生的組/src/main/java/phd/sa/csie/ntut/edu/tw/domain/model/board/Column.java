@@ -16,7 +16,7 @@ public class Column extends Entity {
     super();
     this.title = title;
     this.wip = 0;
-    this.cardIds = new ArrayList<UUID>();
+    this.cardIds = new ArrayList<>();
     // TODO issue an event.
   }
 
@@ -25,7 +25,7 @@ public class Column extends Entity {
     this.id = col.id;
     this.title = col.title;
     this.wip = col.wip;
-    this.cardIds = new ArrayList<UUID>();
+    this.cardIds = new ArrayList<>();
     for (UUID cardID : col.cardIds) {
       this.cardIds.add(cardID);
     }

@@ -15,22 +15,25 @@ public class BoardDTOConverter {
         BoardDTO boardDTO = new BoardDTO();
         boardDTO.setId(entity.getId().toString());
         boardDTO.setName(entity.getName());
+
         ArrayList<ColumnDTO> columnDTOs = new ArrayList<ColumnDTO>();
         for (int i = 0; i < entity.getColumnNumber(); i++) {
             columnDTOs.add(ColumnDTOConverter.toDTO(entity.get(i)));
         }
         boardDTO.setColumnDTOs(columnDTOs);
+
         return boardDTO;
     }
 
     public static Board toEntity(DTO dto) {
         BoardDTO boardDTO = (BoardDTO) dto;
+
         List<Column> columns = new ArrayList<Column>();
         List<ColumnDTO> columnDTOs = boardDTO.getColumnDTOs();
         for (int i = 0; i < columnDTOs.size(); i++) {
             columns.add(ColumnDTOConverter.toEntity(columnDTOs.get(i)));
         }
-        Board board = new Board(UUID.fromString(boardDTO.getId()), boardDTO.getName(), columns);
-        return board;
+
+        return new Board(UUID.fromString(boardDTO.getId()), boardDTO.getName(), columns);
     }
 }

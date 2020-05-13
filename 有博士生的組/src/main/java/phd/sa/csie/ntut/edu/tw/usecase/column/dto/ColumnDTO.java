@@ -1,7 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.dto;
 
 import java.util.List;
-import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
 

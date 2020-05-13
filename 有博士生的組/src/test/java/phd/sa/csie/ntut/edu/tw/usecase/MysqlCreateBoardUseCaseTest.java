@@ -32,6 +32,7 @@ public class MysqlCreateBoardUseCaseTest {
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
         createBoardUseCaseInput.setBoardName("Software Architecture");
+
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
         UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());

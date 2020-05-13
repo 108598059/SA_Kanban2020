@@ -16,7 +16,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 @RestController
 @RequestMapping("/api/card")
 public class CardApi {
-
     @Autowired
     private CreateCardUseCase createCardUseCase;
 

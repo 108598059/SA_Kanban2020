@@ -2,7 +2,6 @@ package phd.sa.csie.ntut.edu.tw.controller.repository.mysql;
 
 import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
@@ -77,12 +76,15 @@ public class MysqlBoardRepository extends BoardRepository {
     public BoardDTO findById(String id) {
         try {
             Connection connection = DB_connector.getConnection();
+
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * FROM `Board`, `Column` " +
                         "WHERE `Board`.`ID`=? AND`Column`.`BoardID`=`Board`.`ID` " +
                         "ORDER BY `Column`.`Position` ASC");
             stmt.setString(1, id);
+
             ResultSet resultSet = stmt.executeQuery();
+
             BoardDTO boardDTO = new BoardDTO();
             List<ColumnDTO> columnDTOList = new ArrayList<>();
             while (resultSet.next()) {
@@ -90,6 +92,7 @@ public class MysqlBoardRepository extends BoardRepository {
                     boardDTO.setId(resultSet.getString("Board.ID"));
                     boardDTO.setName(resultSet.getString("Board.Name"));
                 }
+
                 ColumnDTO columnDTO = new ColumnDTO();
                 columnDTO.setId(resultSet.getString("Column.ID"));
                 columnDTO.setTitle(resultSet.getString("Column.Title"));
@@ -100,6 +103,7 @@ public class MysqlBoardRepository extends BoardRepository {
                             "FROM `Column`, `Card` " +
                             "WHERE `Column`.`ID`=? AND`Card`.`ColumnID`=`Column`.`ID`");
                 cardStmt.setString(1, columnDTO.getId());
+
                 ResultSet cardsResult = cardStmt.executeQuery();
 
                 List<String> cardIDs = new ArrayList<>();

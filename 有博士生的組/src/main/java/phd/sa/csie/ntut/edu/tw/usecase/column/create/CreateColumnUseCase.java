@@ -10,6 +10,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, CreateColumnUseCaseOutput> {
   private BoardRepository boardRepository;
+
   public CreateColumnUseCase(BoardRepository boardRepository, DomainEventBus eventBus) {
     super(eventBus);
     this.boardRepository = boardRepository;

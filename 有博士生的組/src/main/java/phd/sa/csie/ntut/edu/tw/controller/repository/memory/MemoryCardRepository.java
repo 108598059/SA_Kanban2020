@@ -2,7 +2,6 @@ package phd.sa.csie.ntut.edu.tw.controller.repository.memory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;

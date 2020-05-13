@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.dto;
 
-import java.util.UUID;
-
 import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
 
 public class CardDTO extends DTO {

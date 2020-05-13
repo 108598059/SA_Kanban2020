@@ -35,34 +35,36 @@ public class EditCardUseCaseTest {
   @Before
   public void given_a_card() {
     this.eventBus = new DomainEventBus();
-
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
+
     Board board = new Board("Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
-    this.createCardUseCase = new CreateCardUseCase(this.eventBus);
-    this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
 
+    this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
+    this.createCardUseCase = new CreateCardUseCase(this.eventBus);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("Old Name");
     createCardUseCaseInput.setBoardID(board.getId().toString());
-    createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+    this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
+    this.card = CardDTOConverter.toEntity(this.cardRepository.findById(cardId.toString()));
   }
 
   @Test
   public void editCard() {
-    EditCardUseCase editCardUseCase = new EditCardUseCase(cardRepository);
+    EditCardUseCase editCardUseCase = new EditCardUseCase(this.cardRepository);
     EditCardUseCaseInput editCardUseCaseInput = new EditCardUseCaseInput();
     EditCardUseCaseOutput editCardUseCaseOutput = new EditCardUseCaseOutput();
 
-    editCardUseCaseInput.setCardId(card.getId());
+    editCardUseCaseInput.setCardId(this.card.getId());
     editCardUseCaseInput.setCardName("New Name");
+
     editCardUseCase.execute(editCardUseCaseInput, editCardUseCaseOutput);
 
-    assertEquals(card.getId().toString(), editCardUseCaseOutput.getCardId());
+    assertEquals(this.card.getId().toString(), editCardUseCaseOutput.getCardId());
     assertEquals("New Name", editCardUseCaseOutput.getCardName());
   }
 

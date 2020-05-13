@@ -52,8 +52,10 @@ public class CreateCardUseCaseTest {
   public void given_a_board() {
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
+
     this.board = new Board("Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
+
     this.eventBus = new DomainEventBus();
   }
 
@@ -95,6 +97,7 @@ public class CreateCardUseCaseTest {
 
     createCardUseCaseInput.setCardName("Create Card");
     createCardUseCaseInput.setBoardID(this.board.getId().toString());
+
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
@@ -115,6 +118,7 @@ public class CreateCardUseCaseTest {
     this.eventBus.register(mockListener);
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+
     assertEquals(1, mockListener.getEventCount());
   }
 }

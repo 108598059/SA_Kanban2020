@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.dto;
 
-import java.util.UUID;
-
 public abstract class DTO {
 
 	private String id;

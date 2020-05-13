@@ -2,7 +2,6 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -11,7 +10,6 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
@@ -28,6 +26,7 @@ public class CreateColumnUseCaseTest {
   public void given_a_board() {
     this.eventBus = new DomainEventBus();
     this.boardRepository = new MemoryBoardRepository();
+
     Board board = new Board("phd");
     this.boardId = board.getId();
     boardRepository.save(BoardDTOConverter.toDTO(board));
