@@ -2,15 +2,17 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.create;
 
 import java.util.UUID;
 
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
-public class CreateColumnUseCase {
+public class CreateColumnUseCase
+    extends UseCase<BoardRepository, BoardDTOConverter, CreateColumnUseCaseInput, CreateColumnUseCaseOutput> {
 
-  private BoardRepository boardRepository;
-
-  public CreateColumnUseCase(BoardRepository boardRepository) {
-    this.boardRepository = boardRepository;
+  public CreateColumnUseCase(BoardRepository repository, DomainEventBus eventBus, BoardDTOConverter dtoConverter) {
+    super(repository, eventBus, dtoConverter);
   }
 
   public void execute(CreateColumnUseCaseInput createColumnUseCaseInput,
@@ -18,10 +20,10 @@ public class CreateColumnUseCase {
     String title = createColumnUseCaseInput.getTitle();
     UUID boardId = createColumnUseCaseInput.getBoardId();
 
-    Board board = this.boardRepository.findBoardById(boardId);
+    Board board = this.dtoConverter.toEntity(this.repository.findById(boardId));
     UUID columnId = board.createColumn(title);
 
-    this.boardRepository.add(board);
+    this.repository.save(this.dtoConverter.toDTO(board));
     createColumnUseCaseOutput.setId(columnId.toString());
   }
 

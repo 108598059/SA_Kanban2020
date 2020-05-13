@@ -57,11 +57,6 @@ public class CreateCardUseCaseTest {
 
         createCardUseCase.execute(input, output);
 
-        assertEquals(0, cardRepository
-                .findById(output.getCardId())
-                .getDomainEvents()
-                .size());
-
         assertEquals(workflowId, cardRepository
                 .findById(output.getCardId())
                 .getWorkflowId());
@@ -73,13 +68,5 @@ public class CreateCardUseCaseTest {
         assertNotNull(cardRepository
                 .findById(output.getCardId())
                 .getId());
-    }
-
-    @Test
-    public void cardEventHandler() {
-
-        Card card = new Card("firstEvent", laneId, workflowId);
-
-        assertEquals(1, card.getDomainEvents().size());
     }
 }

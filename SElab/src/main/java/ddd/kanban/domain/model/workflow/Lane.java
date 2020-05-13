@@ -1,28 +1,19 @@
 package ddd.kanban.domain.model.workflow;
 
+import ddd.kanban.domain.model.Entity;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Lane {
+public abstract class Lane extends Entity {
 
-    private String title;
-    private final String id;
     private String workflowId;
     private final List<CommittedCard> committedCards;
 
-    public Lane(String id, String title, String workflowId){
-        this.id = id;
-        this.title = title;
+    public Lane(final String id, String title, String workflowId){
+        super(id, title);
         this.workflowId = workflowId;
         committedCards = new ArrayList<>();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String commitCard(String cardId, String workflowId) {

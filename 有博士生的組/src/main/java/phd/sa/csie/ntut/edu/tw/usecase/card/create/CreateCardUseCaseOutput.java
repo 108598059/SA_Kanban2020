@@ -2,7 +2,9 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
 import java.util.UUID;
 
-public class CreateCardUseCaseOutput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
+
+public class CreateCardUseCaseOutput implements UseCaseOutput {
   private String cardId;
   private String cardName;
 

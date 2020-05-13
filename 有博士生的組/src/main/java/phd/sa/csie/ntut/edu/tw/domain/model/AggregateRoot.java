@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class AggregateRoot implements Entity {
+public abstract class AggregateRoot extends Entity {
 
     private final List<DomainEvent> domainEvents;
 

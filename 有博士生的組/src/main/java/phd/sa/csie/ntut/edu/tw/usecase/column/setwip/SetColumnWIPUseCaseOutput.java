@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.setwip;
 
-public class SetColumnWIPUseCaseOutput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
+
+public class SetColumnWIPUseCaseOutput implements UseCaseOutput {
 
   private String columnId;
   private int columnWIP;

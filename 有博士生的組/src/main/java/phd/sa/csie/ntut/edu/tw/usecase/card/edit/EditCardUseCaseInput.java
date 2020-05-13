@@ -2,7 +2,9 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
 import java.util.UUID;
 
-public class EditCardUseCaseInput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
+
+public class EditCardUseCaseInput implements UseCaseInput {
 
   private UUID cardId;
   private String cardName;

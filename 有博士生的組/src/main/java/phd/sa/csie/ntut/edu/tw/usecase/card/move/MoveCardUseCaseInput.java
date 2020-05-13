@@ -2,7 +2,9 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.move;
 
 import java.util.UUID;
 
-public class MoveCardUseCaseInput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
+
+public class MoveCardUseCaseInput implements UseCaseInput {
 
   private UUID boardId;
   private UUID cardId;

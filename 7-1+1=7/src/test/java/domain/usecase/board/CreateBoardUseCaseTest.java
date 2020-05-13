@@ -2,15 +2,13 @@ package domain.usecase.board;
 
 import domain.adapter.board.BoardInMemoryRepository;
 import domain.adapter.board.BoardInDatabaseRepository;
-import domain.adapter.database.IDatabase;
-import domain.database.MySqlDatabase;
 import domain.usecase.board.createBoard.CreateBoardInput;
 import domain.usecase.board.createBoard.CreateBoardOutput;
 import domain.usecase.board.createBoard.CreateBoardUseCase;
 import domain.usecase.repository.IBoardRepository;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class CreateBoardUseCaseTest {
     @Test
@@ -30,8 +28,7 @@ public class CreateBoardUseCaseTest {
 
     @Test
     public void createBoardInDB(){
-        IDatabase database = new MySqlDatabase();
-        IBoardRepository boardRepository = new BoardInDatabaseRepository(database);
+        IBoardRepository boardRepository = new BoardInDatabaseRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardInput input = new CreateBoardInput();
         CreateBoardOutput output = new CreateBoardOutput();
@@ -41,6 +38,8 @@ public class CreateBoardUseCaseTest {
 
         createBoardUseCase.execute(input, output);
 
-        assertEquals("kanban777", boardRepository.findById(output.getBoardId()).getUsername());
+        assertEquals("kanban777", boardRepository
+                                            .findById(output.getBoardId())
+                                            .getUsername());
     }
 }

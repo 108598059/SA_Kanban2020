@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
-public class EditCardUseCaseOutput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
+
+public class EditCardUseCaseOutput implements UseCaseOutput {
   private String cardId;
   private String cardName;
 

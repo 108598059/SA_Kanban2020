@@ -47,19 +47,7 @@ public class CreateWorkflowUseCaseTest {
 
         createWorkflowUseCase.execute(input, output);
 
-        assertEquals(0, workflowRepository
-                .findById(output.getWorkflowId())
-                .getDomainEvents()
-                .size());
-
         assertEquals(boardId, workflowRepository.findById(output.getWorkflowId()).getBoardId());
-    }
-
-    @Test
-    public void workflowEventHandler() {
-        Workflow workflow = new Workflow("defaultWorkflow", boardId);
-        assertEquals(1, workflow.getDomainEvents().size());
-
     }
 
 }
