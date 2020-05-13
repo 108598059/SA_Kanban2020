@@ -6,25 +6,32 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.*;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 public class CreateBoardUseCaseTest {
   BoardRepository boardRepository;
+  BoardDTOConverter boardDTOConverter;
+  DomainEventBus eventBus;
 
   @Before
   public void setUp() {
-    boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
+    this.eventBus = new DomainEventBus();
+    this.boardDTOConverter = new BoardDTOConverter();
+    this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
   }
 
   @Test
   public void board_created() {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
@@ -37,14 +44,15 @@ public class CreateBoardUseCaseTest {
 
   @Test
   public void creating_a_new_board_should_generate_backlog_column_and_archive_column() {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
     createBoardUseCaseInput.setTitle("Software Architecture");
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-    Board board = boardRepository.findBoardById(UUID.fromString(createBoardUseCaseOutput.getBoardId()));
+    UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());
+    Board board = this.boardDTOConverter.toEntity(this.boardRepository.findById(boardId));
 
     assertEquals(2, board.getColumnNumber());
     assertEquals("Backlog", board.get(0).getTitle());

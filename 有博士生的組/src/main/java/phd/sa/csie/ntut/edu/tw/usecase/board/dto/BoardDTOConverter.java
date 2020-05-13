@@ -16,6 +16,7 @@ public class BoardDTOConverter implements DTOConverter<Board> {
     @Override
     public BoardDTO toDTO(Board entity) {
         BoardDTO boardDTO = new BoardDTO();
+        boardDTO.setId(entity.getId());
         boardDTO.setName(entity.getName());
         ArrayList<ColumnDTO> columnDTOs = new ArrayList<ColumnDTO>();
         for (int i = 0; i < entity.getColumnNumber(); i++) {

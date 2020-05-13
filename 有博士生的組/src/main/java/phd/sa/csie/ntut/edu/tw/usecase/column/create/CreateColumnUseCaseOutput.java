@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.create;
 
-public class CreateColumnUseCaseOutput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
+
+public class CreateColumnUseCaseOutput implements UseCaseOutput {
 
   private String id;
 

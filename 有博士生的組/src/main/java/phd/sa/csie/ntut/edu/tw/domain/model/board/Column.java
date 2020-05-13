@@ -27,6 +27,15 @@ public class Column extends Entity {
     for (UUID cardID : col.cardIds) {
       this.cardIds.add(cardID);
     }
+    // TODO Should issue an event?
+  }
+
+  public Column(UUID id, String title, ArrayList<UUID> cardIds, int wip) {
+    this.id = id;
+    this.title = title;
+    this.cardIds = cardIds;
+    this.wip = wip;
+    // TODO issue an event?
   }
 
   public String getTitle() {

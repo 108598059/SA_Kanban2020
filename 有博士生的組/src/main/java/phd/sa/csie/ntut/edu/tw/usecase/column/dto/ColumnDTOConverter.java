@@ -19,8 +19,8 @@ public class ColumnDTOConverter implements DTOConverter<Column> {
     @Override
     public Column toEntity(DTO dto) {
         ColumnDTO columnDTO = (ColumnDTO) dto;
-        // TODO Auto-generated method stub
-        return null;
+        Column column = new Column(columnDTO.getId(), columnDTO.getTitle(), columnDTO.getCardIds(), columnDTO.getWip());
+        return column;
     }
     
 }

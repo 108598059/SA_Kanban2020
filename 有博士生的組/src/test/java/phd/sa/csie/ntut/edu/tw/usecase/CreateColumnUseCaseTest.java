@@ -9,7 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
@@ -18,24 +21,28 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 public class CreateColumnUseCaseTest {
 
   private BoardRepository boardRepository;
-  private UUID boardUUID;
+  private BoardDTOConverter boardDTOConverter;
+  private DomainEventBus eventBus;
+  private UUID boardId;
 
   @Before
   public void given_a_board() {
-    boardRepository = new MemoryBoardRepository(new HashMap<UUID, Board>());
+    this.eventBus = new DomainEventBus();
+    this.boardDTOConverter = new BoardDTOConverter();
+    this.boardRepository = new MemoryBoardRepository(new HashMap<UUID, BoardDTO>());
     Board board = new Board("phd");
-    boardUUID = board.getId();
-    boardRepository.add(board);
+    this.boardId = board.getId();
+    boardRepository.save(this.boardDTOConverter.toDTO(board));
   }
 
   @Test
   public void createColumn() {
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(boardRepository);
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus, this.boardDTOConverter);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
     createColumnUseCaseInput.setTitle("develop");
-    createColumnUseCaseInput.setBoardId(boardUUID);
+    createColumnUseCaseInput.setBoardId(boardId);
 
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
