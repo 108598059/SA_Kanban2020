@@ -1,9 +1,8 @@
 package kanban.domain.usecase.board.create;
 
 import kanban.domain.model.aggregate.board.Board;
-import kanban.domain.usecase.TransformToDTO;
+import kanban.domain.usecase.board.BoardEntityModelTransformer;
 import kanban.domain.usecase.board.repository.IBoardRepository;
-import kanban.domain.usecase.entity.BoardEntity;
 
 public class CreateBoardUseCase {
     private IBoardRepository boardRepository;
@@ -15,8 +14,7 @@ public class CreateBoardUseCase {
     public void execute(CreateBoardInput input, CreateBoardOutput output) {
         Board board = new Board(input.getUserId(), input.getBoardName());
 
-        boardRepository.add(TransformToDTO.transform(board));
+        boardRepository.add(BoardEntityModelTransformer.transformModelToEntity(board));
         output.setBoardId(board.getBoardId());
-        output.setBoardName(board.getBoardName());
     }
 }

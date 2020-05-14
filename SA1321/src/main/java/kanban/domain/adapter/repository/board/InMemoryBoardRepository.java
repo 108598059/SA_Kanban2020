@@ -1,8 +1,7 @@
 package kanban.domain.adapter.repository.board;
 
-import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.repository.IBoardRepository;
-import kanban.domain.usecase.entity.BoardEntity;
+import kanban.domain.usecase.board.BoardEntity;
 
 import java.util.ArrayList;
 import java.util.List;
