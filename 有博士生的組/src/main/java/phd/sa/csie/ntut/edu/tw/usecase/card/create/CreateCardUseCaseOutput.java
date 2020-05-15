@@ -16,8 +16,8 @@ public class CreateCardUseCaseOutput implements UseCaseOutput {
     return this.cardName;
   }
 
-  public void setCardId(UUID cardId) {
-    this.cardId = cardId.toString();
+  public void setCardId(UUID uuid) {
+    this.cardId = uuid.toString();
   }
 
   public String getCardId() {

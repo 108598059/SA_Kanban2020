@@ -4,7 +4,7 @@
       :key="idx"
       :column="column"
       />
-    <CreateCardModal :boardId="id" @cardCreated="cardCreated"></CreateCardModal>
+    <CreateCardModal :boardID="id" @cardCreated="cardCreated"></CreateCardModal>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
       while(this.columnList.length) {
         this.columnList.pop();
       }
-      axios.get(process.env.VUE_APP_API_HOST + "/columns?boardId=" + this.id)
+      axios.get(process.env.VUE_APP_API_HOST + "/columns?boardID=" + this.id)
         .then(res => {
           const columnList = res.data.columnList;
           columnList.forEach(column => {

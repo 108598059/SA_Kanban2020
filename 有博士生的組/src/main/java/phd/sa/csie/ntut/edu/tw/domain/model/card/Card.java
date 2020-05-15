@@ -2,7 +2,11 @@ package phd.sa.csie.ntut.edu.tw.domain.model.card;
 
 import java.util.UUID;
 
+import com.google.common.eventbus.Subscribe;
+
 import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardLeaveColumnEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 
 public class Card extends AggregateRoot {
@@ -10,17 +14,16 @@ public class Card extends AggregateRoot {
   private UUID columnId;
   private UUID boardId;
 
-  public Card(String name, UUID boardId, UUID columnId) {
+  public Card(String name, UUID boardId) {
+    super();
     this.name = name;
     this.boardId = boardId;
-    this.columnId = columnId;
     this.addDomainEvent(new CardCreatedEvent(this));
   }
 
-  public Card(UUID id, String name, UUID boardId, UUID columnId) {
+  public Card(UUID id, String name, UUID columnId) {
     this.id = id;
     this.name = name;
-    this.boardId = boardId;
     this.columnId = columnId;
     // TODO Should the CardCreated event be issued when the card object is
     // reconstituted?

@@ -14,6 +14,7 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -29,33 +30,36 @@ public class MysqlCreateCardUseCaseTest {
   private String cardID;
   private Board board;
   private DomainEventBus eventBus;
+  private CommitCardUsecase commitCardUsecase;
 
   @Before
   public void setUp() {
-    cardRepository = new MysqlCardRepository();
-    boardRepository = new MemoryBoardRepository();
-    board = new Board("Kanban");
-    boardRepository.save(BoardDTOConverter.toDTO(board));
-    eventBus = new DomainEventBus();
+    this.cardRepository = new MysqlCardRepository();
+    this.boardRepository = new MemoryBoardRepository();
+    this.board = new Board("Kanban");
+    this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
+    this.eventBus = new DomainEventBus();
+    this.commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
+    this.eventBus.register(this.commitCardUsecase);
+
   }
 
   @Test
   public void createCard() throws Exception {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
     createCardUseCaseInput.setCardName("Card1");
-    createCardUseCaseInput.setBoardId(board.getId());
-    createCardUseCaseInput.setColumnId(board.get(0).getId());
+    createCardUseCaseInput.setBoardID(this.board.getId().toString());
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     assertEquals("Card1", createCardUseCaseOutput.getCardName());
     assertNotEquals("", createCardUseCaseOutput.getCardId());
     assertNotNull(createCardUseCaseOutput.getCardId());
-    cardID = createCardUseCaseOutput.getCardId();
-    CardDTO cardDTO = cardRepository.findById(cardID);
+    this.cardID = createCardUseCaseOutput.getCardId();
+    CardDTO cardDTO = this.cardRepository.findById(this.cardID);
     assertEquals("Card1", cardDTO.getName());
   }
 
@@ -63,7 +67,7 @@ public class MysqlCreateCardUseCaseTest {
   public void tearDown() throws SQLException {
     Connection conn = DB_connector.getConnection();
     PreparedStatement statement = conn.prepareStatement("DELETE FROM Card Where ID = ?");
-    statement.setString(1, cardID);
+    statement.setString(1, this.cardID);
     statement.executeUpdate();
     DB_connector.closeConnection(conn);
   }

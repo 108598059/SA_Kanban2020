@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.domain.model;
+package phd.sa.csie.ntut.edu.tw.domain;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,9 +10,9 @@ public class ColumnTest {
 
   @Test
   public void createColumn() {
-    Column column = new Column("Developing");
+    Column column = new Column("develop");
 
-    assertEquals("Developing", column.getTitle());
+    assertEquals("develop", column.getTitle());
   }
 
 }

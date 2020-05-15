@@ -15,13 +15,13 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository
 public class CardRepositoryTest {
 
   @Test
-  public void save_a_new_card() {
+  public void createCard() {
     CardRepository cardRepository = new MemoryCardRepository();
-    UUID fakeBoardId = UUID.randomUUID();
-    UUID fakeColumnId = UUID.randomUUID();
-    Card card = new Card("Unit test for saving a new card to the repository.", fakeBoardId, fakeColumnId);
-    
+    Card card = new Card("test card", UUID.randomUUID());
+    card.setColumnId(UUID.randomUUID());
+
     CardDTO cardDTO = CardDTOConverter.toDTO(card);
+
     cardRepository.save(cardDTO);
 
     CardDTO resultCardDTO = cardRepository.findById(card.getId().toString());
