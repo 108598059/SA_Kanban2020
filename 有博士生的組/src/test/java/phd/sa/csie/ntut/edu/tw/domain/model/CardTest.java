@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreated;
 
 import java.util.UUID;
 
@@ -23,7 +23,7 @@ public class CardTest {
     assertEquals("Unit test for Card entity.", card.getName());
     assertNotEquals("", card.getId().toString());
     assertNotNull(card.getId());
-    
+
     assertEquals(fakeBoardId, card.getBoardId());
     assertEquals(fakeColumnId, card.getColumnId());
   }
@@ -33,6 +33,6 @@ public class CardTest {
     Card card = new Card("Unit test for Card entity.", fakeBoardId, fakeColumnId);
 
     assertEquals(1, card.getDomainEvents().size());
-    assertEquals(CardCreatedEvent.class, card.getDomainEvents().get(0).getClass());
+    assertEquals(CardCreated.class, card.getDomainEvents().get(0).getClass());
   }
 }

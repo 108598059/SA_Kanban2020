@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreated;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
@@ -19,9 +19,9 @@ public class DomainEventHandler {
     this.cardRepository = cardRepository;
     this.boardRepository = boardRepository;
   }
-  
+
   @Subscribe
-  public void execute(CardCreatedEvent e) {
+  public void execute(CardCreated e) {
     Card card = e.getEntity();
     Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(card.getBoardId().toString()));
 
