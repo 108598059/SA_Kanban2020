@@ -14,7 +14,7 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreated;
+import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
@@ -37,7 +37,7 @@ public class CreateCardUseCaseTest {
     private int count = 0;
 
     @Subscribe
-    public void cardCreatedListener(CardCreated e) {
+    public void cardCreatedListener(CardCreatedEvent e) {
       this.count += 1;
     }
 
