@@ -1,13 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.read;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.UUID;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
@@ -17,8 +11,16 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUsecase;
+import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUsecaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUsecaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class GetColumnsByBoardIDUsecaseTest {
     private BoardRepository boardRepository;

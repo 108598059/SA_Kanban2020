@@ -2,6 +2,8 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
 import com.google.common.eventbus.Subscribe;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;

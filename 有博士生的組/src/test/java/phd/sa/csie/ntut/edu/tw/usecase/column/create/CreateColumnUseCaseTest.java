@@ -11,6 +11,9 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepositor
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class CreateColumnUseCaseTest {
