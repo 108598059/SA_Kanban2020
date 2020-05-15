@@ -39,7 +39,7 @@ public class EditCardNameUseCaseTest {
   }
 
   private UUID create_board(String boardTitle, BoardRepository repository, DomainEventBus eventBus) {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(repository, eventBus);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(repository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 

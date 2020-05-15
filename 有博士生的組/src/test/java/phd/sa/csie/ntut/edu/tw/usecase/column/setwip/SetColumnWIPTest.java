@@ -36,7 +36,7 @@ public class SetColumnWIPTest {
     this.eventBus = new DomainEventBus();
     boardRepository = new MemoryBoardRepository();
 
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
     createBoardUseCaseInput.setBoardName("Software Architecture");

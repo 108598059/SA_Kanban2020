@@ -14,8 +14,8 @@ public class CreateBoardUseCaseOutput implements UseCaseOutput{
     return this.boardID;
   }
 
-  public void setBoardName(String title) {
-    this.boardName = title;
+  public void setBoardName(String boardName) {
+    this.boardName = boardName;
   }
 
   public String getBoardName() {

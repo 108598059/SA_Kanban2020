@@ -27,11 +27,12 @@ public class CreateBoardUseCaseTest {
 
   @Test
   public void board_created() {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
     createBoardUseCaseInput.setBoardName("Software Architecture");
+
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
     assertNotNull(createBoardUseCaseOutput.getBoardId());
@@ -40,7 +41,7 @@ public class CreateBoardUseCaseTest {
 
   @Test
   public void creating_a_new_board_should_generate_backlog_column_and_archive_column() {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 

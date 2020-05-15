@@ -1,8 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.domain.model.board;
 
 import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumn;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardLeaveColumn;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardLeaveColumnEvent;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 
 import java.util.ArrayList;
@@ -76,9 +76,9 @@ public class Board extends AggregateRoot {
 
     // TODO Issue the event by the board or the column itself?
     from.removeCard(cardId);
-    this.addDomainEvent(new CardLeaveColumn(UUID.randomUUID().toString(), fromColumnId.toString()));
+    this.addDomainEvent(new CardLeaveColumnEvent(UUID.randomUUID().toString(), fromColumnId.toString()));
     to.addCard(cardId);
-    this.addDomainEvent(new CardEnterColumn(UUID.randomUUID().toString(), toColumnId.toString(), cardId.toString()));
+    this.addDomainEvent(new CardEnterColumnEvent(UUID.randomUUID().toString(), toColumnId.toString(), cardId.toString()));
     
     return to.getId().toString();
   }

@@ -3,7 +3,6 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 import org.junit.Before;
 import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlBoardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
@@ -16,18 +15,16 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 
 public class MysqlCreateBoardUseCaseTest {
-    private DomainEventBus eventBus;
     private BoardRepository boardRepository;
 
     @Before
     public void setUp() {
-        this.eventBus = new DomainEventBus();
         this.boardRepository = new MysqlBoardRepository();
     }
 
     @Test
     public void create_board() {
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository, this.eventBus);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
