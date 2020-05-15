@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.card.create;
+package phd.sa.csie.ntut.edu.tw.usecase;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -11,11 +11,11 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-public class CommitCardUsecase {
+public class DomainEventHandler {
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
 
-  public CommitCardUsecase(CardRepository cardRepository, BoardRepository boardRepository) {
+  public DomainEventHandler(CardRepository cardRepository, BoardRepository boardRepository) {
     this.cardRepository = cardRepository;
     this.boardRepository = boardRepository;
   }

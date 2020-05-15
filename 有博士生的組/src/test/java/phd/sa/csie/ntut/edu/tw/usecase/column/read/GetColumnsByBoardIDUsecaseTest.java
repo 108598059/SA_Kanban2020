@@ -12,8 +12,8 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepositor
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.usecase.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -34,9 +34,9 @@ public class GetColumnsByBoardIDUsecaseTest {
         boardId = board.getId();
         boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        CommitCardUsecase commitCardUsecase = new CommitCardUsecase(cardRepository, boardRepository);
+        DomainEventHandler domainEventHandler = new DomainEventHandler(cardRepository, boardRepository);
         DomainEventBus eventBus = new DomainEventBus();
-        eventBus.register(commitCardUsecase);
+        eventBus.register(domainEventHandler);
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
         CreateCardUseCaseInput input = new CreateCardUseCaseInput();
