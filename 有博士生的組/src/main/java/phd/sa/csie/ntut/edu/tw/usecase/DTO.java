@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.dto;
+package phd.sa.csie.ntut.edu.tw.usecase;
 
 public abstract class DTO {
 

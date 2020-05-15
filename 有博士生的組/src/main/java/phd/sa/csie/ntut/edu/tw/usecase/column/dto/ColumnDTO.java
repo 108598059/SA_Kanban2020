@@ -2,7 +2,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.dto;
 
 import java.util.List;
 
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public class ColumnDTO extends DTO {
     private String title;

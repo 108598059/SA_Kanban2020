@@ -1,6 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.dto;
 
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public class CardDTO extends DTO {
 

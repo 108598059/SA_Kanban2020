@@ -3,7 +3,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.dto;
 import java.util.List;
 
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public class BoardDTO extends DTO {
 

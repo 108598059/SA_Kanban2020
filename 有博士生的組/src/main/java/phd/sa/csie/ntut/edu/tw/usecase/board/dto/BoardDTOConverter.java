@@ -8,7 +8,7 @@ import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public class BoardDTOConverter {
     public static BoardDTO toDTO(Board entity) {
