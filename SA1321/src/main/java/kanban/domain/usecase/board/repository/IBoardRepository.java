@@ -1,7 +1,7 @@
 package kanban.domain.usecase.board.repository;
 
 
-import kanban.domain.usecase.entity.BoardEntity;
+import kanban.domain.usecase.board.BoardEntity;
 
 import java.util.List;
 

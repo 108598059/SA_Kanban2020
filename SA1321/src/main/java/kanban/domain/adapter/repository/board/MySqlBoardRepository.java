@@ -4,7 +4,7 @@ import kanban.domain.adapter.database.MySqlDatabaseHelper;
 import kanban.domain.adapter.database.BoardTable;
 import kanban.domain.adapter.database.BoardWorkflowTable;
 import kanban.domain.usecase.board.repository.IBoardRepository;
-import kanban.domain.usecase.entity.BoardEntity;
+import kanban.domain.usecase.board.BoardEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
