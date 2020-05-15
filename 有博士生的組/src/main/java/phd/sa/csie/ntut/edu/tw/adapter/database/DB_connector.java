@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.controller.database;
+package phd.sa.csie.ntut.edu.tw.adapter.database;
 
 import java.sql.*;
 

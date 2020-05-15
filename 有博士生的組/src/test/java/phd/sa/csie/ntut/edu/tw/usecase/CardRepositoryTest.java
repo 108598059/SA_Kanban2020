@@ -10,7 +10,7 @@ import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
 
 public class CardRepositoryTest {
 

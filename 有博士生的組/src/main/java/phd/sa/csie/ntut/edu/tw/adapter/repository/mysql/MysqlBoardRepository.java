@@ -1,6 +1,6 @@
-package phd.sa.csie.ntut.edu.tw.controller.repository.mysql;
+package phd.sa.csie.ntut.edu.tw.adapter.repository.mysql;
 
-import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
+import phd.sa.csie.ntut.edu.tw.adapter.database.DB_connector;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;

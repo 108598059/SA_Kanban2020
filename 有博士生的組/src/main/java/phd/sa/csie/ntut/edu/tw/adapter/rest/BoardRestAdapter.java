@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.controller.api;
+package phd.sa.csie.ntut.edu.tw.adapter.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,16 +13,16 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
 
 @RestController
 @RequestMapping(value = "/api/board")
-public class BoardApi {
+public class BoardRestAdapter {
     @Autowired
     private CreateBoardUseCase createBoardUseCase;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<CreateBoardResponse> createBoard(@RequestBody CreateBoardRequest body) {
+    public ResponseEntity<CreateBoardResponse> createBoard(@RequestBody CreateBoardRequest requestBody) {
         CreateBoardUseCaseInput input = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput output = new CreateBoardUseCaseOutput();
 
-        input.setBoardName(body.getBoardName());
+        input.setBoardName(requestBody.getBoardName());
 
         this.createBoardUseCase.execute(input, output);
 
@@ -51,16 +51,16 @@ class CreateBoardResponse {
     private String boardID;
     private String boardName;
 
-    public void setBoardId(String uuid) {
-        this.boardID = uuid;
+    public void setBoardId(String boardID) {
+        this.boardID = boardID;
     }
 
     public String getBoardId() {
         return this.boardID;
     }
 
-    public void setBoardName(String title) {
-        this.boardName = title;
+    public void setBoardName(String boardName) {
+        this.boardName = boardName;
     }
 
     public String getBoardName() {

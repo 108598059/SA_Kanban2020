@@ -9,7 +9,7 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 
 public class CreateBoardUseCaseTest {

@@ -2,7 +2,7 @@ package phd.sa.csie.ntut.edu.tw.usecase;
 
 import org.junit.Before;
 import org.junit.Test;
-import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlBoardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;

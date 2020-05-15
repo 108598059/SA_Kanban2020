@@ -8,9 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
-import phd.sa.csie.ntut.edu.tw.controller.repository.mysql.MysqlCardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.database.DB_connector;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;

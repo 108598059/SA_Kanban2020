@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.controller.api;
+package phd.sa.csie.ntut.edu.tw.adapter.rest;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 
 @RestController
 @RequestMapping("/api/card")
-public class CardApi {
+public class CardRestAdapter {
     @Autowired
     private CreateCardUseCase createCardUseCase;
 
@@ -23,20 +23,20 @@ public class CardApi {
     private CommitCardUsecase commitCardUsecase;
 
     @PostMapping("/create")
-    public ResponseEntity<CreateCardResponse> createCard(@RequestBody CreateCardRequest body){
+    public ResponseEntity<CreateCardResponse> createCard(@RequestBody CreateCardRequest requestBody){
         CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
-
-        createCardInput.setBoardID(body.getBoardID());
-        createCardInput.setCardName(body.getCardName());
-
         CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
-        CreateCardResponse response = new CreateCardResponse();
+
+        createCardInput.setBoardID(requestBody.getBoardID());
+        createCardInput.setCardName(requestBody.getCardName());
 
         this.createCardUseCase.execute(createCardInput, createCardOutput);
 
-        response.setCardId(createCardOutput.getCardId());
-        response.setCardName(createCardOutput.getCardName());
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        CreateCardResponse responseBody = new CreateCardResponse();
+        responseBody.setCardID(createCardOutput.getCardId());
+        responseBody.setCardName(createCardOutput.getCardName());
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
 
@@ -62,15 +62,15 @@ class CreateCardRequest {
 }
 
 class CreateCardResponse {
-    private String cardId;
+    private String cardID;
     private String cardName;
 
-    public String getCardId() {
-        return cardId;
+    public String getCardID() {
+        return cardID;
     }
 
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
+    public void setCardID(String cardID) {
+        this.cardID = cardID;
     }
 
     public String getCardName() {

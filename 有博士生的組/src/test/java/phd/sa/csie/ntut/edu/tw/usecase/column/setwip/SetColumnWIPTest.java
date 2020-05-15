@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
@@ -19,9 +19,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class SetColumnWIPTest {

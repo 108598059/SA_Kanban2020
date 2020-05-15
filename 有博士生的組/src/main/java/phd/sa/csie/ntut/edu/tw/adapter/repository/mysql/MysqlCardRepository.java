@@ -1,11 +1,11 @@
-package phd.sa.csie.ntut.edu.tw.controller.repository.mysql;
+package phd.sa.csie.ntut.edu.tw.adapter.repository.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import phd.sa.csie.ntut.edu.tw.controller.database.DB_connector;
+import phd.sa.csie.ntut.edu.tw.adapter.database.DB_connector;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 

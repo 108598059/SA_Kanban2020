@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class GetColumnsByBoardIDUsecase extends UseCase<GetColumnsByBoardIDUsecaseInput, GetColumnsByBoardIDUsecaseOutput> {
+public class GetColumnsByBoardIDUseCase extends UseCase<GetColumnsByBoardIDUsecaseInput, GetColumnsByBoardIDUsecaseOutput> {
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
 
-    public GetColumnsByBoardIDUsecase(@Autowired BoardRepository boardRepository, @Autowired CardRepository cardRepository) {
+    public GetColumnsByBoardIDUseCase(@Autowired BoardRepository boardRepository, @Autowired CardRepository cardRepository) {
         this.boardRepository = boardRepository;
         this.cardRepository = cardRepository;
     }
