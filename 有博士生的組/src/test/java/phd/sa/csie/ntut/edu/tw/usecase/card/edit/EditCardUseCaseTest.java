@@ -16,9 +16,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
