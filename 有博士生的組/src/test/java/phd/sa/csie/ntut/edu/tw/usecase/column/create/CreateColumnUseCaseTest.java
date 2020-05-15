@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase;
+package phd.sa.csie.ntut.edu.tw.usecase.column.create;
 
 import static org.junit.Assert.assertNotNull;
 
