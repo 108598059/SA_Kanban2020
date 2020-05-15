@@ -25,41 +25,42 @@ import static org.junit.Assert.assertNotNull;
 public class GetColumnsByBoardIDUsecaseTest {
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
-    private UUID boardID;
+    private UUID boardId;
 
     @Before
     public void add_two_cards_to_a_board() {
-        this.boardRepository = new MemoryBoardRepository();
-        this.cardRepository = new MemoryCardRepository();
+        boardRepository = new MemoryBoardRepository();
+        cardRepository = new MemoryCardRepository();
 
         Board board = new Board("Kanban");
-        this.boardID = board.getId();
-        this.boardRepository.save(BoardDTOConverter.toDTO(board));
+        boardId = board.getId();
+        boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        CommitCardUsecase commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
+        CommitCardUsecase commitCardUsecase = new CommitCardUsecase(cardRepository, boardRepository);
         DomainEventBus eventBus = new DomainEventBus();
         eventBus.register(commitCardUsecase);
 
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(eventBus);
-        CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
-        CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
-        createCardInput.setBoardID(board.getId().toString());
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
+        CreateCardUseCaseInput input = new CreateCardUseCaseInput();
+        CreateCardUseCaseOutput output = new CreateCardUseCaseOutput();
+        input.setBoardId(board.getId());
+        input.setCardName("Card1");
+        input.setColumnId(board.get(0).getId());
+        createCardUseCase.execute(input, output);
 
-        createCardInput.setCardName("Card1");
-        createCardUseCase.execute(createCardInput, createCardOutput);
-
-        createCardInput.setCardName("Card2");
-        createCardUseCase.execute(createCardInput, createCardOutput);
+        input.setBoardId(board.getId());
+        input.setCardName("Card2");
+        input.setColumnId(board.get(0).getId());
+        createCardUseCase.execute(input, output);
     }
 
     @Test
     public void test_get_columns_structure_by_board_id() {
-        GetColumnsByBoardIDUsecase usecase = new GetColumnsByBoardIDUsecase(this.boardRepository, this.cardRepository);
+        GetColumnsByBoardIDUsecase usecase = new GetColumnsByBoardIDUsecase(boardRepository, cardRepository);
         GetColumnsByBoardIDUsecaseInput input = new GetColumnsByBoardIDUsecaseInput();
         GetColumnsByBoardIDUsecaseOutput output = new GetColumnsByBoardIDUsecaseOutput();
 
-        input.setBoardID(this.boardID.toString());
-
+        input.setBoardId(boardId.toString());
         usecase.execute(input, output);
 
         assertEquals(2, output.getColumnList().size());
@@ -70,6 +71,5 @@ public class GetColumnsByBoardIDUsecaseTest {
         assertEquals(2, column1.getCardList().size());
         assertEquals("Card1", column1.getCardList().get(0).getName());
         assertNotNull(column1.getCardList().get(0).getId());
-
     }
 }

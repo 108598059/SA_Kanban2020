@@ -7,6 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
@@ -18,24 +19,27 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class EditCardNameUseCaseTest {
 
   private BoardRepository boardRepository;
+  private CardRepository cardRepository;
   private DomainEventBus eventBus;
   private UUID boardId;
 
   @Before
   public void given_there_is_a_card() {
-    this.setup_context_for_use_case();
-    this.boardId = create_board("Software Architecture", this.boardRepository, this.eventBus);
-    this.create_column("Develop", this.boardId, this.boardRepository, this.eventBus);
-    this.create_card("User can edit nane.");
+    setup_context_for_use_case();
+    boardId = create_board("Software Architecture", this.boardRepository, this.eventBus);
+    create_column("Develop", this.boardId, this.boardRepository, this.eventBus);
+    create_card("User can edit nane.");
   }
 
   private void setup_context_for_use_case() {
-    this.boardRepository = new MemoryBoardRepository();
-    this.eventBus = new DomainEventBus();
+    boardRepository = new MemoryBoardRepository();
+    cardRepository = new MemoryCardRepository();
+    eventBus = new DomainEventBus();
   }
 
   private UUID create_board(String boardTitle, BoardRepository repository, DomainEventBus eventBus) {
@@ -60,12 +64,12 @@ public class EditCardNameUseCaseTest {
   }
 
   private void create_card(String cardTitle) {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
     createCardUseCaseInput.setCardName(cardTitle);
-    createCardUseCaseInput.setBoardID(this.boardId.toString());
+    createCardUseCaseInput.setBoardId(this.boardId);
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
   }

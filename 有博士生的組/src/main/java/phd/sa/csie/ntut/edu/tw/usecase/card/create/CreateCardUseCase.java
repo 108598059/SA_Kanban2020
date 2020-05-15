@@ -1,27 +1,33 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.UUID;
+
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-import java.util.UUID;
-
-@Service
 public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCardUseCaseOutput> {
-  public CreateCardUseCase(@Autowired DomainEventBus eventBus){
+  private CardRepository cardRepository;
+
+  public CreateCardUseCase(CardRepository cardRepository, DomainEventBus eventBus) {
     super(eventBus);
+    this.cardRepository = cardRepository;
   }
 
   @Override
-  public void execute(CreateCardUseCaseInput createCardInput, CreateCardUseCaseOutput createCardOutput) {
-    Card card = new Card(createCardInput.getCardName(), UUID.fromString(createCardInput.getBoardID()));
-    
+  public void execute(CreateCardUseCaseInput input, CreateCardUseCaseOutput output) {
+    String cardName = input.getCardName();
+    UUID boardId = input.getBoardId();
+    UUID columnId = input.getColumnId();
+    Card card = new Card(cardName, boardId, columnId);
+
+    cardRepository.save(CardDTOConverter.toDTO(card));
     this.eventBus.postAll(card);
 
-    createCardOutput.setCardName(card.getName());
-    createCardOutput.setCardId(card.getId());
+    output.setCardName(card.getName());
+    output.setCardId(card.getId());
   }
 
 }

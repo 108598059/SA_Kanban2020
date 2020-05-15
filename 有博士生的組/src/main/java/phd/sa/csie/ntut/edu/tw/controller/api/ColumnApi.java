@@ -15,10 +15,10 @@ public class ColumnApi {
     private GetColumnsByBoardIDUsecase getColumnsByBoardIDUsecase;
 
     @GetMapping
-    public ResponseEntity<GetColumnsByBoardIDUsecaseOutput> getColumnsByBoardID(@RequestParam String boardID) {
+    public ResponseEntity<GetColumnsByBoardIDUsecaseOutput> getColumnsByBoardID(@RequestParam String boardId) {
         GetColumnsByBoardIDUsecaseInput input = new GetColumnsByBoardIDUsecaseInput();
         GetColumnsByBoardIDUsecaseOutput output = new GetColumnsByBoardIDUsecaseOutput();
-        input.setBoardID(boardID);
+        input.setBoardId(boardId);
 
         this.getColumnsByBoardIDUsecase.execute(input, output);
 

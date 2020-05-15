@@ -16,7 +16,11 @@ public class CardDTOConverter {
 
     public static Card toEntity(DTO dto) {
         CardDTO cardDTO = (CardDTO) dto;
-        Card card = new Card(UUID.fromString(cardDTO.getId()), cardDTO.getName(), UUID.fromString(cardDTO.getColumnId()));
+        UUID cardId = UUID.fromString(cardDTO.getId());
+        String cardName = cardDTO.getName();
+        UUID boardId = UUID.fromString(cardDTO.getColumnId());
+        UUID columnId = UUID.fromString(cardDTO.getColumnId());
+        Card card = new Card(cardId, cardName, boardId, columnId);
         return card;
     }
 }

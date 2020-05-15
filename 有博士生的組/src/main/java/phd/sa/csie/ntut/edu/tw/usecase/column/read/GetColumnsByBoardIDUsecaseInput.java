@@ -3,13 +3,13 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.read;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class GetColumnsByBoardIDUsecaseInput implements UseCaseInput {
-    private String boardID;
+    private String boardId;
 
-    public String getBoardID() {
-        return boardID;
+    public String getBoardId() {
+        return boardId;
     }
 
-    public void setBoardID(String boardID) {
-        this.boardID = boardID;
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
     }
 }

@@ -27,7 +27,7 @@ import axios from 'axios';
 
 export default {
   props: {
-    boardID: String
+    boardId: String
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       const body = {
-        boardID: this.boardID,
+        boardId: this.boardId,
         cardName: this.form.cardName
       }
       axios.post(process.env.VUE_APP_API_HOST + '/card/create', body).then(() => {

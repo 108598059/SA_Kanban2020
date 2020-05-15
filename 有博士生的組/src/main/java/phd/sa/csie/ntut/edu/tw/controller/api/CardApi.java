@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.controller.api;
 
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class CardApi {
     public ResponseEntity<CreateCardResponse> createCard(@RequestBody CreateCardRequest body){
         CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
 
-        createCardInput.setBoardID(body.getBoardID());
+        createCardInput.setBoardId(UUID.fromString(body.getBoardId()));
         createCardInput.setCardName(body.getCardName());
 
         CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
@@ -34,7 +36,7 @@ public class CardApi {
 
         this.createCardUseCase.execute(createCardInput, createCardOutput);
 
-        response.setCardId(createCardOutput.getCardId());
+        response.setCardId(createCardOutput.getCardId().toString());
         response.setCardName(createCardOutput.getCardName());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -42,7 +44,7 @@ public class CardApi {
 
 class CreateCardRequest {
     private String cardName;
-    private String boardID;
+    private String boardId;
 
     public String getCardName() {
         return cardName;
@@ -52,12 +54,12 @@ class CreateCardRequest {
         this.cardName = cardName;
     }
 
-    public String getBoardID() {
-        return boardID;
+    public String getBoardId() {
+        return boardId;
     }
 
-    public void setBoardID(String boardID) {
-        this.boardID = boardID;
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
     }
 }
 

@@ -48,15 +48,15 @@ class CreateBoardRequest {
 }
 
 class CreateBoardResponse {
-    private String boardID;
+    private String boardId;
     private String boardName;
 
     public void setBoardId(String uuid) {
-        this.boardID = uuid;
+        this.boardId = uuid;
     }
 
     public String getBoardId() {
-        return this.boardID;
+        return this.boardId;
     }
 
     public void setBoardName(String title) {
