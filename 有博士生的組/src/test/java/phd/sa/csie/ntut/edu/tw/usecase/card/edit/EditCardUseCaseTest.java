@@ -10,8 +10,8 @@ import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryCardRepository
 import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.usecase.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -36,7 +36,7 @@ public class EditCardUseCaseTest {
     Board board = new Board("Kanban");
     boardRepository.save(BoardDTOConverter.toDTO(board));
 
-    eventBus.register(new DomainEventHandler(cardRepository, boardRepository));
+    eventBus.register(new CommitCardUsecase(cardRepository, boardRepository));
     createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
     CreateCardUseCaseInput input = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput output = new CreateCardUseCaseOutput();

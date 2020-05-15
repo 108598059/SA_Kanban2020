@@ -15,7 +15,6 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
-import phd.sa.csie.ntut.edu.tw.usecase.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
@@ -26,7 +25,7 @@ public class CreateCardUseCaseTest {
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
   private DomainEventBus eventBus;
-  private DomainEventHandler domainEventHandler;
+  private CommitCardUsecase commitCardUsecase;
   private Board board;
   private CreateCardUseCase createCardUseCase;
   private CreateCardUseCaseInput input;
@@ -75,8 +74,8 @@ public class CreateCardUseCaseTest {
 
   @Test
   public void creating_a_new_card_should_commit_the_card_to_the_backlog_column() {
-    domainEventHandler = new DomainEventHandler(cardRepository, boardRepository);
-    eventBus.register(domainEventHandler);
+    commitCardUsecase = new CommitCardUsecase(cardRepository, boardRepository);
+    eventBus.register(commitCardUsecase);
 
     input.setCardName("Create Card");
     input.setBoardId(board.getId());
@@ -92,7 +91,7 @@ public class CreateCardUseCaseTest {
 
   @Test
   public void committed_card_change_should_be_save_to_the_board_repository() {
-    eventBus.register(new DomainEventHandler(cardRepository, boardRepository));
+    eventBus.register(new CommitCardUsecase(cardRepository, boardRepository));
 
     input.setCardName("Create Card");
     input.setBoardId(board.getId());
