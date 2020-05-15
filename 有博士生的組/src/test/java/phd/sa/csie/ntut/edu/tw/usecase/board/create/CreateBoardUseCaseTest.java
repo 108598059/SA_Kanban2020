@@ -10,10 +10,7 @@ import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.controller.repository.memory.MemoryBoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.*;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-
-import java.util.UUID;
 
 public class CreateBoardUseCaseTest {
   BoardRepository boardRepository;
@@ -48,8 +45,7 @@ public class CreateBoardUseCaseTest {
     createBoardUseCaseInput.setBoardName("Software Architecture");
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-    UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(createBoardUseCaseOutput.getBoardId()));
 
     assertEquals(2, board.getColumnNumber());
     assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardName());
