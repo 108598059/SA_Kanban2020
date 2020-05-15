@@ -1,7 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
 import com.google.common.eventbus.Subscribe;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
+
+import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumn;
 import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
@@ -16,7 +17,7 @@ public class EditCardColumnUsecase {
     }
 
     @Subscribe
-    public void execute(CardEnterColumnEvent e) {
+    public void execute(CardEnterColumn e) {
         Card card = CardDTOConverter.toEntity(this.cardRepository.findById(e.getCardId()));
 
         card.setColumnId(UUID.fromString(e.getColumnId()));
