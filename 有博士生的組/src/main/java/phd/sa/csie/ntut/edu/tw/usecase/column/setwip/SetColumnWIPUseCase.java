@@ -2,8 +2,8 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.setwip;
 
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;

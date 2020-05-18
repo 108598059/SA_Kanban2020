@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Column;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.DTO;

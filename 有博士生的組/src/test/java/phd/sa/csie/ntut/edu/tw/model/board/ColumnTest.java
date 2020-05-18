@@ -1,10 +1,10 @@
-package phd.sa.csie.ntut.edu.tw.domain;
+package phd.sa.csie.ntut.edu.tw.model.board;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Column;
+import phd.sa.csie.ntut.edu.tw.model.board.Column;
 
 public class ColumnTest {
 

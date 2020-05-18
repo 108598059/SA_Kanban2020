@@ -9,10 +9,10 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
@@ -26,7 +26,7 @@ public class CreateCardUseCaseTest {
 
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
-  private CommitCardUsecase commitCardUsecase;
+  private CommitCardUseCase commitCardUsecase;
   private Board board;
   private DomainEventBus eventBus;
 
@@ -57,7 +57,7 @@ public class CreateCardUseCaseTest {
 
   @Test
   public void creating_a_new_card_should_commit_the_card_to_the_backlog_column() {
-    this.commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
+    this.commitCardUsecase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
     this.eventBus.register(this.commitCardUsecase);
 
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);
@@ -84,7 +84,7 @@ public class CreateCardUseCaseTest {
 
   @Test
   public void committed_card_change_should_be_save_to_the_board_repository() {
-    this.commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
+    this.commitCardUsecase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
     this.eventBus.register(commitCardUsecase);
     
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);

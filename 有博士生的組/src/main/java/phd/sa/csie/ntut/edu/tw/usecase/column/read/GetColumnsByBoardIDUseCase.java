@@ -2,8 +2,8 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.read;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Column;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;

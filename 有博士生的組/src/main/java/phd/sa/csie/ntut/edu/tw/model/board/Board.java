@@ -1,9 +1,9 @@
-package phd.sa.csie.ntut.edu.tw.domain.model.board;
+package phd.sa.csie.ntut.edu.tw.model.board;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardLeaveColumnEvent;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnterColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeaveColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;

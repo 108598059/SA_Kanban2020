@@ -1,13 +1,9 @@
-package phd.sa.csie.ntut.edu.tw.domain.model.card;
+package phd.sa.csie.ntut.edu.tw.model.card;
 
 import java.util.UUID;
 
-import com.google.common.eventbus.Subscribe;
-
-import phd.sa.csie.ntut.edu.tw.domain.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardLeaveColumnEvent;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 
 public class Card extends AggregateRoot {
   private String name;

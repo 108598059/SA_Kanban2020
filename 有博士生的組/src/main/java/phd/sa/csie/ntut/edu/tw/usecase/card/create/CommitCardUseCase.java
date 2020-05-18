@@ -4,9 +4,9 @@ import com.google.common.eventbus.Subscribe;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
@@ -15,11 +15,11 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 @Service
-public class CommitCardUsecase {
+public class CommitCardUseCase {
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
 
-  public CommitCardUsecase(@Autowired CardRepository cardRepository, @Autowired BoardRepository boardRepository) {
+  public CommitCardUseCase(@Autowired CardRepository cardRepository, @Autowired BoardRepository boardRepository) {
     this.cardRepository = cardRepository;
     this.boardRepository = boardRepository;
   }

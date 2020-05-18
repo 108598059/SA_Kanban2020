@@ -1,6 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.dto;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 import java.util.UUID;

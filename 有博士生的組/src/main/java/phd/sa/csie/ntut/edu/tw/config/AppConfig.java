@@ -7,8 +7,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlCardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
@@ -44,9 +44,9 @@ public class AppConfig {
     }
 
     @Bean
-    public CommitCardUsecase getCommitUsecase() {
+    public CommitCardUseCase getCommitUsecase() {
         DomainEventBus eventBus = getDomainEventBus();
-        CommitCardUsecase commitCardUsecase = new CommitCardUsecase(getCardRepository(), getBoardRepository());
+        CommitCardUseCase commitCardUsecase = new CommitCardUseCase(getCardRepository(), getBoardRepository());
         eventBus.register(commitCardUsecase);
         return commitCardUsecase;
     }

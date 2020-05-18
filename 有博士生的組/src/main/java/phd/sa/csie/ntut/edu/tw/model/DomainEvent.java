@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.domain.model;
+package phd.sa.csie.ntut.edu.tw.model;
 
 import java.util.Date;
 

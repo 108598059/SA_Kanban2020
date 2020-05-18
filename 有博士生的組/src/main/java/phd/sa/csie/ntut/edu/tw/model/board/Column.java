@@ -1,10 +1,10 @@
-package phd.sa.csie.ntut.edu.tw.domain.model.board;
+package phd.sa.csie.ntut.edu.tw.model.board;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.Entity;
+import phd.sa.csie.ntut.edu.tw.model.Entity;
 
 public class Column extends Entity {
 

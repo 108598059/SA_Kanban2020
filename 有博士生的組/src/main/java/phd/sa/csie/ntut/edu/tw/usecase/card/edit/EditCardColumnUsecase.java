@@ -2,8 +2,8 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
 import com.google.common.eventbus.Subscribe;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.board.event.CardEnterColumnEvent;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnterColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 

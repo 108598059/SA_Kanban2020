@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase;
+package phd.sa.csie.ntut.edu.tw.adapter.repository.memory;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;

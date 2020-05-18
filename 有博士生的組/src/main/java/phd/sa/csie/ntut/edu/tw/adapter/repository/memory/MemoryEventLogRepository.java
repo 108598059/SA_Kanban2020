@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.google.common.eventbus.Subscribe;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEvent;
+import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
 
 public class MemoryEventLogRepository implements EventLogRepository {

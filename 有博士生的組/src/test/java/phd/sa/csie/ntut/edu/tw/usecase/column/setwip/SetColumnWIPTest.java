@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;

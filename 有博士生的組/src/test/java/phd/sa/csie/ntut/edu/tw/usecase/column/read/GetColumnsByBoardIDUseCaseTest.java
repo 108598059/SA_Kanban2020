@@ -4,10 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -33,7 +33,7 @@ public class GetColumnsByBoardIDUseCaseTest {
         this.boardID = board.getId();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        CommitCardUsecase commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
+        CommitCardUseCase commitCardUsecase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
         DomainEventBus eventBus = new DomainEventBus();
         eventBus.register(commitCardUsecase);
 

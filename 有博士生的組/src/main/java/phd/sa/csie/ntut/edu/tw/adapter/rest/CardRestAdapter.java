@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -20,7 +20,7 @@ public class CardRestAdapter {
     private CreateCardUseCase createCardUseCase;
 
     @Autowired
-    private CommitCardUsecase commitCardUsecase;
+    private CommitCardUseCase commitCardUsecase;
 
     @PostMapping("/create")
     public ResponseEntity<CreateCardResponse> createCard(@RequestBody CreateCardRequest requestBody){

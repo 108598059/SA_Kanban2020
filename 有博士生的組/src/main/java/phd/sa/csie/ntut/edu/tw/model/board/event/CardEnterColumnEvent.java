@@ -1,6 +1,6 @@
-package phd.sa.csie.ntut.edu.tw.domain.model.board.event;
+package phd.sa.csie.ntut.edu.tw.model.board.event;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.AbstractDomainEvent;
+import phd.sa.csie.ntut.edu.tw.model.AbstractDomainEvent;
 
 public class CardEnterColumnEvent extends AbstractDomainEvent {
 

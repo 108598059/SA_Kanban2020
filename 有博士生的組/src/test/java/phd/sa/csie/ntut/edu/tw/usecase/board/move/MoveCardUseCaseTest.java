@@ -14,12 +14,12 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryEventLogRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEvent;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -59,7 +59,7 @@ public class MoveCardUseCaseTest {
     Board board = new Board("phd");
     this.boardId = board.getId();
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
-    this.eventBus.register(new CommitCardUsecase(this.cardRepository, this.boardRepository));
+    this.eventBus.register(new CommitCardUseCase(this.cardRepository, this.boardRepository));
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();

@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase;
+package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,10 +11,10 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.database.DB_connector;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlCardRepository;
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUsecase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -30,7 +30,7 @@ public class MysqlCreateCardUseCaseTest {
   private String cardID;
   private Board board;
   private DomainEventBus eventBus;
-  private CommitCardUsecase commitCardUsecase;
+  private CommitCardUseCase commitCardUsecase;
 
   @Before
   public void setUp() {
@@ -39,7 +39,7 @@ public class MysqlCreateCardUseCaseTest {
     this.board = new Board("Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
     this.eventBus = new DomainEventBus();
-    this.commitCardUsecase = new CommitCardUsecase(this.cardRepository, this.boardRepository);
+    this.commitCardUsecase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
     this.eventBus.register(this.commitCardUsecase);
 
   }

@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.domain;
+package phd.sa.csie.ntut.edu.tw.model.card;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 
 import java.util.UUID;
 
