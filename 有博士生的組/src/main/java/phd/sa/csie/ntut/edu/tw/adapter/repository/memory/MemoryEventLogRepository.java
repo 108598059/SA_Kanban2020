@@ -3,21 +3,18 @@ package phd.sa.csie.ntut.edu.tw.adapter.repository.memory;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.eventbus.Subscribe;
-
-import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.dto.DomainEventDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
 
 public class MemoryEventLogRepository implements EventLogRepository {
-    private List<DomainEvent> eventList;
+    private List<DomainEventDTO> eventList;
 
     public MemoryEventLogRepository() {
-        this.eventList = new ArrayList<DomainEvent>();
+        this.eventList = new ArrayList<>();
     }
 
     @Override
-    @Subscribe
-    public void save(DomainEvent e) {
+    public void save(DomainEventDTO e) {
         this.eventList.add(e);
     }
 
@@ -27,7 +24,7 @@ public class MemoryEventLogRepository implements EventLogRepository {
     }
 
     @Override
-    public List<DomainEvent> getAll() {
+    public List<DomainEventDTO> getAll() {
         return this.eventList;
     }
 }

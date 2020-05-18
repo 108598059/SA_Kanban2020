@@ -14,7 +14,6 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryEventLogRepository;
-import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
 import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
@@ -24,7 +23,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.edit.EditCardColumnUsecase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
@@ -33,6 +31,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardEnterColumnEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.EventSourcingHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.dto.DomainEventDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
@@ -124,7 +124,8 @@ public class MoveCardUseCaseTest {
   @Test
   public void move_card_should_post_events_and_update_column_of_card() {
     EventLogRepository repo = new MemoryEventLogRepository();
-    this.eventBus.register(repo);
+    DomainEventHandler eventSourcingHandler = new EventSourcingHandler(repo);
+    this.eventBus.register(eventSourcingHandler);
 
     MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
@@ -140,7 +141,7 @@ public class MoveCardUseCaseTest {
     moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
     assertEquals(2, repo.size());
-    List<DomainEvent> eventList = repo.getAll();
+    List<DomainEventDTO> eventList = repo.getAll();
     Card resultCard = CardDTOConverter.toEntity(this.cardRepository.findById(this.card.getId().toString()));
     assertEquals("Leaved column event: " + this.fromColumnId, eventList.get(0).getSourceName());
     assertEquals("Entered column event: " + this.toColumnId, eventList.get(1).getSourceName());

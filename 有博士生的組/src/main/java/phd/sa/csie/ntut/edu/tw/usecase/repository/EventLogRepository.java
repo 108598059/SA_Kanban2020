@@ -1,13 +1,13 @@
 package phd.sa.csie.ntut.edu.tw.usecase.repository;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.dto.DomainEventDTO;
 
 import java.util.List;
 
 public interface EventLogRepository {
-    void save(DomainEvent e);
+    void save(DomainEventDTO e);
 
     int size();
 
-    List<DomainEvent> getAll();
+    List<DomainEventDTO> getAll();
 }
