@@ -8,15 +8,15 @@ import java.util.UUID;
 public class CardDTOConverter {
     public static CardDTO toDTO(Card entity) {
         CardDTO cardDTO = new CardDTO();
-        cardDTO.setId(entity.getId().toString());
+        cardDTO.setID(entity.getID().toString());
         cardDTO.setName(entity.getName());
-        cardDTO.setColumnId(entity.getColumnId().toString());
+        cardDTO.setColumnID(entity.getColumnID().toString());
         return cardDTO;
     }
 
     public static Card toEntity(DTO dto) {
         CardDTO cardDTO = (CardDTO) dto;
-        Card card = new Card(UUID.fromString(cardDTO.getId()), cardDTO.getName(), UUID.fromString(cardDTO.getColumnId()));
+        Card card = new Card(UUID.fromString(cardDTO.getID()), cardDTO.getName(), UUID.fromString(cardDTO.getColumnID()));
         return card;
     }
 }

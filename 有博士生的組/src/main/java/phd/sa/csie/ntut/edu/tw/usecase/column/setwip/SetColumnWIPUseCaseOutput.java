@@ -4,15 +4,15 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class SetColumnWIPUseCaseOutput implements UseCaseOutput {
 
-  private String columnId;
+  private String columnID;
   private int columnWIP;
 
-  public void setColumnId(String id) {
-    this.columnId = id;
+  public void setColumnID(String id) {
+    this.columnID = id;
   }
 
-  public String getColumnId() {
-    return this.columnId;
+  public String getColumnID() {
+    return this.columnID;
   }
 
   public void setColumnWIP(int wip) {

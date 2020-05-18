@@ -8,24 +8,19 @@ import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 
 public class Card extends AggregateRoot {
   private String name;
-  private UUID columnId;
+  private UUID columnID;
 
   public Card(String name, Board board) {
     super();
     this.name = name;
-    this.setColumnId(board.get(0).getId());
-    this.addDomainEvent(new CardCreatedEvent(this, board.getId()));
+    this.setColumnID(board.get(0).getID());
+    this.addDomainEvent(new CardCreatedEvent(this, board.getID()));
   }
 
-  public Card(UUID id, String name, UUID columnId) {
+  public Card(UUID id, String name, UUID columnID) {
     this.id = id;
     this.name = name;
-    this.columnId = columnId;
-    // TODO Should the CardCreated event be issued when the card object is
-    // reconstituted?
-    //
-    // -> James: It depends on how we store the entity status and events.
-    // this.addDomainEvent(new CardCreatedEvent(this));
+    this.columnID = columnID;
   }
 
   public void setName(String name) {
@@ -36,12 +31,11 @@ public class Card extends AggregateRoot {
     return this.name;
   }
 
-  public UUID getColumnId() {
-    return this.columnId;
+  public UUID getColumnID() {
+    return this.columnID;
   }
 
-  public void setColumnId(UUID columnId) {
-    this.columnId = columnId;
-    // TODO issue an event.
+  public void setColumnID(UUID columnID) {
+    this.columnID = columnID;
   }
 }

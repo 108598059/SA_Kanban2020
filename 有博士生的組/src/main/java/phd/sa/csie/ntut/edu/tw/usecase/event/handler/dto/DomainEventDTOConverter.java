@@ -8,7 +8,7 @@ public class DomainEventDTOConverter {
         domainEventDTO.setEventVersion(e.eventVersion());
         domainEventDTO.setOccurredTime(e.occurredOn());
         domainEventDTO.setDetail(e.detail());
-        domainEventDTO.setSourceID(e.getSourceId());
+        domainEventDTO.setSourceID(e.getSourceID());
         domainEventDTO.setSourceName(e.getSourceName());
         return domainEventDTO;
     }

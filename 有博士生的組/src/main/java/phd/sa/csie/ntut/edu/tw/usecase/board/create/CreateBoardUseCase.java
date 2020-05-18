@@ -18,6 +18,6 @@ public class CreateBoardUseCase extends UseCase<CreateBoardUseCaseInput, CreateB
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
     output.setBoardName(board.getName());
-    output.setBoardId(board.getId().toString());
+    output.setBoardID(board.getID().toString());
   }
 }

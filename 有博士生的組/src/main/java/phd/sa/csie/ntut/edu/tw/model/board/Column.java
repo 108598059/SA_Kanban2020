@@ -10,34 +10,30 @@ public class Column extends Entity {
 
   private String title;
   private int wip;
-  private List<UUID> cardIds;
+  private List<UUID> cardIDs;
 
   public Column(String title) {
     super();
     this.title = title;
     this.wip = 0;
-    this.cardIds = new ArrayList<>();
-    // TODO issue an event.
+    this.cardIDs = new ArrayList<>();
   }
 
   public Column(Column col) {
-    // TODO Not sure whether this is the correct way of copying an object.
     this.id = col.id;
     this.title = col.title;
     this.wip = col.wip;
-    this.cardIds = new ArrayList<>();
-    for (UUID cardID : col.cardIds) {
-      this.cardIds.add(cardID);
+    this.cardIDs = new ArrayList<>();
+    for (UUID cardID : col.cardIDs) {
+      this.cardIDs.add(cardID);
     }
-    // TODO Should issue an event?
   }
 
-  public Column(UUID id, String title, List<UUID> cardIds, int wip) {
+  public Column(UUID id, String title, List<UUID> cardIDs, int wip) {
     this.id = id;
     this.title = title;
-    this.cardIds = cardIds;
+    this.cardIDs = cardIDs;
     this.wip = wip;
-    // TODO issue an event?
   }
 
   public String getTitle() {
@@ -46,38 +42,35 @@ public class Column extends Entity {
 
   public void setWIP(int wip) {
     this.wip = wip;
-    // TODO issue an event.
   }
 
   public int getWIP() {
     return this.wip;
   }
 
-  public void addCard(UUID uuid) {
-    if (this.wip != 0 && cardIds.size() == this.wip) {
+  public void addCard(UUID id) {
+    if (this.wip != 0 && cardIDs.size() == this.wip) {
       throw new IllegalStateException("The card cannot be moved to the column that has achieved its WIP limit.");
     } else {
-      cardIds.add(uuid);
-      // TODO issue an event.
+      cardIDs.add(id);
     }
   }
 
-  public void removeCard(UUID uuid) {
-    cardIds.remove(uuid);
-    // TODO issue an event.
+  public void removeCard(UUID id) {
+    cardIDs.remove(id);
   }
 
   public boolean cardExist(UUID id) {
-    for (int i = 0; i < this.cardIds.size(); ++i) {
-      if (id.equals(this.cardIds.get(i))) {
+    for (int i = 0; i < this.cardIDs.size(); ++i) {
+      if (id.equals(this.cardIDs.get(i))) {
         return true;
       }
     }
     return false;
   }
 
-  public List<UUID> getCardIds() {
-    return this.cardIds;
+  public List<UUID> getCardIDs() {
+    return this.cardIDs;
   }
 
 }

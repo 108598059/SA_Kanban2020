@@ -4,9 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlBoardRepository;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
@@ -32,8 +29,8 @@ public class MysqlCreateBoardUseCaseTest {
 
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-        UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());
-        Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
+        UUID boardID = UUID.fromString(createBoardUseCaseOutput.getBoardID());
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
 
         assertEquals(2, board.getColumnNumber());
         assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardName());

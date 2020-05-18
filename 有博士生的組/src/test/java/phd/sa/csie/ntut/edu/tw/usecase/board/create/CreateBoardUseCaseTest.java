@@ -32,7 +32,7 @@ public class CreateBoardUseCaseTest {
 
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-    assertNotNull(createBoardUseCaseOutput.getBoardId());
+    assertNotNull(createBoardUseCaseOutput.getBoardID());
     assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardName());
   }
 
@@ -45,7 +45,7 @@ public class CreateBoardUseCaseTest {
     createBoardUseCaseInput.setBoardName("Software Architecture");
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(createBoardUseCaseOutput.getBoardId()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createBoardUseCaseOutput.getBoardID()));
 
     assertEquals(2, board.getColumnNumber());
     assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardName());

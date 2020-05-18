@@ -14,11 +14,11 @@ public class EditCardColumnUsecase {
     }
 
     public void execute(EditCardColumnInput input, EditCardColumnOutput output) {
-        Card card = CardDTOConverter.toEntity(this.cardRepository.findById(input.getCardID()));
+        Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(input.getCardID()));
 
-        card.setColumnId(UUID.fromString(input.getColumnID()));
+        card.setColumnID(UUID.fromString(input.getColumnID()));
 
         this.cardRepository.update(CardDTOConverter.toDTO(card));
-        output.setColumnID(card.getColumnId().toString());
+        output.setColumnID(card.getColumnID().toString());
     }
 }

@@ -19,8 +19,8 @@ public class CardEnterColumnEventHandler implements DomainEventHandler<CardEnter
     public void listen(CardEnterColumnEvent e) {
         EditCardColumnInput input = new EditCardColumnInput();
 
-        input.setCardID(e.getCardId());
-        input.setColumnID(e.getColumnId());
+        input.setCardID(e.getCardID());
+        input.setColumnID(e.getColumnID());
 
         EditCardColumnUsecase editCardColumnUsecase = new EditCardColumnUsecase(this.cardRepository);
         editCardColumnUsecase.execute(input, new EditCardColumnOutput());

@@ -16,7 +16,7 @@ public class MemoryBoardRepository extends BoardRepository {
 
   @Override
   public void save(BoardDTO boardDTO) {
-    this.storage.put(boardDTO.getId(), boardDTO);
+    this.storage.put(boardDTO.getID(), boardDTO);
   }
 
   @Override
@@ -25,7 +25,7 @@ public class MemoryBoardRepository extends BoardRepository {
   }
 
   @Override
-  public BoardDTO findById(String id) {
+  public BoardDTO findByID(String id) {
     return this.storage.get(id);
   }
 }

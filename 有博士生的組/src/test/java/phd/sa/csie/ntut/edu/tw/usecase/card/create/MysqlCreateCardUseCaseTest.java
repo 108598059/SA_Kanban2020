@@ -47,15 +47,15 @@ public class MysqlCreateCardUseCaseTest {
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
     createCardUseCaseInput.setCardName("Card1");
-    createCardUseCaseInput.setBoardID(this.board.getId().toString());
+    createCardUseCaseInput.setBoardID(this.board.getID().toString());
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     assertEquals("Card1", createCardUseCaseOutput.getCardName());
-    assertNotEquals("", createCardUseCaseOutput.getCardId());
-    assertNotNull(createCardUseCaseOutput.getCardId());
-    this.cardID = createCardUseCaseOutput.getCardId();
-    CardDTO cardDTO = this.cardRepository.findById(this.cardID);
+    assertNotEquals("", createCardUseCaseOutput.getCardID());
+    assertNotNull(createCardUseCaseOutput.getCardID());
+    this.cardID = createCardUseCaseOutput.getCardID();
+    CardDTO cardDTO = this.cardRepository.findByID(this.cardID);
     assertEquals("Card1", cardDTO.getName());
   }
 

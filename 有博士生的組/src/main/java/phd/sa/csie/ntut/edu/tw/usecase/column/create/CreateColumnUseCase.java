@@ -19,12 +19,12 @@ public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, Creat
   public void execute(CreateColumnUseCaseInput createColumnUseCaseInput,
       CreateColumnUseCaseOutput createColumnUseCaseOutput) {
     String title = createColumnUseCaseInput.getTitle();
-    UUID boardId = createColumnUseCaseInput.getBoardId();
+    UUID boardID = createColumnUseCaseInput.getBoardID();
 
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
-    UUID columnId = board.createColumn(title);
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
+    UUID columnID = board.createColumn(title);
 
     this.boardRepository.update(BoardDTOConverter.toDTO(board));
-    createColumnUseCaseOutput.setId(columnId.toString());
+    createColumnUseCaseOutput.setID(columnID.toString());
   }
 }

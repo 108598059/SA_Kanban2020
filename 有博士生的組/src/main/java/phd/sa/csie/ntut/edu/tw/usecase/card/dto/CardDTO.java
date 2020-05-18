@@ -5,18 +5,18 @@ import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 public class CardDTO extends DTO {
 
     private String name;
-    private String columnId;
+    private String columnID;
 
     public String getName() {
         return name;
     }
 
-    public String getColumnId() {
-        return columnId;
+    public String getColumnID() {
+        return columnID;
     }
 
-    public void setColumnId(String columnId) {
-        this.columnId = columnId;
+    public void setColumnID(String columnID) {
+        this.columnID = columnID;
     }
 
     public void setName(String name) {

@@ -16,8 +16,8 @@ public class CardTest {
     Card card = new Card("create card", new Board("Kanban"));
 
     assertEquals("create card", card.getName());
-    assertNotEquals("", card.getId().toString());
-    assertNotNull(card.getId());
+    assertNotEquals("", card.getID().toString());
+    assertNotNull(card.getID());
   }
 
   @Test

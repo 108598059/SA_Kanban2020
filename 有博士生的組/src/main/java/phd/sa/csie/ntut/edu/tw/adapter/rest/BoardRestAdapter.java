@@ -27,7 +27,7 @@ public class BoardRestAdapter {
         this.createBoardUseCase.execute(input, output);
 
         CreateBoardResponse responseBody = new CreateBoardResponse();
-        responseBody.setBoardId(output.getBoardId());
+        responseBody.setBoardID(output.getBoardID());
         responseBody.setBoardName(output.getBoardName());
 
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
@@ -51,11 +51,11 @@ class CreateBoardResponse {
     private String boardID;
     private String boardName;
 
-    public void setBoardId(String boardID) {
+    public void setBoardID(String boardID) {
         this.boardID = boardID;
     }
 
-    public String getBoardId() {
+    public String getBoardID() {
         return this.boardID;
     }
 

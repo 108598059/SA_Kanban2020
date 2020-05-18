@@ -18,7 +18,7 @@ public class MysqlBoardRepository extends BoardRepository {
         try {
             Connection connection = DB_connector.getConnection();
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Board VALUES(?, ?)");
-            stmt.setString(1, boardDto.getId());
+            stmt.setString(1, boardDto.getID());
             stmt.setString(2, boardDto.getName());
 
             stmt.executeUpdate();
@@ -28,10 +28,10 @@ public class MysqlBoardRepository extends BoardRepository {
                 PreparedStatement columnStmt = connection.prepareStatement(
                         "INSERT INTO `Column`(`ID`, `Title`, `WIP`, `BoardID`, `Position`) " +
                             "VALUES (?, ?, ?, ?, ?)");
-                columnStmt.setString(1, columnDTO.getId());
+                columnStmt.setString(1, columnDTO.getID());
                 columnStmt.setString(2, columnDTO.getTitle());
                 columnStmt.setInt(3, columnDTO.getWip());
-                columnStmt.setString(4, boardDto.getId());
+                columnStmt.setString(4, boardDto.getID());
                 columnStmt.setInt(5, columnList.indexOf(columnDTO));
                 columnStmt.executeUpdate();
             }
@@ -48,7 +48,7 @@ public class MysqlBoardRepository extends BoardRepository {
             Connection connection = DB_connector.getConnection();
             PreparedStatement stmt = connection.prepareStatement("UPDATE `Board` SET `Name`=? WHERE `ID`=?");
             stmt.setString(1, boardDto.getName());
-            stmt.setString(2, boardDto.getId());
+            stmt.setString(2, boardDto.getID());
 
             stmt.executeUpdate();
 
@@ -60,9 +60,9 @@ public class MysqlBoardRepository extends BoardRepository {
                             "WHERE `ID`=?");
                 columnStmt.setString(1, columnDTO.getTitle());
                 columnStmt.setInt(2, columnDTO.getWip());
-                columnStmt.setString(3, boardDto.getId());
+                columnStmt.setString(3, boardDto.getID());
                 columnStmt.setInt(4, columnList.indexOf(columnDTO));
-                columnStmt.setString(5, columnDTO.getId());;
+                columnStmt.setString(5, columnDTO.getID());;
                 columnStmt.executeUpdate();
             }
 
@@ -73,7 +73,7 @@ public class MysqlBoardRepository extends BoardRepository {
     }
 
     @Override
-    public BoardDTO findById(String id) {
+    public BoardDTO findByID(String id) {
         try {
             Connection connection = DB_connector.getConnection();
 
@@ -88,13 +88,13 @@ public class MysqlBoardRepository extends BoardRepository {
             BoardDTO boardDTO = new BoardDTO();
             List<ColumnDTO> columnDTOList = new ArrayList<>();
             while (resultSet.next()) {
-                if (boardDTO.getId() == null || boardDTO.getId().isEmpty()) {
-                    boardDTO.setId(resultSet.getString("Board.ID"));
+                if (boardDTO.getID() == null || boardDTO.getID().isEmpty()) {
+                    boardDTO.setID(resultSet.getString("Board.ID"));
                     boardDTO.setName(resultSet.getString("Board.Name"));
                 }
 
                 ColumnDTO columnDTO = new ColumnDTO();
-                columnDTO.setId(resultSet.getString("Column.ID"));
+                columnDTO.setID(resultSet.getString("Column.ID"));
                 columnDTO.setTitle(resultSet.getString("Column.Title"));
                 columnDTO.setWip(resultSet.getInt("Column.WIP"));
 
@@ -102,7 +102,7 @@ public class MysqlBoardRepository extends BoardRepository {
                         "SELECT `Card`.`ID` " +
                             "FROM `Column`, `Card` " +
                             "WHERE `Column`.`ID`=? AND`Card`.`ColumnID`=`Column`.`ID`");
-                cardStmt.setString(1, columnDTO.getId());
+                cardStmt.setString(1, columnDTO.getID());
 
                 ResultSet cardsResult = cardStmt.executeQuery();
 
@@ -111,7 +111,7 @@ public class MysqlBoardRepository extends BoardRepository {
                     cardIDs.add(cardsResult.getString("ID"));
                 }
                 stmt.setString(1, id);
-                columnDTO.setCardIds(cardIDs);
+                columnDTO.setCardIDs(cardIDs);
                 columnDTOList.add(columnDTO);
             }
             boardDTO.setColumnDTOs(columnDTOList);

@@ -61,17 +61,17 @@ public class CreateCardUseCaseTest {
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
     createCardUseCaseInput.setCardName("Create Card");
-    createCardUseCaseInput.setBoardID(this.board.getId().toString());
+    createCardUseCaseInput.setBoardID(this.board.getID().toString());
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     assertEquals("Create Card", createCardUseCaseOutput.getCardName());
-    assertNotEquals("", createCardUseCaseOutput.getCardId());
-    assertNotNull(createCardUseCaseOutput.getCardId());
+    assertNotEquals("", createCardUseCaseOutput.getCardID());
+    assertNotNull(createCardUseCaseOutput.getCardID());
 
-    Card card = CardDTOConverter.toEntity(cardRepository.findById(createCardUseCaseOutput.getCardId()));
-    Board boardResult = BoardDTOConverter.toEntity(this.boardRepository.findById(this.board.getId().toString()));
-    assertEquals(card.getId(), boardResult.get(0).getCardIds().get(0));
+    Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
+    Board boardResult = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
+    assertEquals(card.getID(), boardResult.get(0).getCardIDs().get(0));
   }
 
   @Test
@@ -81,12 +81,12 @@ public class CreateCardUseCaseTest {
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
     createCardUseCaseInput.setCardName("Create Card");
-    createCardUseCaseInput.setBoardID(this.board.getId().toString());
+    createCardUseCaseInput.setBoardID(this.board.getID().toString());
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
-    Card card = CardDTOConverter.toEntity(cardRepository.findById(createCardUseCaseOutput.getCardId()));
-    assertEquals(this.board.get(0).getId().toString(), card.getColumnId().toString());
+    Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
+    assertEquals(this.board.get(0).getID().toString(), card.getColumnID().toString());
   }
 
   @Test
@@ -96,7 +96,7 @@ public class CreateCardUseCaseTest {
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
     createCardUseCaseInput.setCardName("Create Card");
-    createCardUseCaseInput.setBoardID(this.board.getId().toString());
+    createCardUseCaseInput.setBoardID(this.board.getID().toString());
 
     MockCardCreatedEventListener mockListener = new MockCardCreatedEventListener();
     this.eventBus.register(mockListener);

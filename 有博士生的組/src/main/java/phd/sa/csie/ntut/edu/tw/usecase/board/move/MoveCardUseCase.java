@@ -18,20 +18,20 @@ public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCa
   }
 
   public void execute(MoveCardUseCaseInput moveCardUseCaseInput, MoveCardUseCaseOutput moveCardUseCaseOutput) {
-    BoardDTO boardDTO = this.boardRepository.findById(moveCardUseCaseInput.getBoardId().toString());
+    BoardDTO boardDTO = this.boardRepository.findByID(moveCardUseCaseInput.getBoardID().toString());
     Board board = BoardDTOConverter.toEntity(boardDTO);
-    UUID cardId = moveCardUseCaseInput.getCardId();
-    UUID fromColumnId = moveCardUseCaseInput.getFromColumnId();
-    UUID toColumnId = moveCardUseCaseInput.getToColumnId();
+    UUID cardID = moveCardUseCaseInput.getCardID();
+    UUID fromColumnID = moveCardUseCaseInput.getFromColumnID();
+    UUID toColumnID = moveCardUseCaseInput.getToColumnID();
 
-    String newColumnId = board.moveCard(cardId, fromColumnId, toColumnId);
+    String newColumnID = board.moveCard(cardID, fromColumnID, toColumnID);
 
     this.boardRepository.update(BoardDTOConverter.toDTO(board));
     this.eventBus.postAll(board);
 
-    moveCardUseCaseOutput.setCardId(cardId);
-    moveCardUseCaseOutput.setOldColumnId(fromColumnId.toString());
-    moveCardUseCaseOutput.setNewColumnId(newColumnId);
+    moveCardUseCaseOutput.setCardID(cardID);
+    moveCardUseCaseOutput.setOldColumnID(fromColumnID.toString());
+    moveCardUseCaseOutput.setNewColumnID(newColumnID);
   }
 
 }

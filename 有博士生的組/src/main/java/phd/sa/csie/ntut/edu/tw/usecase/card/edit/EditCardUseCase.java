@@ -15,16 +15,16 @@ public class EditCardUseCase {
   }
 
   public void execute(EditCardUseCaseInput input, EditCardUseCaseOutput output) {
-    UUID cardId = input.getCardId();
+    UUID cardID = input.getCardID();
     String cardName = input.getCardName();
 
-    Card card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
+    Card card = CardDTOConverter.toEntity(cardRepository.findByID(cardID.toString()));
     card.setName(cardName);
 
     CardDTO cardDTO = CardDTOConverter.toDTO(card);
 
     cardRepository.save(cardDTO);
-    output.setCardId(card.getId().toString());
+    output.setCardID(card.getID().toString());
     output.setCardName(card.getName());
   }
 }

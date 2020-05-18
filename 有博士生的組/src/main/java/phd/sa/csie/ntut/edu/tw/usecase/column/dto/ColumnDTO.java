@@ -7,18 +7,18 @@ import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 public class ColumnDTO extends DTO {
     private String title;
     private int wip;
-    private List<String> cardIds;
+    private List<String> cardIDs;
 
     public String getTitle() {
         return title;
     }
 
-    public List<String> getCardIds() {
-        return cardIds;
+    public List<String> getCardIDs() {
+        return cardIDs;
     }
 
-    public void setCardIds(List<String> cardIds) {
-        this.cardIds = cardIds;
+    public void setCardIDs(List<String> cardIDs) {
+        this.cardIDs = cardIDs;
     }
 
     public int getWip() {

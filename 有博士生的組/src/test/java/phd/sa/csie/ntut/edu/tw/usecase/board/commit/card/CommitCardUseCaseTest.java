@@ -36,16 +36,16 @@ public class CommitCardUseCaseTest {
         CommitCardOutput output = new CommitCardOutput();
 
 
-        input.setBoardID(this.board.getId().toString());
-        input.setCardID(this.card.getId().toString());
+        input.setBoardID(this.board.getID().toString());
+        input.setCardID(this.card.getID().toString());
 
         CommitCardUseCase useCase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
         useCase.execute(input, output);
 
-        assertEquals(this.board.getId().toString(), output.getBoardID());
-        assertEquals(this.card.getId().toString(), output.getCardID());
+        assertEquals(this.board.getID().toString(), output.getBoardID());
+        assertEquals(this.card.getID().toString(), output.getCardID());
 
-        Board resultBoard = BoardDTOConverter.toEntity(this.boardRepository.findById(this.board.getId().toString()));
-        assertEquals(this.card.getId(), resultBoard.get(0).getCardIds().get(0));
+        Board resultBoard = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
+        assertEquals(this.card.getID(), resultBoard.get(0).getCardIDs().get(0));
     }
 }

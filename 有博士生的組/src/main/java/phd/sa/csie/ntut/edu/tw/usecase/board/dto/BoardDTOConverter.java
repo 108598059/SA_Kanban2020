@@ -13,7 +13,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 public class BoardDTOConverter {
     public static BoardDTO toDTO(Board entity) {
         BoardDTO boardDTO = new BoardDTO();
-        boardDTO.setId(entity.getId().toString());
+        boardDTO.setID(entity.getID().toString());
         boardDTO.setName(entity.getName());
 
         ArrayList<ColumnDTO> columnDTOs = new ArrayList<ColumnDTO>();
@@ -34,6 +34,6 @@ public class BoardDTOConverter {
             columns.add(ColumnDTOConverter.toEntity(columnDTOs.get(i)));
         }
 
-        return new Board(UUID.fromString(boardDTO.getId()), boardDTO.getName(), columns);
+        return new Board(UUID.fromString(boardDTO.getID()), boardDTO.getName(), columns);
     }
 }

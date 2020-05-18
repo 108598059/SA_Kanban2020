@@ -31,7 +31,7 @@ public class GetColumnsByBoardIDUseCaseTest {
         this.cardRepository = new MemoryCardRepository();
 
         Board board = new Board("Kanban");
-        this.boardID = board.getId();
+        this.boardID = board.getID();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
         DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
@@ -41,7 +41,7 @@ public class GetColumnsByBoardIDUseCaseTest {
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(eventBus, this.cardRepository, this.boardRepository);
         CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
-        createCardInput.setBoardID(board.getId().toString());
+        createCardInput.setBoardID(board.getID().toString());
 
         createCardInput.setCardName("Card1");
         createCardUseCase.execute(createCardInput, createCardOutput);
@@ -63,11 +63,11 @@ public class GetColumnsByBoardIDUseCaseTest {
         assertEquals(2, output.getColumnList().size());
         GetColumnsByBoardIDUsecaseOutput.ColumnViewObject column1 = output.getColumnList().get(0);
         assertEquals("Backlog", column1.getTitle());
-        assertNotNull(column1.getId());
+        assertNotNull(column1.getID());
         assertEquals(0, column1.getWip());
         assertEquals(2, column1.getCardList().size());
         assertEquals("Card1", column1.getCardList().get(0).getName());
-        assertNotNull(column1.getCardList().get(0).getId());
+        assertNotNull(column1.getCardList().get(0).getID());
 
     }
 }

@@ -15,9 +15,9 @@ public class MysqlCardRepository extends CardRepository {
     try {
       Connection connection = DB_connector.getConnection();
       PreparedStatement stmt = connection.prepareStatement("INSERT INTO Card VALUES(?, ?, ?)");
-      stmt.setString(1, cardDTO.getId());
+      stmt.setString(1, cardDTO.getID());
       stmt.setString(2, cardDTO.getName());
-      stmt.setString(3, cardDTO.getColumnId());
+      stmt.setString(3, cardDTO.getColumnID());
 
       stmt.executeUpdate();
       DB_connector.closeConnection(connection);
@@ -35,8 +35,8 @@ public class MysqlCardRepository extends CardRepository {
                   "SET `Name`=?,`ColumnID`=? " +
                   "WHERE `ID`=?");
       stmt.setString(1, cardDTO.getName());
-      stmt.setString(2, cardDTO.getColumnId());
-      stmt.setString(3, cardDTO.getId());
+      stmt.setString(2, cardDTO.getColumnID());
+      stmt.setString(3, cardDTO.getID());
 
       stmt.executeUpdate();
       DB_connector.closeConnection(connection);
@@ -47,7 +47,7 @@ public class MysqlCardRepository extends CardRepository {
   }
 
   @Override
-  public CardDTO findById(String id) {
+  public CardDTO findByID(String id) {
     try {
       Connection connection = DB_connector.getConnection();
       PreparedStatement stmt = connection.prepareStatement("SELECT * FROM `Card` WHERE ID=?");
@@ -57,9 +57,9 @@ public class MysqlCardRepository extends CardRepository {
 
       CardDTO result = new CardDTO();
       while (resultSet.next()) {
-        result.setId(resultSet.getString("ID"));
+        result.setID(resultSet.getString("ID"));
         result.setName(resultSet.getString("Name"));
-        result.setColumnId(resultSet.getString("ColumnID"));
+        result.setColumnID(resultSet.getString("ColumnID"));
       }
 
       DB_connector.closeConnection(connection);

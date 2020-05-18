@@ -6,16 +6,16 @@ import java.util.UUID;
 public class AbstractDomainEvent implements DomainEvent {
 
     private final Date occurredOn;
-    private final String sourceId;
+    private final String sourceID;
     private final String sourceName;
     private final String id;
 
     private Entity entity;
 
-    public AbstractDomainEvent(String sourceId, String sourceName) {
+    public AbstractDomainEvent(String sourceID, String sourceName) {
         super();
         this.id = UUID.randomUUID().toString();
-        this.sourceId = sourceId;
+        this.sourceID = sourceID;
         this.occurredOn = new Date();
         this.sourceName = sourceName;
     }
@@ -26,7 +26,7 @@ public class AbstractDomainEvent implements DomainEvent {
         this.id = UUID.randomUUID().toString();
         this.occurredOn = new Date();
 
-        sourceId = null;
+        sourceID = null;
         sourceName = null;
     }
 
@@ -48,13 +48,13 @@ public class AbstractDomainEvent implements DomainEvent {
     public String detail() {
         String formatDate = String.format("occurredOn='%1$tY-%1$tm-%1$td %1$tH:%1$tM']", occurredOn());
         String format = String.format("%s[Name='%s', id='%s'] ", this.getClass().getSimpleName(), this.getSourceName(),
-                this.getSourceId());
+                this.getSourceID());
         return format + formatDate;
     }
 
     @Override
-    public String getSourceId() {
-        return sourceId;
+    public String getSourceID() {
+        return sourceID;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class AbstractDomainEvent implements DomainEvent {
         return sourceName;
     }
 
-    public String getId() {
+    public String getID() {
         return id;
     }
 }

@@ -27,24 +27,24 @@ public class GetColumnsByBoardIDUseCase extends UseCase<GetColumnsByBoardIDUseca
 
     @Override
     public void execute(GetColumnsByBoardIDUsecaseInput input, GetColumnsByBoardIDUsecaseOutput output) {
-        BoardDTO boardDTO = this.boardRepository.findById(input.getBoardID());
+        BoardDTO boardDTO = this.boardRepository.findByID(input.getBoardID());
         Board board = BoardDTOConverter.toEntity(boardDTO);
         List<Column> columnList = board.getColumns();
 
         List<GetColumnsByBoardIDUsecaseOutput.ColumnViewObject> columnViewList = new ArrayList<>();
         for (Column column: columnList) {
             GetColumnsByBoardIDUsecaseOutput.ColumnViewObject columnViewObject = new GetColumnsByBoardIDUsecaseOutput.ColumnViewObject();
-            columnViewObject.setId(column.getId().toString());
+            columnViewObject.setID(column.getID().toString());
             columnViewObject.setTitle(column.getTitle());
             columnViewObject.setWip(column.getWIP());
 
             List<GetColumnsByBoardIDUsecaseOutput.ColumnViewObject.CardViewObject> cardList = new ArrayList<>();
-            List<UUID> cardIDList = column.getCardIds();
+            List<UUID> cardIDList = column.getCardIDs();
             for (UUID cardID: cardIDList) {
-                CardDTO cardDTO = this.cardRepository.findById(cardID.toString());
+                CardDTO cardDTO = this.cardRepository.findByID(cardID.toString());
                 GetColumnsByBoardIDUsecaseOutput.ColumnViewObject.CardViewObject cardViewObject =
                         new GetColumnsByBoardIDUsecaseOutput.ColumnViewObject.CardViewObject();
-                cardViewObject.setId(cardDTO.getId());
+                cardViewObject.setID(cardDTO.getID());
                 cardViewObject.setName(cardDTO.getName());
                 cardList.add(cardViewObject);
             }

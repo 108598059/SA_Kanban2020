@@ -6,11 +6,11 @@ public class CreateBoardUseCaseOutput implements UseCaseOutput{
   private String boardID;
   private String boardName;
 
-  public void setBoardId(String boardID) {
+  public void setBoardID(String boardID) {
     this.boardID = boardID;
   }
 
-  public String getBoardId() {
+  public String getBoardID() {
     return this.boardID;
   }
 

@@ -6,41 +6,41 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class MoveCardUseCaseInput implements UseCaseInput {
 
-  private UUID boardId;
-  private UUID cardId;
-  private UUID fromColumnId;
-  private UUID toColumnId;
+  private UUID boardID;
+  private UUID cardID;
+  private UUID fromColumnID;
+  private UUID toColumnID;
 
-  public void setBoardId(UUID boardId) {
-    this.boardId = boardId;
+  public void setBoardID(UUID boardID) {
+    this.boardID = boardID;
   }
 
-  public UUID getBoardId() {
-    return this.boardId;
+  public UUID getBoardID() {
+    return this.boardID;
   }
 
-  public void setCardId(UUID cardId) {
-    this.cardId = cardId;
+  public void setCardID(UUID cardID) {
+    this.cardID = cardID;
   }
 
-  public UUID getCardId() {
-    return this.cardId;
+  public UUID getCardID() {
+    return this.cardID;
   }
 
-  public void setFromColumnId(UUID id) {
-    this.fromColumnId = id;
+  public void setFromColumnID(UUID id) {
+    this.fromColumnID = id;
   }
 
-  public UUID getFromColumnId() {
-    return this.fromColumnId;
+  public UUID getFromColumnID() {
+    return this.fromColumnID;
   }
 
-  public void setToColumnId(UUID id) {
-    this.toColumnId = id;
+  public void setToColumnID(UUID id) {
+    this.toColumnID = id;
   }
 
-  public UUID getToColumnId() {
-    return this.toColumnId;
+  public UUID getToColumnID() {
+    return this.toColumnID;
   }
 
 }

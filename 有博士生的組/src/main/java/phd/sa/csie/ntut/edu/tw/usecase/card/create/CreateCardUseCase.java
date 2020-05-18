@@ -24,14 +24,14 @@ public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCar
 
   @Override
   public void execute(CreateCardUseCaseInput createCardInput, CreateCardUseCaseOutput createCardOutput) {
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(createCardInput.getBoardID()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createCardInput.getBoardID()));
     Card card = new Card(createCardInput.getCardName(), board);
 
     this.cardRepository.save(CardDTOConverter.toDTO(card));
     this.eventBus.postAll(card);
 
     createCardOutput.setCardName(card.getName());
-    createCardOutput.setCardId(card.getId());
+    createCardOutput.setCardID(card.getID());
   }
 
 }

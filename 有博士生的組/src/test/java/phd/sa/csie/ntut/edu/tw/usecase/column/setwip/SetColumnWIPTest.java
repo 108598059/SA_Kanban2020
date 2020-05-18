@@ -26,7 +26,7 @@ public class SetColumnWIPTest {
   private BoardRepository boardRepository;
   private DomainEventBus eventBus;
   private Board board;
-  private String columnId;
+  private String columnID;
 
   @Before
   public void given_there_are_a_column_and_a_board() {
@@ -38,16 +38,16 @@ public class SetColumnWIPTest {
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
     createBoardUseCaseInput.setBoardName("Software Architecture");
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
-    UUID boardId = UUID.fromString(createBoardUseCaseOutput.getBoardId());
-    board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
+    UUID boardID = UUID.fromString(createBoardUseCaseOutput.getBoardID());
+    board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
 
     CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
-    createColumnUseCaseInput.setBoardId(board.getId());
+    createColumnUseCaseInput.setBoardID(board.getID());
     createColumnUseCaseInput.setTitle("develop");
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
-    columnId = createColumnUseCaseOutput.getId();
+    columnID = createColumnUseCaseOutput.getID();
   }
 
   @Test
@@ -56,13 +56,13 @@ public class SetColumnWIPTest {
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardId(board.getId());
-    setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
+    setColumnWIPUseCaseInput.setBoardID(board.getID());
+    setColumnWIPUseCaseInput.setColumnID(UUID.fromString(columnID));
     setColumnWIPUseCaseInput.setColumnWIP(3);
 
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
 
-    assertNotNull(setColumnWIPUseCaseOutput.getColumnId());
+    assertNotNull(setColumnWIPUseCaseOutput.getColumnID());
     assertEquals(3, setColumnWIPUseCaseOutput.getColumnWIP());
   }
 
@@ -72,12 +72,12 @@ public class SetColumnWIPTest {
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardId(board.getId());
-    setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
+    setColumnWIPUseCaseInput.setBoardID(board.getID());
+    setColumnWIPUseCaseInput.setColumnID(UUID.fromString(columnID));
 
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
 
-    assertNotNull(setColumnWIPUseCaseOutput.getColumnId());
+    assertNotNull(setColumnWIPUseCaseOutput.getColumnID());
     assertEquals(0, setColumnWIPUseCaseOutput.getColumnWIP());
   }
 
@@ -87,8 +87,8 @@ public class SetColumnWIPTest {
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardId(board.getId());
-    setColumnWIPUseCaseInput.setColumnId(UUID.fromString(columnId));
+    setColumnWIPUseCaseInput.setBoardID(board.getID());
+    setColumnWIPUseCaseInput.setColumnID(UUID.fromString(columnID));
     setColumnWIPUseCaseInput.setColumnWIP(-1);
 
     try {

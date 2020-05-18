@@ -16,15 +16,15 @@ public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetCo
   }
 
   public void execute(SetColumnWIPUseCaseInput input, SetColumnWIPUseCaseOutput output) {
-    UUID boardId = input.getBoardId();
-    UUID columnId = input.getColumnId();
+    UUID boardID = input.getBoardID();
+    UUID columnID = input.getColumnID();
     int wip = input.getColumnWIP();
 
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(boardId.toString()));
-    board.setColumnWIP(columnId, wip);
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
+    board.setColumnWIP(columnID, wip);
 
     this.boardRepository.update(BoardDTOConverter.toDTO(board));
-    output.setColumnId(columnId.toString());
+    output.setColumnID(columnID.toString());
     output.setColumnWIP(wip);
   }
 

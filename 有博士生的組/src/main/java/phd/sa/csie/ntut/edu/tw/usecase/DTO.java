@@ -4,11 +4,11 @@ public abstract class DTO {
 
 	private String id;
 
-	public String getId() {
+	public String getID() {
 		return this.id;
 	};
 
-	public void setId(String id) {
+	public void setID(String id) {
 		this.id = id;
 	}
 

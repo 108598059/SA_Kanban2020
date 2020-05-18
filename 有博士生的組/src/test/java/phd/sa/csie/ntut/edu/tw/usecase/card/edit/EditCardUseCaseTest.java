@@ -43,11 +43,11 @@ public class EditCardUseCaseTest {
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
     createCardUseCaseInput.setCardName("Old Name");
-    createCardUseCaseInput.setBoardID(board.getId().toString());
+    createCardUseCaseInput.setBoardID(board.getID().toString());
     this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
-    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    this.card = CardDTOConverter.toEntity(this.cardRepository.findById(cardId.toString()));
+    UUID cardID = UUID.fromString(createCardUseCaseOutput.getCardID());
+    this.card = CardDTOConverter.toEntity(this.cardRepository.findByID(cardID.toString()));
   }
 
   @Test
@@ -56,12 +56,12 @@ public class EditCardUseCaseTest {
     EditCardUseCaseInput editCardUseCaseInput = new EditCardUseCaseInput();
     EditCardUseCaseOutput editCardUseCaseOutput = new EditCardUseCaseOutput();
 
-    editCardUseCaseInput.setCardId(this.card.getId());
+    editCardUseCaseInput.setCardID(this.card.getID());
     editCardUseCaseInput.setCardName("New Name");
 
     editCardUseCase.execute(editCardUseCaseInput, editCardUseCaseOutput);
 
-    assertEquals(this.card.getId().toString(), editCardUseCaseOutput.getCardId());
+    assertEquals(this.card.getID().toString(), editCardUseCaseOutput.getCardID());
     assertEquals("New Name", editCardUseCaseOutput.getCardName());
   }
 

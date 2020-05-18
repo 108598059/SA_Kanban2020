@@ -17,7 +17,7 @@ public class CreateColumnUseCaseTest {
 
   private BoardRepository boardRepository;
   private DomainEventBus eventBus;
-  private UUID boardId;
+  private UUID boardID;
 
   @Before
   public void given_a_board() {
@@ -25,7 +25,7 @@ public class CreateColumnUseCaseTest {
     this.boardRepository = new MemoryBoardRepository();
 
     Board board = new Board("phd");
-    this.boardId = board.getId();
+    this.boardID = board.getID();
     boardRepository.save(BoardDTOConverter.toDTO(board));
   }
 
@@ -36,10 +36,10 @@ public class CreateColumnUseCaseTest {
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
     createColumnUseCaseInput.setTitle("develop");
-    createColumnUseCaseInput.setBoardId(boardId);
+    createColumnUseCaseInput.setBoardID(boardID);
 
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
-    assertNotNull(createColumnUseCaseOutput.getId());
+    assertNotNull(createColumnUseCaseOutput.getID());
   }
 }

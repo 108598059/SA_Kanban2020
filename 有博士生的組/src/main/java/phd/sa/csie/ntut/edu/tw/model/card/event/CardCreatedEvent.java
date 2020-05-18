@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public class CardCreatedEvent extends AbstractDomainEvent {
     private UUID boardID;
-    public CardCreatedEvent(String sourceId,
+    public CardCreatedEvent(String sourceID,
                             String sourceName) {
-        super(sourceId, sourceName);
+        super(sourceID, sourceName);
     }
 
     public CardCreatedEvent(Entity entity, UUID boardID) {

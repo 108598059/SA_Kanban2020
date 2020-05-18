@@ -33,7 +33,7 @@ public class CardRestAdapter {
         this.createCardUseCase.execute(createCardInput, createCardOutput);
 
         CreateCardResponse responseBody = new CreateCardResponse();
-        responseBody.setCardID(createCardOutput.getCardId());
+        responseBody.setCardID(createCardOutput.getCardID());
         responseBody.setCardName(createCardOutput.getCardName());
 
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);

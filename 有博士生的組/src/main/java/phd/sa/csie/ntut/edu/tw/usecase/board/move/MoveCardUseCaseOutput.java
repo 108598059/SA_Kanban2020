@@ -6,31 +6,31 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class MoveCardUseCaseOutput implements UseCaseOutput {
 
-  private String cardId;
-  private String oldColumnId;
-  private String newColumnId;
+  private String cardID;
+  private String oldColumnID;
+  private String newColumnID;
 
-  public void setCardId(UUID cardId) {
-    this.cardId = cardId.toString();
+  public void setCardID(UUID cardID) {
+    this.cardID = cardID.toString();
   }
 
-  public String getCardId() {
-    return this.cardId;
+  public String getCardID() {
+    return this.cardID;
   }
 
-  public void setOldColumnId(String id) {
-    this.oldColumnId = id;
+  public void setOldColumnID(String id) {
+    this.oldColumnID = id;
   }
 
-  public String getOldColumnId() {
-    return this.oldColumnId;
+  public String getOldColumnID() {
+    return this.oldColumnID;
   }
 
-  public void setNewColumnId(String id) {
-    this.newColumnId = id;
+  public void setNewColumnID(String id) {
+    this.newColumnID = id;
   }
 
-  public String getNewColumnId() {
-    return this.newColumnId;
+  public String getNewColumnID() {
+    return this.newColumnID;
   }
 }

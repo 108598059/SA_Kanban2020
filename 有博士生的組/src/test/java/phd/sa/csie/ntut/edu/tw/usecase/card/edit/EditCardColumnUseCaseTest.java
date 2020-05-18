@@ -5,7 +5,6 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
@@ -31,15 +30,15 @@ public class EditCardColumnUseCaseTest {
         EditCardColumnInput input = new EditCardColumnInput();
         EditCardColumnOutput output = new EditCardColumnOutput();
 
-        input.setCardID(this.card.getId().toString());
-        input.setColumnID(this.board.get(0).getId().toString());
+        input.setCardID(this.card.getID().toString());
+        input.setColumnID(this.board.get(0).getID().toString());
 
         EditCardColumnUsecase editCardColumnUsecase = new EditCardColumnUsecase(this.cardRepository);
         editCardColumnUsecase.execute(input, output);
-        assertEquals(this.board.get(0).getId().toString(), output.getColumnID());
+        assertEquals(this.board.get(0).getID().toString(), output.getColumnID());
 
-        Card card = CardDTOConverter.toEntity(this.cardRepository.findById(this.card.getId().toString()));
-        assertEquals(this.board.get(0).getId(), card.getColumnId());
+        Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(this.card.getID().toString()));
+        assertEquals(this.board.get(0).getID(), card.getColumnID());
     }
 
 }

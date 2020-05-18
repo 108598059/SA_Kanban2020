@@ -27,11 +27,11 @@ public class GetColumnsByBoardIDUsecaseOutput implements UseCaseOutput {
             private String id;
             private String name;
 
-            public String getId() {
+            public String getID() {
                 return id;
             }
 
-            public void setId(String id) {
+            public void setID(String id) {
                 this.id = id;
             }
 
@@ -44,11 +44,11 @@ public class GetColumnsByBoardIDUsecaseOutput implements UseCaseOutput {
             }
         }
 
-        public String getId() {
+        public String getID() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setID(String id) {
             this.id = id;
         }
 

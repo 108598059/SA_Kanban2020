@@ -18,16 +18,16 @@ public class CardRepositoryTest {
   public void createCard() {
     CardRepository cardRepository = new MemoryCardRepository();
     Card card = new Card("test card", new Board("Kanban"));
-    card.setColumnId(UUID.randomUUID());
+    card.setColumnID(UUID.randomUUID());
 
     CardDTO cardDTO = CardDTOConverter.toDTO(card);
 
     cardRepository.save(cardDTO);
 
-    CardDTO resultCardDTO = cardRepository.findById(card.getId().toString());
+    CardDTO resultCardDTO = cardRepository.findByID(card.getID().toString());
     Card resultCard = CardDTOConverter.toEntity(resultCardDTO);
 
     assertEquals(card.getName(), resultCard.getName());
-    assertEquals(card.getId(), resultCard.getId());
+    assertEquals(card.getID(), resultCard.getID());
   }
 }

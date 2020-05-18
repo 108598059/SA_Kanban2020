@@ -33,7 +33,7 @@ public class Board extends AggregateRoot {
 
   public void commitCard(Card card) {
     Column backlog = this.columns.get(0);
-    backlog.addCard(card.getId());
+    backlog.addCard(card.getID());
   }
 
   public int getColumnNumber() {
@@ -51,46 +51,45 @@ public class Board extends AggregateRoot {
   public UUID createColumn(String columnTitle) {
     Column column = new Column(columnTitle);
     this.columns.add(column);
-    return column.getId();
+    return column.getID();
   }
 
-  public void addCardToColumn(UUID cardId, UUID columnId) {
-    Column column = this.getColumnById(columnId);
-    column.addCard(cardId);
+  public void addCardToColumn(UUID cardID, UUID columnID) {
+    Column column = this.getColumnByID(columnID);
+    column.addCard(cardID);
   }
 
-  public void setColumnWIP(UUID columnId, int wip) {
+  public void setColumnWIP(UUID columnID, int wip) {
     if (wip < 0) {
       throw new IllegalArgumentException("Column WIP should be positive.");
     }
-    Column column = this.getColumnById(columnId);
+    Column column = this.getColumnByID(columnID);
     column.setWIP(wip);
   }
 
-  public String moveCard(UUID cardId, UUID fromColumnId, UUID toColumnId) {
-    Column from = this.getColumnById(fromColumnId);
-    Column to = this.getColumnById(toColumnId);
+  public String moveCard(UUID cardID, UUID fromColumnID, UUID toColumnID) {
+    Column from = this.getColumnByID(fromColumnID);
+    Column to = this.getColumnByID(toColumnID);
 
-    // TODO Issue the event by the board or the column itself?
-    from.removeCard(cardId);
-    this.addDomainEvent(new CardLeaveColumnEvent(UUID.randomUUID().toString(), fromColumnId.toString()));
-    to.addCard(cardId);
-    this.addDomainEvent(new CardEnterColumnEvent(UUID.randomUUID().toString(), toColumnId.toString(), cardId.toString()));
+    from.removeCard(cardID);
+    this.addDomainEvent(new CardLeaveColumnEvent(UUID.randomUUID().toString(), fromColumnID.toString()));
+    to.addCard(cardID);
+    this.addDomainEvent(new CardEnterColumnEvent(UUID.randomUUID().toString(), toColumnID.toString(), cardID.toString()));
     
-    return to.getId().toString();
+    return to.getID().toString();
   }
 
-  private Column getColumnById(UUID id) {
+  private Column getColumnByID(UUID id) {
     for (Column column : this.columns) {
-      if (column.getId().equals(id)) {
+      if (column.getID().equals(id)) {
         return column;
       }
     }
     throw new RuntimeException("Column Not Found");
   }
 
-  public Column findColumnById(UUID id) {
-    return new Column(this.getColumnById(id));
+  public Column findColumnByID(UUID id) {
+    return new Column(this.getColumnByID(id));
   }
 
   public List<Column> getColumns() {

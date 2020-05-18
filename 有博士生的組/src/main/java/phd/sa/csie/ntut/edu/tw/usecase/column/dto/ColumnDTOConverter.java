@@ -10,16 +10,16 @@ import java.util.UUID;
 public class ColumnDTOConverter {
     public static ColumnDTO toDTO(Column entity) {
         ColumnDTO columnDTO = new ColumnDTO();
-        columnDTO.setId(entity.getId().toString());
+        columnDTO.setID(entity.getID().toString());
         columnDTO.setTitle(entity.getTitle());
         columnDTO.setWip(entity.getWIP());
 
-        List<UUID> idList = entity.getCardIds();
+        List<UUID> idList = entity.getCardIDs();
         List<String> idStringList = new ArrayList<>();
         for (UUID id: idList) {
             idStringList.add(id.toString());
         }
-        columnDTO.setCardIds(idStringList);
+        columnDTO.setCardIDs(idStringList);
 
         return columnDTO;
     }
@@ -27,12 +27,12 @@ public class ColumnDTOConverter {
     public static Column toEntity(DTO dto) {
         ColumnDTO columnDTO = (ColumnDTO) dto;
 
-        List<String> idStringList = columnDTO.getCardIds();
+        List<String> idStringList = columnDTO.getCardIDs();
         List<UUID> idList = new ArrayList<>();
         for (String id: idStringList) {
             idList.add(UUID.fromString(id));
         }
 
-        return new Column(UUID.fromString(columnDTO.getId()), columnDTO.getTitle(), idList, columnDTO.getWip());
+        return new Column(UUID.fromString(columnDTO.getID()), columnDTO.getTitle(), idList, columnDTO.getWip());
     }
 }
