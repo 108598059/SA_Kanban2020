@@ -2,17 +2,18 @@ package kanban.domain.usecase.board.get;
 
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.BoardDTO;
-import kanban.domain.usecase.board.BoardDTOModelTransformer;
-import kanban.domain.usecase.board.BoardEntityModelTransformer;
+import kanban.domain.usecase.board.mapper.BoardDTOModelMapper;
+import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.board.BoardEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetBoardsUseCase {
+public class GetBoardsUseCase implements GetBoardsInput{
 
     private IBoardRepository boardRepository;
+    private String userId;
 
     public GetBoardsUseCase(IBoardRepository boardRepository) {
         this.boardRepository = boardRepository;
@@ -22,9 +23,19 @@ public class GetBoardsUseCase {
         List<BoardEntity> boardEntities = boardRepository.getBoardsByUserId(input.getUserId());
         List<BoardDTO> BoardDTOs = new ArrayList<>();
         for(BoardEntity boardEntity: boardEntities){
-            Board board = BoardEntityModelTransformer.transformEntityToModel(boardEntity);
-            BoardDTOs.add(BoardDTOModelTransformer.transformModelToDTO(board));
+            Board board = BoardEntityModelMapper.transformEntityToModel(boardEntity);
+            BoardDTOs.add(BoardDTOModelMapper.transformModelToDTO(board));
         }
         output.setBoardDTOs(BoardDTOs);
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
+    }
+
+    @Override
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

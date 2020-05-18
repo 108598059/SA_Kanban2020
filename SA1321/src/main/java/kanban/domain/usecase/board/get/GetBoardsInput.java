@@ -1,13 +1,7 @@
 package kanban.domain.usecase.board.get;
 
-public class GetBoardsInput {
-    private String userId;
+public interface GetBoardsInput {
+    public String getUserId();
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    public void setUserId(String userId);
 }

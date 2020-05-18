@@ -1,9 +1,8 @@
 package kanban.domain.adapter.rest.board.create;
 
 import kanban.domain.adapter.presenter.board.create.CreateBoardPresenter;
-import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.ApplicationContext;
 import kanban.domain.usecase.board.create.CreateBoardInput;
-import kanban.domain.usecase.board.create.CreateBoardOutput;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,8 +26,8 @@ public class CreateBoardAdapter {
             e.printStackTrace();
         }
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(new MySqlBoardRepository());
-        CreateBoardInput input = new CreateBoardInput();
+        CreateBoardUseCase createBoardUseCase = ApplicationContext.getInstance().getCreateBoardUseCase();
+        CreateBoardInput input = createBoardUseCase;
         input.setUserId(userId);
         input.setBoardName(boardName);
 

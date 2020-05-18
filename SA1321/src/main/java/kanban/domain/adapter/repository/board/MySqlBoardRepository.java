@@ -1,8 +1,8 @@
 package kanban.domain.adapter.repository.board;
 
 import kanban.domain.adapter.database.MySqlDatabaseHelper;
-import kanban.domain.adapter.database.BoardTable;
-import kanban.domain.adapter.database.BoardWorkflowTable;
+import kanban.domain.adapter.database.table.BoardTable;
+import kanban.domain.adapter.database.table.BoardWorkflowTable;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.board.BoardEntity;
 

@@ -33,7 +33,7 @@ public class Utility {
 
     public String createBoard(String boardName){
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
-        CreateBoardInput input = new CreateBoardInput();
+        CreateBoardInput input = createBoardUseCase;
         CreateBoardOutput output = new CreateBoardPresenter();
         input.setUserId("1");
         input.setBoardName(boardName);

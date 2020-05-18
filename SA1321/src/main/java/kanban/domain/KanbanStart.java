@@ -5,7 +5,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpServlet;
 
-@SuppressWarnings("serial")
 public class KanbanStart extends HttpServlet implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {

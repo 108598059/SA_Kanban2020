@@ -6,8 +6,11 @@ import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.DomainEventHandler;
-import kanban.domain.usecase.board.BoardEntityModelTransformer;
+import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
 import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.workflow.commit.CommitWorkflowInput;
+import kanban.domain.usecase.workflow.commit.CommitWorkflowOutput;
+import kanban.domain.usecase.workflow.commit.CommitWorkflowUseCase;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +40,7 @@ public class CommitWorkflowTest {
     @Test
     public void Workflow_should_be_committed_in_its_board() {
         String boardId = utility.createBoard("board");
-        Board board = BoardEntityModelTransformer.transformEntityToModel(boardRepository.getBoardById(boardId));
+        Board board = BoardEntityModelMapper.transformEntityToModel(boardRepository.getBoardById(boardId));
 
         assertEquals(0,board.getWorkflowIds().size());
 
@@ -49,7 +52,7 @@ public class CommitWorkflowTest {
         input.setWorkflowId("workflowId");
         commitWorkflowUseCase.execute(input, output);
 
-        board = BoardEntityModelTransformer.transformEntityToModel(boardRepository.getBoardById(boardId));
+        board = BoardEntityModelMapper.transformEntityToModel(boardRepository.getBoardById(boardId));
         assertEquals(1,board.getWorkflowIds().size());
         assertEquals("workflowId",output.getWorkflowId());
 

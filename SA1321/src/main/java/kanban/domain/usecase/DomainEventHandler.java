@@ -7,9 +7,9 @@ import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardOutput;
 import kanban.domain.usecase.card.commit.CommitCardUseCase;
-import kanban.domain.usecase.workflow.CommitWorkflowInput;
-import kanban.domain.usecase.workflow.CommitWorkflowOutput;
-import kanban.domain.usecase.workflow.CommitWorkflowUseCase;
+import kanban.domain.usecase.workflow.commit.CommitWorkflowInput;
+import kanban.domain.usecase.workflow.commit.CommitWorkflowOutput;
+import kanban.domain.usecase.workflow.commit.CommitWorkflowUseCase;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class DomainEventHandler {

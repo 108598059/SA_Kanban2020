@@ -44,7 +44,7 @@ public class GetBoardTest {
     public void Get_board_should_return_boardId() {
 
         GetBoardsUseCase getBoardsUseCase = new GetBoardsUseCase(boardRepository);
-        GetBoardsInput input = new GetBoardsInput();
+        GetBoardsInput input = getBoardsUseCase;
         input.setUserId("1");
 
         GetBoardsOutput output = new GetBoardsPresenter();
