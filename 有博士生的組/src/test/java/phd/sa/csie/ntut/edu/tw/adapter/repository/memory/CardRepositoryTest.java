@@ -6,18 +6,18 @@ import java.util.UUID;
 
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
 
 public class CardRepositoryTest {
 
   @Test
   public void createCard() {
     CardRepository cardRepository = new MemoryCardRepository();
-    Card card = new Card("test card", UUID.randomUUID());
+    Card card = new Card("test card", new Board("Kanban"));
     card.setColumnId(UUID.randomUUID());
 
     CardDTO cardDTO = CardDTOConverter.toDTO(card);

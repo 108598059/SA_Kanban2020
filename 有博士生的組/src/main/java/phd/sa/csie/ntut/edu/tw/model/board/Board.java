@@ -34,9 +34,6 @@ public class Board extends AggregateRoot {
   public void commitCard(Card card) {
     Column backlog = this.columns.get(0);
     backlog.addCard(card.getId());
-
-    // TODO Set column id of the moved card by the board or the card itself?
-    card.setColumnId(backlog.getId());
   }
 
   public int getColumnNumber() {

@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.card.create;
+package phd.sa.csie.ntut.edu.tw.usecase.board.commit.card;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -24,15 +24,15 @@ public class CommitCardUseCase {
     this.boardRepository = boardRepository;
   }
   
-  @Subscribe
-  public void execute(CardCreatedEvent e) {
-    Card card = e.getEntity();
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(card.getBoardId().toString()));
-    board.commitCard(card);
-    CardDTO cardDto = CardDTOConverter.toDTO(card);
-    this.cardRepository.save(cardDto);
+  public void execute(CommitCardInput input, CommitCardOutput output) {
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findById(input.getBoardID()));
+    Card card = CardDTOConverter.toEntity(this.cardRepository.findById(input.getCardID()));
 
-    BoardDTO boardDTO = BoardDTOConverter.toDTO(board);
-    this.boardRepository.update(boardDTO);
+    board.commitCard(card);
+
+    this.boardRepository.update(BoardDTOConverter.toDTO(board));
+
+    output.setBoardID(board.getId().toString());
+    output.setCardID(card.getId().toString());
   }
 }

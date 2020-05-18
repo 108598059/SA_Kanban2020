@@ -4,13 +4,22 @@ import phd.sa.csie.ntut.edu.tw.model.AbstractDomainEvent;
 import phd.sa.csie.ntut.edu.tw.model.Entity;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
+import java.util.UUID;
+
 public class CardCreatedEvent extends AbstractDomainEvent {
-    public CardCreatedEvent(String sourceId, String sourceName) {
+    private UUID boardID;
+    public CardCreatedEvent(String sourceId,
+                            String sourceName) {
         super(sourceId, sourceName);
     }
 
-    public CardCreatedEvent(Entity entity) {
+    public CardCreatedEvent(Entity entity, UUID boardID) {
         super(entity);
+        this.boardID = boardID;
+    }
+
+    public UUID getBoardID() {
+        return boardID;
     }
 
     @Override

@@ -19,7 +19,7 @@ import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -53,7 +53,7 @@ public class MoveCardUseCaseTest {
     this.eventBus = new DomainEventBus();
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
-    this.createCardUseCase = new CreateCardUseCase(this.eventBus);
+    this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
 
     Board board = new Board("phd");

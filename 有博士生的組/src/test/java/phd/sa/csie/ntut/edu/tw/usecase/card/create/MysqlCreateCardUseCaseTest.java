@@ -14,11 +14,9 @@ import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CommitCardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardCreatedEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
@@ -30,7 +28,6 @@ public class MysqlCreateCardUseCaseTest {
   private String cardID;
   private Board board;
   private DomainEventBus eventBus;
-  private CommitCardUseCase commitCardUsecase;
 
   @Before
   public void setUp() {
@@ -39,14 +36,13 @@ public class MysqlCreateCardUseCaseTest {
     this.board = new Board("Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
     this.eventBus = new DomainEventBus();
-    this.commitCardUsecase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
-    this.eventBus.register(this.commitCardUsecase);
-
+    DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
+    this.eventBus.register(cardCreatedEventHandler);
   }
 
   @Test
   public void createCard() throws Exception {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 

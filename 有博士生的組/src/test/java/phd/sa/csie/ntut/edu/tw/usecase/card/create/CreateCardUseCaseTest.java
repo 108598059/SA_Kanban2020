@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
-import java.util.UUID;
-
 import com.google.common.eventbus.Subscribe;
 
 import org.junit.Before;
@@ -13,10 +11,9 @@ import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
-import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
@@ -26,7 +23,6 @@ public class CreateCardUseCaseTest {
 
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
-  private CommitCardUseCase commitCardUsecase;
   private Board board;
   private DomainEventBus eventBus;
 
@@ -52,15 +48,15 @@ public class CreateCardUseCaseTest {
     this.board = new Board("Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
+    CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
     this.eventBus = new DomainEventBus();
+    this.eventBus.register(cardCreatedEventHandler);
+
   }
 
   @Test
   public void creating_a_new_card_should_commit_the_card_to_the_backlog_column() {
-    this.commitCardUsecase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
-    this.eventBus.register(this.commitCardUsecase);
-
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
@@ -73,21 +69,14 @@ public class CreateCardUseCaseTest {
     assertNotEquals("", createCardUseCaseOutput.getCardId());
     assertNotNull(createCardUseCaseOutput.getCardId());
 
-    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    CardDTO cardDTO = cardRepository.findById(cardId.toString());
-    Card card = CardDTOConverter.toEntity(cardDTO);
-    BoardDTO boardDTO = this.boardRepository.findById(this.board.getId().toString());
-    BoardDTOConverter boardDTOConverter = new BoardDTOConverter();
-    Board boardResult = boardDTOConverter.toEntity(boardDTO);
-    assertTrue(boardResult.get(0).getCardIds().contains(card.getId()));
+    Card card = CardDTOConverter.toEntity(cardRepository.findById(createCardUseCaseOutput.getCardId()));
+    Board boardResult = BoardDTOConverter.toEntity(this.boardRepository.findById(this.board.getId().toString()));
+    assertEquals(card.getId(), boardResult.get(0).getCardIds().get(0));
   }
 
   @Test
   public void committed_card_change_should_be_save_to_the_board_repository() {
-    this.commitCardUsecase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
-    this.eventBus.register(commitCardUsecase);
-    
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
@@ -96,14 +85,13 @@ public class CreateCardUseCaseTest {
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
-    UUID cardId = UUID.fromString(createCardUseCaseOutput.getCardId());
-    Card card = CardDTOConverter.toEntity(cardRepository.findById(cardId.toString()));
+    Card card = CardDTOConverter.toEntity(cardRepository.findById(createCardUseCaseOutput.getCardId()));
     assertEquals(this.board.get(0).getId().toString(), card.getColumnId().toString());
   }
 
   @Test
   public void create_card_event_should_be_issued_when_a_card_being_created() {
-    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus);
+    CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
