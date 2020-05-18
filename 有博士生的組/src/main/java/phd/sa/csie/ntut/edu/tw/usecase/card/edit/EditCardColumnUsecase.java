@@ -1,8 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
-import com.google.common.eventbus.Subscribe;
-
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnterColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
@@ -16,12 +13,12 @@ public class EditCardColumnUsecase {
         this.cardRepository = cardRepository;
     }
 
-    @Subscribe
-    public void execute(CardEnterColumnEvent e) {
-        Card card = CardDTOConverter.toEntity(this.cardRepository.findById(e.getCardId()));
+    public void execute(EditCardColumnInput input, EditCardColumnOutput output) {
+        Card card = CardDTOConverter.toEntity(this.cardRepository.findById(input.getCardID()));
 
-        card.setColumnId(UUID.fromString(e.getColumnId()));
+        card.setColumnId(UUID.fromString(input.getColumnID()));
 
         this.cardRepository.update(CardDTOConverter.toDTO(card));
+        output.setColumnID(card.getColumnId().toString());
     }
 }

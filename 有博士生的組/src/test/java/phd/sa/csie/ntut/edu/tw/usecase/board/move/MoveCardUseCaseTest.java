@@ -31,6 +31,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardEnterColumnEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
@@ -74,8 +76,8 @@ public class MoveCardUseCaseTest {
     UUID cardId2 = UUID.fromString(createCardUseCaseOutput.getCardId());
     this.card2 = CardDTOConverter.toEntity(this.cardRepository.findById(cardId2.toString()));
 
-    EditCardColumnUsecase editCardColumnUsecase = new EditCardColumnUsecase(this.cardRepository);
-    this.eventBus.register(editCardColumnUsecase);
+    DomainEventHandler cardEnterColumnEventHandler = new CardEnterColumnEventHandler(this.cardRepository);
+    this.eventBus.register(cardEnterColumnEventHandler);
 
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
@@ -120,7 +122,7 @@ public class MoveCardUseCaseTest {
   }
 
   @Test
-  public void testMoveCardEvents() {
+  public void move_card_should_post_events_and_update_column_of_card() {
     EventLogRepository repo = new MemoryEventLogRepository();
     this.eventBus.register(repo);
 
