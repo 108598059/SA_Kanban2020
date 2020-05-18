@@ -14,12 +14,11 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-@Service
 public class CommitCardUseCase {
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
 
-  public CommitCardUseCase(@Autowired CardRepository cardRepository, @Autowired BoardRepository boardRepository) {
+  public CommitCardUseCase(CardRepository cardRepository, BoardRepository boardRepository) {
     this.cardRepository = cardRepository;
     this.boardRepository = boardRepository;
   }
