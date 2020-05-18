@@ -11,12 +11,11 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-@Service
 public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCardUseCaseOutput> {
   private CardRepository cardRepository;
   private BoardRepository boardRepository;
 
-  public CreateCardUseCase(@Autowired DomainEventBus eventBus, CardRepository cardRepository, BoardRepository boardRepository) {
+  public CreateCardUseCase(DomainEventBus eventBus, CardRepository cardRepository, BoardRepository boardRepository) {
     super(eventBus);
     this.cardRepository = cardRepository;
     this.boardRepository = boardRepository;
@@ -33,5 +32,4 @@ public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCar
     createCardOutput.setCardName(card.getName());
     createCardOutput.setCardID(card.getID());
   }
-
 }
