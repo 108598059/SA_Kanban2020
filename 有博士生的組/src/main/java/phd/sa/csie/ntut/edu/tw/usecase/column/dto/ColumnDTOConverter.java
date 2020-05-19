@@ -1,26 +1,38 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.dto;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.board.Column;
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTOConverter;
+import phd.sa.csie.ntut.edu.tw.model.board.Column;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
-public class ColumnDTOConverter implements DTOConverter<Column> {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-    @Override
-    public ColumnDTO toDTO(Column entity) {
+public class ColumnDTOConverter {
+    public static ColumnDTO toDTO(Column entity) {
         ColumnDTO columnDTO = new ColumnDTO();
-        columnDTO.setId(entity.getId());
+        columnDTO.setID(entity.getID().toString());
         columnDTO.setTitle(entity.getTitle());
         columnDTO.setWip(entity.getWIP());
-        columnDTO.setCardIds(entity.getCardIds());
+
+        List<UUID> idList = entity.getCardIDs();
+        List<String> idStringList = new ArrayList<>();
+        for (UUID id: idList) {
+            idStringList.add(id.toString());
+        }
+        columnDTO.setCardIDs(idStringList);
+
         return columnDTO;
     }
 
-    @Override
-    public Column toEntity(DTO dto) {
+    public static Column toEntity(DTO dto) {
         ColumnDTO columnDTO = (ColumnDTO) dto;
-        Column column = new Column(columnDTO.getId(), columnDTO.getTitle(), columnDTO.getCardIds(), columnDTO.getWip());
-        return column;
+
+        List<String> idStringList = columnDTO.getCardIDs();
+        List<UUID> idList = new ArrayList<>();
+        for (String id: idStringList) {
+            idList.add(UUID.fromString(id));
+        }
+
+        return new Column(UUID.fromString(columnDTO.getID()), columnDTO.getTitle(), idList, columnDTO.getWip());
     }
-    
 }

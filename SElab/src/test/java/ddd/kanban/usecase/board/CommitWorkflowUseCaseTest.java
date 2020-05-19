@@ -75,13 +75,16 @@ public class CommitWorkflowUseCaseTest {
         Workflow workflow = new Workflow(UUID.randomUUID().toString(),"Test Commit Workflow to It's Board", this.boardId);
         workflow.clearDomainEvents();
 
+        Board board = entityMapper.mappingBoardEntityFrom(boardRepository.findById(boardId));
+        assertEquals(1, board.getWorkflowIds().size());
+
         CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInput(this.boardId, workflow.getId());
         CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutput();
         CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(this.boardRepository);
 
         commitWorkflowUseCase.execute(commitWorkflowInput, commitWorkflowOutput);
 
-        Board board = entityMapper.mappingBoardEntityFrom(boardRepository.findById(boardId));
+        board = entityMapper.mappingBoardEntityFrom(boardRepository.findById(boardId));
         assertEquals(2, board.getWorkflowIds().size());
 
         assertEquals(workflow.getId(), commitWorkflowOutput.getWorkflowId());

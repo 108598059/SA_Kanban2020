@@ -1,24 +1,22 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.dto;
 
-import java.util.UUID;
-
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public class CardDTO extends DTO {
 
     private String name;
-    private UUID columnId;
+    private String columnID;
 
     public String getName() {
         return name;
     }
 
-    public UUID getColumnId() {
-        return columnId;
+    public String getColumnID() {
+        return columnID;
     }
 
-    public void setColumnId(UUID columnId) {
-        this.columnId = columnId;
+    public void setColumnID(String columnID) {
+        this.columnID = columnID;
     }
 
     public void setName(String name) {

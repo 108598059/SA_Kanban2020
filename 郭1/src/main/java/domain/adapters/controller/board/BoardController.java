@@ -11,23 +11,23 @@ import domain.adapters.View;
 
 public class BoardController {
 
+    private BoardRepository boardRepository;
+    private BoardPresenter presenter;
 
-
-    public BoardController(){
+    public BoardController(BoardRepository boardRepository, BoardPresenter presenter){
+        this.boardRepository = boardRepository;
+        this.presenter = presenter;
     }
 
-    public void handleCreateBoard(View view, String boardName){
-
-        BoardRepository boardRepository = new BoardRepositoryImpl();
+    public void createBoard(String boardName){
 
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
 
         CreateBoardInput createBoardInput = new CreateBoardInputImpl();
-        CreateBoardOutput createBoardOutput = new BoardPresenter(view);
 
         createBoardInput.setName(boardName);
 
-        createBoardUseCase.execute(createBoardInput,createBoardOutput);
+        createBoardUseCase.execute(createBoardInput,presenter);
 
 
 

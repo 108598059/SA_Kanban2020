@@ -1,25 +1,24 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.dto;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
 
-import phd.sa.csie.ntut.edu.tw.usecase.dto.DTO;
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public class ColumnDTO extends DTO {
     private String title;
     private int wip;
-    private ArrayList<UUID> cardIds;
+    private List<String> cardIDs;
 
     public String getTitle() {
         return title;
     }
 
-    public ArrayList<UUID> getCardIds() {
-        return cardIds;
+    public List<String> getCardIDs() {
+        return cardIDs;
     }
 
-    public void setCardIds(ArrayList<UUID> cardIds) {
-        this.cardIds = cardIds;
+    public void setCardIDs(List<String> cardIDs) {
+        this.cardIDs = cardIDs;
     }
 
     public int getWip() {

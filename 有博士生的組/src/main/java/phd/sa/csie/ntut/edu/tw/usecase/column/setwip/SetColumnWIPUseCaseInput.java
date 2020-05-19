@@ -6,24 +6,24 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class SetColumnWIPUseCaseInput implements UseCaseInput {
 
-  private UUID columnId;
+  private UUID columnID;
   private int columnWIP = 0;
-  private UUID boardId;
+  private UUID boardID;
 
-  public void setColumnId(UUID id) {
-    this.columnId = id;
+  public void setColumnID(UUID id) {
+    this.columnID = id;
   }
 
-  public UUID getColumnId() {
-    return this.columnId;
+  public UUID getColumnID() {
+    return this.columnID;
   }
 
-  public void setBoardId(UUID id) {
-    this.boardId = id;
+  public void setBoardID(UUID id) {
+    this.boardID = id;
   }
 
-  public UUID getBoardId() {
-    return this.boardId;
+  public UUID getBoardID() {
+    return this.boardID;
   }
 
   public void setColumnWIP(int wip) {

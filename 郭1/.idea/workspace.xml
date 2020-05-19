@@ -42,8 +42,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -79,11 +79,11 @@
       <recent name="domain.usecase.workflow" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="domain.usecase.card" />
+      <recent name="domain.usecase.workflow" />
+      <recent name="domain.usecase.board" />
       <recent name="domain.controller" />
       <recent name="domain.adapter.repository" />
-      <recent name="domain.entity.board" />
-      <recent name="domain.entity.card" />
-      <recent name="domain.entity.workflow" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="domain.usecase.workflow" />
@@ -135,12 +135,12 @@
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.*" />
+          <option name="PATTERN" value="domain.usecase.board.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateBoardTest" />
+      <option name="PACKAGE_NAME" value="domain.usecase.board" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.board.CreateBoardTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -150,12 +150,12 @@
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.*" />
+          <option name="PATTERN" value="domain.usecase.board.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.CreateWorkFlowTest" />
+      <option name="PACKAGE_NAME" value="domain.usecase.workflow" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.workflow.CreateWorkFlowTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -165,7 +165,7 @@
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.*" />
+          <option name="PATTERN" value="domain.usecase.board.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -223,6 +223,11 @@
       <workItem from="1589264672040" duration="378000" />
       <workItem from="1589267840929" duration="16308000" />
       <workItem from="1589350497491" duration="9839000" />
+      <workItem from="1589376544791" duration="1067000" />
+      <workItem from="1589377830979" duration="333000" />
+      <workItem from="1589378176374" duration="132000" />
+      <workItem from="1589461701499" duration="1442000" />
+      <workItem from="1589809580928" duration="8433000" />
     </task>
     <servers />
   </component>

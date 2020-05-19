@@ -2,33 +2,29 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class EditCardUseCase {
-
   private CardRepository cardRepository;
-  private CardDTOConverter cardDTOConverter;
 
   public EditCardUseCase(CardRepository repository) {
     this.cardRepository = repository;
-    this.cardDTOConverter = new CardDTOConverter();
   }
 
   public void execute(EditCardUseCaseInput input, EditCardUseCaseOutput output) {
-    UUID cardId = input.getCardId();
+    UUID cardID = input.getCardID();
     String cardName = input.getCardName();
 
-    Card card = cardDTOConverter.toEntity(cardRepository.findById(cardId));
+    Card card = CardDTOConverter.toEntity(cardRepository.findByID(cardID.toString()));
     card.setName(cardName);
 
-    CardDTO cardDTO = cardDTOConverter.toDTO(card);
+    CardDTO cardDTO = CardDTOConverter.toDTO(card);
 
-    cardRepository.update(cardDTO);
-    output.setCardId(card.getId().toString());
+    cardRepository.save(cardDTO);
+    output.setCardID(card.getID().toString());
     output.setCardName(card.getName());
   }
-
 }

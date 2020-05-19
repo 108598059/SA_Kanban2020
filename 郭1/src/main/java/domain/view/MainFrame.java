@@ -2,12 +2,14 @@ package domain.view;
 
 import domain.adapters.View;
 import domain.adapters.controller.board.BoardController;
+import domain.adapters.viewmodel.board.BoardViewModel;
 
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MainFrame extends JFrame implements View, ActionListener{
 
@@ -17,17 +19,18 @@ public class MainFrame extends JFrame implements View, ActionListener{
     private JList<String> boardList = new JList<String>();
     private JTextField boardNameInput = new JTextField(20);
     private DefaultListModel<String> model = new DefaultListModel<String>();
+    private BoardViewModel viewModel;
 
     private BoardController boardController;
 
-    public MainFrame(BoardController boardController){
+    public MainFrame(BoardController boardController, BoardViewModel viewModel){
         super();
-
-        this.boardController = boardController;
 
         initialWindowsProperty();
         initialLayout();
 
+        this.viewModel = viewModel;
+        this.boardController = boardController;
 
         boardCreate.addActionListener(this);
 
@@ -51,19 +54,28 @@ public class MainFrame extends JFrame implements View, ActionListener{
         buttonListContainer.add(boardNameInput);
         buttonListContainer.add(boardCreate);
         boardListContainer.add(boardList);
+
+        boardList.setFixedCellWidth(100);
+        boardList.setFixedCellHeight(20);
     }
 
 
-    public void addBoard(String boardName){
 
-        model.addElement(boardName);
+    public void updateUI(){
+
+        model.clear();
+        List<String> boardNameList = viewModel.getBoardNameList();
+        for (String boardName : boardNameList){
+            model.addElement(boardName);
+        }
         boardList.setModel(model);
-
     }
 
 
     public void actionPerformed(ActionEvent e) {
-        if(!boardNameInput.getText().equals(""));
-            boardController.handleCreateBoard(this,boardNameInput.getText());
+        if(!boardNameInput.getText().equals("")){
+            boardController.createBoard(boardNameInput.getText());
+            updateUI();
+        }
     }
 }

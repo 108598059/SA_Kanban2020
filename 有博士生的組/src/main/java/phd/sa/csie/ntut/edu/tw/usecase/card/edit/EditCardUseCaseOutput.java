@@ -3,15 +3,15 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class EditCardUseCaseOutput implements UseCaseOutput {
-  private String cardId;
+  private String cardID;
   private String cardName;
 
-  public void setCardId(String id) {
-    this.cardId = id;
+  public void setCardID(String id) {
+    this.cardID = id;
   }
 
-  public String getCardId() {
-    return this.cardId;
+  public String getCardID() {
+    return this.cardID;
   }
 
   public void setCardName(String cardName) {

@@ -23,13 +23,11 @@ import static org.junit.Assert.assertTrue;
 public class CreateBoardUseCaseTest {
     private BoardRepository boardRepository;
     private WorkflowRepository workflowRepository;
-    private String boardId;
     private DomainEventBus domainEventBus;
     private EntityMapper entityMapper;
 
     @Before
     public void setUp() {
-        boardId = UUID.randomUUID().toString();
         boardRepository = new InMemoryBoardRepository();
         this.workflowRepository = new InMemoryWorkflowRepository();
         this.domainEventBus = new DomainEventBus();

@@ -3,13 +3,13 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class CreateBoardUseCaseInput implements UseCaseInput {
-  private String title;
+  private String boardName;
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setBoardName(String boardName) {
+    this.boardName = boardName;
   }
 
-  public String getTitle() {
-    return this.title;
+  public String getBoardName() {
+    return this.boardName;
   }
 }

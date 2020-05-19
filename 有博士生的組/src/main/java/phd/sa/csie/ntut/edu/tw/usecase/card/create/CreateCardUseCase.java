@@ -1,34 +1,35 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
-import phd.sa.csie.ntut.edu.tw.domain.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.domain.model.card.Card;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-public class CreateCardUseCase extends UseCase<CardRepository, CardDTOConverter, CreateCardUseCaseInput, CreateCardUseCaseOutput> {
-  // private CardRepository cardRepository;
-  // private DomainEventBus eventBus;
+public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCardUseCaseOutput> {
+  private CardRepository cardRepository;
+  private BoardRepository boardRepository;
 
-  public CreateCardUseCase(CardRepository cardRepository, DomainEventBus eventBus, CardDTOConverter cardDTOConverter) {
-    super(cardRepository, eventBus, cardDTOConverter);
-    // this.cardRepository = cardRepository;
-    // this.eventBus = eventBus;
+  public CreateCardUseCase(DomainEventBus eventBus, CardRepository cardRepository, BoardRepository boardRepository) {
+    super(eventBus);
+    this.cardRepository = cardRepository;
+    this.boardRepository = boardRepository;
   }
 
   @Override
   public void execute(CreateCardUseCaseInput createCardInput, CreateCardUseCaseOutput createCardOutput) {
-    String cardName = createCardInput.getCardName();
-    Card card = new Card(cardName); 
-    
-    CardDTO cardDTO = this.dtoConverter.toDTO(card);
-    this.repository.save(cardDTO);
-    // TODO Should there be another object responsible for when to post the events?
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createCardInput.getBoardID()));
+    Card card = new Card(createCardInput.getCardName(), board);
+
+    this.cardRepository.save(CardDTOConverter.toDTO(card));
     this.eventBus.postAll(card);
 
     createCardOutput.setCardName(card.getName());
-    createCardOutput.setCardId(card.getId());
+    createCardOutput.setCardID(card.getID());
   }
-
 }

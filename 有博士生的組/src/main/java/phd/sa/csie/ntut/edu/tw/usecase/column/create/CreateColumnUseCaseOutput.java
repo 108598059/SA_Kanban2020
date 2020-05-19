@@ -6,11 +6,11 @@ public class CreateColumnUseCaseOutput implements UseCaseOutput {
 
   private String id;
 
-  public void setId(String id) {
+  public void setID(String id) {
     this.id = id;
   }
 
-  public String getId() {
+  public String getID() {
     return this.id;
   }
 
