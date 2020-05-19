@@ -12,7 +12,7 @@
         <title>kanban</title>
     </head>
     <body>
-        <form action="homepage" method="post">
+        <form action="board" method="post">
             <input name="boardName" type="text">
             <input type="submit" value="create Board">
         </form>

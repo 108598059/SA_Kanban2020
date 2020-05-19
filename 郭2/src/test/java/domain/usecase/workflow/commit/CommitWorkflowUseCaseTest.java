@@ -2,7 +2,7 @@ package domain.usecase.workflow.commit;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.board.Board;
-import domain.usecase.board.BoardDTO;
+import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
@@ -42,7 +42,7 @@ public class CommitWorkflowUseCaseTest {
         input.setWorkflowId("workflowId");
         commitWorkflowUseCase.execute(input, output);
 
-        Board board = BoardDTO.BoardEntityToBoard(boardRepository.getBoardById(input.getBoardId()));
+        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(input.getBoardId()));
 
         assertEquals(1,board.getWorkflowIds().size());
         assertEquals("workflowId",board.getWorkflowIds().get(0));

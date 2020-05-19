@@ -1,7 +1,9 @@
 package domain.usecase.board.create;
 
+import domain.adapter.presenter.Presenter;
+import domain.adapter.view_model.CreateBoardViewModel;
 import domain.model.aggregate.board.Board;
-import domain.usecase.board.BoardDTO;
+import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.board.BoardEntity;
 
@@ -16,7 +18,7 @@ public class CreateBoardUseCase {
     public void execute(CreateBoardUseCaseInput input, CreateBoardUseCaseOutput output) {
         board = new Board(input.getBoardName());
 
-        BoardEntity boardEntity =BoardDTO.BoardToBoardEntity(board);
+        BoardEntity boardEntity = BoardTransfer.BoardToBoardEntity(board);
 
         boardRepository.add(boardEntity);
 
