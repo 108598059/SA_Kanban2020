@@ -1,4 +1,4 @@
-package domain.usecase;
+package domain.usecase.board;
 
 
 import domain.adapters.controller.board.CreateBoardInputImpl;

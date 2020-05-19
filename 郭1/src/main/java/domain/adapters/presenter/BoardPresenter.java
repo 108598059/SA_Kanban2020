@@ -1,18 +1,21 @@
 package domain.adapters.presenter;
 
 
+import domain.adapters.viewmodel.board.BoardViewModel;
+
 import domain.usecase.board.create.CreateBoardOutput;
 import domain.adapters.View;
 
 public class BoardPresenter implements CreateBoardOutput {
 
-    private View view;
+
     private String boardId;
     private String boardName;
+    private BoardViewModel viewModel;
 
-    public BoardPresenter(View view){
-        this.view = view;
+    public BoardPresenter(){
     }
+
 
     public String getBoardName() {
         return boardName;
@@ -20,7 +23,7 @@ public class BoardPresenter implements CreateBoardOutput {
 
     public void setBoardName(String boardName) {
         this.boardName = boardName;
-        drawBoard();
+        viewModel.addBoard(boardName);
     }
 
 
@@ -32,7 +35,10 @@ public class BoardPresenter implements CreateBoardOutput {
         this.boardId = boardId;
     }
 
-    private void drawBoard(){
-        view.addBoard(this.boardName);
+    public BoardViewModel createBoardViewModel(){
+        this.viewModel = new BoardViewModel();
+        return viewModel;
     }
+
+
 }

@@ -1,4 +1,4 @@
-package domain.usecase;
+package domain.usecase.workflow;
 
 import domain.adapters.repository.WorkflowRepositoryImpl;
 import domain.adapters.controller.workflow.*;

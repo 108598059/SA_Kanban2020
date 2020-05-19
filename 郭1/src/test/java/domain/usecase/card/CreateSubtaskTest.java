@@ -1,4 +1,4 @@
-package domain.usecase;
+package domain.usecase.card;
 
 import domain.adapters.repository.CardRepositoryImpl;
 import domain.adapters.controller.card.CreateCardInputImpl;

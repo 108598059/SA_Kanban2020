@@ -1,4 +1,4 @@
-package domain.usecase;
+package domain.usecase.workflow;
 
 import domain.adapters.controller.workflow.CreateStageInputImpl;
 import domain.adapters.controller.workflow.CreateStageOutputImpl;
