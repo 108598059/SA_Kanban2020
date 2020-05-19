@@ -5,7 +5,7 @@ import java.util.UUID;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class CreateCardUseCaseOutput implements UseCaseOutput {
-  private String cardId;
+  private String cardID;
   private String cardName;
 
   public void setCardName(String cardName) {
@@ -16,11 +16,11 @@ public class CreateCardUseCaseOutput implements UseCaseOutput {
     return this.cardName;
   }
 
-  public void setCardId(UUID uuid) {
-    this.cardId = uuid.toString();
+  public void setCardID(UUID id) {
+    this.cardID = id.toString();
   }
 
-  public String getCardId() {
-    return this.cardId;
+  public String getCardID() {
+    return this.cardID;
   }
 }

@@ -1,6 +1,6 @@
 package kanban.domain.adapter.database;
 
-import kanban.domain.adapter.database.*;
+import kanban.domain.adapter.database.table.*;
 
 import java.sql.*;
 
