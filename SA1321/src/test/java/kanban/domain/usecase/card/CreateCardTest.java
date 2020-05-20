@@ -1,6 +1,7 @@
 package kanban.domain.usecase.card;
 
 import kanban.domain.Utility;
+import kanban.domain.adapter.presenter.card.create.CreateCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.card.InMemoryCardRepository;
@@ -71,7 +72,7 @@ public class CreateCardTest {
         input.setSize("xxl");
         input.setWorkflowId(workflowId);
         input.setStageId(stageId);
-        CreateCardOutput output = new CreateCardOutput();
+        CreateCardPresenter output = new CreateCardPresenter();
 
         createCardUseCase.execute(input, output);
 

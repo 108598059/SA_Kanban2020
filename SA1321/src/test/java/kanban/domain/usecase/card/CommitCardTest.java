@@ -1,6 +1,7 @@
 package kanban.domain.usecase.card;
 
 import kanban.domain.Utility;
+import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
@@ -56,7 +57,7 @@ public class CommitCardTest {
         input.setCardId("cardId");
         input.setWorkflowId(workflowId);
         input.setStageId(stageId);
-        CommitCardOutput output = new CommitCardOutput();
+        CommitCardPresenter output = new CommitCardPresenter();
 
         commitCardUseCase.execute(input, output);
         workflow = workflowRepository.getWorkflowById(workflowId);

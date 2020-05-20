@@ -2,6 +2,8 @@ package kanban.domain.adapter.repository.card;
 
 import kanban.domain.adapter.database.table.CardTable;
 import kanban.domain.adapter.database.MySqlDatabaseHelper;
+import kanban.domain.adapter.repository.card.data.CardData;
+import kanban.domain.adapter.repository.card.mapper.CardEntityDataMapper;
 import kanban.domain.model.aggregate.card.Card;
 import kanban.domain.usecase.card.CardEntity;
 import kanban.domain.usecase.card.repository.ICardRepository;
@@ -50,7 +52,7 @@ public class MySqlCardRepository implements ICardRepository {
             sqlDatabaseHelper.connectToDatabase();
         }
         ResultSet resultSet = null;
-        CardEntity cardEntity = null;
+        CardData cardData = null;
         try {
             String query = String.format("Select * From %s Where %s = '%s'",
                     CardTable.tableName,
@@ -63,12 +65,12 @@ public class MySqlCardRepository implements ICardRepository {
                 String type = resultSet.getString(CardTable.type);
                 String size = resultSet.getString(CardTable.size);
 
-                cardEntity = new CardEntity();
-                cardEntity.setCardId(cardId);
-                cardEntity.setName(name);
-                cardEntity.setDescription(description);
-                cardEntity.setType(type);
-                cardEntity.setSize(size);
+                cardData = new CardData();
+                cardData.setCardId(cardId);
+                cardData.setName(name);
+                cardData.setDescription(description);
+                cardData.setType(type);
+                cardData.setSize(size);
 
             }
             resultSet.close();
@@ -81,11 +83,11 @@ public class MySqlCardRepository implements ICardRepository {
             }
         }
 
-        if(cardEntity == null) {
+        if(cardData == null) {
             throw new RuntimeException("Card is not found,id=" + cardId);
         }
 
-        return cardEntity;
+        return CardEntityDataMapper.transformDataToEntity(cardData);
     }
 
     @Override
