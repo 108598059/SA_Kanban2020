@@ -1,5 +1,7 @@
 package domain.usecase;
 
+import domain.adapter.board.createBoard.CreateBoardPresenter;
+import domain.adapter.workflow.createWorkflow.CreateWorkflowPresenter;
 import domain.model.DomainEventBus;
 import domain.usecase.board.createBoard.CreateBoardInput;
 import domain.usecase.board.createBoard.CreateBoardOutput;
@@ -7,9 +9,9 @@ import domain.usecase.board.createBoard.CreateBoardUseCase;
 import domain.usecase.lane.createStage.CreateStageInput;
 import domain.usecase.lane.createStage.CreateStageOutput;
 import domain.usecase.lane.createStage.CreateStageUseCase;
-import domain.usecase.lane.createSwimlane.CreateSwimlaneInput;
-import domain.usecase.lane.createSwimlane.CreateSwimlaneOutput;
-import domain.usecase.lane.createSwimlane.CreateSwimlaneUseCase;
+import domain.usecase.lane.createSwimLane.CreateSwimLaneInput;
+import domain.usecase.lane.createSwimLane.CreateSwimLaneOutput;
+import domain.usecase.lane.createSwimLane.CreateSwimLaneUseCase;
 import domain.usecase.repository.IBoardRepository;
 import domain.usecase.repository.IWorkflowRepository;
 import domain.usecase.workflow.createWorkflow.CreateWorkflowInput;
@@ -29,8 +31,8 @@ public class TestUtility {
 
     public String createBoard(String username, String boardName) {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
-        CreateBoardInput input = new CreateBoardInput();
-        CreateBoardOutput output = new CreateBoardOutput();
+        CreateBoardInput input = createBoardUseCase;
+        CreateBoardOutput output = new CreateBoardPresenter();
 
         input.setUsername(username);
         input.setBoardName(boardName);
@@ -42,8 +44,8 @@ public class TestUtility {
     public String createWorkflow(String boardId, String workflowName) {
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, domainEventBus);
 
-        CreateWorkflowInput input = new CreateWorkflowInput();
-        CreateWorkflowOutput output = new CreateWorkflowOutput();
+        CreateWorkflowInput input = (CreateWorkflowInput) createWorkflowUseCase;
+        CreateWorkflowOutput output = new CreateWorkflowPresenter();
         input.setBoardId(boardId);
         input.setWorkflowName(workflowName);
 
@@ -81,16 +83,16 @@ public class TestUtility {
 
     public String createSwimLane(String workflowId, String parentId, String stageName) {
 
-        CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository, boardRepository);
-        CreateSwimlaneInput input = new CreateSwimlaneInput();
-        CreateSwimlaneOutput output = new CreateSwimlaneOutput();
+        CreateSwimLaneUseCase createSwimLaneUseCase = new CreateSwimLaneUseCase(workflowRepository, boardRepository);
+        CreateSwimLaneInput input = new CreateSwimLaneInput();
+        CreateSwimLaneOutput output = new CreateSwimLaneOutput();
 
-        input.setSwimlaneName(stageName);
+        input.setSwimLaneName(stageName);
         input.setWorkflowId(workflowId);
         input.setParentLaneId(parentId);
 
-        createSwimlaneUseCase.execute(input, output);
+        createSwimLaneUseCase.execute(input, output);
 
-        return output.getSwimlaneId();
+        return output.getSwimLaneId();
     }
 }
