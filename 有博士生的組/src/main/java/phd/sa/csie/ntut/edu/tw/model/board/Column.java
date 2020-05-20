@@ -48,6 +48,9 @@ public class Column extends Entity {
   }
 
   public void setWIP(int wip) {
+    if (wip < 0) {
+      throw new IllegalArgumentException("Column WIP should not be negative");
+    }
     this.wip = wip;
   }
 

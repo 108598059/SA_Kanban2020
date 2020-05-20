@@ -10,8 +10,8 @@ public class MoveCardUseCaseOutput implements UseCaseOutput {
   private String oldColumnID;
   private String newColumnID;
 
-  public void setCardID(UUID cardID) {
-    this.cardID = cardID.toString();
+  public void setCardID(String cardID) {
+    this.cardID = cardID;
   }
 
   public String getCardID() {

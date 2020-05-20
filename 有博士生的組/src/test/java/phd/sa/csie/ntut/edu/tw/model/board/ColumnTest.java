@@ -18,4 +18,9 @@ public class ColumnTest {
     }
     fail("Column title is empty should raise IllegalArgumentException.");
   }
+
+  @Test
+  public void default_wip_of_column_should_be_zero() {
+    assertEquals(0, new Column("Develop").getWIP());
+  }
 }

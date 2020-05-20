@@ -76,11 +76,7 @@ public class Board extends AggregateRoot {
   }
 
   public void setColumnWIP(UUID columnID, int wip) {
-    if (wip < 0) {
-      throw new IllegalArgumentException("Column WIP should be positive.");
-    }
-    Column column = this.getColumnByID(columnID);
-    column.setWIP(wip);
+    this.getColumnByID(columnID).setWIP(wip);
   }
 
   public String moveCard(UUID cardID, UUID fromColumnID, UUID toColumnID) {

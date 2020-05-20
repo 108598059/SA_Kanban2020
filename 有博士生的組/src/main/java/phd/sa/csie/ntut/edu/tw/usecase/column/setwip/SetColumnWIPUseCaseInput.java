@@ -6,23 +6,23 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class SetColumnWIPUseCaseInput implements UseCaseInput {
 
-  private UUID columnID;
+  private String columnID;
   private int columnWIP = 0;
-  private UUID boardID;
+  private String boardID;
 
-  public void setColumnID(UUID id) {
+  public void setColumnID(String id) {
     this.columnID = id;
   }
 
-  public UUID getColumnID() {
+  public String getColumnID() {
     return this.columnID;
   }
 
-  public void setBoardID(UUID id) {
+  public void setBoardID(String id) {
     this.boardID = id;
   }
 
-  public UUID getBoardID() {
+  public String getBoardID() {
     return this.boardID;
   }
 

@@ -44,7 +44,7 @@ public class MoveCardUseCaseTest {
   private Card card2;
   private String fromColumnID;
   private String toColumnID;
-  private UUID boardID;
+  private String boardID;
   private DomainEventBus eventBus;
 
   @Before
@@ -56,7 +56,7 @@ public class MoveCardUseCaseTest {
     this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
 
     Board board = new Board(UUID.randomUUID(), "Kanban");
-    this.boardID = board.getID();
+    this.boardID = board.getID().toString();
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
     this.eventBus.register(new CommitCardUseCase(this.cardRepository, this.boardRepository));
 
@@ -95,9 +95,9 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
     moveCardUseCaseInput.setBoardID(this.boardID);
-    moveCardUseCaseInput.setCardID(this.card.getID());
-    moveCardUseCaseInput.setFromColumnID(UUID.fromString(this.fromColumnID));
-    moveCardUseCaseInput.setToColumnID(UUID.fromString(this.toColumnID));
+    moveCardUseCaseInput.setCardID(this.card.getID().toString());
+    moveCardUseCaseInput.setFromColumnID(this.fromColumnID);
+    moveCardUseCaseInput.setToColumnID(this.toColumnID);
 
     moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
@@ -121,9 +121,9 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
     moveCardUseCaseInput.setBoardID(this.boardID);
-    moveCardUseCaseInput.setCardID(this.card.getID());
-    moveCardUseCaseInput.setFromColumnID(UUID.fromString(this.fromColumnID));
-    moveCardUseCaseInput.setToColumnID(UUID.fromString(this.toColumnID));
+    moveCardUseCaseInput.setCardID(this.card.getID().toString());
+    moveCardUseCaseInput.setFromColumnID(this.fromColumnID);
+    moveCardUseCaseInput.setToColumnID(this.toColumnID);
 
     assertEquals(0, eventLogRepository.size());
 
@@ -141,12 +141,12 @@ public class MoveCardUseCaseTest {
 
   @Test
   public void the_card_cannot_be_moved_to_the_column_when_WIP_limit_is_reached() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardID(this.boardID);
-    setColumnWIPUseCaseInput.setColumnID(UUID.fromString(this.toColumnID));
+    setColumnWIPUseCaseInput.setBoardID(this.boardID.toString());
+    setColumnWIPUseCaseInput.setColumnID(this.toColumnID);
     setColumnWIPUseCaseInput.setColumnWIP(1);
 
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
@@ -156,15 +156,15 @@ public class MoveCardUseCaseTest {
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
     moveCardUseCaseInput.setBoardID(this.boardID);
-    moveCardUseCaseInput.setCardID(this.card.getID());
-    moveCardUseCaseInput.setFromColumnID(UUID.fromString(this.fromColumnID));
-    moveCardUseCaseInput.setToColumnID(UUID.fromString(this.toColumnID));
+    moveCardUseCaseInput.setCardID(this.card.getID().toString());
+    moveCardUseCaseInput.setFromColumnID(this.fromColumnID);
+    moveCardUseCaseInput.setToColumnID(this.toColumnID);
 
     moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
 
     try {
-      moveCardUseCaseInput.setCardID(this.card2.getID());
+      moveCardUseCaseInput.setCardID(this.card2.getID().toString());
       moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
     } catch (IllegalStateException e) {
       assertEquals("The card cannot be moved to the column that has achieved its WIP limit.", e.getMessage());

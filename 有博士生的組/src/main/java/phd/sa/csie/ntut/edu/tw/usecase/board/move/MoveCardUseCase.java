@@ -18,17 +18,19 @@ public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCa
 
   public void execute(MoveCardUseCaseInput moveCardUseCaseInput, MoveCardUseCaseOutput moveCardUseCaseOutput) {
     Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(moveCardUseCaseInput.getBoardID().toString()));
-    UUID cardID = moveCardUseCaseInput.getCardID();
-    UUID fromColumnID = moveCardUseCaseInput.getFromColumnID();
-    UUID toColumnID = moveCardUseCaseInput.getToColumnID();
+    String cardID = moveCardUseCaseInput.getCardID();
+    String fromColumnID = moveCardUseCaseInput.getFromColumnID();
+    String toColumnID = moveCardUseCaseInput.getToColumnID();
 
-    String newColumnID = board.moveCard(cardID, fromColumnID, toColumnID);
+    String newColumnID = board.moveCard(UUID.fromString(cardID),
+                                        UUID.fromString(fromColumnID),
+                                        UUID.fromString(toColumnID));
 
     this.boardRepository.update(BoardDTOConverter.toDTO(board));
     this.eventBus.postAll(board);
 
     moveCardUseCaseOutput.setCardID(cardID);
-    moveCardUseCaseOutput.setOldColumnID(fromColumnID.toString());
+    moveCardUseCaseOutput.setOldColumnID(fromColumnID);
     moveCardUseCaseOutput.setNewColumnID(newColumnID);
   }
 
