@@ -15,7 +15,7 @@ public class Board extends AggregateRoot {
   public Board(UUID workspaceID, String name) {
     super();
     this.workspaceID = workspaceID;
-    this.name = name;
+    this.setName(name);
     this.columns = new ArrayList<Column>();
     Column backlog = new Column("Backlog");
     Column archive = new Column("Archive");
@@ -30,6 +30,7 @@ public class Board extends AggregateRoot {
     this.columns = columns;
   }
 
+
   public void commitCard(Card card) {
     Column backlog = this.columns.get(0);
     backlog.addCard(card.getID());
@@ -41,6 +42,13 @@ public class Board extends AggregateRoot {
 
   public Column get(int n) {
     return Collections.unmodifiableList(this.columns).get(n);
+  }
+
+  public void setName(String name) {
+    if (name == null || name.isEmpty()) {
+      throw new IllegalArgumentException("Board name should not be empty");
+    }
+    this.name = name;
   }
 
   public String getName() {
