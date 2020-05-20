@@ -1,31 +1,37 @@
-package ddd.kanban.adapter.DTO;
+package ddd.kanban.adapter.presenter.board.viewmodel;
 
-public class BoardDTO {
+public class CreateBoardViewModel {
     private String boardId;
     private String boardTitle;
     private String boardDescription;
 
-    public String getBoardId() {
-        return boardId;
-    }
 
     public void setBoardId(String boardId) {
         this.boardId = boardId;
     }
 
-    public String getBoardTitle() {
-        return boardTitle;
-    }
 
     public void setBoardTitle(String boardTitle) {
         this.boardTitle = boardTitle;
     }
 
-    public String getBoardDescription() {
-        return boardDescription;
-    }
 
     public void setBoardDescription(String boardDescription) {
         this.boardDescription = boardDescription;
+    }
+
+
+    public String getBoardId() {
+        return this.boardId;
+    }
+
+
+    public String getBoardTitle() {
+        return this.boardTitle;
+    }
+
+
+    public String getBoardDescription() {
+        return this.boardDescription;
     }
 }

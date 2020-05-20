@@ -1,4 +1,4 @@
-package ddd.kanban.spring;
+package ddd.kanban;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

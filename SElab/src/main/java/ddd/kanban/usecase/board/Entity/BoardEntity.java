@@ -1,15 +1,15 @@
-package ddd.kanban.usecase.DTO;
+package ddd.kanban.usecase.board.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardDTO {
+public class BoardEntity {
     private final String id;
     private String title;
     private String description;
     private List<String> workflowIds;
 
-    public BoardDTO(String id, String title, String description){
+    public BoardEntity(String id, String title, String description){
         this.id = id;
         this.title = title;
         this.description = description;

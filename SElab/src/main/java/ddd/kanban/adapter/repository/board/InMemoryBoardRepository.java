@@ -1,7 +1,6 @@
 package ddd.kanban.adapter.repository.board;
 
-import ddd.kanban.domain.model.board.Board;
-import ddd.kanban.usecase.DTO.BoardDTO;
+import ddd.kanban.usecase.board.Entity.BoardEntity;
 import ddd.kanban.usecase.repository.BoardRepository;
 
 
@@ -10,40 +9,40 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class InMemoryBoardRepository implements BoardRepository {
-    private List<BoardDTO> boards;
+    private List<BoardEntity> boards;
 
     public InMemoryBoardRepository(){
-        boards = new ArrayList<BoardDTO>();
+        boards = new ArrayList<BoardEntity>();
     }
 
 
     @Override
-    public void add(BoardDTO boardDTO) {
-        boards.add(boardDTO);
+    public void add(BoardEntity boardEntity) {
+        boards.add(boardEntity);
     }
 
     @Override
-    public BoardDTO findById(String boardId) {
+    public BoardEntity findById(String boardId) {
         return boards.stream()
                 .filter(findBoardById(boardId))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
     }
 
-    private static Predicate<BoardDTO> findBoardById(String boardId){
+    private static Predicate<BoardEntity> findBoardById(String boardId){
         return board -> board.getId().equals(boardId);
     }
 
     @Override
-    public void save(BoardDTO boardDTO) {
-        for (BoardDTO each : boards){
-            if (each.getId().equals(boardDTO.getId()))
-                boards.set(boards.indexOf(each), boardDTO);
+    public void save(BoardEntity boardEntity) {
+        for (BoardEntity each : boards){
+            if (each.getId().equals(boardEntity.getId()))
+                boards.set(boards.indexOf(each), boardEntity);
         }
     }
 
     @Override
-    public List<BoardDTO> findAll() {
+    public List<BoardEntity> findAll() {
         return boards;
     }
 }
