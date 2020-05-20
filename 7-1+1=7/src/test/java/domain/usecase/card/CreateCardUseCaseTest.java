@@ -5,7 +5,6 @@ import domain.adapter.card.CardRepository;
 import domain.adapter.card.createCard.CreateCardPresenter;
 import domain.adapter.workflow.WorkflowInMemoryRepository;
 import domain.model.DomainEventBus;
-import domain.model.card.Card;
 import domain.usecase.DomainEventHandler;
 import domain.usecase.TestUtility;
 import domain.usecase.card.createCard.CreateCardInput;

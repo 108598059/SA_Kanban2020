@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class CreateStageUseCaseTest {
     private IBoardRepository boardRepository;
@@ -52,10 +51,9 @@ public class CreateStageUseCaseTest {
 
         createStageUseCase.execute(input, output);
 
-        assertNotNull(output.getStageId());
-//        assertEquals("Backlog", WorkflowDTOConverter.toEntity(workflowRepository.findById(workflowId))
-//                                        .findLaneById(output.getStageId())
-//                                        .getName());
+        assertEquals("Backlog", WorkflowDTOConverter.toEntity(workflowRepository.findById(workflowId))
+                                        .findLaneById(output.getStageId())
+                                        .getName());
     }
 
     @Test
