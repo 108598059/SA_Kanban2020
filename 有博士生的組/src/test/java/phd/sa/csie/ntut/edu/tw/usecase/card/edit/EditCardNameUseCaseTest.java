@@ -61,7 +61,7 @@ public class EditCardNameUseCaseTest {
     EditCardNameUseCaseInput editCardNameUseCaseInput = new EditCardNameUseCaseInput();
     EditCardNameUseCaseOutput editCardNameUseCaseOutput = new EditCardNameUseCaseOutput();
 
-    editCardNameUseCaseInput.setCardID(this.card.getID());
+    editCardNameUseCaseInput.setCardID(this.card.getID().toString());
     editCardNameUseCaseInput.setCardName("New Name");
 
     editCardNameUseCase.execute(editCardNameUseCaseInput, editCardNameUseCaseOutput);
@@ -79,7 +79,7 @@ public class EditCardNameUseCaseTest {
     EditCardNameUseCaseInput editCardNameUseCaseInput = new EditCardNameUseCaseInput();
     EditCardNameUseCaseOutput editCardNameUseCaseOutput = new EditCardNameUseCaseOutput();
 
-    editCardNameUseCaseInput.setCardID(this.card.getID());
+    editCardNameUseCaseInput.setCardID(this.card.getID().toString());
     editCardNameUseCaseInput.setCardName("");
 
     try {

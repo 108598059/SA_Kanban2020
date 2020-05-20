@@ -1,11 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.create;
 
-import java.util.UUID;
-
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class CreateColumnUseCaseInput implements UseCaseInput {
-
   private String title;
   private String boardID;
 
@@ -24,5 +21,4 @@ public class CreateColumnUseCaseInput implements UseCaseInput {
   public String getBoardID() {
     return this.boardID;
   }
-
 }

@@ -14,10 +14,10 @@ public class EditCardNameUseCase {
   }
 
   public void execute(EditCardNameUseCaseInput input, EditCardNameUseCaseOutput output) {
-    UUID cardID = input.getCardID();
+    String cardID = input.getCardID();
     String cardName = input.getCardName();
 
-    Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(cardID.toString()));
+    Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(cardID));
     card.setName(cardName);
 
     this.cardRepository.save(CardDTOConverter.toDTO(card));

@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
-import java.util.UUID;
-
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class CreateCardUseCaseOutput implements UseCaseOutput {
@@ -16,8 +14,8 @@ public class CreateCardUseCaseOutput implements UseCaseOutput {
     return this.cardName;
   }
 
-  public void setCardID(UUID id) {
-    this.cardID = id.toString();
+  public void setCardID(String id) {
+    this.cardID = id;
   }
 
   public String getCardID() {

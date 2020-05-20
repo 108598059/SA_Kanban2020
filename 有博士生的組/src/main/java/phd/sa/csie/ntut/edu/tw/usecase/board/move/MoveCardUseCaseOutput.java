@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.move;
 
-import java.util.UUID;
-
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class MoveCardUseCaseOutput implements UseCaseOutput {

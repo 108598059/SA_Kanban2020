@@ -29,6 +29,6 @@ public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCar
     this.eventBus.postAll(card);
 
     createCardOutput.setCardName(card.getName());
-    createCardOutput.setCardID(card.getID());
+    createCardOutput.setCardID(card.getID().toString());
   }
 }

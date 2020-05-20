@@ -6,14 +6,14 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class EditCardNameUseCaseInput implements UseCaseInput {
 
-  private UUID cardID;
+  private String cardID;
   private String cardName;
 
-  public void setCardID(UUID id) {
+  public void setCardID(String id) {
     this.cardID = id;
   }
 
-  public UUID getCardID() {
+  public String getCardID() {
     return this.cardID;
   }
 
