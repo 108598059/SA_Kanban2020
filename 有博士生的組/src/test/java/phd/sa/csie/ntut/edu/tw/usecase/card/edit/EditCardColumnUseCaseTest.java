@@ -8,6 +8,8 @@ import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 
 public class EditCardColumnUseCaseTest {
@@ -20,20 +22,20 @@ public class EditCardColumnUseCaseTest {
 
     void add_a_card_to_repository() {
         this.cardRepository = new MemoryCardRepository();
-        this.board = new Board("Kanban");
+        this.board = new Board(UUID.randomUUID(), "Kanban");
         this.card = new Card("Card1", this.board);
         this.cardRepository.save(CardDTOConverter.toDTO(this.card));
     }
 
     @Test
     public void testEditCardColumn() {
-        EditCardColumnInput input = new EditCardColumnInput();
-        EditCardColumnOutput output = new EditCardColumnOutput();
+        EditCardColumnUseCaseInput input = new EditCardColumnUseCaseInput();
+        EditCardColumnUseCaseOutput output = new EditCardColumnUseCaseOutput();
 
         input.setCardID(this.card.getID().toString());
         input.setColumnID(this.board.get(0).getID().toString());
 
-        EditCardColumnUsecase editCardColumnUsecase = new EditCardColumnUsecase(this.cardRepository);
+        EditCardColumnUseCase editCardColumnUsecase = new EditCardColumnUseCase(this.cardRepository);
         editCardColumnUsecase.execute(input, output);
         assertEquals(this.board.get(0).getID().toString(), output.getColumnID());
 

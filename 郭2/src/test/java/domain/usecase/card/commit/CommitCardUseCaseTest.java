@@ -7,7 +7,7 @@ import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
-import domain.usecase.board.create.CreateBoardUseCaseOutput;
+import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
@@ -38,16 +38,16 @@ public class CommitCardUseCaseTest {
 
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
 
         createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
         CreateWorkflowUseCaseInput workflowInput = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         workflowInput.setWorkflowName("KanbanDevelopment");
-        workflowInput.setBoardId(createBoardUseCaseOutput.getBoardId());
+        workflowInput.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
         createWorkflowUseCase.execute(workflowInput, workflowOutput);
 
         createStageUseCase = new CreateStageUseCase(workflowRepository);
@@ -59,7 +59,7 @@ public class CommitCardUseCaseTest {
     }
 
     @Test
-    public void Card_should_be_committed_in_its_Lane() {
+    public void card_should_be_committed_in_its_Lane() {
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
         CommitCardUseCaseOutput output = new CommitCardUseCaseOutput();
         CommitCardUseCaseInput input = new CommitCardUseCaseInput();

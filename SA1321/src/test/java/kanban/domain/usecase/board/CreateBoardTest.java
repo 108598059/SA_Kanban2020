@@ -2,7 +2,7 @@ package kanban.domain.usecase.board;
 
 
 import kanban.domain.adapter.presenter.board.create.CreateBoardPresenter;
-import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.create.CreateBoardInput;
 import kanban.domain.usecase.board.create.CreateBoardOutput;
@@ -21,8 +21,8 @@ public class CreateBoardTest {
 
     @Before
     public void setUp() {
-        boardRepository = new InMemoryBoardRepository();
-//        boardRepository = new MySqlBoardRepository();
+//        boardRepository = new InMemoryBoardRepository();
+        boardRepository = new MySqlBoardRepository();
     }
 
     @Test

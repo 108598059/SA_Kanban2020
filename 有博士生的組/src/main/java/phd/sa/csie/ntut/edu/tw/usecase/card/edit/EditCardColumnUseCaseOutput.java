@@ -1,16 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
-public class EditCardColumnInput {
-    private String cardID;
+public class EditCardColumnUseCaseOutput {
     private String columnID;
-
-    public String getCardID() {
-        return cardID;
-    }
-
-    public void setCardID(String cardID) {
-        this.cardID = cardID;
-    }
 
     public String getColumnID() {
         return columnID;

@@ -7,7 +7,7 @@ import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
-import domain.usecase.board.create.CreateBoardUseCaseOutput;
+import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
@@ -33,9 +33,9 @@ public class CreateStageUseCaseTest {
 
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
@@ -43,13 +43,13 @@ public class CreateStageUseCaseTest {
         CreateWorkflowUseCaseInput input = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         input.setWorkflowName("KanbanDevelopment");
-        input.setBoardId(createBoardUseCaseOutput.getBoardId());
+        input.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
 
         createWorkflowUseCase.execute(input, workflowOutput);
     }
 
     @Test
-    public void CreateStageTest() {
+    public void createStageUseCase() {
         CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
         CreateStageUseCaseInput input = new CreateStageUseCaseInput();
         CreateStageUseCaseOutput output = new CreateStageUseCaseOutput();

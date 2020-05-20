@@ -14,7 +14,7 @@ public class CreateBoardUseCaseTest {
         IBoardRepository boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput input = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput output = new CreateBoardUseCaseOutput();
+        CreateBoardUseCaseOutputImpl output = new CreateBoardUseCaseOutputImpl();
 
         input.setBoardName("Kanban of KanbanDevelopment");
 

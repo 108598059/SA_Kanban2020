@@ -7,9 +7,9 @@ public class CreateBoardViewModel implements ViewModel<BoardEntityDto> {
     private String boardName;
 
     @Override
-    public ViewModel<BoardEntityDto> setViewModel(BoardEntityDto viewModel) {
-        boardId = viewModel.getBoardId();
-        boardName = viewModel.getBoardName();
+    public ViewModel<BoardEntityDto> setViewModel(BoardEntityDto boardEntityDto) {
+        boardId = boardEntityDto.getBoardId();
+        boardName = boardEntityDto.getBoardName();
         return this;
     }
 

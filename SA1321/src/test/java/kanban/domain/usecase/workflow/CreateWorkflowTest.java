@@ -3,7 +3,9 @@ package kanban.domain.usecase.workflow;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.workflow.create.CreateWorkflowPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
+import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.model.aggregate.workflow.Workflow;
@@ -50,7 +52,7 @@ public class CreateWorkflowTest {
     public void Create_workflow_should_commit_workflow_in_its_board() {
         Board board = BoardEntityModelMapper.transformEntityToModel(boardRepository.getBoardById(boardId));
 
-        assertEquals(0,board.getWorkflowIds().size());
+        assertEquals(0, board.getWorkflowIds().size());
 
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(
                 workflowRepository,
@@ -67,7 +69,7 @@ public class CreateWorkflowTest {
 
         board = BoardEntityModelMapper.transformEntityToModel(boardRepository.getBoardById(boardId));
 
-        assertEquals(1,board.getWorkflowIds().size());
+        assertEquals(1, board.getWorkflowIds().size());
         assertNotNull(output.getWorkflowId());
 
         Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(

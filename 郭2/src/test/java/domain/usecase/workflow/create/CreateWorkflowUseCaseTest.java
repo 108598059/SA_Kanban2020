@@ -5,7 +5,7 @@ import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
-import domain.usecase.board.create.CreateBoardUseCaseOutput;
+import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 
 
 import domain.usecase.board.repository.IBoardRepository;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class CreateWorkflowUseCaseTest {
     private IBoardRepository boardRepository;
-    private CreateBoardUseCaseOutput createBoardUseCaseOutput;
+    private CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl;
     private IWorkflowRepository workflowRepository;
     private DomainEventBus eventBus;
 
@@ -28,17 +28,17 @@ public class CreateWorkflowUseCaseTest {
         boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
 
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
 
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
         eventBus.register(new WorkflowEventHandler(boardRepository));
     }
 
     @Test
-    public void createWorkflowTest(){
+    public void createWorkflowUseCase(){
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
@@ -46,7 +46,7 @@ public class CreateWorkflowUseCaseTest {
         CreateWorkflowUseCaseOutput output = new CreateWorkflowUseCaseOutput();
 
         input.setWorkflowName("KanbanDevelopment");
-        input.setBoardId(createBoardUseCaseOutput.getBoardId());
+        input.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
 
         createWorkflowUseCase.execute(input, output);
 

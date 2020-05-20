@@ -24,7 +24,7 @@ public class CreateColumnUseCaseTest {
     this.eventBus = new DomainEventBus();
     this.boardRepository = new MemoryBoardRepository();
 
-    Board board = new Board("phd");
+    Board board = new Board(UUID.randomUUID(), "phd");
     this.boardID = board.getID();
     boardRepository.save(BoardDTOConverter.toDTO(board));
   }

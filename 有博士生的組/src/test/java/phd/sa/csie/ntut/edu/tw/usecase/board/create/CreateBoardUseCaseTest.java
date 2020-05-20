@@ -12,6 +12,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 
+import java.util.UUID;
+
 public class CreateBoardUseCaseTest {
   BoardRepository boardRepository;
   DomainEventBus eventBus;
@@ -29,6 +31,7 @@ public class CreateBoardUseCaseTest {
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
     createBoardUseCaseInput.setBoardName("Software Architecture");
+    createBoardUseCaseInput.setWorkspaceID(UUID.randomUUID().toString());
 
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
@@ -42,7 +45,9 @@ public class CreateBoardUseCaseTest {
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
+    UUID workspaceID = UUID.randomUUID();
     createBoardUseCaseInput.setBoardName("Software Architecture");
+    createBoardUseCaseInput.setWorkspaceID(workspaceID.toString());
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
     Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createBoardUseCaseOutput.getBoardID()));
@@ -51,5 +56,6 @@ public class CreateBoardUseCaseTest {
     assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardName());
     assertEquals("Backlog", board.get(0).getTitle());
     assertEquals("Archive", board.get(board.getColumnNumber() - 1).getTitle());
+    assertEquals(workspaceID, board.getWorkspaceID());
   }
 }

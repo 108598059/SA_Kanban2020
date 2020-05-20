@@ -58,7 +58,7 @@ public class MoveCardUseCaseTest {
     this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
 
-    Board board = new Board("phd");
+    Board board = new Board(UUID.randomUUID(), "phd");
     this.boardID = board.getID();
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
     this.eventBus.register(new CommitCardUseCase(this.cardRepository, this.boardRepository));

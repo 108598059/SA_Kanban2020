@@ -19,20 +19,34 @@ public class MainFrame extends JFrame implements View, ActionListener{
     private JList<String> boardList = new JList<String>();
     private JTextField boardNameInput = new JTextField(20);
     private DefaultListModel<String> model = new DefaultListModel<String>();
-    private BoardViewModel viewModel;
+    private JLabel board = new JLabel();
 
+    private BoardViewModel viewModel;
     private BoardController boardController;
 
     public MainFrame(BoardController boardController, BoardViewModel viewModel){
         super();
 
         initialWindowsProperty();
+        initialComponents();
         initialLayout();
+
 
         this.viewModel = viewModel;
         this.boardController = boardController;
 
         boardCreate.addActionListener(this);
+
+
+    }
+
+    private void initialComponents() {
+
+        boardList.setFixedCellWidth(100);
+        boardList.setFixedCellHeight(20);
+
+
+        board.setText("BoardList");
 
     }
 
@@ -46,17 +60,18 @@ public class MainFrame extends JFrame implements View, ActionListener{
     private void initialLayout(){
         this.getContentPane().setLayout(new BorderLayout());
         buttonListContainer.setLayout(new FlowLayout());
-        boardListContainer.setLayout(new FlowLayout());
+        boardListContainer.setLayout(new BoxLayout(boardListContainer,BoxLayout.PAGE_AXIS));
 
         this.add(buttonListContainer,BorderLayout.EAST);
         this.add(boardListContainer,BorderLayout.WEST);
 
         buttonListContainer.add(boardNameInput);
         buttonListContainer.add(boardCreate);
+        boardListContainer.add(board);
         boardListContainer.add(boardList);
 
-        boardList.setFixedCellWidth(100);
-        boardList.setFixedCellHeight(20);
+        board.setAlignmentX(Component.LEFT_ALIGNMENT);
+        boardList.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
 

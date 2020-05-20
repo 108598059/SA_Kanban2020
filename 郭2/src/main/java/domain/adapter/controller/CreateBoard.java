@@ -1,11 +1,13 @@
 package domain.adapter.controller;
 
+import domain.Main;
 import domain.adapter.presenter.CreateBoardUseCasePresenter;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.view_model.ViewModel;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
+import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
 
 import javax.servlet.ServletException;
@@ -20,22 +22,20 @@ public class CreateBoard extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        IBoardRepository boardRepository = new MySqlBoardRepository();
+        IBoardRepository boardRepository = Main.getInstance().getMySqlBoardRepository();
+
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput input = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput output = new CreateBoardUseCaseOutput();
-
+//        CreateBoardUseCaseOutputImpl output = new CreateBoardUseCaseOutputImpl();
+        CreateBoardUseCasePresenter presenter = new CreateBoardUseCasePresenter();
 
         input.setBoardName(request.getParameter("boardName"));
 
-        createBoardUseCase.execute(input, output);
-
-        CreateBoardUseCasePresenter presenter = new CreateBoardUseCasePresenter(output);
+        createBoardUseCase.execute(input, presenter);
 
         ViewModel viewModel = presenter.createView();
 
         request.setAttribute("createBoard", viewModel);
-
         request.getRequestDispatcher("WEB-INF/view/board.jsp").forward(request, response);
     }
 }
