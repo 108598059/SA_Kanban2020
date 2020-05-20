@@ -13,7 +13,7 @@ public class CardTest {
     }
 
     @Test
-    public void Create_card_should_have_CardCreated_event_in_domainEvent_list() {
+    public void create_a_card_should_generate_a_CardCreated_event_in_the_domainEvent_list() {
         Card card = new Card("cardName", "workflowId" ,"laneId");
         assertThat(card.getDomainEvents().size()).isEqualTo(1);
         assertThat(card.getDomainEvents().get(0).detail()).startsWith("CardCreated");

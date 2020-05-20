@@ -45,7 +45,7 @@ public class CreateSwimlaneUseCaseTest {
     }
 
     @Test
-    public void CreateSwimlaneUseCase(){
+    public void createSwimlaneUseCase(){
         CreateSwimlaneUseCase createStageUseCase = new CreateSwimlaneUseCase(workflowRepository);
         CreateSwimlaneUseCaseInput input = new CreateSwimlaneUseCaseInput();
         CreateSwimlaneUseCaseOutput output = new CreateSwimlaneUseCaseOutput();

@@ -49,7 +49,7 @@ public class CreateStageUseCaseTest {
     }
 
     @Test
-    public void CreateStageTest() {
+    public void createStageUseCase() {
         CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
         CreateStageUseCaseInput input = new CreateStageUseCaseInput();
         CreateStageUseCaseOutput output = new CreateStageUseCaseOutput();
