@@ -1,8 +1,9 @@
-package phd.sa.csie.ntut.edu.tw.usecase.event.handler;
+package phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing;
 
 import com.google.common.eventbus.Subscribe;
 import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.dto.DomainEventDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto.DomainEventDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
 
 public class EventSourcingHandler implements DomainEventHandler<DomainEvent> {

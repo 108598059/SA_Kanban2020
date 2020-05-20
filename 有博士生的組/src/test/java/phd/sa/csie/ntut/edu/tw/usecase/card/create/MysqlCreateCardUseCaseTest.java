@@ -16,7 +16,7 @@ import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardCreatedEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
@@ -36,13 +36,14 @@ public class MysqlCreateCardUseCaseTest {
     this.boardRepository = new MemoryBoardRepository();
     this.board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
+
     this.eventBus = new DomainEventBus();
     DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
     this.eventBus.register(cardCreatedEventHandler);
   }
 
   @Test
-  public void createCard() throws Exception {
+  public void createCard() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
@@ -68,5 +69,4 @@ public class MysqlCreateCardUseCaseTest {
     statement.executeUpdate();
     DB_connector.closeConnection(conn);
   }
-
 }

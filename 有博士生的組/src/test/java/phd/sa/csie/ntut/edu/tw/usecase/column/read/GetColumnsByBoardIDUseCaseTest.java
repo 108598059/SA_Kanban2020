@@ -10,7 +10,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardCreatedEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
@@ -41,33 +41,34 @@ public class GetColumnsByBoardIDUseCaseTest {
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(eventBus, this.cardRepository, this.boardRepository);
         CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
-        createCardInput.setBoardID(board.getID().toString());
 
+        createCardInput.setBoardID(board.getID().toString());
         createCardInput.setCardName("Card1");
+
         createCardUseCase.execute(createCardInput, createCardOutput);
 
         createCardInput.setCardName("Card2");
+
         createCardUseCase.execute(createCardInput, createCardOutput);
     }
 
     @Test
     public void test_get_columns_structure_by_board_id() {
-        GetColumnsByBoardIDUseCase usecase = new GetColumnsByBoardIDUseCase(this.boardRepository, this.cardRepository);
-        GetColumnsByBoardIDUsecaseInput input = new GetColumnsByBoardIDUsecaseInput();
-        GetColumnsByBoardIDUsecaseOutput output = new GetColumnsByBoardIDUsecaseOutput();
+        GetColumnsByBoardIDUseCase getColumnsByBoardIDUseCase = new GetColumnsByBoardIDUseCase(this.boardRepository, this.cardRepository);
+        GetColumnsByBoardIDUsecaseInput getColumnsByBoardIDUsecaseInput = new GetColumnsByBoardIDUsecaseInput();
+        GetColumnsByBoardIDUsecaseOutput getColumnsByBoardIDUsecaseOutput = new GetColumnsByBoardIDUsecaseOutput();
 
-        input.setBoardID(this.boardID.toString());
+        getColumnsByBoardIDUsecaseInput.setBoardID(this.boardID.toString());
 
-        usecase.execute(input, output);
+        getColumnsByBoardIDUseCase.execute(getColumnsByBoardIDUsecaseInput, getColumnsByBoardIDUsecaseOutput);
 
-        assertEquals(2, output.getColumnList().size());
-        GetColumnsByBoardIDUsecaseOutput.ColumnViewObject column1 = output.getColumnList().get(0);
+        assertEquals(2, getColumnsByBoardIDUsecaseOutput.getColumnList().size());
+        GetColumnsByBoardIDUsecaseOutput.ColumnViewObject column1 = getColumnsByBoardIDUsecaseOutput.getColumnList().get(0);
         assertEquals("Backlog", column1.getTitle());
         assertNotNull(column1.getID());
         assertEquals(0, column1.getWip());
         assertEquals(2, column1.getCardList().size());
         assertEquals("Card1", column1.getCardList().get(0).getName());
         assertNotNull(column1.getCardList().get(0).getID());
-
     }
 }

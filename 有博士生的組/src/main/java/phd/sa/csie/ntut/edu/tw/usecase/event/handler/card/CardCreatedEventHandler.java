@@ -1,10 +1,11 @@
-package phd.sa.csie.ntut.edu.tw.usecase.event.handler;
+package phd.sa.csie.ntut.edu.tw.usecase.event.handler.card;
 
 import com.google.common.eventbus.Subscribe;
 import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 

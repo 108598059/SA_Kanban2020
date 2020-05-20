@@ -22,7 +22,7 @@ public class CommitCardUseCaseTest {
     private Card card;
 
     @Before
-    public void setUp() {
+    public void create_a_card_and_create_a_board() {
         this.board = new Board(UUID.randomUUID(), "Kanban");
         this.boardRepository = new MemoryBoardRepository();
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
@@ -33,21 +33,20 @@ public class CommitCardUseCaseTest {
     }
 
     @Test
-    public void committed_card_should_be_added_to_the_default_column() {
+    public void commit_card_should_add_card_to_the_backlog_column () {
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
         CommitCardUseCaseInput input = new CommitCardUseCaseInput();
         CommitCardUseCaseOutput output = new CommitCardUseCaseOutput();
-
 
         input.setBoardID(this.board.getID().toString());
         input.setCardID(this.card.getID().toString());
 
-        CommitCardUseCase useCase = new CommitCardUseCase(this.cardRepository, this.boardRepository);
-        useCase.execute(input, output);
+        commitCardUseCase.execute(input, output);
 
         assertEquals(this.board.getID().toString(), output.getBoardID());
         assertEquals(this.card.getID().toString(), output.getCardID());
 
         Board resultBoard = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
-        assertEquals(this.card.getID(), resultBoard.get(0).getCardIDs().get(0));
+        assertEquals(this.card.getID(), resultBoard.getBacklogColumn().getCardIDs().get(0));
     }
 }

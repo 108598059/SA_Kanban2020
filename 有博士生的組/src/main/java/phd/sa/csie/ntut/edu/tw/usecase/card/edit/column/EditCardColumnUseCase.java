@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
+package phd.sa.csie.ntut.edu.tw.usecase.card.edit.column;
 
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;

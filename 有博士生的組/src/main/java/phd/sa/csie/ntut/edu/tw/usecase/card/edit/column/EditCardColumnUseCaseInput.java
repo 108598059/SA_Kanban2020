@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
+package phd.sa.csie.ntut.edu.tw.usecase.card.edit.column;
 
 public class EditCardColumnUseCaseInput {
     private String cardID;

@@ -17,7 +17,7 @@ public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, Creat
   }
 
   public void execute(CreateColumnUseCaseInput createColumnUseCaseInput,
-      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
+                      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
     String title = createColumnUseCaseInput.getTitle();
     UUID boardID = createColumnUseCaseInput.getBoardID();
 

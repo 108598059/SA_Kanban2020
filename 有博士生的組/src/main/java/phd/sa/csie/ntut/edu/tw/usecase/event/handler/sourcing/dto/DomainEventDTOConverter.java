@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.event.handler.dto;
+package phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto;
 
 import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
 

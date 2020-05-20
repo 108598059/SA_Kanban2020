@@ -1,8 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnterColumnEvent;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeaveColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
 import java.util.ArrayList;
@@ -50,6 +50,10 @@ public class Board extends AggregateRoot {
     return this.name;
   }
 
+  public Column getBacklogColumn() {
+    return new Column(this.columns.get(0));
+  }
+
   public UUID createColumn(String columnTitle) {
     Column column = new Column(columnTitle);
     this.columns.add(column);
@@ -74,9 +78,10 @@ public class Board extends AggregateRoot {
     Column to = this.getColumnByID(toColumnID);
 
     from.removeCard(cardID);
-    this.addDomainEvent(new CardLeaveColumnEvent(UUID.randomUUID().toString(), fromColumnID.toString()));
+    this.addDomainEvent(new CardLeftColumnEvent(UUID.randomUUID().toString(), fromColumnID.toString()));
+
     to.addCard(cardID);
-    this.addDomainEvent(new CardEnterColumnEvent(UUID.randomUUID().toString(), toColumnID.toString(), cardID.toString()));
+    this.addDomainEvent(new CardEnteredColumnEvent(UUID.randomUUID().toString(), toColumnID.toString(), cardID.toString()));
     
     return to.getID().toString();
   }
