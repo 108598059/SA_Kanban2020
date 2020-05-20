@@ -2,7 +2,9 @@ package kanban.domain.usecase.stage;
 
 import com.google.common.eventbus.EventBus;
 import kanban.domain.Utility;
+import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Stage;
