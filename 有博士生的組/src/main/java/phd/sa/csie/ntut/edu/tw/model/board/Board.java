@@ -59,6 +59,10 @@ public class Board extends AggregateRoot {
     return new Column(this.columns.get(0));
   }
 
+  public Column getArchiveColumn() {
+    return new Column(this.columns.get(this.columns.size()-1));
+  }
+
   public UUID createColumn(String columnTitle) {
     for (Column column: this.getColumns()) {
       if (column.getTitle().equals(columnTitle)) {

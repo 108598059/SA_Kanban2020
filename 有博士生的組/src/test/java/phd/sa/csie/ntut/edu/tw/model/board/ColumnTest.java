@@ -11,7 +11,7 @@ public class ColumnTest {
   @Test
   public void column_title_is_empty_should_raise_illegal_argument_exception() {
     try {
-      Column column = new Column("");
+      new Column("");
     } catch (IllegalArgumentException e){
       assertEquals("Column title should not be empty", e.getMessage());
       return;
