@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
