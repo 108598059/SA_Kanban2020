@@ -8,9 +8,9 @@ import java.util.List;
 public class ColumnResponseBody {
     private List<ColumnViewObject> columnList;
 
-    public ColumnResponseBody(List<GetColumnsByBoardIDUseCaseOutput.ColumnViewObject> columnList) {
+    public ColumnResponseBody(GetColumnsByBoardIDUseCaseOutput output) {
         this.columnList = new ArrayList<>();
-        for (GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject: columnList) {
+        for (GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject: output.getColumnList()) {
             this.columnList.add(new ColumnViewObject(columnViewObject));
         }
     }

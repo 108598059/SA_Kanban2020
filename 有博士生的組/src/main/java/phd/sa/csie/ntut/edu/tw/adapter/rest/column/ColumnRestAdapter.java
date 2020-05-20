@@ -15,7 +15,7 @@ public class ColumnRestAdapter {
     private GetColumnsByBoardIDUseCase getColumnsByBoardIDUseCase;
 
     @GetMapping
-    public ResponseEntity<GetColumnsByBoardIDUseCaseOutput> getColumnsByBoardID(@RequestParam String boardID) {
+    public ResponseEntity<ColumnResponseBody> getColumnsByBoardID(@RequestParam String boardID) {
         GetColumnsByBoardIDUseCaseInput input = new GetColumnsByBoardIDUseCaseInput();
         GetColumnsByBoardIDUseCaseOutput output = new GetColumnsByBoardIDUseCaseOutput();
 
@@ -23,6 +23,6 @@ public class ColumnRestAdapter {
 
         this.getColumnsByBoardIDUseCase.execute(input, output);
 
-        return ResponseEntity.status(HttpStatus.OK).body(output);
+        return ResponseEntity.status(HttpStatus.OK).body(new ColumnResponseBody(output));
     }
 }
