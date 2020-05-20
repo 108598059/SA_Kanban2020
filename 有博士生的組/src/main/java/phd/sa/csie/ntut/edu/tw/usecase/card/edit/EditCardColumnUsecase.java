@@ -6,14 +6,14 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 import java.util.UUID;
 
-public class EditCardColumnUsecase {
+public class EditCardColumnUseCase {
     private CardRepository cardRepository;
 
-    public EditCardColumnUsecase(CardRepository cardRepository) {
+    public EditCardColumnUseCase(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
 
-    public void execute(EditCardColumnInput input, EditCardColumnOutput output) {
+    public void execute(EditCardColumnUseCaseInput input, EditCardColumnUseCaseOutput output) {
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(input.getCardID()));
 
         card.setColumnID(UUID.fromString(input.getColumnID()));
