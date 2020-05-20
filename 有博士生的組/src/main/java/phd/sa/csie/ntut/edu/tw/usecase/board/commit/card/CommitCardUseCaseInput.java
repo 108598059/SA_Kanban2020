@@ -1,6 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.commit.card;
 
-public class CommitCardOutput {
+public class CommitCardUseCaseInput {
     private String boardID;
     private String cardID;
 

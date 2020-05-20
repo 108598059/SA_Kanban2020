@@ -1,11 +1,12 @@
 package kanban.domain.usecase.card.repository;
 
 import kanban.domain.model.aggregate.card.Card;
+import kanban.domain.usecase.card.CardEntity;
 
 public interface ICardRepository {
-    public void add(Card card);
+    public void add(CardEntity cardEntity);
 
-    public Card getCardById(String cardId);
+    public CardEntity getCardById(String cardId);
 
-    public void save(Card card);
+    public void save(CardEntity cardEntity);
 }

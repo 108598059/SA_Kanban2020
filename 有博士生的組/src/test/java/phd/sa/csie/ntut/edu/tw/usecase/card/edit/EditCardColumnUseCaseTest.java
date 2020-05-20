@@ -27,13 +27,13 @@ public class EditCardColumnUseCaseTest {
 
     @Test
     public void testEditCardColumn() {
-        EditCardColumnInput input = new EditCardColumnInput();
-        EditCardColumnOutput output = new EditCardColumnOutput();
+        EditCardColumnUseCaseInput input = new EditCardColumnUseCaseInput();
+        EditCardColumnUseCaseOutput output = new EditCardColumnUseCaseOutput();
 
         input.setCardID(this.card.getID().toString());
         input.setColumnID(this.board.get(0).getID().toString());
 
-        EditCardColumnUsecase editCardColumnUsecase = new EditCardColumnUsecase(this.cardRepository);
+        EditCardColumnUseCase editCardColumnUsecase = new EditCardColumnUseCase(this.cardRepository);
         editCardColumnUsecase.execute(input, output);
         assertEquals(this.board.get(0).getID().toString(), output.getColumnID());
 

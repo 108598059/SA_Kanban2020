@@ -1,8 +1,11 @@
 package kanban.domain.usecase.card;
 
 import kanban.domain.Utility;
+import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.adapter.repository.card.MySqlCardRepository;
+import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.Card;
@@ -12,6 +15,7 @@ import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.create.CreateCardInput;
 import kanban.domain.usecase.card.create.CreateCardOutput;
 import kanban.domain.usecase.card.create.CreateCardUseCase;
+import kanban.domain.usecase.card.mapper.CardEntityModelMapper;
 import kanban.domain.usecase.card.repository.ICardRepository;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
@@ -35,6 +39,7 @@ public class CreateCardTest {
     public void setup() {
 //        boardRepository = new InMemoryBoardRepository();
 //        workflowRepository = new InMemoryWorkflowRepository();
+//        cardRepository = new InMemoryCardRepository();
         boardRepository = new MySqlBoardRepository();
         workflowRepository = new MySqlWorkflowRepository();
         cardRepository = new MySqlCardRepository();
@@ -70,7 +75,7 @@ public class CreateCardTest {
 
         createCardUseCase.execute(input, output);
 
-        Card card = cardRepository.getCardById(output.getCardId());
+        Card card = CardEntityModelMapper.transformEntityToModel(cardRepository.getCardById(output.getCardId()));
         assertEquals(output.getCardName(), card.getName());
         assertEquals("description", card.getDescription());
         assertEquals("general", card.getType());

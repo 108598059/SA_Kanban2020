@@ -16,7 +16,7 @@ public class CommitCardUseCase {
     this.boardRepository = boardRepository;
   }
   
-  public void execute(CommitCardInput input, CommitCardOutput output) {
+  public void execute(CommitCardUseCaseInput input, CommitCardUseCaseOutput output) {
     Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID()));
     Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(input.getCardID()));
 
