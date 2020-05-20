@@ -1,7 +1,5 @@
 package domain.usecase.board.create;
 
-import domain.adapter.presenter.Presenter;
-import domain.adapter.view_model.CreateBoardViewModel;
 import domain.model.aggregate.board.Board;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.repository.IBoardRepository;
