@@ -60,11 +60,11 @@ public class GetColumnsByBoardIDUseCaseOutput implements UseCaseOutput {
             this.title = title;
         }
 
-        public int getWip() {
+        public int getWIP() {
             return wip;
         }
 
-        public void setWip(int wip) {
+        public void setWIP(int wip) {
             this.wip = wip;
         }
 

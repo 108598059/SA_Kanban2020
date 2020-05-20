@@ -1,6 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.adapter.rest.column;
 
-import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCaseOutput;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class ColumnResponseBody {
         public ColumnViewObject(GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject) {
             this.id = columnViewObject.getID();
             this.title = columnViewObject.getTitle();
-            this.wip = columnViewObject.getWip();
+            this.wip = columnViewObject.getWIP();
             this.cardList = new ArrayList<>();
             for (GetColumnsByBoardIDUseCaseOutput.ColumnViewObject.CardViewObject cardViewObject:
                     columnViewObject.getCardList()) {
@@ -75,11 +74,11 @@ public class ColumnResponseBody {
             this.title = title;
         }
 
-        public int getWip() {
+        public int getWIP() {
             return wip;
         }
 
-        public void setWip(int wip) {
+        public void setWIP(int wip) {
             this.wip = wip;
         }
 

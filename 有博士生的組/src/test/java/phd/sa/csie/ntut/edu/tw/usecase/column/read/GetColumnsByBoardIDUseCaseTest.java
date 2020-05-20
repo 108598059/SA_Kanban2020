@@ -66,7 +66,7 @@ public class GetColumnsByBoardIDUseCaseTest {
         GetColumnsByBoardIDUseCaseOutput.ColumnViewObject backlogColumn = getColumnsByBoardIDUsecaseOutput.getColumnList().get(0);
         assertEquals("Backlog", backlogColumn.getTitle());
         assertNotNull(backlogColumn.getID());
-        assertEquals(0, backlogColumn.getWip());
+        assertEquals(0, backlogColumn.getWIP());
         assertEquals(2, backlogColumn.getCardList().size());
         assertEquals("Implement a column", backlogColumn.getCardList().get(0).getName());
         assertEquals("Implement a card", backlogColumn.getCardList().get(1).getName());

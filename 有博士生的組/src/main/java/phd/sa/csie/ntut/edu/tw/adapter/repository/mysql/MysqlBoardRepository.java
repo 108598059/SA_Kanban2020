@@ -31,7 +31,7 @@ public class MysqlBoardRepository extends BoardRepository {
                             "VALUES (?, ?, ?, ?, ?)");
                 columnStmt.setString(1, columnDTO.getID());
                 columnStmt.setString(2, columnDTO.getTitle());
-                columnStmt.setInt(3, columnDTO.getWip());
+                columnStmt.setInt(3, columnDTO.getWIP());
                 columnStmt.setString(4, boardDTO.getID());
                 columnStmt.setInt(5, columnList.indexOf(columnDTO));
                 columnStmt.executeUpdate();
@@ -61,7 +61,7 @@ public class MysqlBoardRepository extends BoardRepository {
                             "SET `Title`=?,`WIP`=?,`BoardID`=?,`Position`=? " +
                             "WHERE `ID`=?");
                 columnStmt.setString(1, columnDTO.getTitle());
-                columnStmt.setInt(2, columnDTO.getWip());
+                columnStmt.setInt(2, columnDTO.getWIP());
                 columnStmt.setString(3, boardDTO.getID());
                 columnStmt.setInt(4, columnList.indexOf(columnDTO));
                 columnStmt.setString(5, columnDTO.getID());;
@@ -99,7 +99,7 @@ public class MysqlBoardRepository extends BoardRepository {
                 ColumnDTO columnDTO = new ColumnDTO();
                 columnDTO.setID(resultSet.getString("Column.ID"));
                 columnDTO.setTitle(resultSet.getString("Column.Title"));
-                columnDTO.setWip(resultSet.getInt("Column.WIP"));
+                columnDTO.setWIP(resultSet.getInt("Column.WIP"));
 
                 PreparedStatement cardStmt = connection.prepareStatement(
                         "SELECT `Card`.`ID` " +

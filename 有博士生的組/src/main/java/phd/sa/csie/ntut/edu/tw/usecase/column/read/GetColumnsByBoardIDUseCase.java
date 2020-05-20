@@ -31,7 +31,7 @@ public class GetColumnsByBoardIDUseCase extends UseCase<GetColumnsByBoardIDUseCa
             GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject = new GetColumnsByBoardIDUseCaseOutput.ColumnViewObject();
             columnViewObject.setID(column.getID().toString());
             columnViewObject.setTitle(column.getTitle());
-            columnViewObject.setWip(column.getWIP());
+            columnViewObject.setWIP(column.getWIP());
 
             List<GetColumnsByBoardIDUseCaseOutput.ColumnViewObject.CardViewObject> cardList = new ArrayList<>();
             List<UUID> cardIDList = column.getCardIDs();

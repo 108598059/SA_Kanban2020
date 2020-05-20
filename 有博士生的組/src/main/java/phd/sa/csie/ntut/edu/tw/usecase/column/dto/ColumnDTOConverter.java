@@ -12,7 +12,7 @@ public class ColumnDTOConverter {
         ColumnDTO columnDTO = new ColumnDTO();
         columnDTO.setID(entity.getID().toString());
         columnDTO.setTitle(entity.getTitle());
-        columnDTO.setWip(entity.getWIP());
+        columnDTO.setWIP(entity.getWIP());
 
         List<UUID> idList = entity.getCardIDs();
         List<String> idStringList = new ArrayList<>();
@@ -33,6 +33,6 @@ public class ColumnDTOConverter {
             idList.add(UUID.fromString(id));
         }
 
-        return new Column(UUID.fromString(columnDTO.getID()), columnDTO.getTitle(), idList, columnDTO.getWip());
+        return new Column(UUID.fromString(columnDTO.getID()), columnDTO.getTitle(), idList, columnDTO.getWIP());
     }
 }
