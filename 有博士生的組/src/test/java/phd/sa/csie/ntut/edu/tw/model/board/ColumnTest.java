@@ -1,11 +1,13 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.model.board.Column;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
+
+import java.util.UUID;
+
+import static org.junit.Assert.*;
 
 public class ColumnTest {
   @Test
@@ -22,5 +24,28 @@ public class ColumnTest {
   @Test
   public void default_wip_of_column_should_be_zero() {
     assertEquals(0, new Column("Develop").getWIP());
+  }
+
+  @Test
+  public void test_set_negative_wip() {
+    try {
+      new Column("Develop").setWIP(-1);
+    } catch (IllegalArgumentException e) {
+      assertEquals("Column WIP should not be negative", e.getMessage());
+    }
+  }
+
+  @Test
+  public void card_exist() {
+    Board board = new Board(UUID.randomUUID(), "Kanban");
+    Column column = new Column("Develop");
+    Card card = new Card("Implement a card", board);
+    column.addCard(card.getID());
+    assertTrue(column.cardExist(card.getID()));
+  }
+
+  @Test
+  public void card_not_exist() {
+    assertFalse(new Column("Develop").cardExist(UUID.randomUUID()));
   }
 }
