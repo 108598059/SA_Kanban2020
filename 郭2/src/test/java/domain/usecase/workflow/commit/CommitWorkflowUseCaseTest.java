@@ -33,7 +33,7 @@ public class CommitWorkflowUseCaseTest {
     }
 
     @Test
-    public void Workflow_should_be_committed_in_its_board() {
+    public void workflow_should_be_committed_to_its_board() {
         CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
         CommitWorkflowUseCaseInput input = new CommitWorkflowUseCaseInput();
         CommitWorkflowUseCaseOutput output = new CommitWorkflowUseCaseOutput();

@@ -14,7 +14,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void creating_a_workflow_should_generate_a_WorkflowCreated_event() {
+    public void create_a_workflow_should_generate_a_WorkflowCreated_event_in_the_domainEvent_list() {
         workflow = new Workflow("Default", "boardId");
         assertThat(workflow.getDomainEvents().size()).isEqualTo(1);
         assertThat(workflow.getDomainEvents().get(0).detail()).startsWith("WorkflowCreated");

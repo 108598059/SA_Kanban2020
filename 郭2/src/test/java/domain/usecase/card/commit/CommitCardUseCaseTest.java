@@ -59,7 +59,7 @@ public class CommitCardUseCaseTest {
     }
 
     @Test
-    public void Card_should_be_committed_in_its_Lane() {
+    public void card_should_be_committed_in_its_Lane() {
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
         CommitCardUseCaseOutput output = new CommitCardUseCaseOutput();
         CommitCardUseCaseInput input = new CommitCardUseCaseInput();

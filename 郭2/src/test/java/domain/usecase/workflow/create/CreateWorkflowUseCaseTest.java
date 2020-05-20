@@ -38,7 +38,7 @@ public class CreateWorkflowUseCaseTest {
     }
 
     @Test
-    public void createWorkflowTest(){
+    public void createWorkflowUseCase(){
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);

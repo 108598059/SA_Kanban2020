@@ -1,5 +1,6 @@
 package domain.adapter.controller;
 
+import domain.Main;
 import domain.adapter.presenter.CreateBoardUseCasePresenter;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.view_model.ViewModel;
@@ -21,7 +22,8 @@ public class CreateBoard extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        IBoardRepository boardRepository = new MySqlBoardRepository();
+        IBoardRepository boardRepository = Main.getInstance().getMySqlBoardRepository();
+
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput input = new CreateBoardUseCaseInput();
 //        CreateBoardUseCaseOutputImpl output = new CreateBoardUseCaseOutputImpl();
