@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.UUID;
 
@@ -17,11 +18,15 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.card.edit.name.EditCardNameUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.edit.name.EditCardNameUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.edit.name.EditCardNameUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-public class EditCardUseCaseTest {
+public class EditCardNameUseCaseTest {
 
   private Card card;
   private CardRepository cardRepository;
@@ -51,18 +56,38 @@ public class EditCardUseCaseTest {
   }
 
   @Test
-  public void editCard() {
-    EditCardUseCase editCardUseCase = new EditCardUseCase(this.cardRepository);
-    EditCardUseCaseInput editCardUseCaseInput = new EditCardUseCaseInput();
-    EditCardUseCaseOutput editCardUseCaseOutput = new EditCardUseCaseOutput();
+  public void edit_card_name_should_update_the_name_of_card() {
+    EditCardNameUseCase editCardNameUseCase = new EditCardNameUseCase(this.cardRepository);
+    EditCardNameUseCaseInput editCardNameUseCaseInput = new EditCardNameUseCaseInput();
+    EditCardNameUseCaseOutput editCardNameUseCaseOutput = new EditCardNameUseCaseOutput();
 
-    editCardUseCaseInput.setCardID(this.card.getID());
-    editCardUseCaseInput.setCardName("New Name");
+    editCardNameUseCaseInput.setCardID(this.card.getID());
+    editCardNameUseCaseInput.setCardName("New Name");
 
-    editCardUseCase.execute(editCardUseCaseInput, editCardUseCaseOutput);
+    editCardNameUseCase.execute(editCardNameUseCaseInput, editCardNameUseCaseOutput);
 
-    assertEquals(this.card.getID().toString(), editCardUseCaseOutput.getCardID());
-    assertEquals("New Name", editCardUseCaseOutput.getCardName());
+    assertEquals(this.card.getID().toString(), editCardNameUseCaseOutput.getCardID());
+    assertEquals("New Name", editCardNameUseCaseOutput.getCardName());
+
+    CardDTO cardDTO = this.cardRepository.findByID(this.card.getID().toString());
+    assertEquals(editCardNameUseCaseInput.getCardName(), cardDTO.getName());
   }
 
+  @Test
+  public void edit_card_name_is_empty_should_raise_illegal_argument_exception() {
+    EditCardNameUseCase editCardNameUseCase = new EditCardNameUseCase(this.cardRepository);
+    EditCardNameUseCaseInput editCardNameUseCaseInput = new EditCardNameUseCaseInput();
+    EditCardNameUseCaseOutput editCardNameUseCaseOutput = new EditCardNameUseCaseOutput();
+
+    editCardNameUseCaseInput.setCardID(this.card.getID());
+    editCardNameUseCaseInput.setCardName("");
+
+    try {
+      editCardNameUseCase.execute(editCardNameUseCaseInput, editCardNameUseCaseOutput);
+    } catch (IllegalArgumentException e) {
+      assertEquals("Card name should not be empty", e.getMessage());
+      return;
+    }
+    fail("Edit card name is empty should raise IllegalArgumentException");
+  }
 }

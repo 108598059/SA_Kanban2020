@@ -7,7 +7,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 public class CreateColumnUseCaseInput implements UseCaseInput {
 
   private String title;
-  private UUID boardID;
+  private String boardID;
 
   public void setTitle(String title) {
     this.title = title;
@@ -17,11 +17,11 @@ public class CreateColumnUseCaseInput implements UseCaseInput {
     return this.title;
   }
 
-  public void setBoardID(UUID boardID) {
+  public void setBoardID(String boardID) {
     this.boardID = boardID;
   }
 
-  public UUID getBoardID() {
+  public String getBoardID() {
     return this.boardID;
   }
 

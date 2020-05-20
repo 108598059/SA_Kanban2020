@@ -42,10 +42,10 @@ public class SetColumnWIPTest {
     UUID boardID = UUID.fromString(createBoardUseCaseOutput.getBoardID());
     board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
 
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
-    createColumnUseCaseInput.setBoardID(board.getID());
+    createColumnUseCaseInput.setBoardID(board.getID().toString());
     createColumnUseCaseInput.setTitle("develop");
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
     columnID = createColumnUseCaseOutput.getID();

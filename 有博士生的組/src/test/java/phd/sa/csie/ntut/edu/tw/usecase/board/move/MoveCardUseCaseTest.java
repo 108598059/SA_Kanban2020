@@ -53,7 +53,7 @@ public class MoveCardUseCaseTest {
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
     this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
-    this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
+    this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
 
     Board board = new Board(UUID.randomUUID(), "Kanban");
     this.boardID = board.getID();
@@ -80,7 +80,7 @@ public class MoveCardUseCaseTest {
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
-    createColumnUseCaseInput.setBoardID(this.boardID);
+    createColumnUseCaseInput.setBoardID(this.boardID.toString());
     createColumnUseCaseInput.setTitle("develop");
 
     this.createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);

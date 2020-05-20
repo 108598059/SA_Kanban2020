@@ -5,10 +5,7 @@ import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Board extends AggregateRoot {
   private UUID workspaceID;
@@ -55,8 +52,13 @@ public class Board extends AggregateRoot {
   }
 
   public UUID createColumn(String columnTitle) {
+    for (Column column: this.getColumns()) {
+      if (column.getTitle().equals(columnTitle)) {
+        throw new IllegalArgumentException("Column title duplicated");
+      }
+    }
     Column column = new Column(columnTitle);
-    this.columns.add(column);
+    this.columns.add(this.columns.size()-1, column);
     return column.getID();
   }
 

@@ -14,14 +14,14 @@ public class Column extends Entity {
 
   public Column(String title) {
     super();
-    this.title = title;
+    this.setTitle(title);
     this.wip = 0;
     this.cardIDs = new ArrayList<>();
   }
 
   public Column(Column col) {
     this.id = col.id;
-    this.title = col.title;
+    this.setTitle(col.title);
     this.wip = col.wip;
     this.cardIDs = new ArrayList<>();
     for (UUID cardID : col.cardIDs) {
@@ -31,9 +31,16 @@ public class Column extends Entity {
 
   public Column(UUID id, String title, List<UUID> cardIDs, int wip) {
     this.id = id;
-    this.title = title;
+    this.setTitle(title);
     this.cardIDs = cardIDs;
     this.wip = wip;
+  }
+
+  public void setTitle(String title) {
+    if (title == null || title.isEmpty()){
+      throw new IllegalArgumentException("Column title should not be empty");
+    }
+    this.title = title;
   }
 
   public String getTitle() {

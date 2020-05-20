@@ -22,6 +22,7 @@ public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCar
   @Override
   public void execute(CreateCardUseCaseInput createCardInput, CreateCardUseCaseOutput createCardOutput) {
     Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createCardInput.getBoardID()));
+
     Card card = new Card(createCardInput.getCardName(), board);
 
     this.cardRepository.save(CardDTOConverter.toDTO(card));
