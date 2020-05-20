@@ -20,7 +20,7 @@ export default {
   data: function() {
     return {
       columnList: [],
-      id: "7793dd07-74ea-423a-9e01-3bff3f32d79f"
+      id: "89b8189d-5fda-43b3-9f12-09f2829a2bf7"
     };
   },
   created() {

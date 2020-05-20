@@ -11,29 +11,31 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 public class BoardDTOConverter {
-    public static BoardDTO toDTO(Board entity) {
+    public static BoardDTO toDTO(Board board) {
         BoardDTO boardDTO = new BoardDTO();
-        boardDTO.setID(entity.getID().toString());
-        boardDTO.setName(entity.getName());
+        boardDTO.setID(board.getID().toString());
+        boardDTO.setName(board.getName());
+        boardDTO.setWorkspaceID(board.getWorkspaceID().toString());
 
-        ArrayList<ColumnDTO> columnDTOs = new ArrayList<ColumnDTO>();
-        for (int i = 0; i < entity.getColumnNumber(); i++) {
-            columnDTOs.add(ColumnDTOConverter.toDTO(entity.get(i)));
+        ArrayList<ColumnDTO> columnDTOs = new ArrayList<>();
+        for (int i = 0; i < board.getColumnNumber(); i++) {
+            columnDTOs.add(ColumnDTOConverter.toDTO(board.get(i)));
         }
         boardDTO.setColumnDTOs(columnDTOs);
 
         return boardDTO;
     }
 
-    public static Board toEntity(DTO dto) {
-        BoardDTO boardDTO = (BoardDTO) dto;
-
-        List<Column> columns = new ArrayList<Column>();
+    public static Board toEntity(BoardDTO boardDTO) {
+        List<Column> columns = new ArrayList<>();
         List<ColumnDTO> columnDTOs = boardDTO.getColumnDTOs();
         for (int i = 0; i < columnDTOs.size(); i++) {
             columns.add(ColumnDTOConverter.toEntity(columnDTOs.get(i)));
         }
 
-        return new Board(UUID.fromString(boardDTO.getID()), boardDTO.getName(), columns);
+        return new Board(UUID.fromString(boardDTO.getID()),
+                         UUID.fromString(boardDTO.getWorkspaceID()),
+                         boardDTO.getName(),
+                         columns);
     }
 }

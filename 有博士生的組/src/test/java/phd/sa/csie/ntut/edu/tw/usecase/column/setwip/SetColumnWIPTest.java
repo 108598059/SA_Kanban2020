@@ -37,6 +37,7 @@ public class SetColumnWIPTest {
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
     createBoardUseCaseInput.setBoardName("Software Architecture");
+    createBoardUseCaseInput.setWorkspaceID(UUID.randomUUID().toString());
     createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
     UUID boardID = UUID.fromString(createBoardUseCaseOutput.getBoardID());
     board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));

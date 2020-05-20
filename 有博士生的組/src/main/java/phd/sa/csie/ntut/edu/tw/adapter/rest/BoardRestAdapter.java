@@ -23,6 +23,7 @@ public class BoardRestAdapter {
         CreateBoardUseCaseOutput output = new CreateBoardUseCaseOutput();
 
         input.setBoardName(requestBody.getBoardName());
+        input.setWorkspaceID(requestBody.getWorkspaceID());
 
         this.createBoardUseCase.execute(input, output);
 
@@ -37,6 +38,7 @@ public class BoardRestAdapter {
 
 class CreateBoardRequest {
     private String boardName;
+    private String workspaceID;
 
     public void setBoardName(String boardName) {
         this.boardName = boardName;
@@ -44,6 +46,14 @@ class CreateBoardRequest {
 
     public String getBoardName() {
         return this.boardName;
+    }
+
+    public String getWorkspaceID() {
+        return workspaceID;
+    }
+
+    public void setWorkspaceID(String workspaceID) {
+        this.workspaceID = workspaceID;
     }
 }
 

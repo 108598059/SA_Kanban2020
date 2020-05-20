@@ -3,6 +3,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class MysqlCreateCardUseCaseTest {
   public void setUp() {
     this.cardRepository = new MysqlCardRepository();
     this.boardRepository = new MemoryBoardRepository();
-    this.board = new Board("Kanban");
+    this.board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
     this.eventBus = new DomainEventBus();
     DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);

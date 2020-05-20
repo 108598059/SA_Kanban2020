@@ -11,6 +11,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 
 public class CommitCardUseCaseTest {
@@ -21,7 +23,7 @@ public class CommitCardUseCaseTest {
 
     @Before
     public void setUp() {
-        this.board = new Board("Kanban");
+        this.board = new Board(UUID.randomUUID(), "Kanban");
         this.boardRepository = new MemoryBoardRepository();
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
