@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.adapter.rest;
+package phd.sa.csie.ntut.edu.tw.adapter.rest.column;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
