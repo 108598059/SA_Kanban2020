@@ -1,4 +1,4 @@
-package kanban.domain.usecase.workflow;
+package kanban.domain.usecase.stage;
 
 import java.util.List;
 

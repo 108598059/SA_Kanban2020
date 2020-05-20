@@ -1,4 +1,4 @@
-package kanban.domain.usecase.workflow.mapper;
+package kanban.domain.usecase.stage.mapper;
 
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.usecase.stage.StageDTO;

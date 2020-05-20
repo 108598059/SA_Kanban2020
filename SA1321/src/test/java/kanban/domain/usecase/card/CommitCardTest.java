@@ -10,6 +10,7 @@ import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardOutput;
 import kanban.domain.usecase.card.commit.CommitCardUseCase;
+import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,8 @@ public class CommitCardTest {
 
     @Test
     public void Card_should_be_committed_in_its_stage() {
-        Workflow workflow = workflowRepository.getWorkflowById(workflowId);
+        Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(workflowId));
 
         assertEquals(0,workflow.getStageCloneById(stageId).getCardIds().size());
 
@@ -55,7 +57,8 @@ public class CommitCardTest {
         CommitCardOutput output = new CommitCardOutput();
 
         commitCardUseCase.execute(input, output);
-        workflow = workflowRepository.getWorkflowById(workflowId);
+        workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(workflowId));
 
         assertEquals(1,workflow.getStageCloneById(stageId).getCardIds().size());
         assertEquals("cardId", output.getCardId());
