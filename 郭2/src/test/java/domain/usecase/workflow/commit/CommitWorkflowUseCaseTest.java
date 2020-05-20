@@ -2,10 +2,10 @@ package domain.usecase.workflow.commit;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.board.Board;
-import domain.usecase.board.BoardDTO;
+import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
-import domain.usecase.board.create.CreateBoardUseCaseOutput;
+import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.workflow.WorkflowEventHandler;
 import org.junit.*;
@@ -13,7 +13,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 public class CommitWorkflowUseCaseTest {
     private IBoardRepository boardRepository;
-    private CreateBoardUseCaseOutput createBoardUseCaseOutput;
+    private CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl;
     private DomainEventBus eventBus;
 
     @Before
@@ -23,11 +23,11 @@ public class CommitWorkflowUseCaseTest {
 
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
 
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
 
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
         eventBus.register(new WorkflowEventHandler(boardRepository));
     }
@@ -38,11 +38,11 @@ public class CommitWorkflowUseCaseTest {
         CommitWorkflowUseCaseInput input = new CommitWorkflowUseCaseInput();
         CommitWorkflowUseCaseOutput output = new CommitWorkflowUseCaseOutput();
 
-        input.setBoardId(createBoardUseCaseOutput.getBoardId());
+        input.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
         input.setWorkflowId("workflowId");
         commitWorkflowUseCase.execute(input, output);
 
-        Board board = BoardDTO.BoardEntityToBoard(boardRepository.getBoardById(input.getBoardId()));
+        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(input.getBoardId()));
 
         assertEquals(1,board.getWorkflowIds().size());
         assertEquals("workflowId",board.getWorkflowIds().get(0));

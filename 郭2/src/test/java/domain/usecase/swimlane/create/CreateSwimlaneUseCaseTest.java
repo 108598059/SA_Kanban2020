@@ -6,7 +6,7 @@ import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
-import domain.usecase.board.create.CreateBoardUseCaseOutput;
+import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
@@ -29,16 +29,16 @@ public class CreateSwimlaneUseCaseTest {
 
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
         createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
         CreateWorkflowUseCaseInput input = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
-        input.setBoardId(createBoardUseCaseOutput.getBoardId());
+        input.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
         input.setWorkflowName("KanbanDevelopment");
 
         createWorkflowUseCase.execute(input, workflowOutput);

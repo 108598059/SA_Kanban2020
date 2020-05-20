@@ -32,8 +32,8 @@ public class CommitCardUseCaseTest {
 
     @Test
     public void committed_card_should_be_added_to_the_default_column() {
-        CommitCardInput input = new CommitCardInput();
-        CommitCardOutput output = new CommitCardOutput();
+        CommitCardUseCaseInput input = new CommitCardUseCaseInput();
+        CommitCardUseCaseOutput output = new CommitCardUseCaseOutput();
 
 
         input.setBoardID(this.board.getID().toString());

@@ -2,7 +2,7 @@ package domain.usecase.board;
 
 import domain.model.aggregate.board.Board;
 
-public class BoardDTO {
+public class BoardTransfer {
     public static BoardEntity BoardToBoardEntity(Board board) {
         BoardEntity boardEntity = new BoardEntity();
 

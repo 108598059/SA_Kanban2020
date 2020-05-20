@@ -5,10 +5,9 @@ import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.card.Card;
-import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
-import domain.usecase.board.create.CreateBoardUseCaseOutput;
+import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.card.CardEventHandler;
 import domain.usecase.card.repository.ICardRepository;
@@ -44,9 +43,9 @@ public class CreateCardUseCaseTest {
         boardRepository = new MySqlBoardRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
         eventBus.register(new WorkflowEventHandler(boardRepository));
 
@@ -55,7 +54,7 @@ public class CreateCardUseCaseTest {
         CreateWorkflowUseCaseInput workflowInput = new CreateWorkflowUseCaseInput();
         workflowOutput = new CreateWorkflowUseCaseOutput();
         workflowInput.setWorkflowName("KanbanDevelopment");
-        workflowInput.setBoardId(createBoardUseCaseOutput.getBoardId());
+        workflowInput.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
         createWorkflowUseCase.execute(workflowInput, workflowOutput);
 
 

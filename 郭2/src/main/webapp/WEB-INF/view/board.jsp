@@ -9,22 +9,21 @@
 <html>
     <head>
         <style>
-            td#boardid{
+            td#boardId{
                 text-align: center;
             }
         </style>
-        <title>${boardName}</title>
+        <title>${createBoard.boardName}</title>
     </head>
     <body>
         <table border="1" style="width: 100%; height: 100%">
             <tr style="width: 10%; height: 10%">
                 <td id="boardId" >
-                    ${boardName}<br>
-                    ${boardId}
+                    ${createBoard.boardName}<br>
+                    ${createBoard.boardId}
                 </td>
             </tr>
             <tr></tr>
         </table>
     </body>
 </html>
-
