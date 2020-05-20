@@ -26,7 +26,7 @@ public class GetColumnsByBoardIDUseCaseTest {
     private UUID boardID;
 
     @Before
-    public void add_two_cards_to_a_board() {
+    public void create_two_cards_in_a_board() {
         this.boardRepository = new MemoryBoardRepository();
         this.cardRepository = new MemoryCardRepository();
 
@@ -43,11 +43,11 @@ public class GetColumnsByBoardIDUseCaseTest {
         CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
 
         createCardInput.setBoardID(board.getID().toString());
-        createCardInput.setCardName("Card1");
+        createCardInput.setCardName("Implement a column");
 
         createCardUseCase.execute(createCardInput, createCardOutput);
 
-        createCardInput.setCardName("Card2");
+        createCardInput.setCardName("Implement a card");
 
         createCardUseCase.execute(createCardInput, createCardOutput);
     }
@@ -55,20 +55,21 @@ public class GetColumnsByBoardIDUseCaseTest {
     @Test
     public void test_get_columns_structure_by_board_id() {
         GetColumnsByBoardIDUseCase getColumnsByBoardIDUseCase = new GetColumnsByBoardIDUseCase(this.boardRepository, this.cardRepository);
-        GetColumnsByBoardIDUsecaseInput getColumnsByBoardIDUsecaseInput = new GetColumnsByBoardIDUsecaseInput();
-        GetColumnsByBoardIDUsecaseOutput getColumnsByBoardIDUsecaseOutput = new GetColumnsByBoardIDUsecaseOutput();
+        GetColumnsByBoardIDUseCaseInput getColumnsByBoardIDUsecaseInput = new GetColumnsByBoardIDUseCaseInput();
+        GetColumnsByBoardIDUseCaseOutput getColumnsByBoardIDUsecaseOutput = new GetColumnsByBoardIDUseCaseOutput();
 
         getColumnsByBoardIDUsecaseInput.setBoardID(this.boardID.toString());
 
         getColumnsByBoardIDUseCase.execute(getColumnsByBoardIDUsecaseInput, getColumnsByBoardIDUsecaseOutput);
 
         assertEquals(2, getColumnsByBoardIDUsecaseOutput.getColumnList().size());
-        GetColumnsByBoardIDUsecaseOutput.ColumnViewObject column1 = getColumnsByBoardIDUsecaseOutput.getColumnList().get(0);
-        assertEquals("Backlog", column1.getTitle());
-        assertNotNull(column1.getID());
-        assertEquals(0, column1.getWip());
-        assertEquals(2, column1.getCardList().size());
-        assertEquals("Card1", column1.getCardList().get(0).getName());
-        assertNotNull(column1.getCardList().get(0).getID());
+        GetColumnsByBoardIDUseCaseOutput.ColumnViewObject backlogColumn = getColumnsByBoardIDUsecaseOutput.getColumnList().get(0);
+        assertEquals("Backlog", backlogColumn.getTitle());
+        assertNotNull(backlogColumn.getID());
+        assertEquals(0, backlogColumn.getWip());
+        assertEquals(2, backlogColumn.getCardList().size());
+        assertEquals("Implement a column", backlogColumn.getCardList().get(0).getName());
+        assertEquals("Implement a card", backlogColumn.getCardList().get(1).getName());
+        assertNotNull(backlogColumn.getCardList().get(0).getID());
     }
 }

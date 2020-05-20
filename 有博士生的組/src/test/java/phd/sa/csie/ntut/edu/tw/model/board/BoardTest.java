@@ -9,6 +9,17 @@ import static org.junit.Assert.fail;
 
 public class BoardTest {
     @Test
+    public void board_name_is_empty_should_raise_illegal_argument_exception() {
+        try {
+            new Board(UUID.randomUUID(), "");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Board name should not be empty", e.getMessage());
+            return;
+        }
+        fail("Board name is empty should raise IllegalArgumentException");
+    }
+
+    @Test
     public void get_backlog_column_should_return_the_default_backlog_column() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
         assertEquals("Backlog", board.getBacklogColumn().getTitle());

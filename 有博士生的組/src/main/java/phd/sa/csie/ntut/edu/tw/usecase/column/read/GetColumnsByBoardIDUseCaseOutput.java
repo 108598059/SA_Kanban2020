@@ -6,10 +6,10 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetColumnsByBoardIDUsecaseOutput implements UseCaseOutput {
+public class GetColumnsByBoardIDUseCaseOutput implements UseCaseOutput {
     private List<ColumnViewObject> columnList;
 
-    public GetColumnsByBoardIDUsecaseOutput() {
+    public GetColumnsByBoardIDUseCaseOutput() {
         this.columnList = new ArrayList<>();
     }
 
