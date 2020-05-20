@@ -3,13 +3,17 @@ package kanban.domain;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
 import kanban.domain.usecase.board.get.GetBoardsUseCase;
+import kanban.domain.usecase.board.repository.IBoardRepository;
 
 public class ApplicationContext {
 
     private static ApplicationContext applicationContext;
+    private IBoardRepository boardRepository;
 
+    public ApplicationContext() {
+        boardRepository = new MySqlBoardRepository();
 
-    public ApplicationContext() {}
+    }
 
     public static ApplicationContext getInstance() {
         if(applicationContext == null) {
@@ -20,10 +24,10 @@ public class ApplicationContext {
     }
 
     public CreateBoardUseCase getCreateBoardUseCase() {
-        return new CreateBoardUseCase(new MySqlBoardRepository());
+        return new CreateBoardUseCase(boardRepository);
     }
 
     public GetBoardsUseCase getGetBoardsUseCase() {
-        return new GetBoardsUseCase(new MySqlBoardRepository());
+        return new GetBoardsUseCase(boardRepository);
     }
 }

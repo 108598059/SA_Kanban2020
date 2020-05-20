@@ -1,16 +1,16 @@
 package ddd.kanban.usecase.repository;
 
-import ddd.kanban.usecase.DTO.BoardDTO;
+import ddd.kanban.usecase.board.Entity.BoardEntity;
 
 import java.util.List;
 
 public interface BoardRepository {
 
-    void add(BoardDTO boardDTO);
+    void add(BoardEntity boardEntity);
 
-    BoardDTO findById(String boardId);
+    BoardEntity findById(String boardId);
 
-    void save(BoardDTO boardDTO);
+    void save(BoardEntity boardEntity);
 
-    List<BoardDTO> findAll();
+    List<BoardEntity> findAll();
 }

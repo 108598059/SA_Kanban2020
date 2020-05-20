@@ -1,6 +1,7 @@
 package kanban.domain.usecase.card;
 
 import kanban.domain.Utility;
+import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
@@ -12,6 +13,7 @@ import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardOutput;
 import kanban.domain.usecase.card.commit.CommitCardUseCase;
+import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +31,10 @@ public class CommitCardTest {
 
     @Before
     public void setup() {
-//        boardRepository = new InMemoryBoardRepository();
-//        workflowRepository = new InMemoryWorkflowRepository();
-        boardRepository = new MySqlBoardRepository();
-        workflowRepository = new MySqlWorkflowRepository();
+        boardRepository = new InMemoryBoardRepository();
+        workflowRepository = new InMemoryWorkflowRepository();
+//        boardRepository = new MySqlBoardRepository();
+//        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
@@ -47,7 +49,8 @@ public class CommitCardTest {
 
     @Test
     public void Card_should_be_committed_in_its_stage() {
-        Workflow workflow = workflowRepository.getWorkflowById(workflowId);
+        Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(workflowId));
 
         assertEquals(0,workflow.getStageCloneById(stageId).getCardIds().size());
 
@@ -56,10 +59,11 @@ public class CommitCardTest {
         input.setCardId("cardId");
         input.setWorkflowId(workflowId);
         input.setStageId(stageId);
-        CommitCardOutput output = new CommitCardOutput();
+        CommitCardPresenter output = new CommitCardPresenter();
 
         commitCardUseCase.execute(input, output);
-        workflow = workflowRepository.getWorkflowById(workflowId);
+        workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(workflowId));
 
         assertEquals(1,workflow.getStageCloneById(stageId).getCardIds().size());
         assertEquals("cardId", output.getCardId());

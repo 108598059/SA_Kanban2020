@@ -2,6 +2,8 @@ package kanban.domain.usecase.stage;
 
 import com.google.common.eventbus.EventBus;
 import kanban.domain.Utility;
+import kanban.domain.adapter.presenter.stage.create.CreateStagePresenter;
+import kanban.domain.adapter.presenter.stage.viewmodel.CreateStageViewModel;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
@@ -14,6 +16,7 @@ import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.stage.create.CreateStageInput;
 import kanban.domain.usecase.stage.create.CreateStageOutput;
 import kanban.domain.usecase.stage.create.CreateStageUseCase;
+import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,30 +52,33 @@ public class CreateStageTest {
 
     @Test
     public void Create_stage_should_return_stageId() {
-        Workflow workflow = workflowRepository.getWorkflowById(workflowId);
+        Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(workflowId));
 
         assertEquals(0,workflow.getStages().size());
 
         CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
-        CreateStageInput input = new CreateStageInput();
-        input.setStageName("stage");
+        CreateStageInput input = createStageUseCase;
+        input.setStageName("stageName");
         input.setWorkflowId(workflowId);
-        CreateStageOutput output = new CreateStageOutput();
+        CreateStageOutput output = new CreateStagePresenter();
 
         createStageUseCase.execute(input, output);
 
-        workflow = workflowRepository.getWorkflowById(workflowId);
+        workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(workflowId));
 
         assertEquals(1,workflow.getStages().size());
 
         Stage cloneStage = workflow.getStageCloneById(output.getStageId());
 
-        assertEquals(output.getStageName(), cloneStage.getName());
+        assertEquals("stageName", cloneStage.getName());
     }
 
     @Test(expected = RuntimeException.class)
     public void GetStageNameById_should_throw_exception() {
-        Workflow workflow = workflowRepository.getWorkflowById(workflowId);
+        Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(workflowId));
         workflow.getStageCloneById("123-456-789");
     }
 }

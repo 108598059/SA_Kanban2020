@@ -2,7 +2,9 @@ package kanban.domain.usecase.board;
 
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.board.get.GetBoardsPresenter;
+import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.usecase.DomainEventHandler;
@@ -25,11 +27,11 @@ public class GetBoardTest {
 
     @Before
     public void setUp() {
-//        workflowRepository = new InMemoryWorkflowRepository();
-//        boardRepository = new InMemoryBoardRepository();
+        workflowRepository = new InMemoryWorkflowRepository();
+        boardRepository = new InMemoryBoardRepository();
 
-        workflowRepository = new MySqlWorkflowRepository();
-        boardRepository = new MySqlBoardRepository();
+//        workflowRepository = new MySqlWorkflowRepository();
+//        boardRepository = new MySqlBoardRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(

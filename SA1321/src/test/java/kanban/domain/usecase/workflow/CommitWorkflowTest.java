@@ -1,6 +1,7 @@
 package kanban.domain.usecase.workflow;
 
 import kanban.domain.Utility;
+import kanban.domain.adapter.presenter.workflow.commit.CommitWorkflowPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
@@ -28,10 +29,10 @@ public class CommitWorkflowTest {
 
     @Before
     public void setUp() throws Exception {
-//        boardRepository = new InMemoryBoardRepository();
-//        workflowRepository = new InMemoryWorkflowRepository();
-        boardRepository = new MySqlBoardRepository();
-        workflowRepository = new MySqlWorkflowRepository();
+        boardRepository = new InMemoryBoardRepository();
+        workflowRepository = new InMemoryWorkflowRepository();
+//        boardRepository = new MySqlBoardRepository();
+//        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
@@ -49,8 +50,8 @@ public class CommitWorkflowTest {
         assertEquals(0,board.getWorkflowIds().size());
 
         CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
-        CommitWorkflowInput input = new CommitWorkflowInput();
-        CommitWorkflowOutput output = new CommitWorkflowOutput();
+        CommitWorkflowInput input = commitWorkflowUseCase;
+        CommitWorkflowOutput output = new CommitWorkflowPresenter();
 
         input.setBoardId(boardId);
         input.setWorkflowId("workflowId");
