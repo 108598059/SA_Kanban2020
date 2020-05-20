@@ -2,8 +2,7 @@
 <div class="tm-sidebar-left uk-visible@m">
     <ul class="tm-nav uk-margin-bottom uk-nav uk-nav-default">
         <vk-nav type="primary">
-            <vk-nav-item href="#" title="Recent"></vk-nav-item>
-            <vk-nav-item href="#" title="Boards" active></vk-nav-item>
+            <vk-nav-item href="" title="Boards" active></vk-nav-item>
         </vk-nav>
     </ul>
 </div>
@@ -12,11 +11,6 @@
 
 <script>
 export default {
-    data(){
-        return{
-            show: false
-        }
-    }
 }
 </script>
 
