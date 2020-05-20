@@ -30,7 +30,7 @@ public class GetColumnsByBoardIDUseCaseTest {
         this.boardRepository = new MemoryBoardRepository();
         this.cardRepository = new MemoryCardRepository();
 
-        Board board = new Board("Kanban");
+        Board board = new Board(UUID.randomUUID(), "Kanban");
         this.boardID = board.getID();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
 

@@ -17,6 +17,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
+import java.util.UUID;
+
 import static org.junit.Assert.*;
 
 public class CreateCardUseCaseTest {
@@ -45,7 +47,7 @@ public class CreateCardUseCaseTest {
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
 
-    this.board = new Board("Kanban");
+    this.board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
     CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);

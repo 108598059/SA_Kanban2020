@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.UUID;
 
 public class Board extends AggregateRoot {
-
+  private UUID workspaceID;
   private String name;
   private List<Column> columns;
 
-  public Board(String name) {
+  public Board(UUID workspaceID, String name) {
     super();
+    this.workspaceID = workspaceID;
     this.name = name;
     this.columns = new ArrayList<Column>();
     Column backlog = new Column("Backlog");
@@ -25,8 +26,9 @@ public class Board extends AggregateRoot {
     this.columns.add(archive);
   }
 
-  public Board(UUID id, String name, List<Column> columns) {
+  public Board(UUID id, UUID workspaceID, String name, List<Column> columns) {
     this.id = id;
+    this.workspaceID = workspaceID;
     this.name = name;
     this.columns = columns;
   }
@@ -96,4 +98,11 @@ public class Board extends AggregateRoot {
     return Collections.unmodifiableList(this.columns);
   }
 
+  public UUID getWorkspaceID() {
+    return workspaceID;
+  }
+
+  public void setWorkspaceID(UUID workspaceID) {
+    this.workspaceID = workspaceID;
+  }
 }
