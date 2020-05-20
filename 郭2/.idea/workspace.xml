@@ -7,25 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22001a51-52ce-40f2-b64a-7dd903de4fa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/domain/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/CreateBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/CreateBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/Hompage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/Homepage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/view_model/CreateBoardViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/view_model/CreateBoardViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/card/CardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/workflow/WorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/workflow/WorkflowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/card/commit/CommitCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/card/commit/CommitCardUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/card/create/CreateCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/card/create/CreateCardUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/stage/create/CreateStageUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/stage/create/CreateStageUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/task/create/CreateTaskUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/task/create/CreateTaskUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/commit/CommitWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/commit/CommitWorkflowUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/card/create/CreateCardUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/card/create/CreateCardUseCaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/郭2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Main.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,10 +44,16 @@
   </component>
   <component name="ProjectId" id="1bqJnzgoUtLcjkpzoUVzEmsavZf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../SA1321" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -84,23 +75,11 @@
       <recent name="D:\北科\軟架\郭2\src\main" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="JUnit.All in SoftwareArchitecture">
-    <configuration name="All in SoftwareArchitecture" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Tomcat Server.kanban">
+    <configuration name="All in 郭2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭2" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8.0_221" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -173,7 +152,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="kanban" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.46" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration name="kanban" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.45" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/homepage" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -248,22 +227,34 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.All in SoftwareArchitecture" />
-      <item itemvalue="Tomcat Server.kanban" />
+      <item itemvalue="JUnit.All in 郭2" />
       <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_in_its_workflow" />
       <item itemvalue="JUnit.CreateCardUseCaseTest" />
       <item itemvalue="JUnit.CreateCardUseCaseTest.CreateCardUseCaseTest" />
       <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_and_should_be_commit_to_its_workflow_test" />
+      <item itemvalue="Tomcat Server.kanban" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in SoftwareArchitecture" />
+        <item itemvalue="JUnit.All in 郭2" />
         <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_and_should_be_commit_to_its_workflow_test" />
         <item itemvalue="JUnit.CreateCardUseCaseTest.CreateCardUseCaseTest" />
         <item itemvalue="JUnit.CreateCardUseCaseTest" />
         <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_in_its_workflow" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -281,6 +272,7 @@
       <workItem from="1589379144433" duration="977000" />
       <workItem from="1589451310698" duration="20927000" />
       <workItem from="1589957546483" duration="8607000" />
+      <workItem from="1589990723650" duration="268000" />
     </task>
     <servers />
   </component>
@@ -299,5 +291,63 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589990991453">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589990991453" />
+    <state x="811" y="412" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1589990903304">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="811" y="412" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589990903304" />
+    <state width="1293" height="282" key="GridCell.Tab.0.bottom" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.0.center" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.0.left" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.0.right" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.bottom" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.center" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.left" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.right" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.2.bottom" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
+    <state width="1293" height="282" key="GridCell.Tab.2.center" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
+    <state width="1293" height="282" key="GridCell.Tab.2.left" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
+    <state width="1293" height="282" key="GridCell.Tab.2.right" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
   </component>
 </project>

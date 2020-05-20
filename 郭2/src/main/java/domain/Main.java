@@ -1,12 +1,15 @@
 package domain;
 
 import domain.adapter.repository.board.MySqlBoardRepository;
+import domain.usecase.board.repository.IBoardRepository;
 
 public class Main {
     private static Main main;
+    private IBoardRepository boardRepository;
 
-
-    public Main() {}
+    public Main() {
+        boardRepository = new MySqlBoardRepository();
+    }
 
     public static Main getInstance() {
         if(main == null) {
@@ -16,7 +19,7 @@ public class Main {
         return main;
     }
 
-    public MySqlBoardRepository getMySqlBoardRepository() {
-        return new MySqlBoardRepository();
+    public IBoardRepository getMySqlBoardRepository() {
+        return this.boardRepository;
     }
 }
