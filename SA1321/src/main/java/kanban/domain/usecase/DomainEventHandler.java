@@ -3,6 +3,7 @@ package kanban.domain.usecase;
 import com.google.common.eventbus.Subscribe;
 import kanban.domain.adapter.presenter.workflow.commit.CommitWorkflowPresenter;
 import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.event.CardCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 import kanban.domain.usecase.board.repository.IBoardRepository;
@@ -18,16 +19,19 @@ public class DomainEventHandler {
 
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
 
     public DomainEventHandler(IBoardRepository boardRepository,
-                              IWorkflowRepository workflowRepository) {
+                              IWorkflowRepository workflowRepository,
+                              DomainEventBus eventBus) {
         this.boardRepository = boardRepository;
         this.workflowRepository = workflowRepository;
+        this.eventBus = eventBus;
     }
 
     @Subscribe
     public void handleEvent(WorkflowCreated workflowCreated) {
-        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
+        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository, eventBus);
         CommitWorkflowInput commitWorkflowInput = commitWorkflowUseCase;
         CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowPresenter();
 
@@ -39,7 +43,7 @@ public class DomainEventHandler {
 
     @Subscribe
     public void handleEvent(CardCreated cardCreated) {
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, eventBus);
         CommitCardInput commitCardInput = new CommitCardInput();
         commitCardInput.setCardId(cardCreated.getCardId());
         commitCardInput.setStageId(cardCreated.getStageId());

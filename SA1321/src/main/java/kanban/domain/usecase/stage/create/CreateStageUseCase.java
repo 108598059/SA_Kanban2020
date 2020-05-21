@@ -1,17 +1,20 @@
 package kanban.domain.usecase.stage.create;
 
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CreateStageUseCase implements CreateStageInput {
     private IWorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
 
     private String stageName;
     private String workflowId;
 
-    public CreateStageUseCase(IWorkflowRepository workflowRepository) {
+    public CreateStageUseCase(IWorkflowRepository workflowRepository, DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
+        this.eventBus = eventBus;
     }
 
     public void execute(CreateStageInput input, CreateStageOutput output) {
@@ -20,9 +23,10 @@ public class CreateStageUseCase implements CreateStageInput {
                 workflowRepository.getWorkflowById(input.getWorkflowId()));
 
         String stageId = workflow.createStage(input.getStageName());
-        output.setStageId(stageId);
 
         workflowRepository.save(WorkflowEntityModelMapper.transformModelToEntity(workflow));
+        eventBus.postAll(workflow);
+        output.setStageId(stageId);
     }
 
     @Override

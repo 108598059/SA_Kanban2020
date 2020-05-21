@@ -7,7 +7,6 @@ import kanban.domain.model.aggregate.workflow.event.StageCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 import org.junit.Test;
 
-import javax.smartcardio.Card;
 
 import static org.junit.Assert.*;
 

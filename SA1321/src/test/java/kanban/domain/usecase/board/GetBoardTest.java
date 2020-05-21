@@ -36,7 +36,8 @@ public class GetBoardTest {
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
                 boardRepository,
-                workflowRepository));
+                workflowRepository,
+                eventBus));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         utility.createBoard("boardName");

@@ -39,17 +39,18 @@ public class CreateCardTest {
 
     @Before
     public void setup() {
-//        boardRepository = new InMemoryBoardRepository();
-//        workflowRepository = new InMemoryWorkflowRepository();
-//        cardRepository = new InMemoryCardRepository();
-        boardRepository = new MySqlBoardRepository();
-        workflowRepository = new MySqlWorkflowRepository();
-        cardRepository = new MySqlCardRepository();
+        boardRepository = new InMemoryBoardRepository();
+        workflowRepository = new InMemoryWorkflowRepository();
+        cardRepository = new InMemoryCardRepository();
+//        boardRepository = new MySqlBoardRepository();
+//        workflowRepository = new MySqlWorkflowRepository();
+//        cardRepository = new MySqlCardRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
                 boardRepository,
-                workflowRepository));
+                workflowRepository,
+                eventBus));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");

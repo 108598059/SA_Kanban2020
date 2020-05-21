@@ -39,11 +39,11 @@ public class CreateStageTest {
         boardRepository = new MySqlBoardRepository();
         workflowRepository = new MySqlWorkflowRepository();
 
-
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
                 boardRepository,
-                workflowRepository));
+                workflowRepository,
+                eventBus));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");
@@ -57,7 +57,7 @@ public class CreateStageTest {
 
         assertEquals(0,workflow.getStages().size());
 
-        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
+        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository, eventBus);
         CreateStageInput input = createStageUseCase;
         input.setStageName("stageName");
         input.setWorkflowId(workflowId);

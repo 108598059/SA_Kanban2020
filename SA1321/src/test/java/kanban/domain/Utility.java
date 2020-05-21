@@ -34,7 +34,7 @@ public class Utility {
     }
 
     public String createBoard(String boardName){
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardInput input = createBoardUseCase;
         CreateBoardOutput output = new CreateBoardPresenter();
         input.setUserId("1");
@@ -59,7 +59,7 @@ public class Utility {
 
     public String createStage(String workflowId, String stageName) {
 
-        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
+        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository, eventBus);
         CreateStageInput input = createStageUseCase;
         input.setStageName(stageName);
         input.setWorkflowId(workflowId);

@@ -39,7 +39,8 @@ public class CommitCardTest {
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
                 boardRepository,
-                workflowRepository));
+                workflowRepository,
+                eventBus));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");
@@ -54,7 +55,7 @@ public class CommitCardTest {
 
         assertEquals(0,workflow.getStageCloneById(stageId).getCardIds().size());
 
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, eventBus);
         CommitCardInput input = new CommitCardInput();
         input.setCardId("cardId");
         input.setWorkflowId(workflowId);

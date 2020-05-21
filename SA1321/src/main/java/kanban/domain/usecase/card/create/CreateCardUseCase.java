@@ -27,12 +27,10 @@ public class CreateCardUseCase {
         );
 
         cardRepository.add(CardEntityModelMapper.transformModelToEntity(card));
+        eventBus.postAll(card);
 
         output.setCardId(card.getCardId());
         output.setCardName(card.getName());
-
-        eventBus.postAll(card);
-
     }
 
 }

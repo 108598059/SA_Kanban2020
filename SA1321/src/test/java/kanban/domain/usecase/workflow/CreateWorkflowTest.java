@@ -42,7 +42,8 @@ public class CreateWorkflowTest {
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
                 boardRepository,
-                workflowRepository));
+                workflowRepository,
+                eventBus));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");

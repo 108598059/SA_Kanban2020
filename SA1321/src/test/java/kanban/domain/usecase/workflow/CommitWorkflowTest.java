@@ -37,7 +37,8 @@ public class CommitWorkflowTest {
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(
                 boardRepository,
-                workflowRepository));
+                workflowRepository,
+                eventBus));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
     }
@@ -49,7 +50,7 @@ public class CommitWorkflowTest {
 
         assertEquals(0,board.getWorkflowIds().size());
 
-        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
+        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository, eventBus);
         CommitWorkflowInput input = commitWorkflowUseCase;
         CommitWorkflowOutput output = new CommitWorkflowPresenter();
 
