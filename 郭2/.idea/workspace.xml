@@ -8,26 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="22001a51-52ce-40f2-b64a-7dd903de4fa1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/CreateBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/CreateBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/presenter/CreateBoardUseCasePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/presenter/CreateBoardUseCasePresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/board/create/CreateBoardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/board/create/CreateBoardUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/board/create/CreateBoardUseCaseOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/board/create/CreateBoardUseCaseOutputImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/board/create/CreateBoardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/board/create/CreateBoardUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/card/commit/CommitCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/card/commit/CommitCardUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/card/create/CreateCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/card/create/CreateCardUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/stage/create/CreateStageUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/stage/create/CreateStageUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/task/create/CreateTaskUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/task/create/CreateTaskUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/commit/CommitWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/commit/CommitWorkflowUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/board/create/CreateBoardUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/board/create/CreateBoardUseCase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/board/create/CreateBoardUseCaseOutput.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/board/create/CreateBoardUseCaseOutput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/board/create/CreateBoardUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/board/create/CreateBoardUseCaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/card/create/CreateCardUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/card/create/CreateCardUseCaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/stage/create/CreateStageUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/stage/create/CreateStageUseCaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/task/create/CreateTaskUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/task/create/CreateTaskUseCaseTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +196,7 @@
       <workItem from="1589357639466" duration="568000" />
       <workItem from="1589358220895" duration="6692000" />
       <workItem from="1589379144433" duration="977000" />
-      <workItem from="1589451310698" duration="20927000" />
+      <workItem from="1589451310698" duration="23341000" />
     </task>
     <servers />
   </component>
