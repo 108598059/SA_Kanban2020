@@ -12,7 +12,7 @@ public class Card extends AggregateRoot {
 
   public Card(String name, Board board) {
     super();
-    this.name = name;
+    this.setName(name);
     this.setColumnID(board.get(0).getID());
     this.addDomainEvent(new CardCreatedEvent(this, board.getID()));
   }
@@ -24,6 +24,9 @@ public class Card extends AggregateRoot {
   }
 
   public void setName(String name) {
+    if (name == null || name.isEmpty()) {
+      throw new IllegalArgumentException("Card name should not be empty");
+    }
     this.name = name;
   }
 

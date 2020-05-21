@@ -16,7 +16,7 @@ import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardCreatedEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
@@ -31,42 +31,42 @@ public class MysqlCreateCardUseCaseTest {
   private DomainEventBus eventBus;
 
   @Before
-  public void setUp() {
+  public void given_a_board() {
     this.cardRepository = new MysqlCardRepository();
     this.boardRepository = new MemoryBoardRepository();
     this.board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
+
     this.eventBus = new DomainEventBus();
     DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
     this.eventBus.register(cardCreatedEventHandler);
   }
 
   @Test
-  public void createCard() throws Exception {
+  public void create_card_should_save_card_to_database() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
 
-    createCardUseCaseInput.setCardName("Card1");
+    createCardUseCaseInput.setCardName("Create a card");
     createCardUseCaseInput.setBoardID(this.board.getID().toString());
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
-    assertEquals("Card1", createCardUseCaseOutput.getCardName());
+    assertEquals("Create a card", createCardUseCaseOutput.getCardName());
     assertNotEquals("", createCardUseCaseOutput.getCardID());
     assertNotNull(createCardUseCaseOutput.getCardID());
     this.cardID = createCardUseCaseOutput.getCardID();
     CardDTO cardDTO = this.cardRepository.findByID(this.cardID);
-    assertEquals("Card1", cardDTO.getName());
+    assertEquals("Create a card", cardDTO.getName());
   }
 
   @After
-  public void tearDown() throws SQLException {
+  public void tear_down() throws SQLException {
     Connection conn = DB_connector.getConnection();
     PreparedStatement statement = conn.prepareStatement("DELETE FROM Card Where ID = ?");
     statement.setString(1, this.cardID);
     statement.executeUpdate();
     DB_connector.closeConnection(conn);
   }
-
 }

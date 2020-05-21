@@ -1,46 +1,44 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.move;
 
-import java.util.UUID;
-
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class MoveCardUseCaseInput implements UseCaseInput {
 
-  private UUID boardID;
-  private UUID cardID;
-  private UUID fromColumnID;
-  private UUID toColumnID;
+  private String boardID;
+  private String cardID;
+  private String fromColumnID;
+  private String toColumnID;
 
-  public void setBoardID(UUID boardID) {
+  public String getBoardID() {
+    return boardID;
+  }
+
+  public void setBoardID(String boardID) {
     this.boardID = boardID;
   }
 
-  public UUID getBoardID() {
-    return this.boardID;
+  public String getCardID() {
+    return cardID;
   }
 
-  public void setCardID(UUID cardID) {
+  public void setCardID(String cardID) {
     this.cardID = cardID;
   }
 
-  public UUID getCardID() {
-    return this.cardID;
+  public String getFromColumnID() {
+    return fromColumnID;
   }
 
-  public void setFromColumnID(UUID id) {
-    this.fromColumnID = id;
+  public void setFromColumnID(String fromColumnID) {
+    this.fromColumnID = fromColumnID;
   }
 
-  public UUID getFromColumnID() {
-    return this.fromColumnID;
+  public String getToColumnID() {
+    return toColumnID;
   }
 
-  public void setToColumnID(UUID id) {
-    this.toColumnID = id;
+  public void setToColumnID(String toColumnID) {
+    this.toColumnID = toColumnID;
   }
-
-  public UUID getToColumnID() {
-    return this.toColumnID;
-  }
-
 }
+

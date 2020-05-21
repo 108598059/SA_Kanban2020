@@ -1,43 +1,31 @@
 package ddd.kanban.adapter.DTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BoardDTO {
-    private String id;
-    private String title;
-    private String description;
-    private List<String> workflowIds = new ArrayList<>();
+    private String boardId;
+    private String boardTitle;
+    private String boardDescription;
 
-    public String getId() {
-        return id;
+    public String getBoardId() {
+        return boardId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getBoardTitle() {
+        return boardTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBoardTitle(String boardTitle) {
+        this.boardTitle = boardTitle;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBoardDescription() {
+        return boardDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<String> getWorkflowIds() {
-        return workflowIds;
-    }
-
-    public void setWorkflowIds(List<String> workflowIds) {
-        this.workflowIds = workflowIds;
+    public void setBoardDescription(String boardDescription) {
+        this.boardDescription = boardDescription;
     }
 }

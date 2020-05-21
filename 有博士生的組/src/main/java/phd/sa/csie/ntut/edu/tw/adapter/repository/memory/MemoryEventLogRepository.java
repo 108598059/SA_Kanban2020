@@ -3,7 +3,7 @@ package phd.sa.csie.ntut.edu.tw.adapter.repository.memory;
 import java.util.ArrayList;
 import java.util.List;
 
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.dto.DomainEventDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto.DomainEventDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
 
 public class MemoryEventLogRepository implements EventLogRepository {

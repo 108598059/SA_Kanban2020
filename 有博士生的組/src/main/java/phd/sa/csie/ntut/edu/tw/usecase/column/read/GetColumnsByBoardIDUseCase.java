@@ -1,11 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.read;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class GetColumnsByBoardIDUseCase extends UseCase<GetColumnsByBoardIDUsecaseInput, GetColumnsByBoardIDUsecaseOutput> {
+public class GetColumnsByBoardIDUseCase extends UseCase<GetColumnsByBoardIDUseCaseInput, GetColumnsByBoardIDUseCaseOutput> {
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
 
@@ -25,24 +22,23 @@ public class GetColumnsByBoardIDUseCase extends UseCase<GetColumnsByBoardIDUseca
     }
 
     @Override
-    public void execute(GetColumnsByBoardIDUsecaseInput input, GetColumnsByBoardIDUsecaseOutput output) {
-        BoardDTO boardDTO = this.boardRepository.findByID(input.getBoardID());
-        Board board = BoardDTOConverter.toEntity(boardDTO);
+    public void execute(GetColumnsByBoardIDUseCaseInput input, GetColumnsByBoardIDUseCaseOutput output) {
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID()));
         List<Column> columnList = board.getColumns();
 
-        List<GetColumnsByBoardIDUsecaseOutput.ColumnViewObject> columnViewList = new ArrayList<>();
+        List<GetColumnsByBoardIDUseCaseOutput.ColumnViewObject> columnViewList = new ArrayList<>();
         for (Column column: columnList) {
-            GetColumnsByBoardIDUsecaseOutput.ColumnViewObject columnViewObject = new GetColumnsByBoardIDUsecaseOutput.ColumnViewObject();
+            GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject = new GetColumnsByBoardIDUseCaseOutput.ColumnViewObject();
             columnViewObject.setID(column.getID().toString());
             columnViewObject.setTitle(column.getTitle());
-            columnViewObject.setWip(column.getWIP());
+            columnViewObject.setWIP(column.getWIP());
 
-            List<GetColumnsByBoardIDUsecaseOutput.ColumnViewObject.CardViewObject> cardList = new ArrayList<>();
+            List<GetColumnsByBoardIDUseCaseOutput.ColumnViewObject.CardViewObject> cardList = new ArrayList<>();
             List<UUID> cardIDList = column.getCardIDs();
             for (UUID cardID: cardIDList) {
                 CardDTO cardDTO = this.cardRepository.findByID(cardID.toString());
-                GetColumnsByBoardIDUsecaseOutput.ColumnViewObject.CardViewObject cardViewObject =
-                        new GetColumnsByBoardIDUsecaseOutput.ColumnViewObject.CardViewObject();
+                GetColumnsByBoardIDUseCaseOutput.ColumnViewObject.CardViewObject cardViewObject =
+                        new GetColumnsByBoardIDUseCaseOutput.ColumnViewObject.CardViewObject();
                 cardViewObject.setID(cardDTO.getID());
                 cardViewObject.setName(cardDTO.getName());
                 cardList.add(cardViewObject);
