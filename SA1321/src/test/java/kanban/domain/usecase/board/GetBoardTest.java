@@ -3,11 +3,9 @@ package kanban.domain.usecase.board;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.board.get.GetBoardsPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
-import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
-import kanban.domain.usecase.DomainEventHandler;
+import kanban.domain.usecase.handler.DomainEventHandler;
 import kanban.domain.usecase.board.get.GetBoardsInput;
 import kanban.domain.usecase.board.get.GetBoardsOutput;
 import kanban.domain.usecase.board.get.GetBoardsUseCase;
@@ -34,10 +32,7 @@ public class GetBoardTest {
 //        boardRepository = new MySqlBoardRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(
-                boardRepository,
-                workflowRepository,
-                eventBus));
+        eventBus.register(new DomainEventHandler(null));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         utility.createBoard("boardName");

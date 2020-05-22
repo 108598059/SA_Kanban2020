@@ -3,15 +3,12 @@ package kanban.domain.usecase.card;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
-import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.usecase.DomainEventHandler;
+import kanban.domain.usecase.handler.DomainEventHandler;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
-import kanban.domain.usecase.card.commit.CommitCardOutput;
 import kanban.domain.usecase.card.commit.CommitCardUseCase;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
@@ -37,10 +34,7 @@ public class CommitCardTest {
 //        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(
-                boardRepository,
-                workflowRepository,
-                eventBus));
+        eventBus.register(new DomainEventHandler(null));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");

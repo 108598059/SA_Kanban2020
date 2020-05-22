@@ -3,18 +3,15 @@ package kanban.domain.usecase.card;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.card.create.CreateCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
-import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.card.InMemoryCardRepository;
-import kanban.domain.adapter.repository.card.MySqlCardRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.Card;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.usecase.DomainEventHandler;
+import kanban.domain.usecase.handler.CardEventHandler;
+import kanban.domain.usecase.handler.DomainEventHandler;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.create.CreateCardInput;
-import kanban.domain.usecase.card.create.CreateCardOutput;
 import kanban.domain.usecase.card.create.CreateCardUseCase;
 import kanban.domain.usecase.card.mapper.CardEntityModelMapper;
 import kanban.domain.usecase.card.repository.ICardRepository;
@@ -47,7 +44,7 @@ public class CreateCardTest {
 //        cardRepository = new MySqlCardRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(
+        eventBus.register(new CardEventHandler(
                 boardRepository,
                 workflowRepository,
                 eventBus));
