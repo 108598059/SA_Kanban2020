@@ -4,6 +4,7 @@ import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.card.create.CreateCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.card.InMemoryCardRepository;
+import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.Card;
@@ -44,6 +45,7 @@ public class CreateCardTest {
 //        cardRepository = new MySqlCardRepository();
 
         eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
         eventBus.register(new CardEventHandler(
                 boardRepository,
                 workflowRepository,

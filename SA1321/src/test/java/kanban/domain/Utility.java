@@ -2,6 +2,7 @@ package kanban.domain;
 
 import kanban.domain.adapter.presenter.board.create.CreateBoardPresenter;
 import kanban.domain.adapter.presenter.card.create.CreateCardPresenter;
+import kanban.domain.adapter.presenter.card.move.MoveCardPresenter;
 import kanban.domain.adapter.presenter.stage.create.CreateStagePresenter;
 import kanban.domain.adapter.presenter.workflow.create.CreateWorkflowPresenter;
 import kanban.domain.adapter.repository.card.InMemoryCardRepository;
@@ -12,6 +13,9 @@ import kanban.domain.usecase.board.create.CreateBoardUseCase;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.create.CreateCardInput;
 import kanban.domain.usecase.card.create.CreateCardUseCase;
+import kanban.domain.usecase.card.move.MoveCardInput;
+import kanban.domain.usecase.card.move.MoveCardOutput;
+import kanban.domain.usecase.card.move.MoveCardUseCase;
 import kanban.domain.usecase.card.repository.ICardRepository;
 import kanban.domain.usecase.stage.create.CreateStageInput;
 import kanban.domain.usecase.stage.create.CreateStageOutput;
@@ -20,6 +24,8 @@ import kanban.domain.usecase.workflow.create.CreateWorkflowInput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowOutput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowUseCase;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+
+import static org.junit.Assert.assertEquals;
 
 public class Utility {
 
@@ -90,6 +96,20 @@ public class Utility {
         CreateCardPresenter output = new CreateCardPresenter();
 
         createCardUseCase.execute(input, output);
+        return output.getCardId();
+    }
+
+    public String moveCard(String workflowId, String cardId, String originStageId, String newStageId) {
+        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, eventBus);
+        MoveCardInput input = moveCardUseCase;
+        input.setCardId(cardId);
+        input.setWorkflowId(workflowId);
+        input.setOriginStageId(originStageId);
+        input.setNewStageId(newStageId);
+        MoveCardOutput output = new MoveCardPresenter();
+
+        moveCardUseCase.execute(input, output);
+
         return output.getCardId();
     }
 }

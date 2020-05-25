@@ -2,6 +2,7 @@ package kanban.domain.model.aggregate.workflow;
 
 import kanban.domain.model.aggregate.AggregateRoot;
 import kanban.domain.model.aggregate.workflow.event.CardCommitted;
+import kanban.domain.model.aggregate.workflow.event.CardUnCommitted;
 import kanban.domain.model.aggregate.workflow.event.StageCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 
@@ -60,6 +61,22 @@ public class Workflow extends AggregateRoot {
         return _cardId;
     }
 
+    public String unCommitCardFromStage(String cardId, String stageId) {
+        Stage stage = getStageById(stageId);
+        String _cardId = stage.unCommitCard(cardId);
+        addDomainEvent(new CardUnCommitted(stageId, cardId));
+        return _cardId;
+    }
+
+    public String moveCard(String cardId, String originStageId, String newStageId) {
+        String unCommitCardId = unCommitCardFromStage(cardId, originStageId);
+        String committedCardId = commitCardInStage(cardId, newStageId);
+
+        assert committedCardId == unCommitCardId;
+
+        return committedCardId;
+    }
+
     public String getName() {
         return name;
     }
@@ -83,4 +100,5 @@ public class Workflow extends AggregateRoot {
     public void setStages(List<Stage> stages) {
         this.stages = stages;
     }
+
 }

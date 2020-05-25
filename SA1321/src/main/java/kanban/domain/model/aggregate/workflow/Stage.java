@@ -31,6 +31,12 @@ public class Stage implements Cloneable {
         return cardId;
     }
 
+
+    public String unCommitCard(String cardId) {
+        cardIds.remove(cardId);
+        return cardId;
+    }
+
     public String getWorkflowId() {
         return workflowId;
     }

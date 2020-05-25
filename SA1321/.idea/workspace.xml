@@ -7,20 +7,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="271faf23-e55f-4643-8b02-caea93a7525c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/domainEvent/InMemoryDomainEventRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/domainEvent/repository/IDomainEventRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/CardEventHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/WorkflowEventHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/domainEvent/DomainEventTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/presenter/card/move/MoveCardPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/presenter/card/viewmodel/MoveCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/event/CardUnCommitted.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/move/MoveCardInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/move/MoveCardOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/move/MoveCardUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/MoveCardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/ApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/ApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/common/DateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/common/DateProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/DomainEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/DomainEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Stage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Stage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Workflow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Workflow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/unit_test/workflow/WorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/unit_test/workflow/WorkflowTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/CreateBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/CreateBoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/GetBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/GetBoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CommitCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CommitCardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CreateCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CreateCardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/domainEvent/DomainEventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/domainEvent/DomainEventTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/stage/CreateStageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/stage/CreateStageTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CommitWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CommitWorkflowTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CreateWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CreateWorkflowTest.java" afterDir="false" />
@@ -56,7 +59,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/eclipse-workspace/ezkanban_2020" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
@@ -71,11 +74,11 @@
       <recent name="kanban.domain.usecase.workflow" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="kanban.domain.model.aggregate.workflow.event" />
+      <recent name="kanban.domain.usecase.card.move" />
       <recent name="kanban.domain.adapter.repository.domainEvent" />
       <recent name="kanban.domain.usecase.domainEvent.repository" />
       <recent name="kanban.domain.adapter.presenter.workflow.viewmodel" />
-      <recent name="kanban.domain.usecase.workflow" />
-      <recent name="kanban.domain.usecase.board" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -90,7 +93,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in SA1321">
+  <component name="RunManager" selected="JUnit.DomainEventTest.Create_Card_Should_Save_CardCreated_And_CardCommitted_Event_In_DomainEventRepository">
     <configuration name="All in SA1321" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <option name="PACKAGE_NAME" value="" />
@@ -115,49 +118,48 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DomainEventTest.Create_Stage_Should_Save_StageCreated_Event_In_DomainEventRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoveCardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.domainEvent.*" />
+          <option name="PATTERN" value="kanban.domain.usecase.card.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase.domainEvent" />
-      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.domainEvent.DomainEventTest" />
-      <option name="METHOD_NAME" value="Create_Stage_Should_Save_StageCreated_Event_In_DomainEventRepository" />
+      <option name="PACKAGE_NAME" value="kanban.domain.usecase.card" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.card.MoveCardTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveCardTest.Card_should_be_moved_from_doneStage_to_todoStage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SA1321" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kanban.domain.usecase.card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="kanban.domain.usecase.card" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.card.MoveCardTest" />
+      <option name="METHOD_NAME" value="Card_should_be_moved_from_doneStage_to_todoStage" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DomainEventTest.Create_Workflow_Should_Save_WorkflowCreated_And_WorkflowCommitted_Event_In_DomainEventRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkflowTest.Move_card_should_have_the_CardUnCommitted_event_and_CardCommitted_event_in_domainEvent_list" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.domainEvent.*" />
+          <option name="PATTERN" value="kanban.domain.unit_test.workflow.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase.domainEvent" />
-      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.domainEvent.DomainEventTest" />
-      <option name="METHOD_NAME" value="Create_Workflow_Should_Save_WorkflowCreated_And_WorkflowCommitted_Event_In_DomainEventRepository" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DomainEventTest.Create_Workflow_Should_Save_WorkflowCreated_Event_In_DomainEventRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SA1321" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.domainEvent.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase.domainEvent" />
-      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.domainEvent.DomainEventTest" />
-      <option name="METHOD_NAME" value="Create_Workflow_Should_Save_WorkflowCreated_Event_In_DomainEventRepository" />
+      <option name="PACKAGE_NAME" value="kanban.domain.unit_test.workflow" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.unit_test.workflow.WorkflowTest" />
+      <option name="METHOD_NAME" value="Move_card_should_have_the_CardUnCommitted_event_and_CardCommitted_event_in_domainEvent_list" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -238,19 +240,19 @@
     </configuration>
     <list>
       <item itemvalue="Tomcat Server.Tomcat 9.0.12" />
-      <item itemvalue="JUnit.DomainEventTest.Create_Workflow_Should_Save_WorkflowCreated_Event_In_DomainEventRepository" />
-      <item itemvalue="JUnit.DomainEventTest.Create_Workflow_Should_Save_WorkflowCreated_And_WorkflowCommitted_Event_In_DomainEventRepository" />
-      <item itemvalue="JUnit.DomainEventTest.Create_Stage_Should_Save_StageCreated_Event_In_DomainEventRepository" />
-      <item itemvalue="JUnit.DomainEventTest.Create_Card_Should_Save_CardCreated_And_CardCommitted_Event_In_DomainEventRepository" />
+      <item itemvalue="JUnit.MoveCardTest.Card_should_be_moved_from_doneStage_to_todoStage" />
+      <item itemvalue="JUnit.MoveCardTest" />
+      <item itemvalue="JUnit.WorkflowTest.Move_card_should_have_the_CardUnCommitted_event_and_CardCommitted_event_in_domainEvent_list" />
       <item itemvalue="JUnit.All in SA1321" />
+      <item itemvalue="JUnit.DomainEventTest.Create_Card_Should_Save_CardCreated_And_CardCommitted_Event_In_DomainEventRepository" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in SA1321" />
         <item itemvalue="JUnit.DomainEventTest.Create_Card_Should_Save_CardCreated_And_CardCommitted_Event_In_DomainEventRepository" />
-        <item itemvalue="JUnit.DomainEventTest.Create_Stage_Should_Save_StageCreated_Event_In_DomainEventRepository" />
-        <item itemvalue="JUnit.DomainEventTest.Create_Workflow_Should_Save_WorkflowCreated_And_WorkflowCommitted_Event_In_DomainEventRepository" />
-        <item itemvalue="JUnit.DomainEventTest.Create_Workflow_Should_Save_WorkflowCreated_Event_In_DomainEventRepository" />
+        <item itemvalue="JUnit.All in SA1321" />
+        <item itemvalue="JUnit.WorkflowTest.Move_card_should_have_the_CardUnCommitted_event_and_CardCommitted_event_in_domainEvent_list" />
+        <item itemvalue="JUnit.MoveCardTest" />
+        <item itemvalue="JUnit.MoveCardTest.Card_should_be_moved_from_doneStage_to_todoStage" />
       </list>
     </recent_temporary>
   </component>
@@ -272,7 +274,10 @@
       <workItem from="1589965803299" duration="6530000" />
       <workItem from="1590026270295" duration="2184000" />
       <workItem from="1590033481253" duration="618000" />
-      <workItem from="1590137738069" duration="3619000" />
+      <workItem from="1590137738069" duration="4088000" />
+      <workItem from="1590160091294" duration="523000" />
+      <workItem from="1590375832793" duration="18000" />
+      <workItem from="1590382870161" duration="5476000" />
     </task>
     <servers />
   </component>

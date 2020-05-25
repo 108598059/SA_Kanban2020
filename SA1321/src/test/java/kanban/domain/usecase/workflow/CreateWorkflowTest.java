@@ -3,6 +3,7 @@ package kanban.domain.usecase.workflow;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.workflow.create.CreateWorkflowPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
@@ -39,6 +40,7 @@ public class CreateWorkflowTest {
 //        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
         eventBus.register(new WorkflowEventHandler(
                 boardRepository,
                 eventBus));

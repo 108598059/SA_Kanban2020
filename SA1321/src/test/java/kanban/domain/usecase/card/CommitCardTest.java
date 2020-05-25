@@ -3,6 +3,7 @@ package kanban.domain.usecase.card;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
@@ -34,7 +35,7 @@ public class CommitCardTest {
 //        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(null));
+        eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");

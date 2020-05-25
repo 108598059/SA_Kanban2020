@@ -9,6 +9,7 @@ import kanban.domain.model.aggregate.board.event.BoardCreated;
 import kanban.domain.model.aggregate.board.event.WorkflowCommitted;
 import kanban.domain.model.aggregate.card.event.CardCreated;
 import kanban.domain.model.aggregate.workflow.event.CardCommitted;
+import kanban.domain.model.aggregate.workflow.event.CardUnCommitted;
 import kanban.domain.model.aggregate.workflow.event.StageCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 import kanban.domain.model.common.DateProvider;
@@ -111,6 +112,30 @@ public class DomainEventTest {
 
     @Test
     public void Create_Card_Should_Save_CardCreated_And_CardCommitted_Event_In_DomainEventRepository() throws ParseException {
+        boardId = utility.createBoard("boardName");
+        workflowId = utility.createWorkflow(boardId, "workflowName");
+        String todoStageId = utility.createStage(workflowId, "todo");
+        String doingStageId = utility.createStage(workflowId, "doing");
+        String cardId = utility.createCard(workflowId, todoStageId, "cardName", "description", "general", "xl");
+
+
+        DateProvider.setDate("2020/05/26");
+        cardId = utility.moveCard(workflowId , cardId, todoStageId, doingStageId);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        assertEquals(9, domainEventRepository.getAll().size());
+
+        assertEquals(todoStageId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getStageId());
+        assertEquals(cardId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getCardId());
+        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(7)).getOccurredOn()));
+
+        assertEquals(doingStageId, ((CardCommitted)domainEventRepository.getAll().get(8)).getStageId());
+        assertEquals(cardId, ((CardCommitted)domainEventRepository.getAll().get(8)).getCardId());
+        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(8)).getOccurredOn()));
+    }
+
+    @Test
+    public void Move_Card_Should_Save_CardUnCommitted_And_CardCommitted_Event_In_DomainEventRepository() throws ParseException {
         Create_Stage_Should_Save_StageCreated_Event_In_DomainEventRepository();
         String cardName = "cardName";
         String description = "description";

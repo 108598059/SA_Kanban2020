@@ -3,9 +3,8 @@ package kanban.domain.usecase.stage;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.stage.create.CreateStagePresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
-import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.model.aggregate.workflow.Workflow;
@@ -20,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class CreateStageTest {
     private String boardId;
@@ -38,7 +36,7 @@ public class CreateStageTest {
 //        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(null));
+        eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
 
         utility = new Utility(boardRepository, workflowRepository, eventBus);
         boardId = utility.createBoard("test automation");
