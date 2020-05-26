@@ -33,6 +33,8 @@ public class Stage implements Cloneable {
 
 
     public String unCommitCard(String cardId) {
+        if(!cardIds.contains(cardId))
+            throw new RuntimeException("CardId can't be found in cardIds, CardId:" + cardId );
         cardIds.remove(cardId);
         return cardId;
     }

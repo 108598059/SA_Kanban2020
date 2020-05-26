@@ -1,4 +1,4 @@
-package kanban.domain.usecase.handler;
+package kanban.domain.usecase.handler.card;
 
 import com.google.common.eventbus.Subscribe;
 import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;

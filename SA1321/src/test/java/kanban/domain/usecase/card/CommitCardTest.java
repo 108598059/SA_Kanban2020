@@ -7,7 +7,9 @@ import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepositor
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.usecase.handler.DomainEventHandler;
+import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardUseCase;
@@ -25,6 +27,8 @@ public class CommitCardTest {
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
     private DomainEventBus eventBus;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
     private Utility utility;
 
     @Before
@@ -37,7 +41,7 @@ public class CommitCardTest {
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
 
-        utility = new Utility(boardRepository, workflowRepository, eventBus);
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository,eventBus);
         boardId = utility.createBoard("test automation");
         workflowId = utility.createWorkflow(boardId,"workflowName");
         stageId = utility.createStage(workflowId,"stageName");

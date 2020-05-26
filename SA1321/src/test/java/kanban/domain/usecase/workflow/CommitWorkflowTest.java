@@ -3,11 +3,15 @@ package kanban.domain.usecase.workflow;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.workflow.commit.CommitWorkflowPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
+import kanban.domain.adapter.repository.flowEvent.InMemoryFlowEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
-import kanban.domain.usecase.handler.DomainEventHandler;
+import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowInput;
@@ -25,18 +29,22 @@ public class CommitWorkflowTest {
     private IWorkflowRepository workflowRepository;
     private DomainEventBus eventBus;
     private Utility utility;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
 
     @Before
     public void setUp() throws Exception {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
+        flowEventRepository = new InMemoryFlowEventRepository();
+        cardRepository = new InMemoryCardRepository();
 //        boardRepository = new MySqlBoardRepository();
 //        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
 
-        utility = new Utility(boardRepository, workflowRepository, eventBus);
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository,eventBus);
     }
 
     @Test

@@ -57,14 +57,14 @@ public class Workflow extends AggregateRoot {
     public String commitCardInStage(String cardId, String stageId) {
         Stage stage = getStageById(stageId);
         String _cardId = stage.commitCard(cardId);
-        addDomainEvent(new CardCommitted(stageId, cardId));
+        addDomainEvent(new CardCommitted(workflowId, stageId, cardId));
         return _cardId;
     }
 
     public String unCommitCardFromStage(String cardId, String stageId) {
         Stage stage = getStageById(stageId);
         String _cardId = stage.unCommitCard(cardId);
-        addDomainEvent(new CardUnCommitted(stageId, cardId));
+        addDomainEvent(new CardUnCommitted(workflowId, stageId, cardId));
         return _cardId;
     }
 

@@ -3,15 +3,19 @@ package kanban.domain.usecase.workflow;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.workflow.create.CreateWorkflowPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
+import kanban.domain.adapter.repository.flowEvent.InMemoryFlowEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.usecase.handler.DomainEventHandler;
+import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
 import kanban.domain.usecase.board.repository.IBoardRepository;
-import kanban.domain.usecase.handler.WorkflowEventHandler;
+import kanban.domain.usecase.handler.workflow.WorkflowEventHandler;
 import kanban.domain.usecase.workflow.create.CreateWorkflowInput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowOutput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowUseCase;
@@ -30,12 +34,15 @@ public class CreateWorkflowTest {
     private DomainEventBus eventBus;
     private Utility utility;
     private String boardId;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
 
     @Before
     public void setUp() {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
-
+        flowEventRepository = new InMemoryFlowEventRepository();
+        cardRepository = new InMemoryCardRepository();
 //        boardRepository = new MySqlBoardRepository();
 //        workflowRepository = new MySqlWorkflowRepository();
 
@@ -46,7 +53,7 @@ public class CreateWorkflowTest {
                 eventBus));
 
 
-        utility = new Utility(boardRepository, workflowRepository, eventBus);
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository,eventBus);
         boardId = utility.createBoard("test automation");
     }
 

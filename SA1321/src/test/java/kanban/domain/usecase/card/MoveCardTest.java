@@ -3,7 +3,9 @@ package kanban.domain.usecase.card;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.card.move.MoveCardPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
+import kanban.domain.adapter.repository.flowEvent.InMemoryFlowEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
@@ -11,9 +13,12 @@ import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.card.move.MoveCardInput;
 import kanban.domain.usecase.card.move.MoveCardOutput;
 import kanban.domain.usecase.card.move.MoveCardUseCase;
-import kanban.domain.usecase.handler.CardEventHandler;
-import kanban.domain.usecase.handler.DomainEventHandler;
-import kanban.domain.usecase.handler.WorkflowEventHandler;
+import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.domainEvent.repository.IDomainEventRepository;
+import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.handler.card.CardEventHandler;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
+import kanban.domain.usecase.handler.workflow.WorkflowEventHandler;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
@@ -32,19 +37,27 @@ public class MoveCardTest {
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
     private DomainEventBus eventBus;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
+
+    private IDomainEventRepository domainEventRepository;
+
     private Utility utility;
 
     @Before
     public void setUp() throws Exception {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
+        domainEventRepository = new InMemoryDomainEventRepository();
+        flowEventRepository = new InMemoryFlowEventRepository();
+        cardRepository = new InMemoryCardRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new WorkflowEventHandler(boardRepository, eventBus));
         eventBus.register(new CardEventHandler(boardRepository, workflowRepository, eventBus));
-        eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
+        eventBus.register(new DomainEventHandler(domainEventRepository));
 
-        utility = new Utility(boardRepository, workflowRepository, eventBus);
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository,eventBus);
         boardId = utility.createBoard("test automation");
         workflowId = utility.createWorkflow(boardId,"workflowName");
         todoStageId = utility.createStage(workflowId,"todo");

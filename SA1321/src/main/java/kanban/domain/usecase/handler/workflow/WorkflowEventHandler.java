@@ -1,4 +1,4 @@
-package kanban.domain.usecase.handler;
+package kanban.domain.usecase.handler.workflow;
 
 import com.google.common.eventbus.Subscribe;
 import kanban.domain.adapter.presenter.workflow.commit.CommitWorkflowPresenter;

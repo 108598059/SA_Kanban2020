@@ -6,7 +6,7 @@ import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
-import kanban.domain.usecase.handler.DomainEventHandler;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.create.CreateBoardInput;
 import kanban.domain.usecase.board.create.CreateBoardOutput;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;

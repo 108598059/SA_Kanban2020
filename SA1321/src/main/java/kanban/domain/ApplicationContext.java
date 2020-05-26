@@ -3,7 +3,7 @@ package kanban.domain;
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
 import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
-import kanban.domain.usecase.handler.DomainEventHandler;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
 import kanban.domain.usecase.board.get.GetBoardsUseCase;
 import kanban.domain.usecase.board.repository.IBoardRepository;

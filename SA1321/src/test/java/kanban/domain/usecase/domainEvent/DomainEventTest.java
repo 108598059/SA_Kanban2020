@@ -2,7 +2,9 @@ package kanban.domain.usecase.domainEvent;
 
 import kanban.domain.Utility;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
+import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
+import kanban.domain.adapter.repository.flowEvent.InMemoryFlowEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.event.BoardCreated;
@@ -14,50 +16,54 @@ import kanban.domain.model.aggregate.workflow.event.StageCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 import kanban.domain.model.common.DateProvider;
 import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.card.repository.ICardRepository;
 import kanban.domain.usecase.domainEvent.repository.IDomainEventRepository;
-import kanban.domain.usecase.handler.CardEventHandler;
-import kanban.domain.usecase.handler.DomainEventHandler;
-import kanban.domain.usecase.handler.WorkflowEventHandler;
+import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.handler.card.CardEventHandler;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
+import kanban.domain.usecase.handler.domainEvent.FlowEventHandler;
+import kanban.domain.usecase.handler.workflow.WorkflowEventHandler;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 public class DomainEventTest {
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
-    private IDomainEventRepository domainEventRepository;
+    private DomainEventBus eventBus;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
 
     private Utility utility;
-    private DomainEventBus eventBus;
 
     private String boardId;
     private String workflowId;
     private String stageId;
     private String cardId;
+    private InMemoryDomainEventRepository domainEventRepository;
 
     @Before
     public void setUp() {
-
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
+        cardRepository = new InMemoryCardRepository();
         domainEventRepository = new InMemoryDomainEventRepository();
+        flowEventRepository = new InMemoryFlowEventRepository();
 
         eventBus = new DomainEventBus();
         eventBus.register(new WorkflowEventHandler(boardRepository, eventBus));
         eventBus.register(new CardEventHandler(boardRepository, workflowRepository, eventBus));
         eventBus.register(new DomainEventHandler(domainEventRepository));
+        eventBus.register(new FlowEventHandler(flowEventRepository));
 
-         utility = new Utility(
-                boardRepository,
-                workflowRepository,
-                eventBus
-        );
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository,eventBus);
+
+
     }
 
     @Test
@@ -66,7 +72,6 @@ public class DomainEventTest {
         DateProvider.setDate("2020/05/22");
         boardId = utility.createBoard(boardName);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-
 
         assertEquals(1, domainEventRepository.getAll().size());
         assertEquals(boardId, ((BoardCreated)domainEventRepository.getAll().get(0)).getBoardId());
@@ -109,33 +114,8 @@ public class DomainEventTest {
         assertEquals("2020/05/24", sdf.format((domainEventRepository.getAll().get(3)).getOccurredOn()));
     }
 
-
     @Test
     public void Create_Card_Should_Save_CardCreated_And_CardCommitted_Event_In_DomainEventRepository() throws ParseException {
-        boardId = utility.createBoard("boardName");
-        workflowId = utility.createWorkflow(boardId, "workflowName");
-        String todoStageId = utility.createStage(workflowId, "todo");
-        String doingStageId = utility.createStage(workflowId, "doing");
-        String cardId = utility.createCard(workflowId, todoStageId, "cardName", "description", "general", "xl");
-
-
-        DateProvider.setDate("2020/05/26");
-        cardId = utility.moveCard(workflowId , cardId, todoStageId, doingStageId);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-
-        assertEquals(9, domainEventRepository.getAll().size());
-
-        assertEquals(todoStageId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getStageId());
-        assertEquals(cardId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getCardId());
-        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(7)).getOccurredOn()));
-
-        assertEquals(doingStageId, ((CardCommitted)domainEventRepository.getAll().get(8)).getStageId());
-        assertEquals(cardId, ((CardCommitted)domainEventRepository.getAll().get(8)).getCardId());
-        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(8)).getOccurredOn()));
-    }
-
-    @Test
-    public void Move_Card_Should_Save_CardUnCommitted_And_CardCommitted_Event_In_DomainEventRepository() throws ParseException {
         Create_Stage_Should_Save_StageCreated_Event_In_DomainEventRepository();
         String cardName = "cardName";
         String description = "description";
@@ -159,4 +139,42 @@ public class DomainEventTest {
         assertEquals(cardId, ((CardCommitted)domainEventRepository.getAll().get(5)).getCardId());
         assertEquals("2020/05/25", sdf.format((domainEventRepository.getAll().get(5)).getOccurredOn()));
     }
+
+    @Test
+    public void Move_Card_Should_Save_CardUnCommitted_And_CardCommitted_Event_In_DomainEventRepository_And_FlowEventRepository() throws ParseException {
+        boardId = utility.createBoard("boardName");
+        workflowId = utility.createWorkflow(boardId, "workflowName");
+        String todoStageId = utility.createStage(workflowId, "todo");
+        String doingStageId = utility.createStage(workflowId, "doing");
+        String cardId = utility.createCard(workflowId, todoStageId, "cardName", "description", "general", "xl");
+
+        DateProvider.setDate("2020/05/26");
+        cardId = utility.moveCard(workflowId , cardId, todoStageId, doingStageId);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        assertEquals(9, domainEventRepository.getAll().size());
+
+        assertEquals(todoStageId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getStageId());
+        assertEquals(cardId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getCardId());
+        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(7)).getOccurredOn()));
+
+        assertEquals(doingStageId, ((CardCommitted)domainEventRepository.getAll().get(8)).getStageId());
+        assertEquals(cardId, ((CardCommitted)domainEventRepository.getAll().get(8)).getCardId());
+        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(8)).getOccurredOn()));
+
+
+        assertEquals(3, flowEventRepository.getAll().size());
+
+        assertEquals(todoStageId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getStageId());
+        assertEquals(cardId, ((CardUnCommitted)domainEventRepository.getAll().get(7)).getCardId());
+        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(7)).getOccurredOn()));
+
+        assertEquals(doingStageId, ((CardCommitted)domainEventRepository.getAll().get(8)).getStageId());
+        assertEquals(cardId, ((CardCommitted)domainEventRepository.getAll().get(8)).getCardId());
+        assertEquals("2020/05/26", sdf.format((domainEventRepository.getAll().get(8)).getOccurredOn()));
+
+
+    }
+
+
 }
