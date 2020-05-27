@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 
-public class EditCardColumnUseCaseTest {
+public class EditCardBelongsColumnUseCaseTest {
     private CardRepository cardRepository;
     private Board board;
     private Card card;

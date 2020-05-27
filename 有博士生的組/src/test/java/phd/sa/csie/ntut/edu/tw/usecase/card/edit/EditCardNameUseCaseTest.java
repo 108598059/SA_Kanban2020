@@ -57,7 +57,7 @@ public class EditCardNameUseCaseTest {
 
   @Test
   public void edit_card_name_should_update_the_name_of_card() {
-    EditCardNameUseCase editCardNameUseCase = new EditCardNameUseCase(this.cardRepository);
+    EditCardNameUseCase editCardNameUseCase = new EditCardNameUseCase(this.eventBus, this.cardRepository);
     EditCardNameUseCaseInput editCardNameUseCaseInput = new EditCardNameUseCaseInput();
     EditCardNameUseCaseOutput editCardNameUseCaseOutput = new EditCardNameUseCaseOutput();
 
@@ -75,7 +75,7 @@ public class EditCardNameUseCaseTest {
 
   @Test
   public void edit_card_name_is_empty_should_raise_illegal_argument_exception() {
-    EditCardNameUseCase editCardNameUseCase = new EditCardNameUseCase(this.cardRepository);
+    EditCardNameUseCase editCardNameUseCase = new EditCardNameUseCase(this.eventBus, this.cardRepository);
     EditCardNameUseCaseInput editCardNameUseCaseInput = new EditCardNameUseCaseInput();
     EditCardNameUseCaseOutput editCardNameUseCaseOutput = new EditCardNameUseCaseOutput();
 
