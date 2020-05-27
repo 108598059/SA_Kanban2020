@@ -10,25 +10,25 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCardUseCaseOutput> {
-  private CardRepository cardRepository;
-  private BoardRepository boardRepository;
+    private CardRepository cardRepository;
+    private BoardRepository boardRepository;
 
-  public CreateCardUseCase(DomainEventBus eventBus, CardRepository cardRepository, BoardRepository boardRepository) {
-    super(eventBus);
-    this.cardRepository = cardRepository;
-    this.boardRepository = boardRepository;
-  }
+    public CreateCardUseCase(DomainEventBus eventBus, CardRepository cardRepository, BoardRepository boardRepository) {
+        super(eventBus);
+        this.cardRepository = cardRepository;
+        this.boardRepository = boardRepository;
+    }
 
-  @Override
-  public void execute(CreateCardUseCaseInput input, CreateCardUseCaseOutput output) {
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID()));
+    @Override
+    public void execute(CreateCardUseCaseInput input, CreateCardUseCaseOutput output) {
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID()));
 
-    Card card = new Card(input.getCardName(), board);
+        Card card = new Card(input.getCardName(), board);
 
-    this.cardRepository.save(CardDTOConverter.toDTO(card));
-    this.eventBus.postAll(card);
+        this.cardRepository.save(CardDTOConverter.toDTO(card));
+        this.eventBus.postAll(card);
 
-    output.setCardName(card.getName());
-    output.setCardID(card.getID().toString());
-  }
+        output.setCardName(card.getName());
+        output.setCardID(card.getID().toString());
+    }
 }

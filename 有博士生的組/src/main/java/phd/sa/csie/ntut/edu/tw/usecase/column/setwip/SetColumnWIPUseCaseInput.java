@@ -4,32 +4,32 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class SetColumnWIPUseCaseInput implements UseCaseInput {
 
-  private String columnID;
-  private int columnWIP = 0;
-  private String boardID;
+    private String columnID;
+    private int columnWIP = 0;
+    private String boardID;
 
-  public void setColumnID(String id) {
-    this.columnID = id;
-  }
+    public void setColumnID(String id) {
+        this.columnID = id;
+    }
 
-  public String getColumnID() {
-    return columnID;
-  }
+    public String getColumnID() {
+        return columnID;
+    }
 
-  public void setBoardID(String id) {
-    this.boardID = id;
-  }
+    public void setBoardID(String id) {
+        this.boardID = id;
+    }
 
-  public String getBoardID() {
-    return boardID;
-  }
+    public String getBoardID() {
+        return boardID;
+    }
 
-  public void setColumnWIP(int wip) {
-    this.columnWIP = wip;
-  }
+    public void setColumnWIP(int wip) {
+        this.columnWIP = wip;
+    }
 
-  public int getColumnWIP() {
-    return columnWIP;
-  }
+    public int getColumnWIP() {
+        return columnWIP;
+    }
 
 }

@@ -9,26 +9,26 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
 public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetColumnWIPUseCaseOutput> {
-  private BoardRepository boardRepository;
+    private BoardRepository boardRepository;
 
-  public SetColumnWIPUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
-    super(eventBus);
-    this.boardRepository = boardRepository;
-  }
+    public SetColumnWIPUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
+        super(eventBus);
+        this.boardRepository = boardRepository;
+    }
 
-  public void execute(SetColumnWIPUseCaseInput input, SetColumnWIPUseCaseOutput output) {
-    String boardID = input.getBoardID();
-    String columnID = input.getColumnID();
-    int wip = input.getColumnWIP();
+    public void execute(SetColumnWIPUseCaseInput input, SetColumnWIPUseCaseOutput output) {
+        String boardID = input.getBoardID();
+        String columnID = input.getColumnID();
+        int wip = input.getColumnWIP();
 
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID));
-    board.setColumnWIP(UUID.fromString(columnID), wip);
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID));
+        board.setColumnWIP(UUID.fromString(columnID), wip);
 
-    this.boardRepository.update(BoardDTOConverter.toDTO(board));
-    this.eventBus.postAll(board);
+        this.boardRepository.update(BoardDTOConverter.toDTO(board));
+        this.eventBus.postAll(board);
 
-    output.setColumnID(columnID);
-    output.setColumnWIP(wip);
-  }
+        output.setColumnID(columnID);
+        output.setColumnWIP(wip);
+    }
 
 }

@@ -9,29 +9,29 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
 public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCaseOutput> {
-  private BoardRepository boardRepository;
+    private BoardRepository boardRepository;
 
-  public MoveCardUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
-    super(eventBus);
-    this.boardRepository = boardRepository;
-  }
+    public MoveCardUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
+        super(eventBus);
+        this.boardRepository = boardRepository;
+    }
 
-  public void execute(MoveCardUseCaseInput input, MoveCardUseCaseOutput output) {
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID().toString()));
-    String cardID = input.getCardID();
-    String fromColumnID = input.getFromColumnID();
-    String toColumnID = input.getToColumnID();
+    public void execute(MoveCardUseCaseInput input, MoveCardUseCaseOutput output) {
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID().toString()));
+        String cardID = input.getCardID();
+        String fromColumnID = input.getFromColumnID();
+        String toColumnID = input.getToColumnID();
 
-    String newColumnID = board.moveCard(UUID.fromString(cardID),
-                                        UUID.fromString(fromColumnID),
-                                        UUID.fromString(toColumnID));
+        String newColumnID = board.moveCard(UUID.fromString(cardID),
+                UUID.fromString(fromColumnID),
+                UUID.fromString(toColumnID));
 
-    this.boardRepository.update(BoardDTOConverter.toDTO(board));
-    this.eventBus.postAll(board);
+        this.boardRepository.update(BoardDTOConverter.toDTO(board));
+        this.eventBus.postAll(board);
 
-    output.setCardID(cardID);
-    output.setOldColumnID(fromColumnID);
-    output.setNewColumnID(newColumnID);
-  }
+        output.setCardID(cardID);
+        output.setOldColumnID(fromColumnID);
+        output.setNewColumnID(newColumnID);
+    }
 
 }
