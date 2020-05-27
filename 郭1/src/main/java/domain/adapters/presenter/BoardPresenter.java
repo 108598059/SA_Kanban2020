@@ -11,7 +11,6 @@ public class BoardPresenter implements CreateBoardOutput {
 
     private String boardId;
     private String boardName;
-    private BoardViewModel viewModel;
 
     public BoardPresenter(){
     }
@@ -23,7 +22,6 @@ public class BoardPresenter implements CreateBoardOutput {
 
     public void setBoardName(String boardName) {
         this.boardName = boardName;
-        viewModel.addBoard(boardName);
     }
 
 
@@ -36,8 +34,9 @@ public class BoardPresenter implements CreateBoardOutput {
     }
 
     public BoardViewModel createBoardViewModel(){
-        this.viewModel = new BoardViewModel();
-        return viewModel;
+        BoardViewModel boardViewModel = new BoardViewModel();
+        boardViewModel.setBoardName(this.getBoardName());
+        return boardViewModel;
     }
 
 

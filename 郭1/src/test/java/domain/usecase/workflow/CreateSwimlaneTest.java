@@ -3,6 +3,7 @@ package domain.usecase.workflow;
 import domain.adapters.repository.WorkflowRepositoryImpl;
 import domain.adapters.controller.workflow.*;
 import domain.entity.DomainEventBus;
+import domain.entity.workflow.Workflow;
 import domain.usecase.stage.create.CreateStageInput;
 import domain.usecase.stage.create.CreateStageOutput;
 import domain.usecase.stage.create.CreateStageUseCase;
@@ -15,6 +16,7 @@ import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class CreateSwimlaneTest {
@@ -38,7 +40,7 @@ public class CreateSwimlaneTest {
 
         workflowId = createWorkflowOutput.getWorkflowId();
 
-        CreateStageUseCase createStage = new CreateStageUseCase(workflowRepository) ;
+        CreateStageUseCase createStage = new CreateStageUseCase(workflowRepository, eventBus) ;
         CreateStageInput createStageInput = new CreateStageInputImpl() ;
         CreateStageOutput createStageOutput = new CreateStageOutputImpl() ;
 
@@ -51,7 +53,7 @@ public class CreateSwimlaneTest {
     @Test
     public void createSwimlaneTest() {
 
-        CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository);
+        CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository, eventBus);
         CreateSwimlaneInput createSwimlaneInput = new CreateSwimlaneInputImpl();
         CreateSwimlaneOutput createSwimlaneOutput = new CreateSwimlaneOutputImpl();
 
@@ -61,8 +63,10 @@ public class CreateSwimlaneTest {
 
         createSwimlaneUseCase.execute(createSwimlaneInput,createSwimlaneOutput);
 
+        Workflow workflow = workflowRepository.getWorkFlowById(workflowId);
 
-        assertNotNull(createSwimlaneOutput.getSwimlaneId());
+        assertEquals(1, workflow.getStageById(stageId).getSwimlanes().size());
+        assertEquals("Ready", workflow.getStageById(stageId).getSwimlaneById(createSwimlaneOutput.getSwimlaneId()).getName());
     }
 
 }

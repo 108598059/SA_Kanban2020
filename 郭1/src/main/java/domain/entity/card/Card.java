@@ -38,8 +38,12 @@ public class Card extends Aggregate {
         return this._id ;
     }
 
-    public Map<String, Subtask> getTaskMap(){
+    public Map<String, Subtask> getSubtasks(){
         return taskMap;
+    }
+
+    public Subtask getSubtaskById(String id) {
+        return taskMap.get(id);
     }
 
     public String createSubtask(String taskName) {

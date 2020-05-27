@@ -2,7 +2,7 @@ package domain.entity.card.event;
 
 import domain.entity.DomainEvent;
 
-public class CardCreated extends DomainEvent {
+public class CardCreated implements DomainEvent {
 
     private String workflowId;
     private String stageId;

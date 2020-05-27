@@ -4,12 +4,13 @@ import domain.usecase.board.commit.CommitWorkflowOutput;
 
 public class CommitWorkflowOutputImpl implements CommitWorkflowOutput {
 
-    private int numberOfWorkflow;
-    public void setNumberOfWorkflow(int numberOfWorkflow) {
-        this.numberOfWorkflow = numberOfWorkflow;
+    private String workflowId;
+
+    public void setWorkflowId(String id) {
+        this.workflowId = id;
     }
 
-    public int getNumberOfWorkflow() {
-        return numberOfWorkflow;
+    public String getWorkflowId() {
+        return workflowId;
     }
 }

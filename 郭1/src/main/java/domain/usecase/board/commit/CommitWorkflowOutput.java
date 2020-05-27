@@ -1,7 +1,7 @@
 package domain.usecase.board.commit;
 
 public interface CommitWorkflowOutput {
-    void setNumberOfWorkflow(int numberOfWorkflow);
+    void setWorkflowId(String id);
 
-    int getNumberOfWorkflow();
+    String getWorkflowId();
 }

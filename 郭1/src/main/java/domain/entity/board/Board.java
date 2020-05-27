@@ -46,7 +46,15 @@ public class Board extends Aggregate {
         return false;
     }
 
-    public List<String> getWorkflows() {
+    public String getWorkflowById(String workflowId) {
+        for(String workflow: workflows){
+            if(workflow.equals(workflowId))
+                return workflow;
+        }
+        return "";
+    }
+
+    public List<String> getWorkflows(){
         return workflows;
     }
 
