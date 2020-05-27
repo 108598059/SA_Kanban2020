@@ -1,13 +1,13 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCardUseCaseOutput> {
   private CardRepository cardRepository;
@@ -20,15 +20,15 @@ public class CreateCardUseCase extends UseCase<CreateCardUseCaseInput, CreateCar
   }
 
   @Override
-  public void execute(CreateCardUseCaseInput createCardInput, CreateCardUseCaseOutput createCardOutput) {
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createCardInput.getBoardID()));
+  public void execute(CreateCardUseCaseInput input, CreateCardUseCaseOutput output) {
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID()));
 
-    Card card = new Card(createCardInput.getCardName(), board);
+    Card card = new Card(input.getCardName(), board);
 
     this.cardRepository.save(CardDTOConverter.toDTO(card));
     this.eventBus.postAll(card);
 
-    createCardOutput.setCardName(card.getName());
-    createCardOutput.setCardID(card.getID().toString());
+    output.setCardName(card.getName());
+    output.setCardID(card.getID().toString());
   }
 }

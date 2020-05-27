@@ -2,15 +2,15 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.commit.card;
 
 import org.junit.Before;
 import org.junit.Test;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 import java.util.UUID;
 

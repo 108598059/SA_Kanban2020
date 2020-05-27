@@ -2,12 +2,12 @@ package phd.sa.csie.ntut.edu.tw.model.card;
 
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.model.domain.AggregateRoot;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.event.CardBelongsColumnSetEvent;
-import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
-import phd.sa.csie.ntut.edu.tw.model.card.event.CardNameSetEvent;
-import phd.sa.csie.ntut.edu.tw.model.card.event.LeadTimeCalculatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardBelongsColumnSetEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.create.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardNameSetEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.calculate.LeadTimeCalculatedEvent;
 
 public class Card extends AggregateRoot {
   private String name;

@@ -5,7 +5,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 import java.util.List;
 
 public class CalculateCycleTimeUseCaseOutput implements UseCaseOutput {
-    List<CycleTime> cycleTimeList;
+    private List<CycleTime> cycleTimeList;
 
     public List<CycleTime> getCycleTimeList() {
         return cycleTimeList;

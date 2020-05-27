@@ -11,7 +11,7 @@ public class CreateColumnUseCaseInput implements UseCaseInput {
   }
 
   public String getTitle() {
-    return this.title;
+    return title;
   }
 
   public void setBoardID(String boardID) {
@@ -19,6 +19,6 @@ public class CreateColumnUseCaseInput implements UseCaseInput {
   }
 
   public String getBoardID() {
-    return this.boardID;
+    return boardID;
   }
 }

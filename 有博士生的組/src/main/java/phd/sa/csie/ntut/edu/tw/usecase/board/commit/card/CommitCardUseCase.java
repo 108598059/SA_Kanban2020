@@ -1,13 +1,13 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.commit.card;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 public class CommitCardUseCase extends UseCase<CommitCardUseCaseInput, CommitCardUseCaseOutput> {
   private CardRepository cardRepository;

@@ -2,8 +2,11 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.calculate.leadtime;
 
 import org.junit.Before;
 import org.junit.Test;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.*;
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardEnteredColumnEventRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardLeftColumnEventRepository;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.model.common.DateProvider;
@@ -23,8 +26,11 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardEnteredColumnEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.MoveCardEventSourcingHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.*;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.move.MoveCardEventSourcingHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.event.CardEnteredColumnEventRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.event.CardLeftColumnEventRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.UUID;

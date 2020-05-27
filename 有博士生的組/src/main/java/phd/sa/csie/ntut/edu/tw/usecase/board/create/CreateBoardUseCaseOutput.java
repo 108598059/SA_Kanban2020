@@ -11,7 +11,7 @@ public class CreateBoardUseCaseOutput implements UseCaseOutput{
   }
 
   public String getBoardID() {
-    return this.boardID;
+    return boardID;
   }
 
   public void setBoardName(String boardName) {
@@ -19,6 +19,6 @@ public class CreateBoardUseCaseOutput implements UseCaseOutput{
   }
 
   public String getBoardName() {
-    return this.boardName;
+    return boardName;
   }
 }

@@ -1,10 +1,10 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit.name;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 public class EditCardNameUseCase extends UseCase<EditCardNameUseCaseInput, EditCardNameUseCaseOutput> {
   private CardRepository cardRepository;

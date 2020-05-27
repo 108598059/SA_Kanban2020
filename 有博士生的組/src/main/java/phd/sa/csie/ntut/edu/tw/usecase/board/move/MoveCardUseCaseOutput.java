@@ -13,7 +13,7 @@ public class MoveCardUseCaseOutput implements UseCaseOutput {
   }
 
   public String getCardID() {
-    return this.cardID;
+    return cardID;
   }
 
   public void setOldColumnID(String id) {
@@ -21,7 +21,7 @@ public class MoveCardUseCaseOutput implements UseCaseOutput {
   }
 
   public String getOldColumnID() {
-    return this.oldColumnID;
+    return oldColumnID;
   }
 
   public void setNewColumnID(String id) {
@@ -29,6 +29,6 @@ public class MoveCardUseCaseOutput implements UseCaseOutput {
   }
 
   public String getNewColumnID() {
-    return this.newColumnID;
+    return newColumnID;
   }
 }

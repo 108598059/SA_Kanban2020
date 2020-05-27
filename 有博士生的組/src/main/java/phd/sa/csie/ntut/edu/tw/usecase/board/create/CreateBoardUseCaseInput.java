@@ -11,7 +11,7 @@ public class CreateBoardUseCaseInput implements UseCaseInput {
   }
 
   public String getBoardName() {
-    return this.boardName;
+    return boardName;
   }
 
   public String getWorkspaceID() {

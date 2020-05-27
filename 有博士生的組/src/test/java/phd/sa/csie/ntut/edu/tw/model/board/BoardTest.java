@@ -1,7 +1,11 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import org.junit.Test;
-import phd.sa.csie.ntut.edu.tw.model.board.event.*;
+import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.create.ColumnCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardEnteredColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardLeftColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.wip.ColumnWIPSetEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
 import java.util.UUID;
@@ -15,6 +19,7 @@ public class BoardTest {
         assertEquals(1, board.getDomainEvents().size());
         assertEquals(BoardCreatedEvent.class, board.getDomainEvents().get(0).getClass());
     }
+
     @Test
     public void board_name_empty_exception() {
         try {

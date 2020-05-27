@@ -12,7 +12,7 @@ public class SetColumnWIPUseCaseOutput implements UseCaseOutput {
   }
 
   public String getColumnID() {
-    return this.columnID;
+    return columnID;
   }
 
   public void setColumnWIP(int wip) {
@@ -20,7 +20,7 @@ public class SetColumnWIPUseCaseOutput implements UseCaseOutput {
   }
 
   public int getColumnWIP() {
-    return this.columnWIP;
+    return columnWIP;
   }
 
 }

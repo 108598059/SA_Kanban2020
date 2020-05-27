@@ -1,13 +1,13 @@
 package phd.sa.csie.ntut.edu.tw.usecase.event.handler.card;
 
 import com.google.common.eventbus.Subscribe;
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardEnteredColumnEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.column.EditCardBelongsColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.column.EditCardBelongsColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.column.EditCardBelongsColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 public class CardEnteredColumnEventHandler implements DomainEventHandler<CardEnteredColumnEvent> {
     private DomainEventBus eventBus;

@@ -1,11 +1,10 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit.column;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 import java.util.UUID;
 
@@ -24,6 +23,7 @@ public class EditCardBelongsColumnUseCase extends UseCase<EditCardBelongsColumnU
 
         this.cardRepository.update(CardDTOConverter.toDTO(card));
         this.eventBus.postAll(card);
+
         output.setColumnID(card.getBelongsColumnID().toString());
     }
 }

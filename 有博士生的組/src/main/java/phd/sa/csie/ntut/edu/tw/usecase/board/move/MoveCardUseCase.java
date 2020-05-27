@@ -2,11 +2,11 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.move;
 
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
 public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCaseOutput> {
   private BoardRepository boardRepository;

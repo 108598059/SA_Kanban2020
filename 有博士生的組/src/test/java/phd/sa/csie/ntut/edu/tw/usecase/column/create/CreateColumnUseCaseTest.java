@@ -8,12 +8,12 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
 public class CreateColumnUseCaseTest {
 

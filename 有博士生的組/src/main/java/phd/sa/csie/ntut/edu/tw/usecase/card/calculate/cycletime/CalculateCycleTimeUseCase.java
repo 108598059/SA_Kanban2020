@@ -1,11 +1,11 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto.CardEnteredColumnEventDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto.CardLeftColumnEventDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardEnteredColumnEventRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardLeftColumnEventRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.move.dto.entered.CardEnteredColumnEventDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.move.dto.left.CardLeftColumnEventDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.event.CardEnteredColumnEventRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.event.CardLeftColumnEventRepository;
 
 import java.util.ArrayList;
 import java.util.List;

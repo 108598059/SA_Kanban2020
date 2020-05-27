@@ -14,7 +14,7 @@ public class EditCardNameUseCaseInput implements UseCaseInput {
   }
 
   public String getCardID() {
-    return this.cardID;
+    return cardID;
   }
 
   public void setCardName(String cardName) {
@@ -22,7 +22,7 @@ public class EditCardNameUseCaseInput implements UseCaseInput {
   }
 
   public String getCardName() {
-    return this.cardName;
+    return cardName;
   }
 
 }

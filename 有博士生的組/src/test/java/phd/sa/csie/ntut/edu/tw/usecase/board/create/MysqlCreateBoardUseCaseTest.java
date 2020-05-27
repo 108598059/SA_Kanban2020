@@ -2,11 +2,11 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 
 import org.junit.Before;
 import org.junit.Test;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlBoardRepository;
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.board.MysqlBoardRepository;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
 import java.util.UUID;
 

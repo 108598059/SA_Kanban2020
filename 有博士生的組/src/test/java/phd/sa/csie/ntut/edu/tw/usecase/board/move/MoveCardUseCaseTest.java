@@ -6,10 +6,10 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryBoardRepository;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryCardRepository;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.MemoryEventLogRepository;
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryEventLogRepository;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
@@ -26,11 +26,11 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardEnteredColumnEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.EventSourcingHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto.DomainEventDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.EventSourcingHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.dto.DomainEventDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.event.EventLogRepository;
 
 import static org.junit.Assert.*;
 

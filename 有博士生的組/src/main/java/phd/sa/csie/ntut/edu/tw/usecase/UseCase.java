@@ -1,6 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase;
 
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 
 public abstract class UseCase<I extends UseCaseInput, O extends UseCaseOutput> {
     protected DomainEventBus eventBus;

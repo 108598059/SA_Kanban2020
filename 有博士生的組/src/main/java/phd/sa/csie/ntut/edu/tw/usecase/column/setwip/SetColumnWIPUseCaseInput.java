@@ -13,7 +13,7 @@ public class SetColumnWIPUseCaseInput implements UseCaseInput {
   }
 
   public String getColumnID() {
-    return this.columnID;
+    return columnID;
   }
 
   public void setBoardID(String id) {
@@ -21,7 +21,7 @@ public class SetColumnWIPUseCaseInput implements UseCaseInput {
   }
 
   public String getBoardID() {
-    return this.boardID;
+    return boardID;
   }
 
   public void setColumnWIP(int wip) {
@@ -29,7 +29,7 @@ public class SetColumnWIPUseCaseInput implements UseCaseInput {
   }
 
   public int getColumnWIP() {
-    return this.columnWIP;
+    return columnWIP;
   }
 
 }

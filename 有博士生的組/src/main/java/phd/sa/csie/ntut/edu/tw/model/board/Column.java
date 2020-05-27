@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import phd.sa.csie.ntut.edu.tw.model.Entity;
+import phd.sa.csie.ntut.edu.tw.model.domain.Entity;
 
 public class Column extends Entity {
 

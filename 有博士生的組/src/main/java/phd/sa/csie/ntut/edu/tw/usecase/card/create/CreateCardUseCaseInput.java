@@ -19,6 +19,6 @@ public class CreateCardUseCaseInput implements UseCaseInput {
   }
 
   public String getCardName() {
-    return this.cardName;
+    return cardName;
   }
 }

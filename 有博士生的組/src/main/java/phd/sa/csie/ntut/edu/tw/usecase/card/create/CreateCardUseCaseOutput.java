@@ -11,7 +11,7 @@ public class CreateCardUseCaseOutput implements UseCaseOutput {
   }
 
   public String getCardName() {
-    return this.cardName;
+    return cardName;
   }
 
   public void setCardID(String id) {
@@ -19,6 +19,6 @@ public class CreateCardUseCaseOutput implements UseCaseOutput {
   }
 
   public String getCardID() {
-    return this.cardID;
+    return cardID;
   }
 }

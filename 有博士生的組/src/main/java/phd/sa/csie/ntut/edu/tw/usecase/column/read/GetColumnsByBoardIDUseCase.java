@@ -5,8 +5,8 @@ import phd.sa.csie.ntut.edu.tw.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 import java.util.ArrayList;
 import java.util.List;

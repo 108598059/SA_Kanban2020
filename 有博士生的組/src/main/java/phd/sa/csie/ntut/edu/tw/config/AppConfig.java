@@ -2,16 +2,16 @@ package phd.sa.csie.ntut.edu.tw.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlBoardRepository;
-import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.MysqlCardRepository;
-import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.board.MysqlBoardRepository;
+import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.card.MysqlCardRepository;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 @Configuration
 public class AppConfig {

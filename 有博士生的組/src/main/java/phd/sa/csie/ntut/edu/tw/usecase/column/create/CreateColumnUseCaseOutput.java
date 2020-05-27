@@ -11,7 +11,7 @@ public class CreateColumnUseCaseOutput implements UseCaseOutput {
   }
 
   public String getID() {
-    return this.id;
+    return id;
   }
 
 }
