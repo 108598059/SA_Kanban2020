@@ -3,6 +3,7 @@ package kanban.domain.unit_test.workflow;
 
 import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.model.aggregate.workflow.event.CardCommitted;
+import kanban.domain.model.aggregate.workflow.event.CardUnCommitted;
 import kanban.domain.model.aggregate.workflow.event.StageCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 import org.junit.Test;
@@ -63,5 +64,29 @@ public class WorkflowTest {
 
         assertEquals("cardId", cardCommitted.getCardId());
         assertEquals(stageId, cardCommitted.getStageId());
+    }
+
+    @Test
+    public void Move_card_should_have_the_CardUnCommitted_event_and_CardCommitted_event_in_domainEvent_list() {
+        Workflow workflow = new Workflow("workflowName", "boardId");
+        String todoStageId = workflow.createStage("todoStage");
+        String doingStageId = workflow.createStage("doingStage");
+        String cardId = "cardId";
+        workflow.commitCardInStage(cardId, todoStageId);
+
+        workflow.moveCard(cardId, todoStageId, doingStageId);
+
+        assertEquals(6, workflow.getDomainEvents().size());
+        assertEquals(CardUnCommitted.class, workflow.getDomainEvents().get(4).getClass());
+
+        CardUnCommitted cardUnCommitted = (CardUnCommitted) workflow.getDomainEvents().get(4);
+
+        assertEquals(cardId, cardUnCommitted.getCardId());
+        assertEquals(todoStageId, cardUnCommitted.getStageId());
+
+        CardCommitted cardCommitted = (CardCommitted) workflow.getDomainEvents().get(5);
+
+        assertEquals(cardId, cardCommitted.getCardId());
+        assertEquals(doingStageId, cardCommitted.getStageId());
     }
 }

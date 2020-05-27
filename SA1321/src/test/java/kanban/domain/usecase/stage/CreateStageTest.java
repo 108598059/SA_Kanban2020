@@ -1,17 +1,18 @@
 package kanban.domain.usecase.stage;
 
-import com.google.common.eventbus.EventBus;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.stage.create.CreateStagePresenter;
-import kanban.domain.adapter.presenter.stage.viewmodel.CreateStageViewModel;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
-import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.card.InMemoryCardRepository;
+import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
+import kanban.domain.adapter.repository.flowEvent.InMemoryFlowEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.usecase.DomainEventHandler;
+import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.repository.IBoardRepository;
 import kanban.domain.usecase.stage.create.CreateStageInput;
 import kanban.domain.usecase.stage.create.CreateStageOutput;
@@ -22,7 +23,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class CreateStageTest {
     private String boardId;
@@ -31,21 +31,22 @@ public class CreateStageTest {
     private IWorkflowRepository workflowRepository;
     private DomainEventBus eventBus;
     private Utility utility;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
 
     @Before
     public void setup() {
-//        boardRepository = new InMemoryBoardRepository();
-//        workflowRepository = new InMemoryWorkflowRepository();
-        boardRepository = new MySqlBoardRepository();
-        workflowRepository = new MySqlWorkflowRepository();
+        boardRepository = new InMemoryBoardRepository();
+        workflowRepository = new InMemoryWorkflowRepository();
+        flowEventRepository = new InMemoryFlowEventRepository();
+        cardRepository = new InMemoryCardRepository();
+//        boardRepository = new MySqlBoardRepository();
+//        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(
-                boardRepository,
-                workflowRepository,
-                eventBus));
+        eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
 
-        utility = new Utility(boardRepository, workflowRepository, eventBus);
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository,eventBus);
         boardId = utility.createBoard("test automation");
         workflowId = utility.createWorkflow(boardId, "workflowName");
     }
