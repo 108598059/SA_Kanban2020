@@ -5,6 +5,7 @@ import domain.adapters.controller.workflow.CreateStageOutputImpl;
 import domain.adapters.controller.workflow.CreateWorkflowInputImpl;
 import domain.adapters.controller.workflow.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
+import domain.entity.workflow.Workflow;
 import domain.usecase.stage.create.CreateStageInput;
 import domain.usecase.stage.create.CreateStageOutput;
 import domain.usecase.stage.create.CreateStageUseCase;
@@ -15,7 +16,7 @@ import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class CreateStageTest {
     private WorkflowRepositoryImpl workflowRepository;
@@ -42,7 +43,7 @@ public class CreateStageTest {
     @Test
     public void createStageTest() {
 
-        CreateStageUseCase createStage = new CreateStageUseCase(workflowRepository) ;
+        CreateStageUseCase createStage = new CreateStageUseCase(workflowRepository, eventBus) ;
         CreateStageInput createStageInput = new CreateStageInputImpl() ;
         CreateStageOutput createStageOutput = new CreateStageOutputImpl() ;
 
@@ -51,6 +52,9 @@ public class CreateStageTest {
 
         createStage.execute( createStageInput, createStageOutput ) ;
 
-        assertNotNull(createStageOutput.getStageId());
+        Workflow workflow = workflowRepository.getWorkFlowById(workflowId);
+
+        assertEquals(1,workflow.getStages().size());
+        assertEquals("backlog",workflow.getStageById(createStageOutput.getStageId()).getName());
     }
 }

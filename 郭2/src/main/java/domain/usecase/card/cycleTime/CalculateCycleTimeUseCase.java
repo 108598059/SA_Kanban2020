@@ -12,17 +12,12 @@ import java.util.List;
 import java.util.Stack;
 
 public class CalculateCycleTimeUseCase {
-    private String workflowId;
-    private String cardId;
-    private String fromLaneId;
-    private String toLaneId;
-
     private IWorkflowRepository workflowRepository;
     private IFlowEventRepository flowEventRepository;
     private List<FlowEventPair> flowEventPairList;
 
-    public CalculateCycleTimeUseCase(IWorkflowRepository workflowRepository, IFlowEventRepository cardMovedRepository) {
-        this.flowEventRepository = cardMovedRepository;
+    public CalculateCycleTimeUseCase(IWorkflowRepository workflowRepository, IFlowEventRepository flowEventRepository) {
+        this.flowEventRepository = flowEventRepository;
         this.workflowRepository = workflowRepository;
         flowEventPairList = new ArrayList<FlowEventPair>();
     }
@@ -67,7 +62,7 @@ public class CalculateCycleTimeUseCase {
         for(String stageId: stageIds){
             for(FlowEventPair flowEventPair : flowEventPairList){
                 if(flowEventPair.getCycleTimeInLane().getLaneId().equals(stageId)){
-                    time+= flowEventPair.getCycleTimeInLane().getDiff();
+                    time += flowEventPair.getCycleTimeInLane().getDiff();
                 }
             }
         }

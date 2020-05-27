@@ -1,18 +1,20 @@
 package domain.usecase.card;
 
 import domain.adapters.repository.CardRepositoryImpl;
+import domain.adapters.repository.InMemoryFlowEventRepository;
 import domain.adapters.repository.WorkflowRepositoryImpl;
 import domain.adapters.controller.card.CreateCardInputImpl;
 import domain.adapters.controller.card.CreateCardOutputImpl;
 import domain.adapters.controller.workflow.*;
 import domain.entity.DomainEventBus;
 
-import domain.usecase.card.CardEventHandler;
-import domain.usecase.card.CardRepository;
+import domain.entity.card.Card;
+import domain.entity.workflow.Workflow;
 import domain.usecase.card.create.CreateCardInput;
 import domain.usecase.card.create.CreateCardOutput;
 import domain.usecase.card.create.CreateCardUseCase;
 
+import domain.usecase.flowevent.FlowEventRepository;
 import domain.usecase.stage.create.CreateStageInput;
 import domain.usecase.stage.create.CreateStageOutput;
 import domain.usecase.stage.create.CreateStageUseCase;
@@ -36,14 +38,14 @@ public class CreateCardTest {
     private String stageId;
     private String swimlaneId;
 
-
+    private FlowEventRepository flowEventRepository;
     private WorkflowRepository workflowRepository;
     private DomainEventBus eventBus;
 
     @Before
     public void setUp(){
         eventBus = new DomainEventBus();
-
+        flowEventRepository = new InMemoryFlowEventRepository();
         workflowRepository = new WorkflowRepositoryImpl();
 
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository,eventBus);
@@ -55,7 +57,7 @@ public class CreateCardTest {
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
         workflowId = createWorkflowOutput.getWorkflowId();
 
-        CreateStageUseCase createStage = new CreateStageUseCase(workflowRepository) ;
+        CreateStageUseCase createStage = new CreateStageUseCase(workflowRepository, eventBus) ;
         CreateStageInput createStageInput = new CreateStageInputImpl() ;
         CreateStageOutput createStageOutput = new CreateStageOutputImpl() ;
 
@@ -66,7 +68,7 @@ public class CreateCardTest {
 
         stageId = createStageOutput.getStageId();
 
-        CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository);
+        CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository, eventBus);
         CreateSwimlaneInput createSwimlaneInput = new CreateSwimlaneInputImpl();
         CreateSwimlaneOutput createSwimlaneOutput = new CreateSwimlaneOutputImpl();
 
@@ -78,7 +80,7 @@ public class CreateCardTest {
 
         swimlaneId = createSwimlaneOutput.getSwimlaneId();
 
-        eventBus.register(new CardEventHandler(workflowRepository));
+        eventBus.register(new CardEventHandler(flowEventRepository, workflowRepository, eventBus));
 
     }
 
@@ -98,8 +100,12 @@ public class CreateCardTest {
 
         createCardUseCase.execute( createCardInput, createCardOutput ) ;
 
-        assertNotNull(createCardOutput.getCardId());
-        assertEquals(createCardOutput.getCardId(), workflowRepository.getWorkFlowById(workflowId).getCard(createCardOutput.getCardId()));
+        Card card = cardRepository.getCardById(createCardOutput.getCardId());
+        assertEquals("card1", card.getName());
+
+        Workflow workflow = workflowRepository.getWorkFlowById(workflowId);
+        assertEquals(1, workflow.getStageById(stageId).getSwimlaneById(swimlaneId).getCards().size());
+        assertEquals(createCardOutput.getCardId(), workflow.getStageById(stageId).getSwimlaneById(swimlaneId).getCards().get(0));
 
     }
 }

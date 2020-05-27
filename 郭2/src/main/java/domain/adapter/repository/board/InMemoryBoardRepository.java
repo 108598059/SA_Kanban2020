@@ -5,9 +5,11 @@ import domain.usecase.board.BoardEntity;
 
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
-@Alternative
+@Default
+@Singleton
 public class InMemoryBoardRepository implements IBoardRepository {
 
     public List<BoardEntity> boardList = new ArrayList<BoardEntity>();
@@ -31,6 +33,11 @@ public class InMemoryBoardRepository implements IBoardRepository {
                 break;
             }
         }
+    }
+
+    @Override
+    public List<BoardEntity> getAllBoard() {
+        return boardList;
     }
 
     @Override

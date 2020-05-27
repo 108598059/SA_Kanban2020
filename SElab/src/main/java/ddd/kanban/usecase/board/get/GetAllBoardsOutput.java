@@ -1,6 +1,6 @@
 package ddd.kanban.usecase.board.get;
 
-import ddd.kanban.usecase.board.DTO.BoardDTO;
+import ddd.kanban.usecase.board.dto.BoardDTO;
 
 import java.util.List;
 

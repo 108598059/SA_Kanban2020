@@ -7,12 +7,13 @@ import domain.adapters.controller.board.CreateBoardOutputImpl;
 import domain.adapters.controller.workflow.CreateWorkflowInputImpl;
 import domain.adapters.controller.workflow.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
+import domain.entity.board.Board;
+import domain.entity.workflow.Workflow;
 import domain.usecase.board.BoardRepository;
+import domain.usecase.board.BoardTransformer;
 import domain.usecase.board.create.CreateBoardInput;
 import domain.usecase.board.create.CreateBoardOutput;
 import domain.usecase.board.create.CreateBoardUseCase;
-import domain.usecase.workflow.WorkflowEventHandler;
-import domain.usecase.workflow.WorkflowRepository;
 import domain.usecase.workflow.create.CreateWorkflowInput;
 import domain.usecase.workflow.create.CreateWorkflowOutput;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
@@ -33,24 +34,22 @@ public class CreateWorkFlowTest {
     public void setUp(){
 
         boardRepository = new BoardRepositoryImpl();
-
+        workflowRepository = new WorkflowRepositoryImpl();
+        eventBus = new DomainEventBus();
 
         CreateBoardInput createBoardInput = new CreateBoardInputImpl();
         CreateBoardOutput createBoardOutput = new CreateBoardOutputImpl();
         createBoardInput.setName("board1");
 
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         createBoardUseCase.execute(createBoardInput,createBoardOutput);
 
 
         boardId = createBoardOutput.getBoardId();
 
 
-        workflowRepository = new WorkflowRepositoryImpl();
-
-        eventBus = new DomainEventBus();
-        eventBus.register(new WorkflowEventHandler(boardRepository));
+        eventBus.register(new WorkflowEventHandler(boardRepository, eventBus));
     }
 
     @Test
@@ -67,10 +66,15 @@ public class CreateWorkFlowTest {
 
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
-        assertNotNull(createWorkflowOutput.getWorkflowId());
+
+        Workflow workflow = workflowRepository.getWorkFlowById(createWorkflowOutput.getWorkflowId());
+        assertEquals("workflow1",workflow.getName());
 
 
-        assertEquals(1,boardRepository.getBoardById(boardId).getWorkflows().size());
+        Board board = BoardTransformer.toBoard(boardRepository.getBoardById(boardId));
+
+        assertEquals(1,board.getWorkflows().size());
+        assertEquals(workflow.getId(), board.getWorkflows().get(0));
 
     }
 

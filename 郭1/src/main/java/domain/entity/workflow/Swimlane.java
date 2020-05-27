@@ -2,10 +2,7 @@ package domain.entity.workflow;
 
 import domain.entity.card.Card;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Swimlane {
 
@@ -35,20 +32,15 @@ public class Swimlane {
         this.name = name;
     }
 
-    public void add(String id){
+    public void addCard(String id){
         this.cards.add(id);
     }
 
-    public Boolean isCardExist(String cardId){
-        for (String card: cards){
-            if (card.equals(cardId)){
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public List<String> getCard() {
+
+    public List<String> getCards() {
         return this.cards;
     }
+
+
 }

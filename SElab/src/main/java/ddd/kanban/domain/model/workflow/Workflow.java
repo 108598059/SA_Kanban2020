@@ -1,6 +1,8 @@
 package ddd.kanban.domain.model.workflow;
 
 import ddd.kanban.domain.model.AggregateRoot;
+import ddd.kanban.domain.model.card.event.CardCommitted;
+import ddd.kanban.domain.model.card.event.CardUnCommitted;
 import ddd.kanban.domain.model.workflow.event.WorkflowCreated;
 
 import java.util.ArrayList;
@@ -17,7 +19,13 @@ public class Workflow extends AggregateRoot {
         super(id, title);
         this.boardId = boardId;
         columns = new ArrayList<Lane>();
-        addDomainEvent(new WorkflowCreated(id, boardId));
+        addDomainEvent(new WorkflowCreated(id, boardId, title, UUID.randomUUID().toString()));
+    }
+
+    public Workflow(String id, String title, String boardId, List<Lane> columns){
+        super(id, title);
+        this.boardId = boardId;
+        this.columns = columns;
     }
 
     public String createColumn(String columnName, String workflowId){
@@ -45,6 +53,19 @@ public class Workflow extends AggregateRoot {
 
     public String commitCard(String cardId, String laneId) {
         Lane column = this.findColumnById(laneId);
-        return column.commitCard(cardId, this.id);
+        return column.commitCard(cardId);
+    }
+
+    public String moveCard(String cardId, String fromLaneId, String toLaneId) {
+        Lane fromLane = findColumnById(fromLaneId);
+        Lane toLane = findColumnById(toLaneId);
+
+        fromLane.unCommitCard(cardId);
+        toLane.commitCard(cardId);
+
+        addDomainEvent(new CardUnCommitted(cardId, this.id, fromLane.getId(), fromLane.getTitle(), UUID.randomUUID().toString()));
+        addDomainEvent(new CardCommitted(cardId, this.id, toLane.getId(), toLane.getTitle(), UUID.randomUUID().toString()));
+
+        return cardId;
     }
 }

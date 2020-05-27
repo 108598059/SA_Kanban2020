@@ -1,7 +1,7 @@
 package ddd.kanban.adapter.presenter.board.get;
 
 import ddd.kanban.adapter.presenter.board.viewmodel.GetAllBoardsViewModel;
-import ddd.kanban.usecase.board.DTO.BoardDTO;
+import ddd.kanban.usecase.board.dto.BoardDTO;
 import ddd.kanban.usecase.board.get.GetAllBoardsOutput;
 
 import java.util.List;

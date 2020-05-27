@@ -1,31 +1,20 @@
 package ddd.kanban.domain.model.workflow.event;
 
+import ddd.kanban.domain.model.AbstractDomainEvent;
 import ddd.kanban.domain.model.DomainEvent;
 import ddd.kanban.domain.model.common.DateProvider;
 
 import java.util.Date;
 
-public class WorkflowCreated implements DomainEvent {
+public class WorkflowCreated extends AbstractDomainEvent {
     private String boardId;
-    private String workflowId;
-    private Date OccurredOn;
 
-    public WorkflowCreated(String workflowId, String boardId){
-        this.workflowId = workflowId;
+    public WorkflowCreated(String workflowId, String boardId, String workflowTitle, String id){
+        super(workflowId, workflowTitle, id);
         this.boardId = boardId;
-        this.OccurredOn = DateProvider.now();
     }
 
     public String getBoardId() {
         return boardId;
-    }
-
-    public String getWorkflowId() {
-        return workflowId;
-    }
-
-    @Override
-    public Date occurredOn() {
-        return occurredOn();
     }
 }

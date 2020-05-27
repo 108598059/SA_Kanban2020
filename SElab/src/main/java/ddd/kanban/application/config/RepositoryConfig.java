@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class RepositoryConfig {
 
     @Bean
-    public BoardRepository createBoardRepository() {
+    public static BoardRepository boardRepository() {
         return new SqliteBoardRepository();
     }
 }
