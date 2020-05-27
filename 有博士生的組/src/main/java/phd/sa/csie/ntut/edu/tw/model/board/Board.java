@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.model.board.event.BoardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardCommittedEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
@@ -21,6 +23,7 @@ public class Board extends AggregateRoot {
     Column archive = new Column("Archive");
     this.columns.add(backlog);
     this.columns.add(archive);
+    this.addDomainEvent(new BoardCreatedEvent(this.id.toString(), this.name));
   }
 
   public Board(UUID id, UUID workspaceID, String name, List<Column> columns) {
@@ -34,6 +37,9 @@ public class Board extends AggregateRoot {
   public void commitCard(Card card) {
     Column backlog = this.columns.get(0);
     backlog.addCard(card.getID());
+    this.addDomainEvent(new CardCommittedEvent(
+                          this.id.toString(),
+                          card.getID().toString()));
   }
 
   public int getColumnNumber() {
@@ -88,10 +94,10 @@ public class Board extends AggregateRoot {
     Column to = this.getColumnByID(toColumnID);
 
     from.removeCard(cardID);
-    this.addDomainEvent(new CardLeftColumnEvent(UUID.randomUUID().toString(), fromColumnID.toString()));
+    this.addDomainEvent(new CardLeftColumnEvent(this.id.toString(), cardID.toString(), fromColumnID.toString()));
 
     to.addCard(cardID);
-    this.addDomainEvent(new CardEnteredColumnEvent(UUID.randomUUID().toString(), toColumnID.toString(), cardID.toString()));
+    this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), cardID.toString(), toColumnID.toString()));
     
     return to.getID().toString();
   }

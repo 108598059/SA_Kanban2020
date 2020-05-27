@@ -18,7 +18,7 @@ public class CardRepositoryTest {
   public void createCard() {
     CardRepository cardRepository = new MemoryCardRepository();
     Card card = new Card("test card", new Board(UUID.randomUUID(), "Kanban"));
-    card.setColumnID(UUID.randomUUID());
+    card.setBelongsColumnID(UUID.randomUUID());
 
     CardDTO cardDTO = CardDTOConverter.toDTO(card);
 

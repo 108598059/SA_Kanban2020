@@ -9,6 +9,11 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
     @Test
+    public void create_board_should_issue_board_created_event() {
+        Board board = new Board(UUID.randomUUID(), "Kanban");
+        assertEquals(1, board.getDomainEvents().size());
+    }
+    @Test
     public void board_name_empty_exception() {
         try {
             new Board(UUID.randomUUID(), "");
@@ -56,8 +61,10 @@ public class BoardTest {
     public void commit_card() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
         Card card = new Card("Implement a card", board);
+        assertEquals(1, board.getDomainEvents().size());
         board.commitCard(card);
         assertTrue(board.getBacklogColumn().cardExist(card.getID()));
+        assertEquals(2, board.getDomainEvents().size());
     }
 
     @Test
@@ -66,11 +73,11 @@ public class BoardTest {
         Card card = new Card("Implement a card", board);
         board.addCardToColumn(card.getID(), board.getBacklogColumn().getID());
 
-        assertEquals(0, board.getDomainEvents().size());
+        assertEquals(1, board.getDomainEvents().size());
 
         board.moveCard(card.getID(), board.getBacklogColumn().getID(), board.getArchiveColumn().getID());
 
-        assertEquals(2, board.getDomainEvents().size());
+        assertEquals(3, board.getDomainEvents().size());
         assertTrue(board.getArchiveColumn().cardExist(card.getID()));
     }
 

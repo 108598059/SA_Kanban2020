@@ -24,9 +24,9 @@ public class CreateWorkflowUseCase implements CreateWorkflowInput {
 
         Workflow workflow= new Workflow(input.getBoardId(), input.getWorkflowName());
         workflowRepository.add(WorkflowEntityModelMapper.transformModelToEntity(workflow));
-        output.setWorkflowId(workflow.getWorkflowId());
 
         eventBus.postAll(workflow);
+        output.setWorkflowId(workflow.getWorkflowId());
     }
 
     @Override

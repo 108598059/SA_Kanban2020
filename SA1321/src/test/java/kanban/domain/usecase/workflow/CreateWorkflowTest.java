@@ -3,15 +3,19 @@ package kanban.domain.usecase.workflow;
 import kanban.domain.Utility;
 import kanban.domain.adapter.presenter.workflow.create.CreateWorkflowPresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
-import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.card.InMemoryCardRepository;
+import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
+import kanban.domain.adapter.repository.flowEvent.InMemoryFlowEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.usecase.DomainEventHandler;
+import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
 import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.handler.workflow.WorkflowEventHandler;
 import kanban.domain.usecase.workflow.create.CreateWorkflowInput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowOutput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowUseCase;
@@ -30,21 +34,26 @@ public class CreateWorkflowTest {
     private DomainEventBus eventBus;
     private Utility utility;
     private String boardId;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
 
     @Before
     public void setUp() {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
-
+        flowEventRepository = new InMemoryFlowEventRepository();
+        cardRepository = new InMemoryCardRepository();
 //        boardRepository = new MySqlBoardRepository();
 //        workflowRepository = new MySqlWorkflowRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(
+        eventBus.register(new DomainEventHandler(new InMemoryDomainEventRepository()));
+        eventBus.register(new WorkflowEventHandler(
                 boardRepository,
-                workflowRepository));
+                eventBus));
 
-        utility = new Utility(boardRepository, workflowRepository, eventBus);
+
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository,eventBus);
         boardId = utility.createBoard("test automation");
     }
 
@@ -66,16 +75,16 @@ public class CreateWorkflowTest {
         input.setWorkflowName("workflowName");
 
         createWorkflowUseCase.execute(input, output);
-
-        board = BoardEntityModelMapper.transformEntityToModel(boardRepository.getBoardById(boardId));
-
-        assertEquals(1, board.getWorkflowIds().size());
         assertNotNull(output.getWorkflowId());
 
         Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
                 workflowRepository.getWorkflowById(output.getWorkflowId()));
 
         assertEquals("workflowName", workflow.getName());
+
+        board = BoardEntityModelMapper.transformEntityToModel(boardRepository.getBoardById(boardId));
+
+        assertEquals(1, board.getWorkflowIds().size());
     }
 
     @Test(expected = RuntimeException.class)

@@ -1,5 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
@@ -10,7 +11,8 @@ import java.util.UUID;
 public class CreateBoardUseCase extends UseCase<CreateBoardUseCaseInput, CreateBoardUseCaseOutput> {
   private BoardRepository boardRepository;
 
-  public CreateBoardUseCase(BoardRepository boardRepository) {
+  public CreateBoardUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
+    super(eventBus);
     this.boardRepository = boardRepository;
   }
 
@@ -18,6 +20,7 @@ public class CreateBoardUseCase extends UseCase<CreateBoardUseCaseInput, CreateB
     Board board = new Board(UUID.fromString(input.getWorkspaceID()), input.getBoardName());
 
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
+    this.eventBus.postAll(board);
 
     output.setBoardName(board.getName());
     output.setBoardID(board.getID().toString());

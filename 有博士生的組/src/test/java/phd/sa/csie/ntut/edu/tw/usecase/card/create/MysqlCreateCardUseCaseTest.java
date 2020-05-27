@@ -38,7 +38,7 @@ public class MysqlCreateCardUseCaseTest {
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
     this.eventBus = new DomainEventBus();
-    DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
+    DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository);
     this.eventBus.register(cardCreatedEventHandler);
   }
 

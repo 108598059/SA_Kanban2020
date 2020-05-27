@@ -1,18 +1,28 @@
 package kanban.domain;
 
 import kanban.domain.adapter.repository.board.MySqlBoardRepository;
+import kanban.domain.adapter.repository.workflow.MySqlWorkflowRepository;
+import kanban.domain.model.DomainEventBus;
+import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
 import kanban.domain.usecase.board.get.GetBoardsUseCase;
 import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class ApplicationContext {
 
     private static ApplicationContext applicationContext;
     private IBoardRepository boardRepository;
+    private IWorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
 
     public ApplicationContext() {
         boardRepository = new MySqlBoardRepository();
+        workflowRepository = new MySqlWorkflowRepository();
 
+        eventBus = new DomainEventBus();
+        DomainEventHandler domainEventHandler = new DomainEventHandler(null);
+        eventBus.register(domainEventHandler);
     }
 
     public static ApplicationContext getInstance() {
@@ -24,7 +34,7 @@ public class ApplicationContext {
     }
 
     public CreateBoardUseCase getCreateBoardUseCase() {
-        return new CreateBoardUseCase(boardRepository);
+        return new CreateBoardUseCase(boardRepository, eventBus);
     }
 
     public GetBoardsUseCase getGetBoardsUseCase() {

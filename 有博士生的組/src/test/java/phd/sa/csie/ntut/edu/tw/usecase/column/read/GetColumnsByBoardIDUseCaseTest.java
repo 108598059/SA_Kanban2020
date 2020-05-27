@@ -34,8 +34,8 @@ public class GetColumnsByBoardIDUseCaseTest {
         this.boardID = board.getID();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
         DomainEventBus eventBus = new DomainEventBus();
+        DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(eventBus, this.cardRepository, this.boardRepository);
         eventBus.register(cardCreatedEventHandler);
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(eventBus, this.cardRepository, this.boardRepository);
