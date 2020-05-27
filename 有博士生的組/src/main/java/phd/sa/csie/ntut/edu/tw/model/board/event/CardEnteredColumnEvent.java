@@ -7,7 +7,7 @@ public class CardEnteredColumnEvent extends AbstractDomainEvent {
     private String columnID;
 
     public CardEnteredColumnEvent(String sourceID, String cardID, String columnID) {
-        super(sourceID, "[Card Entered Event] card: " + cardID + " entered column: " + columnID);
+        super(sourceID, "[Card Entered Event] Card: " + cardID + " entered column: " + columnID);
         this.cardID = cardID;
         this.columnID = columnID;
     }

@@ -48,16 +48,16 @@ public class CalculateCycleTimeUseCase implements CalculateCycleTimeInput {
 
         Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
                 workflowRepository.getWorkflowById(input.getWorkflowId()));
-        boolean isbool = false;
+        boolean isInBoundary = false;
         List<String> stageIds = new ArrayList();
         for(Stage stage: workflow.getStages()){
             if(stage.getStageId().equals(input.getBeginningStageId())){
-                isbool = true;
+                isInBoundary = true;
             }else if(stage.getStageId().equals(input.getEndingStageId())){
                 stageIds.add(stage.getStageId());
                 break;
             }
-            if(isbool) {
+            if(isInBoundary) {
                 stageIds.add(stage.getStageId());
             }
 

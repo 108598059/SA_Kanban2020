@@ -10,11 +10,10 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 import java.util.UUID;
 
 public class EditCardBelongsColumnUseCase extends UseCase<EditCardBelongsColumnUseCaseInput, EditCardBelongsColumnUseCaseOutput> {
-    private DomainEventBus eventBus;
     private CardRepository cardRepository;
 
     public EditCardBelongsColumnUseCase(DomainEventBus eventBus, CardRepository cardRepository) {
-        this.eventBus = eventBus;
+        super(eventBus);
         this.cardRepository = cardRepository;
     }
 

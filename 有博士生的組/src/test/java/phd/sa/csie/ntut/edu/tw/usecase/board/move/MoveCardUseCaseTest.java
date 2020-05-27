@@ -53,7 +53,7 @@ public class MoveCardUseCaseTest {
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
     this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
-    this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
+    this.createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
 
     Board board = new Board(UUID.randomUUID(), "Kanban");
     this.boardID = board.getID().toString();
@@ -134,14 +134,14 @@ public class MoveCardUseCaseTest {
     List<DomainEventDTO> eventList = eventLogRepository.getAll();
     Card resultCard = CardDTOConverter.toEntity(this.cardRepository.findByID(this.card.getID().toString()));
 
-    assertEquals("[Card Left Column Event] card: " + this.card.getID() + " left the column: " + this.fromColumnID, eventList.get(0).getSourceName());
-    assertEquals("[Card Entered Event] card: " + this.card.getID() + " entered column: " + this.toColumnID, eventList.get(1).getSourceName());
+    assertEquals("[Card Left Column Event] Card: " + this.card.getID() + " left the column: " + this.fromColumnID, eventList.get(0).getSourceName());
+    assertEquals("[Card Entered Event] Card: " + this.card.getID() + " entered column: " + this.toColumnID, eventList.get(1).getSourceName());
     assertEquals(this.toColumnID, resultCard.getBelongsColumnID().toString());
   }
 
   @Test
   public void the_card_cannot_be_moved_to_the_column_when_WIP_limit_is_reached() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.eventBus, this.boardRepository);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 

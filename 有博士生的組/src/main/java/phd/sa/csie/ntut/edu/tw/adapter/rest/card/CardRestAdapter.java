@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.adapter.rest;
+package phd.sa.csie.ntut.edu.tw.adapter.rest.card;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
@@ -18,9 +17,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 public class CardRestAdapter {
     @Autowired
     private CreateCardUseCase createCardUseCase;
-
-    @Autowired
-    private CommitCardUseCase commitCardUsecase;
 
     @PostMapping("/create")
     public ResponseEntity<CreateCardResponse> createCard(@RequestBody CreateCardRequest requestBody){

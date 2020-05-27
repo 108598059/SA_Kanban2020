@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.adapter.rest;
+package phd.sa.csie.ntut.edu.tw.adapter.rest.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,17 +19,17 @@ public class BoardRestAdapter {
 
     @PostMapping(value = "/create")
     public ResponseEntity<CreateBoardResponse> createBoard(@RequestBody CreateBoardRequest requestBody) {
-        CreateBoardUseCaseInput input = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput output = new CreateBoardUseCaseOutput();
+        CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
+        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
-        input.setBoardName(requestBody.getBoardName());
-        input.setWorkspaceID(requestBody.getWorkspaceID());
+        createBoardUseCaseInput.setBoardName(requestBody.getBoardName());
+        createBoardUseCaseInput.setWorkspaceID(requestBody.getWorkspaceID());
 
-        this.createBoardUseCase.execute(input, output);
+        this.createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
         CreateBoardResponse responseBody = new CreateBoardResponse();
-        responseBody.setBoardID(output.getBoardID());
-        responseBody.setBoardName(output.getBoardName());
+        responseBody.setBoardID(createBoardUseCaseOutput.getBoardID());
+        responseBody.setBoardName(createBoardUseCaseOutput.getBoardName());
 
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }

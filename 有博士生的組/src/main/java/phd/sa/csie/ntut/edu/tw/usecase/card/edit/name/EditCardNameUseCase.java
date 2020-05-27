@@ -8,11 +8,10 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 public class EditCardNameUseCase extends UseCase<EditCardNameUseCaseInput, EditCardNameUseCaseOutput> {
   private CardRepository cardRepository;
-  private DomainEventBus eventBus;
 
   public EditCardNameUseCase(DomainEventBus eventBus, CardRepository repository) {
+    super(eventBus);
     this.cardRepository = repository;
-    this.eventBus = eventBus;
   }
 
   public void execute(EditCardNameUseCaseInput input, EditCardNameUseCaseOutput output) {

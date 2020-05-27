@@ -10,7 +10,9 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetColumnWIPUseCaseOutput> {
   private BoardRepository boardRepository;
-  public SetColumnWIPUseCase(BoardRepository boardRepository) {
+
+  public SetColumnWIPUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
+    super(eventBus);
     this.boardRepository = boardRepository;
   }
 
@@ -23,6 +25,8 @@ public class SetColumnWIPUseCase extends UseCase<SetColumnWIPUseCaseInput, SetCo
     board.setColumnWIP(UUID.fromString(columnID), wip);
 
     this.boardRepository.update(BoardDTOConverter.toDTO(board));
+    this.eventBus.postAll(board);
+
     output.setColumnID(columnID);
     output.setColumnWIP(wip);
   }
