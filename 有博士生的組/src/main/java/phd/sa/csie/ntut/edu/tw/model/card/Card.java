@@ -14,7 +14,7 @@ public class Card extends AggregateRoot {
     super();
     this.setName(name);
     this.setColumnID(board.get(0).getID());
-    this.addDomainEvent(new CardCreatedEvent(this, board.getID()));
+    this.addDomainEvent(new CardCreatedEvent(this.id.toString(), this, board.getID().toString()));
   }
 
   public Card(UUID id, String name, UUID columnID) {

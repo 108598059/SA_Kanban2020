@@ -134,8 +134,8 @@ public class MoveCardUseCaseTest {
     List<DomainEventDTO> eventList = eventLogRepository.getAll();
     Card resultCard = CardDTOConverter.toEntity(this.cardRepository.findByID(this.card.getID().toString()));
 
-    assertEquals("Left column event: " + this.fromColumnID, eventList.get(0).getSourceName());
-    assertEquals("Entered column event: " + this.toColumnID, eventList.get(1).getSourceName());
+    assertEquals("[Card Left Column Event] card: " + this.card.getID() + " left the column: " + this.fromColumnID, eventList.get(0).getSourceName());
+    assertEquals("[Card Entered Event] card: " + this.card.getID() + " entered column: " + this.toColumnID, eventList.get(1).getSourceName());
     assertEquals(this.toColumnID, resultCard.getColumnID().toString());
   }
 

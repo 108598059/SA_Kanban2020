@@ -7,23 +7,19 @@ import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import java.util.UUID;
 
 public class CardCreatedEvent extends AbstractDomainEvent {
-    private UUID boardID;
-    public CardCreatedEvent(String sourceID,
-                            String sourceName) {
-        super(sourceID, sourceName);
-    }
+    UUID boardID;
 
-    public CardCreatedEvent(Entity entity, UUID boardID) {
-        super(entity);
-        this.boardID = boardID;
-    }
-
-    public UUID getBoardID() {
-        return boardID;
+    public CardCreatedEvent(String cardID, Entity entity, String boardID) {
+        super(cardID, "[Card Created Event] card: " + cardID + " is created at the board: " + boardID, entity);
+        this.boardID = UUID.fromString(boardID);
     }
 
     @Override
     public Card getEntity() {
         return (Card) super.getEntity();
+    }
+
+    public UUID getBoardID() {
+        return boardID;
     }
 }

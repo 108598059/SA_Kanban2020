@@ -20,14 +20,14 @@ public class AbstractDomainEvent implements DomainEvent {
         this.sourceName = sourceName;
     }
 
-    public AbstractDomainEvent(Entity entity) {
+    public AbstractDomainEvent(String sourceID, String sourceName, Entity entity) {
         super();
         this.entity = entity;
         this.id = UUID.randomUUID().toString();
         this.occurredOn = new Date();
 
-        sourceID = null;
-        sourceName = null;
+        this.sourceID = sourceID;
+        this.sourceName = sourceName;
     }
 
     public Entity getEntity() {
