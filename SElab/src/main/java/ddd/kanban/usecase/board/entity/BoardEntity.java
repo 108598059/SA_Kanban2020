@@ -1,4 +1,4 @@
-package ddd.kanban.usecase.board.Entity;
+package ddd.kanban.usecase.board.entity;
 
 import java.util.ArrayList;
 import java.util.List;

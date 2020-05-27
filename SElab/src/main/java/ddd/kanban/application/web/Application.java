@@ -1,7 +1,13 @@
-package ddd.kanban;
+package ddd.kanban.application.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan(basePackages = {
+        "ddd.kanban.application.config",
+        "ddd.kanban.adapter.rest.board"
+})
 
 @SpringBootApplication
 public class Application {

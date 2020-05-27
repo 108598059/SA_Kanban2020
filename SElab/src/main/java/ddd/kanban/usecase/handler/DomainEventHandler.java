@@ -1,4 +1,4 @@
-package ddd.kanban.usecase;
+package ddd.kanban.usecase.handler;
 
 import com.google.common.eventbus.Subscribe;
 import ddd.kanban.domain.model.DomainEventBus;
@@ -32,7 +32,7 @@ public class DomainEventHandler {
     @Subscribe
     public void handleDomainEvent(WorkflowCreated workflowCreated){
         CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
-        CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInput(workflowCreated.getBoardId(), workflowCreated.getWorkflowId());
+        CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInput(workflowCreated.getBoardId(), workflowCreated.getSourceId());
         CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutput();
 
         commitWorkflowUseCase.execute(commitWorkflowInput, commitWorkflowOutput);
@@ -40,9 +40,9 @@ public class DomainEventHandler {
 
     @Subscribe
     public void handleDomainEvent(BoardCreated boardCreated){
-        final String DEFAULT_WORKFLOW_TITLE = "default workflow";
+        final String DEFAULT_WORKFLOW_TITLE = "Default workflow";
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, domainEventBus);
-        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput(DEFAULT_WORKFLOW_TITLE, boardCreated.getBoardId());
+        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput(DEFAULT_WORKFLOW_TITLE, boardCreated.getSourceId());
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
 
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
@@ -51,7 +51,7 @@ public class DomainEventHandler {
     @Subscribe
     public void handleDomainEvent(CardCreated cardCreated){
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository);
-        CommitCardInput commitCardInput = new CommitCardInput(cardCreated.getCardId(), cardCreated.getWorkflowId(), cardCreated.getLaneId());
+        CommitCardInput commitCardInput = new CommitCardInput(cardCreated.getSourceId(), cardCreated.getWorkflowId(), cardCreated.getLaneId());
         CommitCardOutput commitCardOutput = new CommitCardOutput();
 
         commitCardUseCase.execute(commitCardInput, commitCardOutput);

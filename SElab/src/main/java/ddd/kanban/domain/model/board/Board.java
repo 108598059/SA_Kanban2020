@@ -6,6 +6,7 @@ import ddd.kanban.domain.model.board.event.BoardCreated;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Board extends AggregateRoot {
 
@@ -16,7 +17,7 @@ public class Board extends AggregateRoot {
         super(id, title);
         this.description = description;
         this.workflowIds = new ArrayList<>();
-        addDomainEvent(new BoardCreated(this.id));
+        addDomainEvent(new BoardCreated(this.id, title, UUID.randomUUID().toString()));
     }
 
     public String getDescription() {

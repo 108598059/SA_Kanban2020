@@ -1,4 +1,4 @@
-package ddd.kanban.adapter.controller;
+package ddd.kanban.adapter.rest.board;
 
 import ddd.kanban.adapter.DTO.BoardDTO;
 import ddd.kanban.adapter.presenter.board.create.CreateBoardPresenter;
@@ -21,19 +21,14 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/board", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RESTBoardAdapter {
-    private DomainEventBus domainEventBus;
-    private BoardRepository boardRepository;
 
     @Autowired
-    public RESTBoardAdapter(DomainEventBus domainEventBus, BoardRepository boardRepository) {
-        this.domainEventBus = domainEventBus;
-        this.boardRepository = boardRepository;
-    }
+    private CreateBoardUseCase createBoardUseCase;
+    @Autowired
+    private GetAllBoardsUseCase getAllBoardsUseCase;
 
     @PostMapping
     public ResponseEntity<CreateBoardViewModel> createBoard(@RequestBody BoardDTO createBoardInputBody) {
-
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, domainEventBus);
         CreateBoardInput createBoardInput = new CreateBoardInput(createBoardInputBody.getBoardTitle(), createBoardInputBody.getBoardDescription());
         CreateBoardPresenter createBoardOutput = new CreateBoardPresenter();
 
@@ -44,7 +39,6 @@ public class RESTBoardAdapter {
 
     @GetMapping
     public ResponseEntity<List<GetAllBoardsViewModel>> getAllBoards(){
-        GetAllBoardsUseCase getAllBoardsUseCase = new GetAllBoardsUseCase(boardRepository);
         GetAllBoardsInput getAllBoardsInput = new GetAllBoardsInput();
         GetAllBoardsPresenter getAllBoardsOutput = new GetAllBoardsPresenter();
 

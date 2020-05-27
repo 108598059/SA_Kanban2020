@@ -1,4 +1,4 @@
-package ddd.kanban.usecase.workflow;
+package ddd.kanban.usecase.workflow.create;
 
 import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
@@ -6,14 +6,10 @@ import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.repository.BoardRepository;
-import ddd.kanban.usecase.workflow.create.CreateWorkflowInput;
-import ddd.kanban.usecase.workflow.create.CreateWorkflowOutput;
+import ddd.kanban.usecase.workflow.mapper.WorkflowEntityMapper;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.create.CreateWorkflowUseCase;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.UUID;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,14 +34,15 @@ public class CreateWorkflowUseCaseTest {
     @Test
     public void testCreateWorkflow() {
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, domainEventBus);
-
         CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput("Workflow 1", boardId);
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
 
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
-        assertEquals("Workflow 1", createWorkflowOutput.getWorkflowTitle());
-        assertNotNull(createWorkflowOutput.getWorkflowId());
+        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(createWorkflowOutput.getWorkflowId()));
+
+        assertEquals(createWorkflowOutput.getWorkflowId(), workflow.getId());
+        assertEquals("Workflow 1", workflow.getTitle());
     }
 
     @Test
@@ -54,14 +51,9 @@ public class CreateWorkflowUseCaseTest {
 
         CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput("Workflow 1", boardId);
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
-
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
-        assertEquals("Workflow 1", createWorkflowOutput.getWorkflowTitle());
-        assertNotNull(createWorkflowOutput.getWorkflowId());
-        assertNotNull(createWorkflowOutput.getDefaultColumnId());
-
-        Workflow workflow = workflowRepository.findById(createWorkflowOutput.getWorkflowId());
-        assertEquals("Default Column", workflow.findColumnById(createWorkflowOutput.getDefaultColumnId()).getTitle());
+        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(createWorkflowOutput.getWorkflowId()));
+        assertEquals(1, workflow.getColumns().size());
     }
 }

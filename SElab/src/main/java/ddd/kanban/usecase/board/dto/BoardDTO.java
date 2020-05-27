@@ -1,4 +1,4 @@
-package ddd.kanban.usecase.board.DTO;
+package ddd.kanban.usecase.board.dto;
 
 import java.util.ArrayList;
 import java.util.List;

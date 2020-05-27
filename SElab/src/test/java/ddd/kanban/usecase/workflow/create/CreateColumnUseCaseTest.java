@@ -1,13 +1,15 @@
-package ddd.kanban.usecase.workflow;
+package ddd.kanban.usecase.workflow.create;
 
 import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
+import ddd.kanban.domain.model.workflow.Lane;
 import ddd.kanban.domain.model.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.workflow.create.*;
 import ddd.kanban.usecase.repository.WorkflowRepository;
+import ddd.kanban.usecase.workflow.mapper.WorkflowEntityMapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +46,9 @@ public class CreateColumnUseCaseTest {
 
         createColumnUseCase.execute(createColumnInput, createColumnOutput);
 
-        assertNotNull(createColumnOutput.getColumnId());
+        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(workflowId));
+        Lane column = workflow.findColumnById(createColumnOutput.getColumnId());
+
+        assertEquals(createColumnOutput.getColumnId(), column.getId());
     }
 }

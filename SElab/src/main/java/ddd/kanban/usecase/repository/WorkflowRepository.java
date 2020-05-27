@@ -1,15 +1,16 @@
 package ddd.kanban.usecase.repository;
 
 import ddd.kanban.domain.model.workflow.Workflow;
+import ddd.kanban.usecase.workflow.entity.WorkflowEntity;
 
 import java.util.List;
 
 public interface WorkflowRepository {
-    void add(Workflow workflow);
+    void add(WorkflowEntity workflowEntity);
 
-    Workflow findById(String workflowId);
+    WorkflowEntity findById(String workflowId);
 
-    void save();
+    void save(WorkflowEntity workflowEntity);
 
-    List<Workflow> findAll();
+    List<WorkflowEntity> findAll();
 }

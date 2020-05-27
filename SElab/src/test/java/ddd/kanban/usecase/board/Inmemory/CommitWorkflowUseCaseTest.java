@@ -1,4 +1,4 @@
-package ddd.kanban.usecase.board;
+package ddd.kanban.usecase.board.Inmemory;
 
 import ddd.kanban.adapter.presenter.board.create.CreateBoardPresenter;
 import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
@@ -6,7 +6,8 @@ import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.board.Board;
 import ddd.kanban.domain.model.workflow.Workflow;
-import ddd.kanban.usecase.DomainEventHandler;
+import ddd.kanban.usecase.board.mapper.BoardEntityMapper;
+import ddd.kanban.usecase.handler.DomainEventHandler;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.board.commit.CommitWorkflowInput;
 import ddd.kanban.usecase.board.commit.CommitWorkflowOutput;
@@ -25,6 +26,7 @@ import org.junit.Test;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class CommitWorkflowUseCaseTest {
 
@@ -58,13 +60,16 @@ public class CommitWorkflowUseCaseTest {
 
     @Test
     public void testCreateWorkflowShouldCommitToBoard() {
+        Board board = BoardEntityMapper.mappingBoardFrom(boardRepository.findById(boardId));
+
+        assertEquals(1, board.getWorkflowIds().size());
+
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, domainEventBus);
         CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput("Workflow2", boardId);
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
 
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
-        Board board = BoardEntityMapper.mappingBoardFrom(boardRepository.findById(boardId));
         assertEquals(2, board.getWorkflowIds().size());
     }
 

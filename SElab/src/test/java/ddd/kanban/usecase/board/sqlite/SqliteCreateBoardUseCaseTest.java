@@ -1,11 +1,12 @@
-package ddd.kanban.usecase.board;
+package ddd.kanban.usecase.board.sqlite;
 
 import ddd.kanban.adapter.presenter.board.create.CreateBoardPresenter;
 import ddd.kanban.adapter.repository.board.SqliteBoardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.board.Board;
-import ddd.kanban.usecase.DomainEventHandler;
+import ddd.kanban.usecase.board.mapper.BoardEntityMapper;
+import ddd.kanban.usecase.handler.DomainEventHandler;
 import ddd.kanban.usecase.board.create.CreateBoardInput;
 import ddd.kanban.usecase.board.create.CreateBoardOutput;
 import ddd.kanban.usecase.board.create.CreateBoardUseCase;
