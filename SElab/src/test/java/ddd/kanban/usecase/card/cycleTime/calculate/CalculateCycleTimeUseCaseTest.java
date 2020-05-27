@@ -39,7 +39,6 @@ public class CalculateCycleTimeUseCaseTest {
     private String workflowId;
 
     private String cardIdWillMove;
-    private String cardIdWillNotMove;
 
     private String beginningLaneId;
     private String analysisLaneId;
