@@ -6,6 +6,7 @@ public class CardDTO extends DTO {
 
     private String name;
     private String columnID;
+    private long leadTime;
 
     public String getName() {
         return name;
@@ -23,4 +24,11 @@ public class CardDTO extends DTO {
         this.name = name;
     }
 
+    public long getLeadTime() {
+        return leadTime;
+    }
+
+    public void setLeadTime(long leadTime) {
+        this.leadTime = leadTime;
+    }
 }

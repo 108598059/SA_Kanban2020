@@ -1,31 +1,57 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.calculate.leadtime;
 
 import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.repository.EventLogRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime.CalculateCycleTimeUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime.CalculateCycleTimeUseCaseInput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime.CalculateCycleTimeUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime.CycleTime;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardEnteredColumnEventRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardLeftColumnEventRepository;
+import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
 import java.util.List;
 
-public class CalculateLeadTimeUseCase extends UseCase<CalculateLeadTimeuseCaseInput, CalculateLeadTimeUseCaseOutput> {
+public class CalculateLeadTimeUseCase extends UseCase<CalculateLeadTimeUseCaseInput, CalculateLeadTimeUseCaseOutput> {
+    private CardEnteredColumnEventRepository cardEnteredColumnEventRepository;
+    private CardLeftColumnEventRepository cardLeftColumnEventRepository;
+    private CardRepository cardRepository;
 
-    private EventLogRepository eventLogRepository;
-
-    public CalculateLeadTimeUseCase(DomainEventBus eventBus, EventLogRepository eventLogRepository){
+    public CalculateLeadTimeUseCase(DomainEventBus eventBus,
+                                    CardEnteredColumnEventRepository cardEnteredColumnEventRepository,
+                                    CardLeftColumnEventRepository cardLeftColumnEventRepository,
+                                    CardRepository cardRepository) {
         super(eventBus);
-        this.eventLogRepository = eventLogRepository;
+        this.cardEnteredColumnEventRepository = cardEnteredColumnEventRepository;
+        this.cardLeftColumnEventRepository = cardLeftColumnEventRepository;
+        this.cardRepository = cardRepository;
     }
 
-    public void execute(CalculateLeadTimeuseCaseInput input, CalculateLeadTimeUseCaseOutput output) {
-//        List<DomainEventDTO> eventList = this.eventLogRepository.findAllBySourceID(input.getBoardID());
-//
-//        for (DomainEventDTO event : eventList) {
-//            if (event.getSourceName().contains(CardEnteredColumnEvent.EVENT_NAME) &&
-//                event.getSourceName().contains(input.getCardID())) {
-//                cardEnteredEventList.
-//            }
-//
-//        }
+    public void execute(CalculateLeadTimeUseCaseInput input, CalculateLeadTimeUseCaseOutput output) {
+        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(this.eventBus,
+                this.cardEnteredColumnEventRepository, this.cardLeftColumnEventRepository);
+        CalculateCycleTimeUseCaseInput calculateCycleTimeUseCaseInput = new CalculateCycleTimeUseCaseInput();
+        CalculateCycleTimeUseCaseOutput calculateCycleTimeUseCaseOutput = new CalculateCycleTimeUseCaseOutput();
 
+        calculateCycleTimeUseCaseInput.setCardID(input.getCardID());
 
+        calculateCycleTimeUseCase.execute(calculateCycleTimeUseCaseInput, calculateCycleTimeUseCaseOutput);
+
+        List<CycleTime> cycleTimes = calculateCycleTimeUseCaseOutput.getCycleTimeList();
+
+        long leadTime = 0;
+        for (CycleTime cycleTime: cycleTimes) {
+            leadTime += cycleTime.getTime();
+        }
+
+        Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(input.getCardID()));
+        card.setLeadTime(leadTime);
+
+        this.cardRepository.save(CardDTOConverter.toDTO(card));
+        this.eventBus.postAll(card);
+
+        output.setLeadTime(leadTime);
     }
 }
