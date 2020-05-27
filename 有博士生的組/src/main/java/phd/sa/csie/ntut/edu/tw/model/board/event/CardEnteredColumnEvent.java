@@ -3,21 +3,20 @@ package phd.sa.csie.ntut.edu.tw.model.board.event;
 import phd.sa.csie.ntut.edu.tw.model.AbstractDomainEvent;
 
 public class CardEnteredColumnEvent extends AbstractDomainEvent {
-
-    private String columnID;
     private String cardID;
+    private String columnID;
 
-    public CardEnteredColumnEvent(String sourceID, String columnID, String cardID) {
-        super(sourceID, "Entered column event: " + columnID);
-        this.columnID = columnID;
+    public CardEnteredColumnEvent(String sourceID, String cardID, String columnID) {
+        super(sourceID, "[Card Entered Event] card: " + cardID + " entered column: " + columnID);
         this.cardID = cardID;
-    }
-
-    public String getColumnID() {
-        return this.columnID;
+        this.columnID = columnID;
     }
 
     public String getCardID() {
         return cardID;
+    }
+
+    public String getColumnID() {
+        return columnID;
     }
 }

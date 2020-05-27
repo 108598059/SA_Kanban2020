@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.card.edit.column;
 
-public class EditCardColumnUseCaseOutput {
+import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
+
+public class EditCardBelongsColumnUseCaseOutput implements UseCaseOutput {
     private String columnID;
 
     public String getColumnID() {

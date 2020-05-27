@@ -49,8 +49,8 @@ public class CreateCardUseCaseTest {
     this.board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
-    CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
     this.eventBus = new DomainEventBus();
+    CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository);
     this.eventBus.register(cardCreatedEventHandler);
   }
 
@@ -86,7 +86,7 @@ public class CreateCardUseCaseTest {
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
-    assertEquals(this.board.getBacklogColumn().getID().toString(), card.getColumnID().toString());
+    assertEquals(this.board.getBacklogColumn().getID().toString(), card.getBelongsColumnID().toString());
   }
 
   @Test
