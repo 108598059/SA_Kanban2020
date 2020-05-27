@@ -1,14 +1,15 @@
-package phd.sa.csie.ntut.edu.tw.adapter.rest.column;
+package phd.sa.csie.ntut.edu.tw.adapter.view.model.column;
 
+import phd.sa.csie.ntut.edu.tw.adapter.view.model.AbstractViewModel;
 import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCaseOutput;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColumnResponseBody {
+public class ColumnViewModel extends AbstractViewModel {
     private List<ColumnViewObject> columnList;
 
-    public ColumnResponseBody(GetColumnsByBoardIDUseCaseOutput output) {
+    public ColumnViewModel(GetColumnsByBoardIDUseCaseOutput output) {
         this.columnList = new ArrayList<>();
         for (GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject: output.getColumnList()) {
             this.columnList.add(new ColumnViewObject(columnViewObject));

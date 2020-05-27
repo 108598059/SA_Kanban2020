@@ -3,6 +3,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.read;
 import org.junit.Before;
 import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.column.read.GetColumnsByBoardIDPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
@@ -57,7 +58,7 @@ public class GetColumnsByBoardIDUseCaseTest {
     public void test_get_columns_structure_by_board_id() {
         GetColumnsByBoardIDUseCase getColumnsByBoardIDUseCase = new GetColumnsByBoardIDUseCase(this.boardRepository, this.cardRepository);
         GetColumnsByBoardIDUseCaseInput getColumnsByBoardIDUsecaseInput = new GetColumnsByBoardIDUseCaseInput();
-        GetColumnsByBoardIDUseCaseOutput getColumnsByBoardIDUsecaseOutput = new GetColumnsByBoardIDUseCaseOutput();
+        GetColumnsByBoardIDUseCaseOutput getColumnsByBoardIDUsecaseOutput = new GetColumnsByBoardIDPresenter();
 
         getColumnsByBoardIDUsecaseInput.setBoardID(this.boardID.toString());
 

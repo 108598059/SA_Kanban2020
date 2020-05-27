@@ -6,13 +6,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetColumnsByBoardIDUseCaseOutput implements UseCaseOutput {
-    private List<ColumnViewObject> columnList;
-
-    public GetColumnsByBoardIDUseCaseOutput() {
-        this.columnList = new ArrayList<>();
-    }
-
+public interface GetColumnsByBoardIDUseCaseOutput extends UseCaseOutput {
     public static class ColumnViewObject {
         private String id;
         private String title;
@@ -77,11 +71,7 @@ public class GetColumnsByBoardIDUseCaseOutput implements UseCaseOutput {
         }
     }
 
-    public List<ColumnViewObject> getColumnList() {
-        return columnList;
-    }
+    public List<ColumnViewObject> getColumnList();
 
-    public void setColumnList(List<ColumnViewObject> columnList) {
-        this.columnList = columnList;
-    }
+    public void setColumnList(List<ColumnViewObject> columnList);
 }
