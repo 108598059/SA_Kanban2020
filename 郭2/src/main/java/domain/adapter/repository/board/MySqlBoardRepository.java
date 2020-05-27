@@ -6,13 +6,15 @@ import domain.usecase.board.BoardEntity;
 
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
+import javax.inject.Singleton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-@Default
+@Alternative
+@Singleton
 public class MySqlBoardRepository implements IBoardRepository {
     private Connection conn;
 
@@ -104,6 +106,11 @@ public class MySqlBoardRepository implements IBoardRepository {
                 }
             }
         }
+    }
+
+    @Override
+    public List<BoardEntity> getAllBoard() {
+        return null;
     }
 
     private List<String> getWorkflowIdsByBoardId(String boardId) {
