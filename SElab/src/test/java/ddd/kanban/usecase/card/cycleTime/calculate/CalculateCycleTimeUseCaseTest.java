@@ -93,8 +93,8 @@ public class CalculateCycleTimeUseCaseTest {
         CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(this.workflowRepository, this.flowEventRepository);
         CalculateCycleTimeInput calculateCycleTimeInput = new CalculateCycleTimeInput(this.cardIdWillMove, this.workflowId, this.beginningLaneId, this.beginningLaneId);
         CalculateCycleTimeOutput calculateCycleTimeOutput = new CalculateCycleTimeOutput();
-        calculateCycleTimeUseCase.execute(calculateCycleTimeInput,calculateCycleTimeOutput);
-        assertEquals(3,calculateCycleTimeOutput.getCycleTime().getDay());
+        calculateCycleTimeUseCase.execute(calculateCycleTimeInput, calculateCycleTimeOutput);
+        assertEquals(3, calculateCycleTimeOutput.getCycleTime().getDay());
     }
 
     @Test
@@ -108,9 +108,9 @@ public class CalculateCycleTimeUseCaseTest {
         CalculateCycleTimeInput calculateCycleTimeInput = new CalculateCycleTimeInput(cardId, this.workflowId, this.beginningLaneId, this.beginningLaneId);
         CalculateCycleTimeOutput calculateCycleTimeOutput = new CalculateCycleTimeOutput();
 
-        calculateCycleTimeUseCase.execute(calculateCycleTimeInput,calculateCycleTimeOutput);
+        calculateCycleTimeUseCase.execute(calculateCycleTimeInput, calculateCycleTimeOutput);
 
-        assertEquals(3,calculateCycleTimeOutput.getCycleTime().getDay());
+        assertEquals(3, calculateCycleTimeOutput.getCycleTime().getDay());
     }
 
     @Test
@@ -120,9 +120,9 @@ public class CalculateCycleTimeUseCaseTest {
         CalculateCycleTimeInput calculateCycleTimeInput = new CalculateCycleTimeInput(this.cardIdWillMove, this.workflowId, this.beginningLaneId, this.readyToDeployLaneId);
         CalculateCycleTimeOutput calculateCycleTimeOutput = new CalculateCycleTimeOutput();
 
-        calculateCycleTimeUseCase.execute(calculateCycleTimeInput,calculateCycleTimeOutput);
+        calculateCycleTimeUseCase.execute(calculateCycleTimeInput, calculateCycleTimeOutput);
 
-        assertEquals(5,calculateCycleTimeOutput.getCycleTime().getDay());
+        assertEquals(5, calculateCycleTimeOutput.getCycleTime().getDay());
     }
 
     private void simulateMoveCard() throws ParseException {
@@ -150,6 +150,7 @@ public class CalculateCycleTimeUseCaseTest {
         CreateColumnOutput createColumnOutput = new CreateColumnOutput();
 
         createColumnUseCase.execute(createColumnInput, createColumnOutput);
+
         return createColumnOutput.getColumnId();
     }
 
@@ -157,7 +158,9 @@ public class CalculateCycleTimeUseCaseTest {
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, domainEventBus);
         CreateCardInput createCardInput = new CreateCardInput(cardTitle, this.boardId, this.workflowId, this.beginningLaneId);
         CreateCardOutput createCardOutput = new CreateCardOutput();
+
         createCardUseCase.execute(createCardInput, createCardOutput);
+
         return createCardOutput.getCardId();
     }
 
