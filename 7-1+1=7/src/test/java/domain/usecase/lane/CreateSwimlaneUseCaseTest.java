@@ -1,14 +1,18 @@
 package domain.usecase.lane;
 
+import domain.adapter.FlowEventInMemoryRepository;
 import domain.adapter.board.BoardInMemoryRepository;
+import domain.adapter.card.CardInMemoryRepository;
 import domain.adapter.workflow.WorkflowInMemoryRepository;
 import domain.model.DomainEventBus;
 import domain.usecase.DomainEventHandler;
 import domain.usecase.TestUtility;
+import domain.usecase.flowEvent.repository.IFlowEventRepository;
 import domain.usecase.lane.createSwimLane.CreateSwimLaneInput;
 import domain.usecase.lane.createSwimLane.CreateSwimLaneOutput;
 import domain.usecase.lane.createSwimLane.CreateSwimLaneUseCase;
 import domain.usecase.repository.IBoardRepository;
+import domain.usecase.repository.ICardRepository;
 import domain.usecase.repository.IWorkflowRepository;
 import domain.usecase.workflow.WorkflowDTOConverter;
 import org.junit.Before;
@@ -23,16 +27,20 @@ public class CreateSwimLaneUseCaseTest {
     private String topStageId;
     private DomainEventBus eventBus;
     private TestUtility testUtility;
+    private IFlowEventRepository flowEventRepository;
+    private ICardRepository cardRepository;
 
 
     @Before
     public void setup() {
         boardRepository = new BoardInMemoryRepository();
         workflowRepository = new WorkflowInMemoryRepository();
+        cardRepository = new CardInMemoryRepository();
+        flowEventRepository = new FlowEventInMemoryRepository();
 
         eventBus = new DomainEventBus();
-        eventBus.register(new DomainEventHandler(boardRepository, workflowRepository));
-        testUtility = new TestUtility(boardRepository, workflowRepository, eventBus);
+        eventBus.register(new DomainEventHandler(boardRepository, workflowRepository, eventBus));
+        testUtility = new TestUtility(boardRepository, workflowRepository, cardRepository, flowEventRepository, eventBus);
 
         String boardId = testUtility.createBoard("kanban777", "kanban");
         workflowId = testUtility.createWorkflow(boardId, "defaultWorkflow");
@@ -41,7 +49,7 @@ public class CreateSwimLaneUseCaseTest {
 
     @Test
     public void create_a_SwimLane_under_top_Stage() {
-        CreateSwimLaneUseCase createSwimLaneUseCase = new CreateSwimLaneUseCase(workflowRepository, boardRepository);
+        CreateSwimLaneUseCase createSwimLaneUseCase = new CreateSwimLaneUseCase(workflowRepository, boardRepository, eventBus);
         CreateSwimLaneInput input = new CreateSwimLaneInput();
         CreateSwimLaneOutput output = new CreateSwimLaneOutput();
 
@@ -64,7 +72,7 @@ public class CreateSwimLaneUseCaseTest {
     public void create_a_SwimLane_under_Stage() {
         String parenStageId = testUtility.createStage(workflowId, topStageId, "Developing");
 
-        CreateSwimLaneUseCase createSwimLaneUseCase = new CreateSwimLaneUseCase(workflowRepository, boardRepository);
+        CreateSwimLaneUseCase createSwimLaneUseCase = new CreateSwimLaneUseCase(workflowRepository, boardRepository, eventBus);
         CreateSwimLaneInput input = new CreateSwimLaneInput();
         CreateSwimLaneOutput output = new CreateSwimLaneOutput();
 
@@ -92,7 +100,7 @@ public class CreateSwimLaneUseCaseTest {
 
         String parenStageId = testUtility.createSwimLane(workflowId, topStageId, "Undo");
 
-        CreateSwimLaneUseCase createSwimLaneUseCase = new CreateSwimLaneUseCase(workflowRepository, boardRepository);
+        CreateSwimLaneUseCase createSwimLaneUseCase = new CreateSwimLaneUseCase(workflowRepository, boardRepository, eventBus);
         CreateSwimLaneInput input = new CreateSwimLaneInput();
         CreateSwimLaneOutput output = new CreateSwimLaneOutput();
 

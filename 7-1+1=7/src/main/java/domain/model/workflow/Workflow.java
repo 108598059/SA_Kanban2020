@@ -1,15 +1,16 @@
 package domain.model.workflow;
 
 import domain.model.AggregateRoot;
-import domain.model.workflow.event.WorkflowCreated;
+import domain.model.workflow.event.*;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Workflow extends AggregateRoot {
     private String boardId;
 
-    Map<String, Lane> laneMap = new HashMap<String, Lane>();
+    Map<String, Lane> laneMap = new LinkedHashMap<>();
 
     public Workflow(String workflowName, String boardId, String workflowId) {
         super(workflowName, workflowId);
@@ -29,6 +30,7 @@ public class Workflow extends AggregateRoot {
     public String createStage(String stageName) {
         Lane lane = new Stage(stageName);
         laneMap.put(lane.getId(), lane);
+        addDomainEvent(new StageCreated(stageName, id));
         return lane.getId();
     }
 
@@ -36,6 +38,7 @@ public class Workflow extends AggregateRoot {
         Lane lane = new Stage(stageName);
         Lane parentLane = findLaneById(parentLaneId);
         parentLane.addLane(lane);
+        addDomainEvent(new StageCreated(stageName, id, parentLaneId));
         return lane.getId();
     }
 
@@ -43,6 +46,8 @@ public class Workflow extends AggregateRoot {
         Lane lane = new SwimLane(swimLaneName);
         Lane parentLane = findLaneById(parentLaneId);
         parentLane.addLane(lane);
+
+        addDomainEvent(new SwimlaneCreated(swimLaneName, id, parentLaneId));
         return lane.getId();
     }
 
@@ -75,10 +80,13 @@ public class Workflow extends AggregateRoot {
     public void commitCard(String cardId, String laneId) {
         Lane lane = findLaneById(laneId);
         lane.addCard(cardId);
+        addDomainEvent(new CardCommitted(id, cardId, laneId));
     }
 
-    public Map<String, Lane> getLaneMap() {
-        return laneMap;
+    public void uncommitCard(String cardId, String laneId) {
+        Lane lane = findLaneById(laneId);
+        lane.removeCard(cardId);
+        addDomainEvent(new CardUncommitted(id, cardId, laneId));
     }
 
     public Lane findLaneByCardId(String cardId) {
@@ -89,10 +97,12 @@ public class Workflow extends AggregateRoot {
         }
         return null;
     }
+
     public void addToLaneMap(Lane lane) {
         laneMap.put(lane.getId(), lane);
     }
-    public Map<String, Lane> getLanes() {
+
+    public Map<String, Lane> getLaneMap() {
         return laneMap;
     }
 }

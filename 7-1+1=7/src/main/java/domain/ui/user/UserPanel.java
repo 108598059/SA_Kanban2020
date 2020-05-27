@@ -9,7 +9,10 @@ import domain.adapter.board.createBoard.CreateBoardController;
 import domain.adapter.board.createBoard.CreateBoardViewModel;
 import domain.adapter.board.findBoardById.FindBoardByIdController;
 import domain.adapter.board.findBoardById.FindBoardByIdViewModel;
+import domain.model.DomainEventBus;
 import domain.ui.MainFrame;
+import domain.usecase.repository.IBoardRepository;
+
 import javax.swing.DefaultListModel;
 
 /**
@@ -17,17 +20,21 @@ import javax.swing.DefaultListModel;
  * @author lab1321
  */
 public class UserPanel extends javax.swing.JPanel {
+    private DomainEventBus eventBus;
     private MainFrame mainFrame;
     private DefaultListModel defaultListModel;
     private CreateBoardController createBoardController;
     private CreateBoardViewModel createBoardViewModel;
     private FindBoardByIdViewModel findBoardByIdViewModel;
     private FindBoardByIdController findBoardByIdController;
+    private IBoardRepository boardRepository;
 
     /**
      * Creates new form board
      */
-    public UserPanel(MainFrame mainFrame) {
+    public UserPanel(MainFrame mainFrame, IBoardRepository boardRepository, DomainEventBus eventBus) {
+        this.boardRepository = boardRepository;
+        this.eventBus = eventBus;
         this.createBoardController = new CreateBoardController();
         this.findBoardByIdController = new FindBoardByIdController();
         this.mainFrame = mainFrame;
@@ -122,8 +129,8 @@ public class UserPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         PopMenu popMenu = new PopMenu();
         myBoardList.setModel(defaultListModel);
-        createBoardViewModel = createBoardController.createBoard(userLabel.getText(), popMenu.getIName());
-        findBoardByIdViewModel = findBoardByIdController.findBoardById(createBoardViewModel.getBoardId());
+        createBoardViewModel = createBoardController.createBoard(userLabel.getText(), popMenu.getIName(), boardRepository, eventBus);
+        findBoardByIdViewModel = findBoardByIdController.findBoardById(createBoardViewModel.getBoardId(), boardRepository, eventBus);
         defaultListModel.addElement(findBoardByIdViewModel.getName());
     }//GEN-LAST:event_createBoardBtnActionPerformed
 
