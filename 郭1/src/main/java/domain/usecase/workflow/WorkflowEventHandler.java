@@ -3,6 +3,7 @@ package domain.usecase.workflow;
 import com.google.common.eventbus.Subscribe;
 import domain.adapters.controller.workflow.CommitWorkflowInputImpl;
 import domain.adapters.controller.workflow.CommitWorkflowOutputImpl;
+import domain.entity.DomainEventBus;
 import domain.entity.workflow.event.WorkflowCreated;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.commit.CommitWorkflowInput;
@@ -12,9 +13,11 @@ import domain.usecase.board.commit.CommitWorkflowUseCase;
 public class WorkflowEventHandler {
 
         private BoardRepository boardRepository;
+        private DomainEventBus eventBus;
 
-        public WorkflowEventHandler(BoardRepository boardRepository) {
+        public WorkflowEventHandler(BoardRepository boardRepository, DomainEventBus eventBus) {
             this.boardRepository = boardRepository;
+            this.eventBus = eventBus;
         }
 
         @Subscribe
@@ -22,7 +25,7 @@ public class WorkflowEventHandler {
 
             CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInputImpl();
             CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutputImpl();
-            CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
+            CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository, eventBus);
 
             commitWorkflowInput.setBoardId(workflowCreated.getBoardId());
             commitWorkflowInput.setWorkflowId(workflowCreated.getWorkflowId());

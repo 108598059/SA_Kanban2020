@@ -3,7 +3,7 @@ package domain.entity.workflow.event;
 import domain.entity.DomainEvent;
 import domain.entity.workflow.Workflow;
 
-public class WorkflowCreated extends DomainEvent {
+public class WorkflowCreated implements DomainEvent {
     private String workflowId;
     private String boardId;
 

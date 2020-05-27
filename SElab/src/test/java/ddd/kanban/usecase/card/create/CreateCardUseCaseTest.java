@@ -5,14 +5,14 @@ import ddd.kanban.adapter.repository.card.InMemoryCardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.card.Card;
-import ddd.kanban.domain.model.workflow.Column;
 import ddd.kanban.domain.model.workflow.Lane;
 import ddd.kanban.domain.model.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
-import ddd.kanban.usecase.DomainEventHandler;
+import ddd.kanban.usecase.handler.DomainEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.CardRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
+import ddd.kanban.usecase.workflow.mapper.WorkflowEntityMapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class CreateCardUseCaseTest {
     }
 
     @Test
-    public void testCreateCardUseCase(){
+    public void testCreateCardShouldCommitToTheLane(){
         String cardTitle = "TestCard";
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, domainEventBus);
@@ -54,15 +54,12 @@ public class CreateCardUseCaseTest {
 
         Card card = cardRepository.findById(createCardOutput.getCardId());
 
-        assertEquals(card.getTitle(), createCardOutput.getCardTitle());
+        assertEquals(cardTitle, card.getTitle());
+        assertEquals(createCardOutput.getCardId(), card.getId());
 
-        Workflow workflow = workflowRepository.findById(this.workflowId);
+        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(this.workflowId));
         Lane column = workflow.findColumnById(this.columnId);
 
         assertEquals(1, column.getCommittedCards().size());
-
     }
-
-
-
 }

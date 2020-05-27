@@ -1,12 +1,9 @@
 package ddd.kanban.usecase.board.get;
 
-import ddd.kanban.domain.model.board.Board;
-import ddd.kanban.usecase.board.BoardDTOMapper;
-import ddd.kanban.usecase.board.BoardEntityMapper;
-import ddd.kanban.usecase.board.DTO.BoardDTO;
-import ddd.kanban.usecase.board.Entity.BoardEntity;
+import ddd.kanban.usecase.board.mapper.BoardDTOMapper;
+import ddd.kanban.usecase.board.mapper.BoardEntityMapper;
+import ddd.kanban.usecase.board.dto.BoardDTO;
 import ddd.kanban.usecase.repository.BoardRepository;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.stream.Collectors;

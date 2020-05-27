@@ -11,7 +11,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, CreateColumnUseCaseOutput> {
   private BoardRepository boardRepository;
 
-  public CreateColumnUseCase(BoardRepository boardRepository) {
+  public CreateColumnUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
+    super(eventBus);
     this.boardRepository = boardRepository;
   }
 
@@ -24,6 +25,8 @@ public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, Creat
     UUID columnID = board.createColumn(title);
 
     this.boardRepository.update(BoardDTOConverter.toDTO(board));
+    this.eventBus.postAll(board);
+
     createColumnUseCaseOutput.setID(columnID.toString());
   }
 }

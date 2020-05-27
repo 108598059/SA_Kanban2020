@@ -1,5 +1,6 @@
 package domain.usecase.stage.create;
 
+import domain.entity.DomainEventBus;
 import domain.entity.workflow.Workflow;
 import domain.usecase.workflow.WorkflowRepository;
 
@@ -7,9 +8,11 @@ import domain.usecase.workflow.WorkflowRepository;
 public class CreateStageUseCase {
 
     private WorkflowRepository workflowRepository;
+    private DomainEventBus eventBus;
 
-    public CreateStageUseCase(WorkflowRepository workflowRepository){
+    public CreateStageUseCase(WorkflowRepository workflowRepository, DomainEventBus eventBus){
         this.workflowRepository = workflowRepository;
+        this.eventBus = eventBus;
     }
 
 
@@ -19,6 +22,7 @@ public class CreateStageUseCase {
 
         String stageId = workflow.createStage(createStageInput.getStageName());
         workflowRepository.save(workflow);
+        eventBus.postAll(workflow);
 
         createStageOutput.setStageId(stageId) ;
     }

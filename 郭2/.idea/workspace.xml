@@ -2,14 +2,23 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="郭2:war exploded" />
+      <artifact name="SoftwareArchitecture:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22001a51-52ce-40f2-b64a-7dd903de4fa1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/KanbanBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/CreateBoard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/Homepage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/Homepage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/presenter/CreateBoardUseCasePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/presenter/CreateBoardUseCasePresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/InMemoryBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/InMemoryBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/MySqlBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/MySqlBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/board/repository/IBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/board/repository/IBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/card/cycleTime/CalculateCycleTimeUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/card/cycleTime/CalculateCycleTimeUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/homepage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/homepage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/domain/adapter/repository/board/InMemoryBoardRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/adapter/repository/board/InMemoryBoardRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/board/repository/IBoardRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/board/repository/IBoardRepository.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
+        <option value="cdi.beans_1_1" />
+        <option value="Tag Library Descriptor" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -53,6 +64,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -60,94 +72,108 @@
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="domain.adapter.controller" />
       <recent name="domain.usecase.board.create" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="domain.model" />
       <recent name="domain.usecase.board.create" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\北科\軟架\郭2\src\main\webapp\WEB-INF\view" />
+      <recent name="D:\北科\軟架\郭2\src\main" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="domain.usecase.card.cycleTime" />
+      <recent name="domain.usecase.cardMoved.repository" />
+      <recent name="domain.model.aggregate.card.event" />
+      <recent name="domain.usecase.card.move" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\北科\軟架\SA_Kanban2020\郭2\src\main\webapp\WEB-INF" />
       <recent name="D:\北科\軟架\郭2\src\main\webapp\WEB-INF" />
       <recent name="D:\北科\軟架\郭2\src" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\北科\軟架\郭2\src\main\webapp\WEB-INF\view" />
-      <recent name="D:\北科\軟架\郭2\src\main" />
-    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.kanban">
-    <configuration name="All in 郭2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭2" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+    <configuration name="All in SoftwareArchitecture" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
-      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateCardUseCaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭2" />
+    <configuration name="CalculateCycleTimeUseCaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.card.create.*" />
+          <option name="PATTERN" value="domain.usecase.card.cycleTime.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase.card.create" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.create.CreateCardUseCaseTest" />
+      <option name="PACKAGE_NAME" value="domain.usecase.card.cycleTime" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.cycleTime.CalculateCycleTimeUseCaseTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateCardUseCaseTest.CreateCardUseCaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭2" />
+    <configuration name="CalculateCycleTimeUseCaseTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.card.create.*" />
+          <option name="PATTERN" value="domain.usecase.card.cycleTime.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase.card.create" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.create.CreateCardUseCaseTest" />
-      <option name="METHOD_NAME" value="CreateCardUseCaseTest" />
+      <option name="PACKAGE_NAME" value="domain.usecase.card.cycleTime" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.cycleTime.CalculateCycleTimeUseCaseTest" />
+      <option name="METHOD_NAME" value="Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateCardUseCaseTest.Create_card_and_should_be_commit_to_its_workflow_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭2" />
+    <configuration name="CalculateCycleTimeUseCaseTest.move_card_from_Todo_to_Done" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.card.create.*" />
+          <option name="PATTERN" value="domain.usecase.card.cycleTime.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase.card.create" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.create.CreateCardUseCaseTest" />
-      <option name="METHOD_NAME" value="Create_card_and_should_be_commit_to_its_workflow_test" />
+      <option name="PACKAGE_NAME" value="domain.usecase.card.cycleTime" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.cycleTime.CalculateCycleTimeUseCaseTest" />
+      <option name="METHOD_NAME" value="move_card_from_Todo_to_Done" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateCardUseCaseTest.Create_card_in_its_workflow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭2" />
+    <configuration name="MoveCardUseCaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.card.create.*" />
+          <option name="PATTERN" value="domain.usecase.card.move.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase.card.create" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.create.CreateCardUseCaseTest" />
-      <option name="METHOD_NAME" value="Create_card_in_its_workflow" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="domain.usecase.card.move" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.move.MoveCardUseCaseTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -156,7 +182,7 @@
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/homepage" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="郭2:war exploded">
+        <artifact name="SoftwareArchitecture:war exploded">
           <settings>
             <option name="CONTEXT_PATH" value="/" />
           </settings>
@@ -222,39 +248,26 @@
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
           <artifact name="SoftwareArchitecture:war exploded" />
-          <artifact name="郭2:war exploded" />
         </option>
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.All in 郭2" />
-      <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_in_its_workflow" />
-      <item itemvalue="JUnit.CreateCardUseCaseTest" />
-      <item itemvalue="JUnit.CreateCardUseCaseTest.CreateCardUseCaseTest" />
-      <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_and_should_be_commit_to_its_workflow_test" />
       <item itemvalue="Tomcat Server.kanban" />
+      <item itemvalue="JUnit.All in SoftwareArchitecture" />
+      <item itemvalue="JUnit.MoveCardUseCaseTest" />
+      <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
+      <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.move_card_from_Todo_to_Done" />
+      <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in 郭2" />
-        <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_and_should_be_commit_to_its_workflow_test" />
-        <item itemvalue="JUnit.CreateCardUseCaseTest.CreateCardUseCaseTest" />
-        <item itemvalue="JUnit.CreateCardUseCaseTest" />
-        <item itemvalue="JUnit.CreateCardUseCaseTest.Create_card_in_its_workflow" />
+        <item itemvalue="JUnit.All in SoftwareArchitecture" />
+        <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest" />
+        <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.move_card_from_Todo_to_Done" />
+        <item itemvalue="JUnit.MoveCardUseCaseTest" />
+        <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />

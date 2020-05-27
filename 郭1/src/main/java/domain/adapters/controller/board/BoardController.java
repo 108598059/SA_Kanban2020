@@ -2,34 +2,32 @@ package domain.adapters.controller.board;
 
 import domain.adapters.repository.BoardRepositoryImpl;
 import domain.adapters.presenter.BoardPresenter;
-import domain.usecase.board.BoardRepository;
+import domain.adapters.viewmodel.board.BoardViewModel;
+
 import domain.usecase.board.create.CreateBoardInput;
-import domain.usecase.board.create.CreateBoardOutput;
+
 import domain.usecase.board.create.CreateBoardUseCase;
-import domain.adapters.View;
+
 
 
 public class BoardController {
 
-    private BoardRepository boardRepository;
     private BoardPresenter presenter;
+    private CreateBoardUseCase createBoardUseCase;
 
-    public BoardController(BoardRepository boardRepository, BoardPresenter presenter){
-        this.boardRepository = boardRepository;
+    public BoardController(CreateBoardUseCase createBoardUseCase, BoardPresenter presenter){
         this.presenter = presenter;
+        this.createBoardUseCase = createBoardUseCase;
     }
 
-    public void createBoard(String boardName){
-
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+    public BoardViewModel createBoard(String boardName){
 
         CreateBoardInput createBoardInput = new CreateBoardInputImpl();
-
         createBoardInput.setName(boardName);
 
         createBoardUseCase.execute(createBoardInput,presenter);
 
-
+        return presenter.createBoardViewModel();
 
     }
 

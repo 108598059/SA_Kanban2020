@@ -7,6 +7,7 @@ import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.usecase.board.create.CreateBoardInput;
 import ddd.kanban.usecase.board.create.CreateBoardOutput;
 import ddd.kanban.usecase.board.create.CreateBoardUseCase;
+import ddd.kanban.usecase.card.create.CreateCardUseCase;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
 import ddd.kanban.usecase.workflow.create.*;

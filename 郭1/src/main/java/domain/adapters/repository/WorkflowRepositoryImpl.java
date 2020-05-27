@@ -68,7 +68,7 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
             sql = "SELECT * FROM kanban.swimlane WHERE stageid=?";
             ps = conn.prepareStatement(sql);
 
-            for (Stage stage: workflow.getStageMap().values()) {
+            for (Stage stage: workflow.getStages().values()) {
 
                 ps.setString(1, stage.getId());
                 resultSet = ps.executeQuery();
@@ -133,17 +133,17 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
     }
 
     public void save(Workflow workflow) {
+
+        delete(workflow);
+
         String sql;
-
-
-
         this.conn = Database.getConnection();
 
 
         PreparedStatement ps = null;
         sql = "INSERT INTO kanban.stage (id,name,workflowid) VALUES (?,?,?) ON DUPLICATE KEY UPDATE name=?,workflowid=?";
         try {
-            for(Stage stage : workflow.getStageMap().values() ){
+            for(Stage stage : workflow.getStages().values() ){
                 ps = conn.prepareStatement(sql);
                 ps.setString(1,stage.getId());
                 ps.setString(2,stage.getName());
@@ -167,8 +167,8 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
         sql = "INSERT INTO kanban.swimlane (id,name,stageid) VALUES (?,?,?) ON DUPLICATE KEY UPDATE name=?,stageid=?";
         try {
-            for(Stage stage : workflow.getStageMap().values() ){
-                for(Swimlane swimlane : stage.getSwimlaneMap().values()){
+            for(Stage stage : workflow.getStages().values() ){
+                for(Swimlane swimlane : stage.getSwimlanes().values()){
                     ps = conn.prepareStatement(sql);
                     ps.setString(1,swimlane.getId());
                     ps.setString(2,swimlane.getName());
@@ -193,9 +193,9 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
         sql = "INSERT INTO kanban.r_swimlane_card (swimlaneid,cardid) VALUES (?,?) ON DUPLICATE KEY UPDATE swimlaneid=?,cardid=?";
         try {
-            for(Stage stage : workflow.getStageMap().values() ){
-                for(Swimlane swimlane : stage.getSwimlaneMap().values()){
-                    for (String cardId: swimlane.getCard()) {
+            for(Stage stage : workflow.getStages().values() ){
+                for(Swimlane swimlane : stage.getSwimlanes().values()){
+                    for (String cardId: swimlane.getCards()) {
 
                         ps = conn.prepareStatement(sql);
                         ps.setString(1, swimlane.getId());
@@ -262,5 +262,86 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
         }
 
 
+    }
+
+    public void delete(Workflow workflow){
+        String sql;
+
+
+
+        this.conn = Database.getConnection();
+
+
+        PreparedStatement ps = null;
+        sql = "DELETE FROM kanban.stage WHERE workflowid=?";
+        try {
+
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, workflow.getId());
+                ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        sql = "DELETE FROM kanban.swimlane WHERE stageid=?";
+        try {
+                for(Stage stage : workflow.getStages().values() ){
+                    ps = conn.prepareStatement(sql);
+                    ps.setString(1,stage.getId());
+                    ps.executeUpdate();
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        sql = "DELETE FROM kanban.r_swimlane_card WHERE swimlaneid=?";
+        try {
+            for(Stage stage : workflow.getStages().values() ){
+                for(Swimlane swimlane : stage.getSwimlanes().values()){
+
+                        ps = conn.prepareStatement(sql);
+                        ps.setString(1, swimlane.getId());
+                        ps.executeUpdate();
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

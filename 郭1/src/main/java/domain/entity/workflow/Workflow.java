@@ -1,8 +1,10 @@
 package domain.entity.workflow;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import domain.entity.Aggregate;
+import domain.entity.workflow.event.CardCommitted;
+import domain.entity.workflow.event.CardMoved;
 import domain.entity.workflow.event.WorkflowCreated;
+import domain.usecase.flowevent.FlowEventRepository;
 
 import java.util.*;
 
@@ -10,7 +12,7 @@ import java.util.*;
 public class Workflow extends Aggregate {
     private String name;
     private String id;
-    private HashMap<String,Stage> stages;
+    private Map<String,Stage> stages;
 
     public Workflow(){
         this.stages = new HashMap<String, Stage>();
@@ -43,13 +45,28 @@ public class Workflow extends Aggregate {
     public void addCard(String stageId, String swimlaneId, String cardId){
         for (Stage stage: stages.values()){
             if(stage.getId().equals(stageId)){
-                for (Swimlane swimlane: stage.getSwimlaneMap().values()){
+                for (Swimlane swimlane: stage.getSwimlanes().values()){
                     if (swimlane.getId().equals(swimlaneId)) {
-                        swimlane.add(cardId);
+                        swimlane.addCard(cardId);
                     }
                 }
             }
         }
+    }
+
+
+    public void addCard(FlowEventRepository flowEventRepository, String stageId, String swimlaneId, String cardId){
+        for (Stage stage: stages.values()){
+            if(stage.getId().equals(stageId)){
+                for (Swimlane swimlane: stage.getSwimlanes().values()){
+                    if (swimlane.getId().equals(swimlaneId)) {
+                        swimlane.addCard(cardId);
+                    }
+                }
+            }
+        }
+        CardCommitted cardCommitted = new CardCommitted(stageId,stageId,swimlaneId,swimlaneId,cardId);
+        flowEventRepository.save(cardCommitted);
     }
 
 
@@ -71,21 +88,27 @@ public class Workflow extends Aggregate {
         return swimlane.getId();
     }
 
+    public void moveCard(FlowEventRepository flowEventRepository, String fromStageId, String toStageId, String fromSwimLaneId, String toSwimLaneId, String cardId){
+
+        stages.get(fromStageId).getSwimlaneById(fromSwimLaneId).getCards().remove(cardId);
+        stages.get(toStageId).getSwimlaneById(toSwimLaneId).getCards().add(cardId);
+        CardMoved cardMoved = new CardMoved(fromStageId, toStageId, fromSwimLaneId, toSwimLaneId, cardId);
+        flowEventRepository.save(cardMoved);
+        addEvent(cardMoved);
+
+    }
+
     public String getName() {
         return this.name;
     }
-    public HashMap<String,Stage> getStageMap(){
+
+    public Stage getStageById(String id){
+        return stages.get(id);
+    }
+
+    public Map<String,Stage> getStages(){
         return this.stages;
     }
 
 
-    public String getCard(String cardId) {
-        for (Stage stage: stages.values()){
-            for (Swimlane swimlane: stage.getSwimlaneMap().values()){
-                if(swimlane.isCardExist(cardId))
-                    return cardId;
-            }
-        }
-        return "";
-    }
 }

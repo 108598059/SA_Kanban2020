@@ -9,7 +9,6 @@ public class CreateBoardUseCasePresenter implements Presenter<CreateBoardViewMod
 
     public CreateBoardUseCasePresenter() {
         boardEntityDto = new BoardEntityDto();
-
     }
 
     @Override
@@ -22,7 +21,6 @@ public class CreateBoardUseCasePresenter implements Presenter<CreateBoardViewMod
     @Override
     public void setBoardId(String boardId) {
         boardEntityDto.setBoardId(boardId);
-
     }
 
     @Override

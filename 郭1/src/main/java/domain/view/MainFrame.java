@@ -21,10 +21,9 @@ public class MainFrame extends JFrame implements View, ActionListener{
     private DefaultListModel<String> model = new DefaultListModel<String>();
     private JLabel board = new JLabel();
 
-    private BoardViewModel viewModel;
     private BoardController boardController;
 
-    public MainFrame(BoardController boardController, BoardViewModel viewModel){
+    public MainFrame(BoardController boardController){
         super();
 
         initialWindowsProperty();
@@ -32,7 +31,6 @@ public class MainFrame extends JFrame implements View, ActionListener{
         initialLayout();
 
 
-        this.viewModel = viewModel;
         this.boardController = boardController;
 
         boardCreate.addActionListener(this);
@@ -76,21 +74,14 @@ public class MainFrame extends JFrame implements View, ActionListener{
 
 
 
-    public void updateUI(){
-
-        model.clear();
-        List<String> boardNameList = viewModel.getBoardNameList();
-        for (String boardName : boardNameList){
-            model.addElement(boardName);
-        }
-        boardList.setModel(model);
-    }
 
 
     public void actionPerformed(ActionEvent e) {
         if(!boardNameInput.getText().equals("")){
-            boardController.createBoard(boardNameInput.getText());
-            updateUI();
+            BoardViewModel boardViewModel = boardController.createBoard(boardNameInput.getText());
+            model.addElement(boardViewModel.getBoardName());
+            boardList.setModel(model);
+
         }
     }
 }

@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import org.junit.Test;
+import phd.sa.csie.ntut.edu.tw.model.board.event.*;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
 import java.util.UUID;
@@ -12,6 +13,7 @@ public class BoardTest {
     public void create_board_should_issue_board_created_event() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
         assertEquals(1, board.getDomainEvents().size());
+        assertEquals(BoardCreatedEvent.class, board.getDomainEvents().get(0).getClass());
     }
     @Test
     public void board_name_empty_exception() {
@@ -65,6 +67,7 @@ public class BoardTest {
         board.commitCard(card);
         assertTrue(board.getBacklogColumn().cardExist(card.getID()));
         assertEquals(2, board.getDomainEvents().size());
+        assertEquals(CardCommittedEvent.class, board.getDomainEvents().get(1).getClass());
     }
 
     @Test
@@ -78,6 +81,8 @@ public class BoardTest {
         board.moveCard(card.getID(), board.getBacklogColumn().getID(), board.getArchiveColumn().getID());
 
         assertEquals(3, board.getDomainEvents().size());
+        assertEquals(CardLeftColumnEvent.class, board.getDomainEvents().get(1).getClass());
+        assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(2).getClass());
         assertTrue(board.getArchiveColumn().cardExist(card.getID()));
     }
 
@@ -95,5 +100,26 @@ public class BoardTest {
         } catch (RuntimeException e) {
             assertEquals("Column Not Found", e.getMessage());
         }
+    }
+
+    @Test
+    public void create_column_should_issue_column_created_event() {
+        Board board = new Board(UUID.randomUUID(), "Kanban");
+        assertEquals(1, board.getDomainEvents().size());
+
+        board.createColumn("develop");
+        assertEquals(2, board.getDomainEvents().size());
+        assertEquals(ColumnCreatedEvent.class, board.getDomainEvents().get(1).getClass());
+    }
+
+    @Test
+    public void set_column_wip_should_issue_column_wip_set_event() {
+        Board board = new Board(UUID.randomUUID(), "Kanban");
+        UUID columnID = board.createColumn("develop");
+        assertEquals(2, board.getDomainEvents().size());
+
+        board.setColumnWIP(columnID, 3);
+        assertEquals(3, board.getDomainEvents().size());
+        assertEquals(ColumnWIPSetEvent.class, board.getDomainEvents().get(2).getClass());
     }
 }

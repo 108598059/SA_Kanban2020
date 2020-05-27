@@ -69,7 +69,7 @@ public class CreateCardUseCaseTest {
     assertNotEquals("", createCardUseCaseOutput.getCardID());
     assertNotNull(createCardUseCaseOutput.getCardID());
 
-    Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
+    Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
     Board boardResult = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
     assertEquals(card.getID(), boardResult.getBacklogColumn().getCardIDs().get(0));
   }
@@ -85,7 +85,7 @@ public class CreateCardUseCaseTest {
 
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
-    Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
+    Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
     assertEquals(this.board.getBacklogColumn().getID().toString(), card.getBelongsColumnID().toString());
   }
 

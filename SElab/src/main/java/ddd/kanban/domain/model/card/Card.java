@@ -28,7 +28,7 @@ public class Card extends AggregateRoot {
         this.workflowId = workflowId;
         this.laneId = laneId;
         tasks = new ArrayList<>();
-        addDomainEvent(new CardCreated(id, workflowId, laneId));
+        addDomainEvent(new CardCreated(id, workflowId, laneId, title, UUID.randomUUID().toString()));
     }
 
     public Card(final String id, String title, String description, CardType cardType, List<String> tags, List<String> assignUsers, Date plannedStartDate, Date plannedFinishDate, int priority) {

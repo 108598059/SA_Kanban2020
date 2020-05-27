@@ -18,11 +18,13 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 public class CreateColumnUseCaseTest {
 
   private BoardRepository boardRepository;
+  private DomainEventBus eventBus;
   private UUID boardID;
 
   @Before
   public void given_a_board() {
     this.boardRepository = new MemoryBoardRepository();
+    this.eventBus = new DomainEventBus();
 
     Board board = new Board(UUID.randomUUID(), "phd");
     this.boardID = board.getID();
@@ -31,7 +33,7 @@ public class CreateColumnUseCaseTest {
 
   @Test
   public void create_column_should_be_added_to_board() {
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 

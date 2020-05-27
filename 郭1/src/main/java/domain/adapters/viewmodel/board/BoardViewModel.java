@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardViewModel {
-    private List<String> boardNameList;
+    private String boardName;
 
 
     public BoardViewModel() {
-        this.boardNameList = new ArrayList<String>();
+
     }
 
-    public void addBoard(String boardName){
-        boardNameList.add(boardName);
+    public void setBoardName(String boardName){
+        this.boardName = boardName;
     }
 
-    public List<String> getBoardNameList(){
-        return boardNameList;
+    public String getBoardName(){
+        return boardName;
     }
 }

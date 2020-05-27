@@ -9,7 +9,7 @@ import domain.adapters.controller.workflow.CommitWorkflowOutputImpl;
 import domain.adapters.controller.workflow.CreateWorkflowInputImpl;
 import domain.adapters.controller.workflow.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
-import domain.usecase.board.BoardRepository;
+import domain.entity.board.Board;
 import domain.usecase.board.commit.CommitWorkflowInput;
 import domain.usecase.board.commit.CommitWorkflowOutput;
 import domain.usecase.board.commit.CommitWorkflowUseCase;
@@ -37,14 +37,14 @@ public class CommitWorkflowTest {
     public void setUp(){
 
         boardRepository = new BoardRepositoryImpl();
-
+        eventBus = new DomainEventBus();
 
         CreateBoardInput createBoardInput = new CreateBoardInputImpl();
         CreateBoardOutput createBoardOutput = new CreateBoardOutputImpl();
         createBoardInput.setName("board1");
 
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         createBoardUseCase.execute(createBoardInput,createBoardOutput);
 
 
@@ -72,14 +72,17 @@ public class CommitWorkflowTest {
 
         CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInputImpl();
         CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutputImpl();
-        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
+        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository, eventBus);
 
         commitWorkflowInput.setBoardId(boardId);
         commitWorkflowInput.setWorkflowId(workflowId);
 
         commitWorkflowUseCase.execute(commitWorkflowInput,commitWorkflowOutput);
 
-        assertEquals(1,commitWorkflowOutput.getNumberOfWorkflow());
+        Board board = BoardTransformer.toBoard(boardRepository.getBoardById(boardId));
+
+        assertEquals(1,board.getWorkflows().size());
+        assertEquals(commitWorkflowOutput.getWorkflowId(), board.getWorkflows().get(0));
 
     }
 }

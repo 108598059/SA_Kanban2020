@@ -16,13 +16,13 @@ public class ColumnRestAdapter {
 
     @GetMapping
     public ResponseEntity<ColumnResponseBody> getColumnsByBoardID(@RequestParam String boardID) {
-        GetColumnsByBoardIDUseCaseInput input = new GetColumnsByBoardIDUseCaseInput();
-        GetColumnsByBoardIDUseCaseOutput output = new GetColumnsByBoardIDUseCaseOutput();
+        GetColumnsByBoardIDUseCaseInput getColumnsByBoardIDUseCaseInput = new GetColumnsByBoardIDUseCaseInput();
+        GetColumnsByBoardIDUseCaseOutput getColumnsByBoardIDUseCaseOutput = new GetColumnsByBoardIDUseCaseOutput();
 
-        input.setBoardID(boardID);
+        getColumnsByBoardIDUseCaseInput.setBoardID(boardID);
 
-        this.getColumnsByBoardIDUseCase.execute(input, output);
+        this.getColumnsByBoardIDUseCase.execute(getColumnsByBoardIDUseCaseInput, getColumnsByBoardIDUseCaseOutput);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ColumnResponseBody(output));
+        return ResponseEntity.status(HttpStatus.OK).body(new ColumnResponseBody(getColumnsByBoardIDUseCaseOutput));
     }
 }
