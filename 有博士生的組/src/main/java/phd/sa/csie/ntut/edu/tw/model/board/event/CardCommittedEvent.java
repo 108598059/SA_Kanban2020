@@ -4,6 +4,6 @@ import phd.sa.csie.ntut.edu.tw.model.AbstractDomainEvent;
 
 public class CardCommittedEvent extends AbstractDomainEvent {
     public CardCommittedEvent(String boardID, String cardID) {
-        super(boardID, "[Card Committed] card: " + cardID + " is committed to board: " + boardID);
+        super(boardID, "[Card Committed] Card: " + cardID + " is committed to board: " + boardID);
     }
 }

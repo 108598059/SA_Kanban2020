@@ -86,6 +86,7 @@ public class Board extends AggregateRoot {
 
   public void setColumnWIP(UUID columnID, int wip) {
     this.getColumnByID(columnID).setWIP(wip);
+    this.addDomainEvent(new ColumnWIPSetEvent(this.id.toString(), columnID.toString(), wip));
   }
 
   public String moveCard(UUID cardID, UUID fromColumnID, UUID toColumnID) {

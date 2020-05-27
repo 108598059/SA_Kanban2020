@@ -10,7 +10,7 @@ public class CardCreatedEvent extends AbstractDomainEvent {
     UUID boardID;
 
     public CardCreatedEvent(String cardID, Entity entity, String boardID) {
-        super(cardID, "[Card Created Event] card: " + cardID + " is created at the board: " + boardID, entity);
+        super(cardID, "[Card Created Event] Card: " + cardID + " is created at the board: " + boardID, entity);
         this.boardID = UUID.fromString(boardID);
     }
 

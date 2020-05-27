@@ -105,4 +105,14 @@ public class BoardTest {
         board.createColumn("develop");
         assertEquals(2, board.getDomainEvents().size());
     }
+
+    @Test
+    public void set_column_wip_should_issue_column_wip_set_event() {
+        Board board = new Board(UUID.randomUUID(), "Kanban");
+        UUID columnID = board.createColumn("develop");
+        assertEquals(2, board.getDomainEvents().size());
+
+        board.setColumnWIP(columnID, 3);
+        assertEquals(3, board.getDomainEvents().size());
+    }
 }
