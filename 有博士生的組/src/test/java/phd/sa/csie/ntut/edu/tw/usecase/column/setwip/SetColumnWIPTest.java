@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
@@ -34,7 +35,7 @@ public class SetColumnWIPTest {
 
     CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-    CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+    CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardPresenter();
 
     createBoardUseCaseInput.setBoardName("Software Architecture");
     createBoardUseCaseInput.setWorkspaceID(UUID.randomUUID().toString());

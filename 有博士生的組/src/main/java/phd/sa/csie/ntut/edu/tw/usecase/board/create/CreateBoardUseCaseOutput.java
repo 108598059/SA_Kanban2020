@@ -2,23 +2,12 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
-public class CreateBoardUseCaseOutput implements UseCaseOutput{
-  private String boardID;
-  private String boardName;
+public interface CreateBoardUseCaseOutput extends UseCaseOutput {
+  public void setBoardID(String boardID);
 
-  public void setBoardID(String boardID) {
-    this.boardID = boardID;
-  }
+  public String getBoardID();
 
-  public String getBoardID() {
-    return boardID;
-  }
+  public void setBoardName(String boardName);
 
-  public void setBoardName(String boardName) {
-    this.boardName = boardName;
-  }
-
-  public String getBoardName() {
-    return boardName;
-  }
+  public String getBoardName();
 }

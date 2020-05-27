@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -28,7 +29,7 @@ public class CreateBoardUseCaseTest {
   public void board_created() {
     CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-    CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+    CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardPresenter();
 
     createBoardUseCaseInput.setBoardName("Software Architecture");
     createBoardUseCaseInput.setWorkspaceID(UUID.randomUUID().toString());
@@ -43,7 +44,7 @@ public class CreateBoardUseCaseTest {
   public void creating_a_new_board_should_generate_backlog_column_and_archive_column() {
     CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-    CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+    CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardPresenter();
 
     UUID workspaceID = UUID.randomUUID();
     createBoardUseCaseInput.setBoardName("Software Architecture");

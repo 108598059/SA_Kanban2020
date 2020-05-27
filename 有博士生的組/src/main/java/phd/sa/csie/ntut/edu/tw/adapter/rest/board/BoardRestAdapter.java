@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
+import phd.sa.csie.ntut.edu.tw.adapter.view.model.ViewModelStatus;
+import phd.sa.csie.ntut.edu.tw.adapter.view.model.board.create.CreateBoardViewModel;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
@@ -18,20 +21,19 @@ public class BoardRestAdapter {
     private CreateBoardUseCase createBoardUseCase;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<CreateBoardResponse> createBoard(@RequestBody CreateBoardRequest requestBody) {
+    public ResponseEntity<CreateBoardViewModel> createBoard(@RequestBody CreateBoardRequest requestBody) {
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        CreateBoardPresenter createBoardUseCaseOutput = new CreateBoardPresenter();
 
         createBoardUseCaseInput.setBoardName(requestBody.getBoardName());
         createBoardUseCaseInput.setWorkspaceID(requestBody.getWorkspaceID());
 
         this.createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
 
-        CreateBoardResponse responseBody = new CreateBoardResponse();
-        responseBody.setBoardID(createBoardUseCaseOutput.getBoardID());
-        responseBody.setBoardName(createBoardUseCaseOutput.getBoardName());
+        CreateBoardViewModel viewModel = createBoardUseCaseOutput.build();
+        viewModel.setStatus(ViewModelStatus.NORMAL);
 
-        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+        return ResponseEntity.status(HttpStatus.OK).body(viewModel);
     }
 }
 
@@ -54,26 +56,5 @@ class CreateBoardRequest {
 
     public void setWorkspaceID(String workspaceID) {
         this.workspaceID = workspaceID;
-    }
-}
-
-class CreateBoardResponse {
-    private String boardID;
-    private String boardName;
-
-    public void setBoardID(String boardID) {
-        this.boardID = boardID;
-    }
-
-    public String getBoardID() {
-        return this.boardID;
-    }
-
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
-    }
-
-    public String getBoardName() {
-        return this.boardName;
     }
 }

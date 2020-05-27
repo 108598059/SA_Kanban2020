@@ -2,6 +2,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.create;
 
 import org.junit.Before;
 import org.junit.Test;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.board.MysqlBoardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
@@ -26,7 +27,7 @@ public class MysqlCreateBoardUseCaseTest {
     public void create_board() {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
+        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardPresenter();
 
         UUID workspaceID = UUID.randomUUID();
 
