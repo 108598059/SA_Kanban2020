@@ -90,7 +90,7 @@ public class MoveCardUseCaseTest {
 
   @Test
   public void the_to_column_should_contain_the_moved_card () {
-    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus);
+    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -116,7 +116,7 @@ public class MoveCardUseCaseTest {
     DomainEventHandler eventSourcingHandler = new EventSourcingHandler(eventLogRepository);
     this.eventBus.register(eventSourcingHandler);
 
-    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus);
+    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -151,7 +151,7 @@ public class MoveCardUseCaseTest {
 
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
 
-    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.boardRepository, this.eventBus);
+    MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
     MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
     MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -172,4 +172,5 @@ public class MoveCardUseCaseTest {
     }
     fail("The card cannot be moved to the column that has achieved its WIP limit.");
   }
+
 }

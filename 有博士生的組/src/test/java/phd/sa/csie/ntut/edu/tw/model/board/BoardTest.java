@@ -67,7 +67,7 @@ public class BoardTest {
         board.commitCard(card);
         assertTrue(board.getBacklogColumn().cardExist(card.getID()));
         assertEquals(2, board.getDomainEvents().size());
-        assertEquals(CardCommittedEvent.class, board.getDomainEvents().get(1).getClass());
+        assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(1).getClass());
     }
 
     @Test

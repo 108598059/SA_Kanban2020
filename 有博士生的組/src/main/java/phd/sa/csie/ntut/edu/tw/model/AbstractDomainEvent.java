@@ -1,5 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.model;
 
+import phd.sa.csie.ntut.edu.tw.model.common.DateProvider;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,7 +18,7 @@ public class AbstractDomainEvent implements DomainEvent {
         super();
         this.id = UUID.randomUUID().toString();
         this.sourceID = sourceID;
-        this.occurredOn = new Date();
+        this.occurredOn = DateProvider.now();
         this.sourceName = sourceName;
     }
 
@@ -24,7 +26,7 @@ public class AbstractDomainEvent implements DomainEvent {
         super();
         this.entity = entity;
         this.id = UUID.randomUUID().toString();
-        this.occurredOn = new Date();
+        this.occurredOn = DateProvider.now();
 
         this.sourceID = sourceID;
         this.sourceName = sourceName;

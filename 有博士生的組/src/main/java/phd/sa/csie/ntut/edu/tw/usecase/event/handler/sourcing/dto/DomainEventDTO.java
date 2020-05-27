@@ -1,8 +1,10 @@
 package phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto;
 
+import phd.sa.csie.ntut.edu.tw.usecase.DTO;
+
 import java.util.Date;
 
-public class DomainEventDTO {
+public class DomainEventDTO extends DTO {
     private int eventVersion;
     private Date occurredTime;
     private String detail;

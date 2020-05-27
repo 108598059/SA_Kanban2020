@@ -61,6 +61,10 @@ class CreateCardRequest {
     }
 }
 
+class CreateCardPresenter {
+
+}
+
 abstract class CreateCardResponse {
 
 }

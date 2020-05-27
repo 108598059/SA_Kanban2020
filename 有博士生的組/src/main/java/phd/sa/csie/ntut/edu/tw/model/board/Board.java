@@ -34,9 +34,7 @@ public class Board extends AggregateRoot {
   public void commitCard(Card card) {
     Column backlog = this.columns.get(0);
     backlog.addCard(card.getID());
-    this.addDomainEvent(new CardCommittedEvent(
-                          this.id.toString(),
-                          card.getID().toString()));
+    this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), card.getID().toString(), backlog.getID().toString()));
   }
 
   public int getColumnNumber() {
