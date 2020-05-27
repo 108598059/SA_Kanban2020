@@ -17,6 +17,6 @@ public class FlowEventPair {
     }
 
     public CycleTime getCycleTime() {
-        return new CycleTime(((uncommitted == null) ? DateProvider.now():uncommitted.occurredOn()).getTime() - committed.occurredOn().getTime());
+        return new CycleTime(((uncommitted == null) ? DateProvider.now() : uncommitted.occurredOn()).getTime() - committed.occurredOn().getTime());
     }
 }

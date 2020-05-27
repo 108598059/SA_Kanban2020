@@ -12,7 +12,7 @@ public class CycleTime {
     }
 
     public int getDay(){
-        return (int) (millisecond/1000/60/60/24);
+        return (int) (millisecond / 1000 / 60 / 60 / 24);
     }
 
 }
