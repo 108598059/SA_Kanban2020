@@ -72,4 +72,10 @@ abstract public class Lane {
     public void setLaneDirection(String laneDirection) {
         this.laneDirection = laneDirection;
     }
+
+    public void deleteCard(String cardId) {
+        if(!cardIdList.contains(cardId))
+            throw new RuntimeException("CardId can't be found in cardIds, CardId:" + cardId );
+        cardIdList.remove(cardId);
+    }
 }

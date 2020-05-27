@@ -1,6 +1,7 @@
 package domain.model.aggregate.board;
 
 import domain.model.aggregate.AggregateRoot;
+import domain.model.aggregate.board.event.BoardCreated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Board extends AggregateRoot {
         workflowIds = new ArrayList<String>();
         this.boardId = UUID.randomUUID().toString();
         this.boardName = boardName;
+        addDomainEvent(new BoardCreated(boardId,boardName));
     }
 
     public void setBoardId(String boardId) {

@@ -11,20 +11,22 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, CreateColumnUseCaseOutput> {
   private BoardRepository boardRepository;
 
-  public CreateColumnUseCase(BoardRepository boardRepository, DomainEventBus eventBus) {
+  public CreateColumnUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
     super(eventBus);
     this.boardRepository = boardRepository;
   }
 
   public void execute(CreateColumnUseCaseInput createColumnUseCaseInput,
-      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
+                      CreateColumnUseCaseOutput createColumnUseCaseOutput) {
     String title = createColumnUseCaseInput.getTitle();
-    UUID boardID = createColumnUseCaseInput.getBoardID();
+    String boardID = createColumnUseCaseInput.getBoardID();
 
-    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
+    Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID));
     UUID columnID = board.createColumn(title);
 
     this.boardRepository.update(BoardDTOConverter.toDTO(board));
+    this.eventBus.postAll(board);
+
     createColumnUseCaseOutput.setID(columnID.toString());
   }
 }

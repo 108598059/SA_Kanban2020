@@ -12,9 +12,21 @@
         <title>kanban</title>
     </head>
     <body>
-        <form action="board" method="post">
+        <form action="homepage" method="post">
             <input name="boardName" type="text">
             <input type="submit" value="create Board">
         </form>
+        <table border="1">
+            <tr>
+                <th>BoardName</th>
+            </tr>
+            <c:forEach var="board" items="${boardList}">
+                <tr>
+                    <td>
+                        ${board.boardName}
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
     </body>
 </html>

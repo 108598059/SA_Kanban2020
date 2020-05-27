@@ -1,7 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.move;
 
-import java.util.UUID;
-
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
 public class MoveCardUseCaseOutput implements UseCaseOutput {
@@ -10,8 +8,8 @@ public class MoveCardUseCaseOutput implements UseCaseOutput {
   private String oldColumnID;
   private String newColumnID;
 
-  public void setCardID(UUID cardID) {
-    this.cardID = cardID.toString();
+  public void setCardID(String cardID) {
+    this.cardID = cardID;
   }
 
   public String getCardID() {

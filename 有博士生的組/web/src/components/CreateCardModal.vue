@@ -47,7 +47,14 @@ export default {
       axios.post(process.env.VUE_APP_API_HOST + '/card/create', body).then(() => {
         this.closeModal();
         this.$emit('cardCreated');
-      }).catch(console.error);
+      }).catch(err => {
+        const response = err.response;
+        switch (response.status) {
+          case 400:
+            alert (response.data.errorMsg);
+            break;
+        }
+      })
     },
     closeModal() {
       this.modalShow = false;

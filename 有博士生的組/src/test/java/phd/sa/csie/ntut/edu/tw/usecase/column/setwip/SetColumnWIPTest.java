@@ -22,42 +22,47 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class SetColumnWIPTest {
-
   private BoardRepository boardRepository;
-  private DomainEventBus eventBus;
   private Board board;
   private String columnID;
+  private DomainEventBus eventBus;
 
   @Before
-  public void given_there_are_a_column_and_a_board() {
+  public void add_a_column_to_a_board() {
+    this.boardRepository = new MemoryBoardRepository();
     this.eventBus = new DomainEventBus();
-    boardRepository = new MemoryBoardRepository();
 
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
-    createBoardUseCaseInput.setBoardName("Software Architecture");
-    createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
-    UUID boardID = UUID.fromString(createBoardUseCaseOutput.getBoardID());
-    board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
 
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository, this.eventBus);
+    createBoardUseCaseInput.setBoardName("Software Architecture");
+    createBoardUseCaseInput.setWorkspaceID(UUID.randomUUID().toString());
+
+    createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
+
+    this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createBoardUseCaseOutput.getBoardID()));
+
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
-    createColumnUseCaseInput.setBoardID(board.getID());
+
+    createColumnUseCaseInput.setBoardID(this.board.getID().toString());
     createColumnUseCaseInput.setTitle("develop");
+
     createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
-    columnID = createColumnUseCaseOutput.getID();
+
+    this.columnID = createColumnUseCaseOutput.getID();
   }
 
   @Test
   public void set_WIP_with_a_positive_number_3() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus);
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.eventBus, this.boardRepository);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardID(board.getID());
-    setColumnWIPUseCaseInput.setColumnID(UUID.fromString(columnID));
+    setColumnWIPUseCaseInput.setBoardID(this.board.getID().toString());
+    setColumnWIPUseCaseInput.setColumnID(this.columnID);
     setColumnWIPUseCaseInput.setColumnWIP(3);
 
     setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
@@ -67,38 +72,21 @@ public class SetColumnWIPTest {
   }
 
   @Test
-  public void the_default_number_of_the_column_WIP_should_be_zero() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus);
+  public void set_column_wip_is_negative_should_raise_illegal_argument_exception() {
+    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.eventBus, this.boardRepository);
     SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
     SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-    setColumnWIPUseCaseInput.setBoardID(board.getID());
-    setColumnWIPUseCaseInput.setColumnID(UUID.fromString(columnID));
-
-    setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
-
-    assertNotNull(setColumnWIPUseCaseOutput.getColumnID());
-    assertEquals(0, setColumnWIPUseCaseOutput.getColumnWIP());
-  }
-
-  @Test
-  public void column_WIP_should_be_positive() {
-    SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.boardRepository, this.eventBus);
-    SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
-    SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
-
-    setColumnWIPUseCaseInput.setBoardID(board.getID());
-    setColumnWIPUseCaseInput.setColumnID(UUID.fromString(columnID));
+    setColumnWIPUseCaseInput.setBoardID(this.board.getID().toString());
+    setColumnWIPUseCaseInput.setColumnID(this.columnID);
     setColumnWIPUseCaseInput.setColumnWIP(-1);
 
     try {
       setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
-      fail("Column WIP should be positive.");
     } catch (IllegalArgumentException e) {
-      assertEquals("Column WIP should be positive.", e.getMessage());
-    } catch (Exception e) {
-      fail("Should throw an \"IllegalArgumentException\" with message: \"Column WIP should be positive.\".");
+      assertEquals("Column WIP should not be negative", e.getMessage());
+      return;
     }
+    fail("Column WIP is negative should raise IllegalArgumentException");
   }
-
 }

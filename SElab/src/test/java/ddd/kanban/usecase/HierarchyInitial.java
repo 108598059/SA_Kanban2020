@@ -1,5 +1,6 @@
 package ddd.kanban.usecase;
 
+import ddd.kanban.adapter.presenter.board.create.CreateBoardPresenter;
 import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
@@ -26,7 +27,7 @@ public class HierarchyInitial {
     public String CreateBoard(){
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, domainEventBus);
         CreateBoardInput createBoardInput = new CreateBoardInput("Board1", "New Board");
-        CreateBoardOutput createBoardOutput = new CreateBoardOutput();
+        CreateBoardOutput createBoardOutput = new CreateBoardPresenter();
 
         createBoardUseCase.execute(createBoardInput, createBoardOutput);
 

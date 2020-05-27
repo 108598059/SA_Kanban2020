@@ -21,11 +21,11 @@ public class ColumnDTO extends DTO {
         this.cardIDs = cardIDs;
     }
 
-    public int getWip() {
+    public int getWIP() {
         return wip;
     }
 
-    public void setWip(int wip) {
+    public void setWIP(int wip) {
         this.wip = wip;
     }
 
