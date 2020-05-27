@@ -79,7 +79,7 @@ public class CreateTaskUseCaseTest {
     }
 
     @Test
-    public void CreateTaskUseCaseTest(){
+    public void createTaskUseCase(){
         CreateTaskUseCase createTaskUseCase = new CreateTaskUseCase(cardRepository);
         CreateTaskUseCaseInput createTaskUseCaseInput = new CreateTaskUseCaseInput();
         CreateTaskUseCaseOutput createTaskUseCaseOutput = new CreateTaskUseCaseOutput();

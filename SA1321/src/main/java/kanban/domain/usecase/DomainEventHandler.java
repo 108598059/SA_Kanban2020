@@ -1,6 +1,8 @@
 package kanban.domain.usecase;
 
 import com.google.common.eventbus.Subscribe;
+import kanban.domain.adapter.presenter.workflow.commit.CommitWorkflowPresenter;
+import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;
 import kanban.domain.model.aggregate.card.event.CardCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 import kanban.domain.usecase.board.repository.IBoardRepository;
@@ -26,8 +28,8 @@ public class DomainEventHandler {
     @Subscribe
     public void handleEvent(WorkflowCreated workflowCreated) {
         CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
-        CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInput();
-        CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutput();
+        CommitWorkflowInput commitWorkflowInput = commitWorkflowUseCase;
+        CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowPresenter();
 
         commitWorkflowInput.setBoardId(workflowCreated.getBoardId());
         commitWorkflowInput.setWorkflowId("workflowId");
@@ -42,7 +44,7 @@ public class DomainEventHandler {
         commitCardInput.setCardId(cardCreated.getCardId());
         commitCardInput.setStageId(cardCreated.getStageId());
         commitCardInput.setWorkflowId(cardCreated.getWorkflowId());
-        CommitCardOutput commitCardOutput = new CommitCardOutput();
+        CommitCardPresenter commitCardOutput = new CommitCardPresenter();
 
         commitCardUseCase.execute(commitCardInput, commitCardOutput);
     }

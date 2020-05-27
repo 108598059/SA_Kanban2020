@@ -2,7 +2,7 @@ package ddd.kanban.adapter.repository.board;
 
 import ddd.kanban.adapter.database.DataBaseUtility;
 import ddd.kanban.domain.model.board.Board;
-import ddd.kanban.usecase.DTO.BoardDTO;
+import ddd.kanban.usecase.board.Entity.BoardEntity;
 import ddd.kanban.usecase.repository.BoardRepository;
 
 import java.sql.*;
@@ -14,7 +14,7 @@ public class SqliteBoardRepository implements BoardRepository {
 
     private DataBaseUtility dataBaseUtility;
 
-    private List<BoardDTO> boards;
+    private List<BoardEntity> boards;
 
     public SqliteBoardRepository(){
         dataBaseUtility = new DataBaseUtility();
@@ -23,21 +23,21 @@ public class SqliteBoardRepository implements BoardRepository {
     }
 
     @Override
-    public void add(BoardDTO boardDTO) {
-        if (isExist(boardDTO))
+    public void add(BoardEntity boardEntity) {
+        if (isExist(boardEntity))
             throw new RuntimeException("Board exist");
-        boards.add(boardDTO);
-        saveToDatabase(boardDTO);
+        boards.add(boardEntity);
+        saveToDatabase(boardEntity);
     }
 
-    private boolean isExist(BoardDTO boardDTO) {
+    private boolean isExist(BoardEntity boardEntity) {
         return boards.stream()
-                .map(BoardDTO::getId)
-                .anyMatch(id -> boardDTO.getId().equals(id));
+                .map(BoardEntity::getId)
+                .anyMatch(id -> boardEntity.getId().equals(id));
     }
 
     @Override
-    public BoardDTO findById(String boardId) {
+    public BoardEntity findById(String boardId) {
         return boards.stream()
                 .filter(board -> board.getId().equals(boardId))
                 .findFirst()
@@ -49,21 +49,21 @@ public class SqliteBoardRepository implements BoardRepository {
     }
 
     @Override
-    public List<BoardDTO> findAll() {
+    public List<BoardEntity> findAll() {
         return boards;
     }
 
     @Override
-    public void save(BoardDTO boardDTO) {
-        for (BoardDTO board : boards){
-            if (board.getId().equals(boardDTO.getId())){
-                boards.set(boards.indexOf(board), boardDTO);
+    public void save(BoardEntity boardEntity) {
+        for (BoardEntity board : boards){
+            if (board.getId().equals(boardEntity.getId())){
+                boards.set(boards.indexOf(board), boardEntity);
             }
         }
         boards.forEach(this::saveToDatabase);
     }
 
-    private void saveToDatabase(BoardDTO boardDTO){
+    private void saveToDatabase(BoardEntity boardEntity){
         Connection connection = dataBaseUtility.getConnection();
         String saveCommand = String.format("INSERT INTO Board (id, name, description) VALUES (?, ?, ?)" +
                 "ON CONFLICT(id) DO UPDATE SET name = ?");
@@ -71,10 +71,10 @@ public class SqliteBoardRepository implements BoardRepository {
         try {
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(saveCommand);
-            preparedStatement.setString(1, boardDTO.getId());
-            preparedStatement.setString(2, boardDTO.getTitle());
-            preparedStatement.setString(3, boardDTO.getDescription());
-            preparedStatement.setString(4, boardDTO.getTitle());
+            preparedStatement.setString(1, boardEntity.getId());
+            preparedStatement.setString(2, boardEntity.getTitle());
+            preparedStatement.setString(3, boardEntity.getDescription());
+            preparedStatement.setString(4, boardEntity.getTitle());
             boolean resultInformation = preparedStatement.execute();
             connection.commit();
         } catch (SQLException e) {
@@ -84,26 +84,26 @@ public class SqliteBoardRepository implements BoardRepository {
         }
     }
 
-    private List<BoardDTO> findAllBoardFromDatabase(){
-        List<BoardDTO> boardDTOs = findAllBoard();
-        for (BoardDTO each : boardDTOs){
+    private List<BoardEntity> findAllBoardFromDatabase(){
+        List<BoardEntity> boardEntities = findAllBoard();
+        for (BoardEntity each : boardEntities){
             each.setWorkflowIds(findWorkflowOnBoard(each.getId()));
         }
-        return boardDTOs;
+        return boardEntities;
     }
 
-    private List<BoardDTO> findAllBoard(){
+    private List<BoardEntity> findAllBoard(){
         Connection connection = dataBaseUtility.getConnection();
         String queryCommand = String.format("SELECT id, name, description FROM Board");
-        List<BoardDTO> resultBoards = new ArrayList<>();
+        List<BoardEntity> resultBoards = new ArrayList<>();
 
         try{
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryCommand);
 
             while (resultSet.next()){
-                BoardDTO boardDTO = new BoardDTO(resultSet.getString("id"), resultSet.getString("name"),resultSet.getString("description"));
-                resultBoards.add(boardDTO);
+                BoardEntity boardEntity = new BoardEntity(resultSet.getString("id"), resultSet.getString("name"),resultSet.getString("description"));
+                resultBoards.add(boardEntity);
             }
             resultSet.close();
         } catch (SQLException e) {

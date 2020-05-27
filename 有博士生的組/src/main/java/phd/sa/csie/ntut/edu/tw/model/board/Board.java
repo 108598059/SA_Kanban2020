@@ -1,23 +1,21 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnterColumnEvent;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeaveColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Board extends AggregateRoot {
-
+  private UUID workspaceID;
   private String name;
   private List<Column> columns;
 
-  public Board(String name) {
+  public Board(UUID workspaceID, String name) {
     super();
-    this.name = name;
+    this.workspaceID = workspaceID;
+    this.setName(name);
     this.columns = new ArrayList<Column>();
     Column backlog = new Column("Backlog");
     Column archive = new Column("Archive");
@@ -25,11 +23,13 @@ public class Board extends AggregateRoot {
     this.columns.add(archive);
   }
 
-  public Board(UUID id, String name, List<Column> columns) {
+  public Board(UUID id, UUID workspaceID, String name, List<Column> columns) {
     this.id = id;
+    this.workspaceID = workspaceID;
     this.name = name;
     this.columns = columns;
   }
+
 
   public void commitCard(Card card) {
     Column backlog = this.columns.get(0);
@@ -44,13 +44,33 @@ public class Board extends AggregateRoot {
     return Collections.unmodifiableList(this.columns).get(n);
   }
 
+  public void setName(String name) {
+    if (name == null || name.isEmpty()) {
+      throw new IllegalArgumentException("Board name should not be empty");
+    }
+    this.name = name;
+  }
+
   public String getName() {
     return this.name;
   }
 
+  public Column getBacklogColumn() {
+    return new Column(this.columns.get(0));
+  }
+
+  public Column getArchiveColumn() {
+    return new Column(this.columns.get(this.columns.size()-1));
+  }
+
   public UUID createColumn(String columnTitle) {
+    for (Column column: this.getColumns()) {
+      if (column.getTitle().equals(columnTitle)) {
+        throw new IllegalArgumentException("Column title duplicated");
+      }
+    }
     Column column = new Column(columnTitle);
-    this.columns.add(column);
+    this.columns.add(this.columns.size()-1, column);
     return column.getID();
   }
 
@@ -60,11 +80,7 @@ public class Board extends AggregateRoot {
   }
 
   public void setColumnWIP(UUID columnID, int wip) {
-    if (wip < 0) {
-      throw new IllegalArgumentException("Column WIP should be positive.");
-    }
-    Column column = this.getColumnByID(columnID);
-    column.setWIP(wip);
+    this.getColumnByID(columnID).setWIP(wip);
   }
 
   public String moveCard(UUID cardID, UUID fromColumnID, UUID toColumnID) {
@@ -72,9 +88,10 @@ public class Board extends AggregateRoot {
     Column to = this.getColumnByID(toColumnID);
 
     from.removeCard(cardID);
-    this.addDomainEvent(new CardLeaveColumnEvent(UUID.randomUUID().toString(), fromColumnID.toString()));
+    this.addDomainEvent(new CardLeftColumnEvent(UUID.randomUUID().toString(), fromColumnID.toString()));
+
     to.addCard(cardID);
-    this.addDomainEvent(new CardEnterColumnEvent(UUID.randomUUID().toString(), toColumnID.toString(), cardID.toString()));
+    this.addDomainEvent(new CardEnteredColumnEvent(UUID.randomUUID().toString(), toColumnID.toString(), cardID.toString()));
     
     return to.getID().toString();
   }
@@ -96,4 +113,11 @@ public class Board extends AggregateRoot {
     return Collections.unmodifiableList(this.columns);
   }
 
+  public UUID getWorkspaceID() {
+    return workspaceID;
+  }
+
+  public void setWorkspaceID(UUID workspaceID) {
+    this.workspaceID = workspaceID;
+  }
 }

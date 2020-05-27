@@ -1,6 +1,8 @@
 package kanban.domain;
 
 import kanban.domain.adapter.presenter.board.create.CreateBoardPresenter;
+import kanban.domain.adapter.presenter.stage.create.CreateStagePresenter;
+import kanban.domain.adapter.presenter.workflow.create.CreateWorkflowPresenter;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.DomainEventHandler;
@@ -46,11 +48,11 @@ public class Utility {
                 workflowRepository,
                 eventBus);
 
-        CreateWorkflowInput input = new CreateWorkflowInput();
+        CreateWorkflowInput input = createWorkflowUseCase;
         input.setBoardId(boardId);
         input.setWorkflowName(workflowName);
 
-        CreateWorkflowOutput output = new CreateWorkflowOutput();
+        CreateWorkflowOutput output = new CreateWorkflowPresenter();
         createWorkflowUseCase.execute(input, output);
         return output.getWorkflowId();
     }
@@ -58,11 +60,11 @@ public class Utility {
     public String createStage(String workflowId, String stageName) {
 
         CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
-        CreateStageInput input = new CreateStageInput();
+        CreateStageInput input = createStageUseCase;
         input.setStageName(stageName);
         input.setWorkflowId(workflowId);
 
-        CreateStageOutput output = new CreateStageOutput();
+        CreateStageOutput output = new CreateStagePresenter();
         createStageUseCase.execute(input, output);
         return output.getStageId();
     }

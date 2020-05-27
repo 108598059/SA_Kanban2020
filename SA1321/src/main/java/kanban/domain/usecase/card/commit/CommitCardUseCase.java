@@ -1,6 +1,7 @@
 package kanban.domain.usecase.card.commit;
 
 import kanban.domain.model.aggregate.workflow.Workflow;
+import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CommitCardUseCase {
@@ -12,9 +13,11 @@ public class CommitCardUseCase {
     }
 
     public void execute(CommitCardInput input, CommitCardOutput output) {
-        Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
+        Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(input.getWorkflowId()));
+
         String cardId = workflow.commitCardInStage(input.getCardId(), input.getStageId());
-        workflowRepository.save(workflow);
+        workflowRepository.save(WorkflowEntityModelMapper.transformModelToEntity(workflow));
 
         output.setCardId(cardId);
     }

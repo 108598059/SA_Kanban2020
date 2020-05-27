@@ -1,7 +1,8 @@
 package domain.usecase.board;
 
-import domain.adapter.board.BoardInMemoryRepository;
 import domain.adapter.board.BoardInDatabaseRepository;
+import domain.adapter.board.BoardInMemoryRepository;
+import domain.adapter.board.createBoard.CreateBoardPresenter;
 import domain.usecase.board.createBoard.CreateBoardInput;
 import domain.usecase.board.createBoard.CreateBoardOutput;
 import domain.usecase.board.createBoard.CreateBoardUseCase;
@@ -15,8 +16,8 @@ public class CreateBoardUseCaseTest {
     public void create_a_Board_and_stored_into_memory(){
         BoardInMemoryRepository boardInMemoryRepository = new BoardInMemoryRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardInMemoryRepository);
-        CreateBoardInput input = new CreateBoardInput();
-        CreateBoardOutput output = new CreateBoardOutput();
+        CreateBoardInput input = createBoardUseCase;
+        CreateBoardOutput output = new CreateBoardPresenter();
 
         input.setUsername("kanban777");
         input.setBoardName("kanbanSystem");
@@ -27,11 +28,11 @@ public class CreateBoardUseCaseTest {
     }
 
     @Test
-    public void create_a_Board(){
+    public void create_a_Board_and_stored_into_database(){
         IBoardRepository boardRepository = new BoardInDatabaseRepository();
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
-        CreateBoardInput input = new CreateBoardInput();
-        CreateBoardOutput output = new CreateBoardOutput();
+        CreateBoardInput input = (CreateBoardInput) createBoardUseCase;
+        CreateBoardOutput output = new CreateBoardPresenter();
 
         input.setUsername("kanban777");
         input.setBoardName("kanbanSystem");

@@ -1,35 +1,17 @@
 package ddd.kanban.usecase.board.create;
 
-public class CreateBoardOutput {
-    private String boardId;
-    private String boardTitle;
-    private String boardDescription;
+public interface CreateBoardOutput {
 
-    public CreateBoardOutput(){
+    void setBoardId(String boardId);
 
-    }
+    void setBoardTitle(String boardTitle);
 
-    public String getBoardId() {
-        return boardId;
-    }
+    void setBoardDescription(String boardDescription);
 
-    public void setBoardId(String boardId) {
-        this.boardId = boardId;
-    }
+    String getBoardId();
 
-    public String getBoardTitle() {
-        return boardTitle;
-    }
+    String getBoardTitle();
 
-    public void setBoardTitle(String boardName) {
-        this.boardTitle = boardName;
-    }
+    String getBoardDescription();
 
-    public String getBoardDescription() {
-        return boardDescription;
-    }
-
-    public void setBoardDescription(String boardDescription) {
-        this.boardDescription = boardDescription;
-    }
 }

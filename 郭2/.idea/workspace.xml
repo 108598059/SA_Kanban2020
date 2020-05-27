@@ -7,9 +7,287 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22001a51-52ce-40f2-b64a-7dd903de4fa1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/ApplicationContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/createBoard/CreateBoardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/createBoard/CreateBoardPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/createBoard/CreateBoardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/findBoardById/FindBoardByIdController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/findBoardById/FindBoardByIdPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/findBoardById/FindBoardByIdViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/card/createCard/CreateCardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/card/createCard/CreateCardPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/card/createCard/CreateCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/workflow/createWorkflow/CreateWorkflowPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/workflow/createWorkflow/CreateWorkflowViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/LaneDirection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/BoardOutputDTOConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/BoardRepositoryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/BoardRepositoryDTOConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/findBoardById/FindBoardByIdInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/findBoardById/FindBoardByIdOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/findBoardById/FindBoardByIdUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/LaneDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/LaneDTOConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/board/FindBoardByIdUseCaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/card/commit/CommitCardPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/card/create/CreateCardPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/card/viewmodel/CommitCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/card/viewmodel/CreateCardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/stage/create/CreateStagePresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/stage/viewmodel/CreateStageViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/workflow/commit/CommitWorkflowPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/workflow/create/CreateWorkflowPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/workflow/viewmodel/CommitWorkflowViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/presenter/workflow/viewmodel/CreateWorkflowViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/board/data/BoardData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/board/mapper/BoardEntityDataMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/card/data/CardData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/card/mapper/CardEntityDataMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/data/StageData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/data/WorkflowData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/mapper/StageEntityDataMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/mapper/WorkflowEntityDataMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/CardDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/CardEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/mapper/CardDTOModelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/mapper/CardEntityModelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/StageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/StageEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/mapper/StageDTOModelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/mapper/StageEntityModelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/WorkflowDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/WorkflowEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/mapper/WorkflowDTOModelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/mapper/WorkflowEntityModelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/controller/RESTBoardAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/presenter/board/create/CreateBoardPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/presenter/board/get/GetAllBoardsPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/presenter/board/viewmodel/CreateBoardViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/presenter/board/viewmodel/GetAllBoardsViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/application/config/DomainEventBusConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/application/config/RepositoryConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/BoardEntityMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/Entity/BoardEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/get/GetAllBoardsInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/get/GetAllBoardsOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/get/GetAllBoardsUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/board/SqliteGetAllBoardsUseCaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/rest/column/ColumnResponseBody.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/event/CardLeftColumnEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/name/EditCardNameUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/card/CardEnteredColumnEventHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/model/board/BoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/BoardInDatabaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/BoardInDatabaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/BoardInMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/board/BoardInMemoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/workflow/WorkflowInDatabaseRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/workflow/WorkflowInMemoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/adapter/workflow/WorkflowInMemoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/Lane.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/Lane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/Stage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/Stage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/SwimLane.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/SwimLane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/Workflow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/model/workflow/Workflow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/ui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/ui/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/ui/board/BoardPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/ui/board/BoardPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/ui/user/UserPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/ui/user/UserPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/BoardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/BoardOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/BoardDTOConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/createBoard/CreateBoardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/createBoard/CreateBoardInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/createBoard/CreateBoardOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/createBoard/CreateBoardOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/createBoard/CreateBoardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/board/createBoard/CreateBoardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/commitCard/CommitCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/commitCard/CommitCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/createCard/CreateCardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/createCard/CreateCardInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/createCard/CreateCardOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/createCard/CreateCardOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/createCard/CreateCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/card/createCard/CreateCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createStage/CreateStageUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createStage/CreateStageUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createSwimlane/CreateSwimlaneInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createSwimlane/CreateSwimlaneInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createSwimlane/CreateSwimlaneOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createSwimlane/CreateSwimlaneOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createSwimlane/CreateSwimlaneUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/lane/createSwimlane/CreateSwimlaneUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/repository/IBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/repository/IBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/repository/IWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/repository/IWorkflowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/WorkflowDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/WorkflowDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/WorkflowDTOConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/WorkflowDTOConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/commitWorkflow/CommitWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/commitWorkflow/CommitWorkflowUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/createWorkflow/CreateWorkflowInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/createWorkflow/CreateWorkflowInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/createWorkflow/CreateWorkflowOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/createWorkflow/CreateWorkflowOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/createWorkflow/CreateWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/main/java/domain/usecase/workflow/createWorkflow/CreateWorkflowUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/model/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/model/card/CardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/TestUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/TestUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/board/CreateBoardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/board/CreateBoardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/card/CommitCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/card/CommitCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/card/CreateCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/card/CreateCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/lane/CreateStageUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/lane/CreateStageUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/lane/CreateSwimlaneUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/lane/CreateSwimlaneUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/repository/BoardInDatabaseRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/repository/BoardInDatabaseRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/repository/WorkflowInDatabaseRepositoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/workflow/CommitWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/workflow/CommitWorkflowUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/workflow/CreateWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../7-1+1=7/src/test/java/domain/usecase/workflow/CreateWorkflowUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/ApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/ApplicationContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/board/InMemoryBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/board/InMemoryBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/board/MySqlBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/board/MySqlBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/card/InMemoryCardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/card/InMemoryCardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/card/MySqlCardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/card/MySqlCardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/InMemoryWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/InMemoryWorkflowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/rest/board/get/GetBoardsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/adapter/rest/board/get/GetBoardsAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/DomainEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/DomainEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/board/mapper/BoardEntityModelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/board/mapper/BoardEntityModelMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/commit/CommitCardOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/commit/CommitCardOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/commit/CommitCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/commit/CommitCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/create/CreateCardOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/create/CreateCardOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/create/CreateCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/create/CreateCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/repository/ICardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/card/repository/ICardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/create/CreateStageInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/create/CreateStageInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/create/CreateStageOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/create/CreateStageOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/create/CreateStageUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/stage/create/CreateStageUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/repository/IWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/main/java/kanban/domain/usecase/workflow/repository/IWorkflowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/board/CreateBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/board/CreateBoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/board/GetBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/board/GetBoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/card/CommitCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/card/CommitCardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/card/CreateCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/card/CreateCardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/stage/CreateStageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/stage/CreateStageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/workflow/CommitWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/workflow/CommitWorkflowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/workflow/CreateWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SA1321/src/test/java/kanban/domain/usecase/workflow/CreateWorkflowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/KanbanFront/src/components/BoardCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/KanbanFront/src/components/BoardCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/KanbanFront/src/components/BoardNav.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/KanbanFront/src/components/BoardNav.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/ddd.kanban.db" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/ddd.kanban.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/DTO/BoardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/DTO/BoardDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/controller/BoardController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/repository/board/InMemoryBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/repository/board/InMemoryBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/repository/board/SqliteBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/adapter/repository/board/SqliteBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/spring/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/spring/config/GlobalCorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/application/config/GlobalCorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/spring/controller/SpringBoardController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/DTO/BoardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/DTO/BoardDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/DTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/BoardDTOMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/EntityMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/commit/CommitWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/commit/CommitWorkflowUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/create/CreateBoardOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/create/CreateBoardOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/create/CreateBoardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/board/create/CreateBoardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/repository/BoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/main/java/ddd/kanban/usecase/repository/BoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/resources/Kanban.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/resources/button-styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/resources/images/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/main/resources/test.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/HierarchyInitial.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/HierarchyInitial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/board/CommitWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/board/CommitWorkflowUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/board/CreateBoardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/board/CreateBoardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/board/SqliteCreateBoardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SElab/src/test/java/ddd/kanban/usecase/board/SqliteCreateBoardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/.settings/org.eclipse.buildship.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/.settings/org.eclipse.buildship.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/repository/memory/MemoryEventLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/repository/memory/MemoryEventLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/repository/mysql/MysqlBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/repository/mysql/MysqlBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/rest/BoardRestAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/rest/BoardRestAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/rest/CardRestAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/rest/CardRestAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/rest/ColumnRestAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/adapter/rest/column/ColumnRestAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/Column.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/Column.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/event/CardEnterColumnEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/event/CardEnteredColumnEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/board/event/CardLeaveColumnEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/model/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardUseCaseOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/CreateBoardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/CreateBoardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/CreateBoardUseCaseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/CreateBoardUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/dto/BoardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/dto/BoardDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/dto/BoardDTOConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/dto/BoardDTOConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCaseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCaseOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCaseOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/CreateCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/CreateCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/CreateCardUseCaseOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/CreateCardUseCaseOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/dto/CardDTOConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/dto/CardDTOConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardColumnInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/column/EditCardColumnUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardColumnOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/column/EditCardColumnUseCaseOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardColumnUsecase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/column/EditCardColumnUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardUseCase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardUseCaseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/name/EditCardNameUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardUseCaseOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/name/EditCardNameUseCaseOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/create/CreateColumnUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/create/CreateColumnUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/create/CreateColumnUseCaseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/create/CreateColumnUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/dto/ColumnDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/dto/ColumnDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/dto/ColumnDTOConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/dto/ColumnDTOConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUsecaseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUsecaseOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUseCaseOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/setwip/SetColumnWIPUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/setwip/SetColumnWIPUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/setwip/SetColumnWIPUseCaseInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/column/setwip/SetColumnWIPUseCaseInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/CardCreatedEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/card/CardCreatedEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/CardEnterColumnEventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/EventSourcingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/sourcing/EventSourcingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/dto/DomainEventDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/sourcing/dto/DomainEventDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/dto/DomainEventDTOConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/event/handler/sourcing/dto/DomainEventDTOConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/repository/EventLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/main/java/phd/sa/csie/ntut/edu/tw/usecase/repository/EventLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/adapter/repository/memory/CardRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/adapter/repository/memory/CardRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/model/board/ColumnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/model/board/ColumnTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/model/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/model/card/CardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/commit/card/CommitCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/CreateBoardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/CreateBoardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/MysqlCreateBoardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/create/MysqlCreateBoardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/board/move/MoveCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/CreateCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/CreateCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/MysqlCreateCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/create/MysqlCreateCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardColumnUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardColumnUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/card/edit/EditCardNameUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/column/create/CreateColumnUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/column/create/CreateColumnUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/column/read/GetColumnsByBoardIDUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/column/setwip/SetColumnWIPTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/src/test/java/phd/sa/csie/ntut/edu/tw/usecase/column/setwip/SetColumnWIPTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/web/src/components/Board.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/web/src/components/Board.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../有博士生的組/web/src/components/CreateCardModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../有博士生的組/web/src/components/CreateCardModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../郭1/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../郭1/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../郭1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../郭1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../郭1/src/main/java/domain/view/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/../郭1/src/main/java/domain/view/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/CreateBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/CreateBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/Hompage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/controller/Homepage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/InMemoryBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/InMemoryBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/MySqlBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/board/MySqlBoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/adapter/view_model/CreateBoardViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/adapter/view_model/CreateBoardViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/DomainEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/DomainEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/card/event/CardCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/card/event/CardCreated.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/Lane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/Lane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/Workflow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/Workflow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/event/LaneCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/event/LaneCreated.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/event/StageCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/event/StageCreated.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/event/WorkflowCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow/event/WorkflowCreated.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/card/CardEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/handler/card/CardEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/card/commit/CommitCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/card/commit/CommitCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/workflow/WorkflowEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/workflow/WorkflowEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/card/CardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/card/CardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/workflow/WorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/model/aggregate/workflow/WorkflowTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/card/commit/CommitCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/card/commit/CommitCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/card/create/CreateCardUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/card/create/CreateCardUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/stage/create/CreateStageUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/stage/create/CreateStageUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/task/create/CreateTaskUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/task/create/CreateTaskUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/commit/CommitWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/commit/CommitWorkflowUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/domain/adapter/repository/board/InMemoryBoardRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/adapter/repository/board/InMemoryBoardRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/domain/adapter/repository/workflow/MySqlWorkflowRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/adapter/repository/workflow/MySqlWorkflowRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/card/create/CreateCardUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/card/create/CreateCardUseCaseTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/stage/create/CreateStageUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/stage/create/CreateStageUseCaseTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/swimlane/create/CreateSwimlaneUseCaseTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/task/create/CreateTaskUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/task/create/CreateTaskUseCaseTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/domain/usecase/workflow/create/CreateWorkflowUseCaseTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/郭2.iml" beforeDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,8 +297,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jsp File" />
-        <option value="Class" />
+        <option value="cdi.beans_1_1" />
+        <option value="Tag Library Descriptor" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -43,24 +323,39 @@
   </component>
   <component name="ProjectId" id="1bqJnzgoUtLcjkpzoUVzEmsavZf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../clean版" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/domain/model/aggregate/workflow" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="domain.adapter.controller" />
       <recent name="domain.usecase.board.create" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="domain.model" />
       <recent name="domain.usecase.board.create" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\北科\軟架\郭2\src\main\webapp\WEB-INF\view" />
       <recent name="D:\北科\軟架\郭2\src\main" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="domain.usecase.card.cycleTime" />
+      <recent name="domain.usecase.cardMoved.repository" />
+      <recent name="domain.model.aggregate.card.event" />
+      <recent name="domain.usecase.card.move" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\北科\軟架\SA_Kanban2020\郭2\src\main\webapp\WEB-INF" />
@@ -81,14 +376,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.All in SoftwareArchitecture">
-    <configuration name="All in 郭2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="All in SoftwareArchitecture" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SoftwareArchitecture" />
       <option name="PACKAGE_NAME" value="" />
@@ -97,8 +384,70 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CalculateCycleTimeUseCaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="domain.usecase.card.cycleTime.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="domain.usecase.card.cycleTime" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.cycleTime.CalculateCycleTimeUseCaseTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculateCycleTimeUseCaseTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="domain.usecase.card.cycleTime.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="domain.usecase.card.cycleTime" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.cycleTime.CalculateCycleTimeUseCaseTest" />
+      <option name="METHOD_NAME" value="Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculateCycleTimeUseCaseTest.move_card_from_Todo_to_Done" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="domain.usecase.card.cycleTime.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="domain.usecase.card.cycleTime" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.cycleTime.CalculateCycleTimeUseCaseTest" />
+      <option name="METHOD_NAME" value="move_card_from_Todo_to_Done" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveCardUseCaseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SoftwareArchitecture" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="domain.usecase.card.move.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="domain.usecase.card.move" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.move.MoveCardUseCaseTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="kanban" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.45" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/SoftwareArchitecture_war_exploded/" />
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/homepage" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="SoftwareArchitecture:war exploded">
@@ -171,14 +520,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.All in 郭2" />
       <item itemvalue="Tomcat Server.kanban" />
       <item itemvalue="JUnit.All in SoftwareArchitecture" />
+      <item itemvalue="JUnit.MoveCardUseCaseTest" />
+      <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
+      <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.move_card_from_Todo_to_Done" />
+      <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in SoftwareArchitecture" />
-        <item itemvalue="JUnit.All in 郭2" />
+        <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest" />
+        <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.move_card_from_Todo_to_Done" />
+        <item itemvalue="JUnit.MoveCardUseCaseTest" />
+        <item itemvalue="JUnit.CalculateCycleTimeUseCaseTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +551,9 @@
       <workItem from="1589357639466" duration="568000" />
       <workItem from="1589358220895" duration="6692000" />
       <workItem from="1589379144433" duration="977000" />
-      <workItem from="1589451310698" duration="23341000" />
+      <workItem from="1589451310698" duration="20927000" />
+      <workItem from="1589957546483" duration="8607000" />
+      <workItem from="1589990723650" duration="268000" />
     </task>
     <servers />
   </component>
@@ -215,5 +572,63 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589990991453">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589990991453" />
+    <state x="811" y="412" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1589990903304">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="811" y="412" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589990903304" />
+    <state width="1293" height="282" key="GridCell.Tab.0.bottom" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.0.center" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.0.left" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.0.right" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.bottom" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.center" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.left" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.1.right" timestamp="1589991022586">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022586" />
+    <state width="1293" height="282" key="GridCell.Tab.2.bottom" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
+    <state width="1293" height="282" key="GridCell.Tab.2.center" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
+    <state width="1293" height="282" key="GridCell.Tab.2.left" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
+    <state width="1293" height="282" key="GridCell.Tab.2.right" timestamp="1589991022587">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1293" height="282" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589991022587" />
   </component>
 </project>

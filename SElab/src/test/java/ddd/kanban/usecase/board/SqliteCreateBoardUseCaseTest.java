@@ -1,12 +1,11 @@
 package ddd.kanban.usecase.board;
 
-import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
+import ddd.kanban.adapter.presenter.board.create.CreateBoardPresenter;
 import ddd.kanban.adapter.repository.board.SqliteBoardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.board.Board;
 import ddd.kanban.usecase.DomainEventHandler;
-import ddd.kanban.usecase.EntityMapper;
 import ddd.kanban.usecase.board.create.CreateBoardInput;
 import ddd.kanban.usecase.board.create.CreateBoardOutput;
 import ddd.kanban.usecase.board.create.CreateBoardUseCase;
@@ -25,7 +24,6 @@ public class SqliteCreateBoardUseCaseTest {
     private WorkflowRepository workflowRepository;
     private String boardId;
     private DomainEventBus domainEventBus;
-    private EntityMapper entityMapper;
 
     @Before
     public void setUp(){
@@ -34,17 +32,16 @@ public class SqliteCreateBoardUseCaseTest {
         this.workflowRepository = new InMemoryWorkflowRepository();
         this.domainEventBus = new DomainEventBus();
         this.domainEventBus.register(new DomainEventHandler(workflowRepository, sqliteBoardRepository, this.domainEventBus));
-        this.entityMapper = new EntityMapper();
     }
 
     @Test
     public void testCreateBoardUseCaseWithSQLite(){
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(sqliteBoardRepository, domainEventBus);
         CreateBoardInput createBoardInput = new CreateBoardInput("TestBoard2", "This is board that save in sqlite");
-        CreateBoardOutput createBoardOutput = new CreateBoardOutput();
+        CreateBoardOutput createBoardOutput = new CreateBoardPresenter();
         createBoardUseCase.execute(createBoardInput, createBoardOutput);
 
-        Board board = entityMapper.mappingBoardEntityFrom(sqliteBoardRepository.findById(createBoardOutput.getBoardId()));
+        Board board = BoardEntityMapper.mappingBoardFrom(sqliteBoardRepository.findById(createBoardOutput.getBoardId()));
 
         assertEquals("TestBoard2", board.getTitle());
         assertEquals("This is board that save in sqlite", board.getDescription());

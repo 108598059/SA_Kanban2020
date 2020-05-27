@@ -1,12 +1,12 @@
 package kanban.domain.usecase.workflow.repository;
 
-import kanban.domain.model.aggregate.workflow.Workflow;
+import kanban.domain.usecase.workflow.WorkflowEntity;
 
 public interface IWorkflowRepository {
 
-    void add(Workflow workflow);
+    void add(WorkflowEntity workflowEntity);
 
-    Workflow getWorkflowById(String workflowId);
+    WorkflowEntity getWorkflowById(String workflowId);
 
-    void save(Workflow workflow);
+    void save(WorkflowEntity workflowEntity);
 }

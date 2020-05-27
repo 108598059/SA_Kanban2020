@@ -13,9 +13,11 @@ import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.CardCreatedEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
+
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +29,6 @@ public class CreateCardUseCaseTest {
   private DomainEventBus eventBus;
 
   private class MockCardCreatedEventListener {
-
     private int count = 0;
 
     @Subscribe
@@ -45,17 +46,16 @@ public class CreateCardUseCaseTest {
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
 
-    this.board = new Board("Kanban");
+    this.board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
     CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
     this.eventBus = new DomainEventBus();
     this.eventBus.register(cardCreatedEventHandler);
-
   }
 
   @Test
-  public void creating_a_new_card_should_commit_the_card_to_the_backlog_column() {
+  public void create_card_should_commit_the_card_to_the_backlog_column() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
@@ -71,11 +71,11 @@ public class CreateCardUseCaseTest {
 
     Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
     Board boardResult = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
-    assertEquals(card.getID(), boardResult.get(0).getCardIDs().get(0));
+    assertEquals(card.getID(), boardResult.getBacklogColumn().getCardIDs().get(0));
   }
 
   @Test
-  public void committed_card_change_should_be_save_to_the_board_repository() {
+  public void created_card_change_should_be_save_to_the_board_repository() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
@@ -86,11 +86,11 @@ public class CreateCardUseCaseTest {
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
-    assertEquals(this.board.get(0).getID().toString(), card.getColumnID().toString());
+    assertEquals(this.board.getBacklogColumn().getID().toString(), card.getColumnID().toString());
   }
 
   @Test
-  public void create_card_event_should_be_issued_when_a_card_being_created() {
+  public void create_card_event_should_be_posted_when_a_card_being_created() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();

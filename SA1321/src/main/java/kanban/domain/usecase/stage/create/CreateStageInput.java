@@ -1,22 +1,12 @@
 package kanban.domain.usecase.stage.create;
 
-public class CreateStageInput {
-    private String stageName;
-    private String workflowId;
+public interface CreateStageInput {
 
-    public String getStageName() {
-        return stageName;
-    }
+    public String getStageName();
 
-    public void setStageName(String stageName) {
-        this.stageName = stageName;
-    }
+    public void setStageName(String stageName);
 
-    public String getWorkflowId() {
-        return workflowId;
-    }
+    public String getWorkflowId();
 
-    public void setWorkflowId(String workflowId) {
-        this.workflowId = workflowId;
-    }
+    public void setWorkflowId(String workflowId);
 }

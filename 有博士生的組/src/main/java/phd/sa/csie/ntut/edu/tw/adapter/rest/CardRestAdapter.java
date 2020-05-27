@@ -30,13 +30,17 @@ public class CardRestAdapter {
         createCardInput.setBoardID(requestBody.getBoardID());
         createCardInput.setCardName(requestBody.getCardName());
 
-        this.createCardUseCase.execute(createCardInput, createCardOutput);
+        try {
+            this.createCardUseCase.execute(createCardInput, createCardOutput);
 
-        CreateCardResponse responseBody = new CreateCardResponse();
-        responseBody.setCardID(createCardOutput.getCardID());
-        responseBody.setCardName(createCardOutput.getCardName());
+            CreateCardResponseOK responseBody = new CreateCardResponseOK();
+            responseBody.setCardID(createCardOutput.getCardID());
+            responseBody.setCardName(createCardOutput.getCardName());
 
-        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+            return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CreateCardResponseBadRequest(e.getMessage()));
+        }
     }
 }
 
@@ -61,7 +65,11 @@ class CreateCardRequest {
     }
 }
 
-class CreateCardResponse {
+abstract class CreateCardResponse {
+
+}
+
+class CreateCardResponseOK extends CreateCardResponse {
     private String cardID;
     private String cardName;
 
@@ -79,5 +87,17 @@ class CreateCardResponse {
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
+    }
+}
+
+class CreateCardResponseBadRequest extends CreateCardResponse {
+    private String errorMsg;
+
+    public CreateCardResponseBadRequest(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
     }
 }

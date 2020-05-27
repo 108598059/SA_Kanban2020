@@ -4,6 +4,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class CreateBoardUseCaseInput implements UseCaseInput {
   private String boardName;
+  private String workspaceID;
 
   public void setBoardName(String boardName) {
     this.boardName = boardName;
@@ -11,5 +12,13 @@ public class CreateBoardUseCaseInput implements UseCaseInput {
 
   public String getBoardName() {
     return this.boardName;
+  }
+
+  public String getWorkspaceID() {
+    return workspaceID;
+  }
+
+  public void setWorkspaceID(String workspaceID) {
+    this.workspaceID = workspaceID;
   }
 }

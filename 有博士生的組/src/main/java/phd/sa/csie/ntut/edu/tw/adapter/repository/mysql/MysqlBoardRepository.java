@@ -14,24 +14,25 @@ import java.util.List;
 
 public class MysqlBoardRepository extends BoardRepository {
     @Override
-    public void save(BoardDTO boardDto) {
+    public void save(BoardDTO boardDTO) {
         try {
             Connection connection = DB_connector.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Board VALUES(?, ?)");
-            stmt.setString(1, boardDto.getID());
-            stmt.setString(2, boardDto.getName());
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Board VALUES(?, ?, ?)");
+            stmt.setString(1, boardDTO.getID());
+            stmt.setString(2, boardDTO.getWorkspaceID());
+            stmt.setString(3, boardDTO.getName());
 
             stmt.executeUpdate();
 
-            List<ColumnDTO> columnList = boardDto.getColumnDTOs();
+            List<ColumnDTO> columnList = boardDTO.getColumnDTOs();
             for (ColumnDTO columnDTO: columnList) {
                 PreparedStatement columnStmt = connection.prepareStatement(
                         "INSERT INTO `Column`(`ID`, `Title`, `WIP`, `BoardID`, `Position`) " +
                             "VALUES (?, ?, ?, ?, ?)");
                 columnStmt.setString(1, columnDTO.getID());
                 columnStmt.setString(2, columnDTO.getTitle());
-                columnStmt.setInt(3, columnDTO.getWip());
-                columnStmt.setString(4, boardDto.getID());
+                columnStmt.setInt(3, columnDTO.getWIP());
+                columnStmt.setString(4, boardDTO.getID());
                 columnStmt.setInt(5, columnList.indexOf(columnDTO));
                 columnStmt.executeUpdate();
             }
@@ -43,24 +44,25 @@ public class MysqlBoardRepository extends BoardRepository {
     }
 
     @Override
-    public void update(BoardDTO boardDto) {
+    public void update(BoardDTO boardDTO) {
         try {
             Connection connection = DB_connector.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("UPDATE `Board` SET `Name`=? WHERE `ID`=?");
-            stmt.setString(1, boardDto.getName());
-            stmt.setString(2, boardDto.getID());
+            PreparedStatement stmt = connection.prepareStatement("UPDATE `Board` SET `WorkspaceID`=?, `Name`=? WHERE `ID`=?");
+            stmt.setString(1, boardDTO.getWorkspaceID());
+            stmt.setString(2, boardDTO.getName());
+            stmt.setString(3, boardDTO.getID());
 
             stmt.executeUpdate();
 
-            List<ColumnDTO> columnList = boardDto.getColumnDTOs();
+            List<ColumnDTO> columnList = boardDTO.getColumnDTOs();
             for (ColumnDTO columnDTO: columnList) {
                 PreparedStatement columnStmt = connection.prepareStatement(
                         "UPDATE `Column` " +
                             "SET `Title`=?,`WIP`=?,`BoardID`=?,`Position`=? " +
                             "WHERE `ID`=?");
                 columnStmt.setString(1, columnDTO.getTitle());
-                columnStmt.setInt(2, columnDTO.getWip());
-                columnStmt.setString(3, boardDto.getID());
+                columnStmt.setInt(2, columnDTO.getWIP());
+                columnStmt.setString(3, boardDTO.getID());
                 columnStmt.setInt(4, columnList.indexOf(columnDTO));
                 columnStmt.setString(5, columnDTO.getID());;
                 columnStmt.executeUpdate();
@@ -91,12 +93,13 @@ public class MysqlBoardRepository extends BoardRepository {
                 if (boardDTO.getID() == null || boardDTO.getID().isEmpty()) {
                     boardDTO.setID(resultSet.getString("Board.ID"));
                     boardDTO.setName(resultSet.getString("Board.Name"));
+                    boardDTO.setWorkspaceID(resultSet.getString("Board.WorkspaceID"));
                 }
 
                 ColumnDTO columnDTO = new ColumnDTO();
                 columnDTO.setID(resultSet.getString("Column.ID"));
                 columnDTO.setTitle(resultSet.getString("Column.Title"));
-                columnDTO.setWip(resultSet.getInt("Column.WIP"));
+                columnDTO.setWIP(resultSet.getInt("Column.WIP"));
 
                 PreparedStatement cardStmt = connection.prepareStatement(
                         "SELECT `Card`.`ID` " +

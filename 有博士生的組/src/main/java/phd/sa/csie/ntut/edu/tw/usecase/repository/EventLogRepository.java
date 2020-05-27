@@ -1,6 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.repository;
 
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.dto.DomainEventDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.dto.DomainEventDTO;
 
 import java.util.List;
 
