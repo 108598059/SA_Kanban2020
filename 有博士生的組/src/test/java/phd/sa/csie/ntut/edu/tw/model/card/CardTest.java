@@ -3,7 +3,10 @@ package phd.sa.csie.ntut.edu.tw.model.card;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.CardBelongsColumnSetEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.CardNameSetEvent;
 
 import java.util.UUID;
 
@@ -11,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class CardTest {
   @Test
-  public void card_should_issue_card_created_event_when_constructed() {
+  public void create_card_should_issue_card_created_event() {
     Card card = new Card("create card", new Board(UUID.randomUUID(), "Kanban"));
 
     assertEquals(3, card.getDomainEvents().size());
@@ -49,6 +52,7 @@ public class CardTest {
     assertEquals(3, card.getDomainEvents().size());
     card.setBelongsColumnID(archiveColumnID);
     assertEquals(4, card.getDomainEvents().size());
+    assertEquals(CardBelongsColumnSetEvent.class, card.getDomainEvents().get(3).getClass());
   }
 
   @Test
@@ -59,5 +63,6 @@ public class CardTest {
     assertEquals(3, card.getDomainEvents().size());
     card.setName("Set card name");
     assertEquals(4, card.getDomainEvents().size());
+    assertEquals(CardNameSetEvent.class, card.getDomainEvents().get(3).getClass());
   }
 }
