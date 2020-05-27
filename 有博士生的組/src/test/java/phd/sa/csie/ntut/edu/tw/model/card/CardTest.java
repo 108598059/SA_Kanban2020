@@ -14,7 +14,7 @@ public class CardTest {
   public void card_should_issue_card_created_event_when_constructed() {
     Card card = new Card("create card", new Board(UUID.randomUUID(), "Kanban"));
 
-    assertEquals(1, card.getDomainEvents().size());
+    assertEquals(2, card.getDomainEvents().size());
     assertEquals(CardCreatedEvent.class, card.getDomainEvents().get(0).getClass());
   }
 
@@ -38,5 +38,16 @@ public class CardTest {
       return;
     }
     fail("Card name is null should raise IllegalArgumentException.");
+  }
+
+  @Test
+  public void set_belongs_column_id_should_issue_card_edited_event() {
+    Board board = new Board(UUID.randomUUID(), "Kanban");
+    Card card = new Card("Create card", board);
+    UUID archiveColumnID = board.getArchiveColumn().getID();
+
+    assertEquals(2, card.getDomainEvents().size());
+    card.setBelongsColumnID(archiveColumnID);
+    assertEquals(3, card.getDomainEvents().size());
   }
 }

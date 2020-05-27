@@ -9,7 +9,7 @@ public class CardDTOConverter {
         CardDTO cardDTO = new CardDTO();
         cardDTO.setID(card.getID().toString());
         cardDTO.setName(card.getName());
-        cardDTO.setColumnID(card.getColumnID().toString());
+        cardDTO.setColumnID(card.getBelongsColumnID().toString());
         return cardDTO;
     }
 

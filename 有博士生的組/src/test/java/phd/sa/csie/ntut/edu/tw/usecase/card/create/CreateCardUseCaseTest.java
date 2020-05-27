@@ -86,7 +86,7 @@ public class CreateCardUseCaseTest {
     createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
     Card card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
-    assertEquals(this.board.getBacklogColumn().getID().toString(), card.getColumnID().toString());
+    assertEquals(this.board.getBacklogColumn().getID().toString(), card.getBelongsColumnID().toString());
   }
 
   @Test
