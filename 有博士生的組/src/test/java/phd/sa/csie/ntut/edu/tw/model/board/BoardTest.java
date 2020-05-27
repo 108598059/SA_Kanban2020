@@ -96,4 +96,13 @@ public class BoardTest {
             assertEquals("Column Not Found", e.getMessage());
         }
     }
+
+    @Test
+    public void create_column_should_issue_column_created_event() {
+        Board board = new Board(UUID.randomUUID(), "Kanban");
+        assertEquals(1, board.getDomainEvents().size());
+
+        board.createColumn("develop");
+        assertEquals(2, board.getDomainEvents().size());
+    }
 }

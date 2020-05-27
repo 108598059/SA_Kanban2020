@@ -1,10 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
-import phd.sa.csie.ntut.edu.tw.model.board.event.BoardCreatedEvent;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardCommittedEvent;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
-import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.*;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 
 import java.util.*;
@@ -77,6 +74,8 @@ public class Board extends AggregateRoot {
     }
     Column column = new Column(columnTitle);
     this.columns.add(this.columns.size()-1, column);
+    this.addDomainEvent(new ColumnCreatedEvent(this.id.toString(), column.getID().toString(), column.getTitle()));
+
     return column.getID();
   }
 

@@ -53,7 +53,7 @@ public class MoveCardUseCaseTest {
     this.cardRepository = new MemoryCardRepository();
     this.boardRepository = new MemoryBoardRepository();
     this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
-    this.createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
+    this.createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
 
     Board board = new Board(UUID.randomUUID(), "Kanban");
     this.boardID = board.getID().toString();

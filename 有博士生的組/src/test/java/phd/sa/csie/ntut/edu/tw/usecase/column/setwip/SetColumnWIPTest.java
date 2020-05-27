@@ -43,7 +43,7 @@ public class SetColumnWIPTest {
 
     this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createBoardUseCaseOutput.getBoardID()));
 
-    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.boardRepository);
+    CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
     CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
     CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
