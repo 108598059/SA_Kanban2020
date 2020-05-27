@@ -49,8 +49,8 @@ public class CreateCardUseCaseTest {
     this.board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
-    CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.cardRepository, this.boardRepository);
     this.eventBus = new DomainEventBus();
+    CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository);
     this.eventBus.register(cardCreatedEventHandler);
   }
 

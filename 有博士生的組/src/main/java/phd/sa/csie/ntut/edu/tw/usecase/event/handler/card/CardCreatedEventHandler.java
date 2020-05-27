@@ -1,6 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.event.handler.card;
 
 import com.google.common.eventbus.Subscribe;
+import phd.sa.csie.ntut.edu.tw.model.DomainEvent;
+import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.card.event.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCaseOutput;
@@ -12,8 +14,10 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 public class CardCreatedEventHandler implements DomainEventHandler<CardCreatedEvent> {
     private CardRepository cardRepository;
     private BoardRepository boardRepository;
+    private DomainEventBus eventBus;
 
-    public CardCreatedEventHandler(CardRepository cardRepository, BoardRepository boardRepository) {
+    public CardCreatedEventHandler(DomainEventBus eventBus, CardRepository cardRepository, BoardRepository boardRepository) {
+        this.eventBus = eventBus;
         this.cardRepository = cardRepository;
         this.boardRepository = boardRepository;
     }
@@ -21,7 +25,7 @@ public class CardCreatedEventHandler implements DomainEventHandler<CardCreatedEv
     @Subscribe
     @Override
     public void listen(CardCreatedEvent e) {
-        CommitCardUseCase commitCard = new CommitCardUseCase(this.cardRepository, this.boardRepository);
+        CommitCardUseCase commitCard = new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
         CommitCardUseCaseInput input = new CommitCardUseCaseInput();
 
         input.setBoardID(e.getBoardID().toString());

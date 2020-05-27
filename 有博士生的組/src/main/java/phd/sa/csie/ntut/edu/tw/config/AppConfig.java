@@ -38,20 +38,20 @@ public class AppConfig {
 
     @Bean
     public CreateCardUseCase getCreateCardUseCase() {
-        DomainEventBus eventBus = getDomainEventBus();
-        BoardRepository boardRepo = getBoardRepository();
-        CardRepository cardRepo = getCardRepository();
-        eventBus.register(new CardCreatedEventHandler(cardRepo, boardRepo));
+        DomainEventBus eventBus = this.getDomainEventBus();
+        BoardRepository boardRepo = this.getBoardRepository();
+        CardRepository cardRepo = this.getCardRepository();
+        eventBus.register(new CardCreatedEventHandler(eventBus, cardRepo, boardRepo));
         return new CreateCardUseCase(eventBus, cardRepo, boardRepo);
     }
 
     @Bean
     public CommitCardUseCase getCommitUsecase() {
-        return new CommitCardUseCase(getCardRepository(), getBoardRepository());
+        return new CommitCardUseCase(this.getDomainEventBus(), this.getCardRepository(), this.getBoardRepository());
     }
 
     @Bean
     public GetColumnsByBoardIDUseCase getGetColumnsByBoardIDUseCase() {
-        return new GetColumnsByBoardIDUseCase(getBoardRepository(), getCardRepository());
+        return new GetColumnsByBoardIDUseCase(this.getBoardRepository(), this.getCardRepository());
     }
 }

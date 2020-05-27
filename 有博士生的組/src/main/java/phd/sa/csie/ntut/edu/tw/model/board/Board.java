@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.model.board.event.CardCommittedEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
@@ -34,6 +35,11 @@ public class Board extends AggregateRoot {
   public void commitCard(Card card) {
     Column backlog = this.columns.get(0);
     backlog.addCard(card.getID());
+    this.addDomainEvent(new CardCommittedEvent(
+                          UUID.randomUUID().toString(),
+               "Card committed",
+                          this.id.toString(),
+                          card.getID().toString()));
   }
 
   public int getColumnNumber() {

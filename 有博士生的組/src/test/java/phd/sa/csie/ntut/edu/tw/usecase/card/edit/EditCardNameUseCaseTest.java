@@ -43,7 +43,7 @@ public class EditCardNameUseCaseTest {
     Board board = new Board(UUID.randomUUID(), "Kanban");
     this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
-    this.eventBus.register(new CommitCardUseCase(this.cardRepository, this.boardRepository));
+    this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
     this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
     CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
