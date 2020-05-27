@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
@@ -58,7 +59,7 @@ public class CreateCardUseCaseTest {
   public void create_card_should_commit_the_card_to_the_backlog_column() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
-    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
     createCardUseCaseInput.setCardName("Create Card");
     createCardUseCaseInput.setBoardID(this.board.getID().toString());
@@ -78,7 +79,7 @@ public class CreateCardUseCaseTest {
   public void created_card_change_should_be_save_to_the_board_repository() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
-    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
     createCardUseCaseInput.setCardName("Create Card");
     createCardUseCaseInput.setBoardID(this.board.getID().toString());
@@ -93,7 +94,7 @@ public class CreateCardUseCaseTest {
   public void create_card_event_should_be_posted_when_a_card_being_created() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
-    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
     createCardUseCaseInput.setCardName("Create Card");
     createCardUseCaseInput.setBoardID(this.board.getID().toString());

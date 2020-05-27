@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryEventLogRepository;
@@ -61,7 +62,7 @@ public class MoveCardUseCaseTest {
     this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
 
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
-    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
     createCardUseCaseInput.setCardName("Implement a column");
     createCardUseCaseInput.setBoardID(this.boardID.toString());

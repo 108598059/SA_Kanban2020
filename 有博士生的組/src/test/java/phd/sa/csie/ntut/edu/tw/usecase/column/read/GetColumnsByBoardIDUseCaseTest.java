@@ -2,6 +2,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.read;
 
 import org.junit.Before;
 import org.junit.Test;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
@@ -40,7 +41,7 @@ public class GetColumnsByBoardIDUseCaseTest {
 
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(eventBus, this.cardRepository, this.boardRepository);
         CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
-        CreateCardUseCaseOutput createCardOutput = new CreateCardUseCaseOutput();
+        CreateCardUseCaseOutput createCardOutput = new CreateCardPresenter();
 
         createCardInput.setBoardID(board.getID().toString());
         createCardInput.setCardName("Implement a column");

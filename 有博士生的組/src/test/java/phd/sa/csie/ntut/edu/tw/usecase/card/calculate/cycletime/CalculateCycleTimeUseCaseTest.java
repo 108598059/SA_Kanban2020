@@ -2,6 +2,7 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime;
 
 import org.junit.Before;
 import org.junit.Test;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardEnteredColumnEventRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardLeftColumnEventRepository;
@@ -106,7 +107,7 @@ public class CalculateCycleTimeUseCaseTest {
     private Card create_card(String cardName) {
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
-        CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+        CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
         createCardUseCaseInput.setCardName(cardName);
         createCardUseCaseInput.setBoardID(this.board.getID().toString());

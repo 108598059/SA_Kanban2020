@@ -2,23 +2,13 @@ package phd.sa.csie.ntut.edu.tw.usecase.card.create;
 
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 
-public class CreateCardUseCaseOutput implements UseCaseOutput {
-  private String cardID;
-  private String cardName;
+public interface CreateCardUseCaseOutput extends UseCaseOutput {
 
-  public void setCardName(String cardName) {
-    this.cardName = cardName;
-  }
+  public void setCardName(String cardName);
 
-  public String getCardName() {
-    return cardName;
-  }
+  public String getCardName();
 
-  public void setCardID(String id) {
-    this.cardID = id;
-  }
+  public void setCardID(String id);
 
-  public String getCardID() {
-    return cardID;
-  }
+  public String getCardID();
 }

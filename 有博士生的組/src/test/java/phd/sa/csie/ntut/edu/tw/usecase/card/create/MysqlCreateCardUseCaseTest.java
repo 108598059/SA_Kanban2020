@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.adapter.database.DB_connector;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.card.MysqlCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
@@ -46,7 +47,7 @@ public class MysqlCreateCardUseCaseTest {
   public void create_card_should_save_card_to_database() {
     CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
-    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
     createCardUseCaseInput.setCardName("Create a card");
     createCardUseCaseInput.setBoardID(this.board.getID().toString());

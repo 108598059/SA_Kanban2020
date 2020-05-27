@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
@@ -46,7 +47,7 @@ public class EditCardNameUseCaseTest {
     this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
     this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
     CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
-    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardUseCaseOutput();
+    CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
     createCardUseCaseInput.setCardName("Old Name");
     createCardUseCaseInput.setBoardID(board.getID().toString());
     this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
