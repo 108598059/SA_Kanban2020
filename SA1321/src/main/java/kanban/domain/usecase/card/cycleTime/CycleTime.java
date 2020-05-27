@@ -10,7 +10,7 @@ public class CycleTime {
         diffDays = diff/(24*3600);
         diffHours = diff %(24*3600)/3600;
         diffMinutes = diff % 3600/60;
-        diffSeconds = diff % 60/60;
+        diffSeconds = diff % 60;
     }
 
     public long getDiffDays() {

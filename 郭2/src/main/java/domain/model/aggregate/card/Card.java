@@ -2,6 +2,7 @@ package domain.model.aggregate.card;
 
 import domain.model.aggregate.AggregateRoot;
 import domain.model.aggregate.card.event.CardCreated;
+import domain.model.aggregate.card.event.TaskCreated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,7 @@ public class Card extends AggregateRoot {
     public Task createTask(String cardId, String taskName) {
         Task task = new Task(cardId, taskName);
         taskList.add(task);
+        addDomainEvent(new TaskCreated(task.getTaskId(), taskName, cardId));
         return task;
     }
 

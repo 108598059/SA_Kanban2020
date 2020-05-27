@@ -1,8 +1,6 @@
 package domain.adapter.controller;
 
-import domain.adapter.repository.board.MySqlBoardRepository;
-import domain.usecase.board.repository.IBoardRepository;
-
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,9 +10,9 @@ import java.io.IOException;
 
 @WebServlet("/homepage")
 public class Homepage extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        IBoardRepository boardRepository = new MySqlBoardRepository();
         request.getRequestDispatcher("WEB-INF/view/homepage.jsp").forward(request, response);
     }
 }

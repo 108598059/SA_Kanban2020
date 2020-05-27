@@ -4,13 +4,15 @@ import domain.adapter.database.DbConn;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.board.BoardEntity;
 
+import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Default;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Default
 public class MySqlBoardRepository implements IBoardRepository {
     private Connection conn;
 
