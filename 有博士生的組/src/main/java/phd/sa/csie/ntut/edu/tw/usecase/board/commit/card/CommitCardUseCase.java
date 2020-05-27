@@ -1,6 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.commit.card;
 
-import com.google.common.eventbus.EventBus;
 import phd.sa.csie.ntut.edu.tw.model.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;

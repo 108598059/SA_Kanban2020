@@ -26,7 +26,7 @@ public class CreateBoardUseCaseTest {
 
   @Test
   public void board_created() {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 
@@ -41,7 +41,7 @@ public class CreateBoardUseCaseTest {
 
   @Test
   public void creating_a_new_board_should_generate_backlog_column_and_archive_column() {
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 

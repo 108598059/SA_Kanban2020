@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import phd.sa.csie.ntut.edu.tw.model.AggregateRoot;
+import phd.sa.csie.ntut.edu.tw.model.board.event.BoardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardCommittedEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardEnteredColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.CardLeftColumnEvent;
@@ -22,6 +23,7 @@ public class Board extends AggregateRoot {
     Column archive = new Column("Archive");
     this.columns.add(backlog);
     this.columns.add(archive);
+    this.addDomainEvent(new BoardCreatedEvent(this.id.toString(), this.name));
   }
 
   public Board(UUID id, UUID workspaceID, String name, List<Column> columns) {
@@ -36,8 +38,6 @@ public class Board extends AggregateRoot {
     Column backlog = this.columns.get(0);
     backlog.addCard(card.getID());
     this.addDomainEvent(new CardCommittedEvent(
-                          UUID.randomUUID().toString(),
-               "Card committed",
                           this.id.toString(),
                           card.getID().toString()));
   }

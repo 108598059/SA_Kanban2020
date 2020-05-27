@@ -22,16 +22,17 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 
 public class SetColumnWIPTest {
-
   private BoardRepository boardRepository;
   private Board board;
   private String columnID;
+  private DomainEventBus eventBus;
 
   @Before
   public void add_a_column_to_a_board() {
     this.boardRepository = new MemoryBoardRepository();
+    this.eventBus = new DomainEventBus();
 
-    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.boardRepository);
+    CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
     CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
     CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardUseCaseOutput();
 

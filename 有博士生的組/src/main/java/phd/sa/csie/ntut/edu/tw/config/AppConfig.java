@@ -13,7 +13,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandle
 import phd.sa.csie.ntut.edu.tw.usecase.repository.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.CardRepository;
 
-
 @Configuration
 public class AppConfig {
     @Bean
@@ -33,7 +32,7 @@ public class AppConfig {
 
     @Bean
     public CreateBoardUseCase getCreateBoardUseCase() {
-        return new CreateBoardUseCase(getBoardRepository());
+        return new CreateBoardUseCase(getDomainEventBus(), getBoardRepository());
     }
 
     @Bean
