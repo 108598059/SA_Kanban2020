@@ -1,13 +1,16 @@
 package domain.usecase.workflow.commit;
 
+import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.repository.IBoardRepository;
 
 public class CommitWorkflowUseCase {
     private IBoardRepository boardRepository;
+    private DomainEventBus eventBus;
 
-    public CommitWorkflowUseCase(IBoardRepository boardRepository) {
+    public CommitWorkflowUseCase(IBoardRepository boardRepository, DomainEventBus eventBus) {
+        this.eventBus = eventBus;
         this.boardRepository = boardRepository;
     }
 
@@ -16,6 +19,8 @@ public class CommitWorkflowUseCase {
         board.addWorkflowId(input.getWorkflowId());
 
         boardRepository.save(BoardTransfer.BoardToBoardEntity(board));
+
+        eventBus.postAll(board);
 
         output.setWorkflowId(input.getWorkflowId());
     }

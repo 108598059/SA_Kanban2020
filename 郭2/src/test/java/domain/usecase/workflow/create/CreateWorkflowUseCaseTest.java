@@ -2,7 +2,10 @@ package domain.usecase.workflow.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import domain.model.aggregate.DomainEventBus;
+import domain.model.aggregate.board.Board;
 import domain.model.aggregate.workflow.Workflow;
+import domain.usecase.board.BoardEntity;
+import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
@@ -34,11 +37,11 @@ public class CreateWorkflowUseCaseTest {
 
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
-        eventBus.register(new WorkflowEventHandler(boardRepository));
+        eventBus.register(new WorkflowEventHandler(boardRepository, eventBus));
     }
 
     @Test
-    public void createWorkflowUseCase(){
+    public void create_workflow_should_commit_it_to_its_board() {
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, eventBus);
@@ -57,5 +60,9 @@ public class CreateWorkflowUseCaseTest {
 
         assertEquals(output.getWorkflowId(), workflow.getWorkflowId());
         assertEquals(output.getWorkflowName(), workflow.getWorkflowName());
+
+        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(createBoardUseCaseOutputImpl.getBoardId()));
+
+        assertTrue(board.getWorkflowIds().contains(workflow.getWorkflowId()));
     }
 }

@@ -49,12 +49,13 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
     }
 
     private void addLaneToCard(String laneId, String cardId) {
-        String sql = "Insert Ignore Into kanban.lane_to_card Values (?, ?)";
+        String sql = "Insert Into kanban.lane_to_card Values (?, ?) On Duplicate Key Update lane_id = ?";
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1,laneId);
             ps.setString(2,cardId);
+            ps.setString(3,laneId);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

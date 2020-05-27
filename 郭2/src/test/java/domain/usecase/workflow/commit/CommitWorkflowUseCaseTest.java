@@ -29,12 +29,12 @@ public class CommitWorkflowUseCaseTest {
 
         createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutputImpl);
 
-        eventBus.register(new WorkflowEventHandler(boardRepository));
+        eventBus.register(new WorkflowEventHandler(boardRepository, eventBus));
     }
 
     @Test
     public void workflow_should_be_committed_to_its_board() {
-        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository);
+        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository, eventBus);
         CommitWorkflowUseCaseInput input = new CommitWorkflowUseCaseInput();
         CommitWorkflowUseCaseOutput output = new CommitWorkflowUseCaseOutput();
 
