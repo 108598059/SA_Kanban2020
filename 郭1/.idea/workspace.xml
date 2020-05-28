@@ -108,7 +108,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.domain.usecase in 郭1">
+  <component name="RunManager" selected="JUnit.CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -131,6 +131,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="郭1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="domain.usecase.card.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="domain.usecase.card" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.card.CalculateMoveCardCycleTimeTest" />
+      <option name="METHOD_NAME" value="CalculateMoveCardCycleTime" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CreateBoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
       <extension name="coverage">
@@ -141,21 +157,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="domain.usecase.board" />
       <option name="MAIN_CLASS_NAME" value="domain.usecase.board.CreateBoardTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateWorkFlowTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="郭1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="domain.usecase.board.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase.workflow" />
-      <option name="MAIN_CLASS_NAME" value="domain.usecase.workflow.CreateWorkFlowTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -178,17 +179,17 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.MainFrame" />
-      <item itemvalue="JUnit.CreateWorkFlowTest" />
       <item itemvalue="JUnit.domain.usecase in 郭1" />
       <item itemvalue="JUnit.CreateBoardTest" />
+      <item itemvalue="JUnit.CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime" />
         <item itemvalue="JUnit.domain.usecase in 郭1" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.CreateBoardTest" />
         <item itemvalue="Application.MainFrame" />
-        <item itemvalue="JUnit.CreateWorkFlowTest" />
       </list>
     </recent_temporary>
   </component>

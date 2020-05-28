@@ -12,6 +12,7 @@ import domain.entity.FlowEvent;
 import domain.entity.card.Card;
 import domain.entity.workflow.Workflow;
 import domain.usecase.board.BoardRepository;
+import domain.usecase.card.cycletime.CycleTime;
 import domain.usecase.flowevent.FlowEventRepository;
 import domain.usecase.stage.create.CreateStageInput;
 import domain.usecase.stage.create.CreateStageOutput;
@@ -34,7 +35,7 @@ import java.text.SimpleDateFormat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
-public class CalculateCycleTimeTest {
+public class CalculateMoveCardCycleTimeTest {
 
     private static final String EMPTY_STRING = "";
     private static final String APPLY_PAY = "Implement Apple Pay";
@@ -53,85 +54,71 @@ public class CalculateCycleTimeTest {
 
     @Before
     public void createThreeCards() throws ParseException {
-        DateProvider.setDate(dateFormat.parse("2019-03-01 00 00:00"));
+
+
+        // record time
+        DateProvider.setDate(dateFormat.parse("2020-01-01 00:00:00"));
         eventBus = new DomainEventBus();
 
         boardRepository = new BoardRepositoryImpl();
         workflowRepository = new WorkflowRepositoryImpl();
         cardRepository = new CardRepositoryImpl();
         flowEventRepository = new InMemoryFlowEventRepository();
+
         eventBus.register(new WorkflowEventHandler(boardRepository, eventBus));
         eventBus.register(new CardEventHandler(flowEventRepository, workflowRepository, eventBus));
 
 
-
         util = new Utilities(flowEventRepository, boardRepository, workflowRepository, cardRepository, eventBus);
-        util.createWorkflowAndStageAndSwimlane();
+        util.createBoardAndWorkflowAndStageAndSwimlane();
 
+        // 1 board, 1 workflow, 4 stage, 4 swimlane
 
-        util.createCardOnSwimlane(new String [] {"apple pay", "Line pay", "Pay by VISA"});
+        // board -> workflow -> ReadyStage -> ReadySwimlane
+        // -------------------> AnalysislStage -> AnalysisSwimlane
+        // -------------------> DevelopmentStage -> DevelopmentSwimlane
+        // -------------------> TestStage -> TestSwimlane
 
-//        assertEquals(3, flowEventRepository.getFlowEvents().size());
-//        assertEquals(3, util.getReady().getCards().size());
-//        assertEquals(0, util.getAnalysis().getCards().size());
-        System.out.println(flowEventRepository.getFlowEvents().toString());
+        util.createCardOnFirstSwimlane(new String [] {"coffee", "milk tea", "cola"});
+
+        // card create should commit to its workflow
+        // and save cardCommitted FlowEvent
+        assertEquals(3, flowEventRepository.getFlowEvents().size());
+        assertEquals(3, util.getReady().getCards().size());
+        assertEquals(0, util.getAnalysis().getCards().size());
     }
 
     @Test
-    public void b() throws ParseException {
-        DateProvider.setDate(dateFormat.parse("2020-05-27 23:00:00"));
-        System.out.println(util.getCardId().get(0));
-        util.moveCard(util.getWorkflowId(),
+    public void CalculateMoveCardCycleTime() throws ParseException {
+
+        DateProvider.setDate(dateFormat.parse("2020-01-02 01:01:02"));
+
+        // move card from Ready to Analysis
+        util.moveCard(
+                util.getWorkflowId(),
+                util.getReadyStageId(),
+                util.getAnalysisStageId(),
+                util.getReadySwimlaneId(),
+                util.getAnalysisSwimlaneId(),
+                util.getCardId().get(0));
+        System.out.println(flowEventRepository.getFlowEvents().get(3).getOccurredOn().getTime());
+
+        assertEquals(2, util.getReady().getCards().size());
+        assertEquals(1, util.getAnalysis().getCards().size());
+        assertEquals(4, flowEventRepository.getFlowEvents().size());
+
+
+        CycleTime cycleTime = util.calculateCycleTime(
+                util.getWorkflowId(),
                 util.getReadyStageId(),
                 util.getAnalysisStageId(),
                 util.getReadySwimlaneId(),
                 util.getAnalysisSwimlaneId(),
                 util.getCardId().get(0));
 
-        assertEquals(2, util.getReady().getCards().size());
-        assertEquals(1, util.getAnalysis().getCards().size());
-
-        assertEquals(4, flowEventRepository.getFlowEvents().size());
-
-
-//
-//        DateProvider.setDate(dateFormat.parse("2019-03-05 00:00:00"));
-//        moveCard(APPLY_PAY_ID, kanbanDefaultWorkflow, util.getAnalysis(), util.getDevelopment());
-//
-//
-//
-//        DateProvider.setDate(dateFormat.parse("2019-03-07 00:00:00"));
-//        moveCard(APPLY_PAY_ID, kanbanDefaultWorkflow, util.getDevelopment(), util.getTest());
-//
-//
-//
-//        DateProvider.setDate(dateFormat.parse("2019-03-10 00:00:00"));
-//        moveCard(APPLY_PAY_ID, kanbanDefaultWorkflow, util.getTest(), util.getReadyToDeploy());
-//
-//
-//        DateProvider.setDate(dateFormat.parse("2019-03-20 00:00:00"));
-//        moveCard(APPLY_PAY_ID, kanbanDefaultWorkflow, util.getReadyToDeploy(), util.getDeployed());
-//
-//
-//
-//        // move card backward to see what happens
-//        DateProvider.setDate(dateFormat.parse("2019-03-20 01:00:00"));
-//        moveCard(APPLY_PAY_ID, kanbanDefaultWorkflow, util.getDeployed(), util.getReadyToDeploy());
-//
-//        DateProvider.setDate(dateFormat.parse("2019-03-20 01:03:00"));
-//        moveCard(APPLY_PAY_ID, kanbanDefaultWorkflow, util.getReadyToDeploy(), util.getDeployed());
-//
-//        DateProvider.setDate(dateFormat.parse("2019-03-28 00:00:00"));
-//        Card card = util.getCardRepository().findFirstByName(APPLY_PAY);
-//        CycleTimeCalculator cycleTimeCalculator = new CycleTimeCalculator(flowEventRepository);
-//        List<FlowEntryPair> flowEntryPairs = cycleTimeCalculator.getCycleTime(card.getId());
-//
-//        System.out.println();
-//        System.out.println("Card : [" + card.getName() + "]");
-//        for (FlowEntryPair each : flowEntryPairs){
-//            Lane lane = kanbanDefaultWorkflow.findLaneById(each.getLaneId());
-//            System.out.print("[" + lane.getName() + "] ");
-//            System.out.println(each.getCycleTime().toString());
-//        }
+        assertEquals(1, cycleTime.getDiffDays());
+        assertEquals(1, cycleTime.getDiffHours());
+        assertEquals(1, cycleTime.getDiffMinutes());
+        assertEquals(2, cycleTime.getDiffSeconds());
     }
 }

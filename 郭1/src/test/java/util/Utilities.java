@@ -2,10 +2,7 @@ package util;
 
 import domain.adapters.controller.board.CreateBoardInputImpl;
 import domain.adapters.controller.board.CreateBoardOutputImpl;
-import domain.adapters.controller.card.CreateCardInputImpl;
-import domain.adapters.controller.card.CreateCardOutputImpl;
-import domain.adapters.controller.card.MoveCardInputImpl;
-import domain.adapters.controller.card.MoveCardOutputImpl;
+import domain.adapters.controller.card.*;
 import domain.adapters.controller.workflow.*;
 import domain.adapters.repository.WorkflowRepositoryImpl;
 import domain.entity.DomainEventBus;
@@ -23,6 +20,10 @@ import domain.usecase.card.CardRepository;
 import domain.usecase.card.create.CreateCardInput;
 import domain.usecase.card.create.CreateCardOutput;
 import domain.usecase.card.create.CreateCardUseCase;
+import domain.usecase.card.cycletime.CalculateCycleTimeInput;
+import domain.usecase.card.cycletime.CalculateCycleTimeOutput;
+import domain.usecase.card.cycletime.CalculateCycleTimeUseCase;
+import domain.usecase.card.cycletime.CycleTime;
 import domain.usecase.card.move.MoveCardInput;
 import domain.usecase.card.move.MoveCardOutput;
 import domain.usecase.card.move.MoveCardUseCase;
@@ -76,7 +77,7 @@ public class Utilities {
 
     }
 
-    public void createWorkflowAndStageAndSwimlane() {
+    public void createBoardAndWorkflowAndStageAndSwimlane() {
 
         boardId = createBoard("kanbanboard");
         workflowId = createWorkflow(boardId, "kanbanWorkflow");
@@ -94,7 +95,7 @@ public class Utilities {
 
     }
 
-    public void createCardOnSwimlane(String[] strings) {
+    public void createCardOnFirstSwimlane(String[] strings) {
         for(String name : strings){
             cardId.add(createCard(name));
         }
@@ -161,7 +162,22 @@ public class Utilities {
         moveCardUseCaseInput.setCardId(cardId);
 
         moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+    }
+    public CycleTime calculateCycleTime(String workflowId, String fromStageId, String toStageId, String fromSwimlaneId, String toSwimlaneId, String cardId){
 
+        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository);
+        CalculateCycleTimeInput input = new CalculateCycleTimeInputImpl();
+        CalculateCycleTimeOutput output = new CalculateCycleTimeOutputImpl();
+
+        input.setWorkflowId(workflowId);
+        input.setCardId(cardId);
+        input.setFromStageId(fromStageId);
+        input.setToStageId(toStageId);
+        input.setFromSwimlane(fromSwimlaneId);
+        input.setToSwimlane(toSwimlaneId);
+
+        calculateCycleTimeUseCase.execute(input, output);
+        return output.getCycleTime();
     }
 
     public CardRepository getCardRepository() {
