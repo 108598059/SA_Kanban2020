@@ -1,8 +1,8 @@
-package phd.sa.csie.ntut.edu.tw.usecase.column.read;
+package phd.sa.csie.ntut.edu.tw.usecase.board.enter;
 
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
-public class GetColumnsByBoardIDUseCaseInput implements UseCaseInput {
+public class EnterBoardUseCaseInput implements UseCaseInput {
     private String boardID;
 
     public String getBoardID() {

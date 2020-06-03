@@ -8,7 +8,7 @@ import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.enter.EnterBoardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
@@ -50,7 +50,7 @@ public class AppConfig {
     }
 
     @Bean
-    public GetColumnsByBoardIDUseCase getGetColumnsByBoardIDUseCase() {
-        return new GetColumnsByBoardIDUseCase(this.getBoardRepository(), this.getCardRepository());
+    public EnterBoardUseCase getGetColumnsByBoardIDUseCase() {
+        return new EnterBoardUseCase(this.getBoardRepository(), this.getCardRepository());
     }
 }

@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.column.read;
+package phd.sa.csie.ntut.edu.tw.usecase.board.enter;
 
 
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
@@ -6,7 +6,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface GetColumnsByBoardIDUseCaseOutput extends UseCaseOutput {
+public interface EnterBoardUseCaseOutput extends UseCaseOutput {
     public static class ColumnViewObject {
         private String id;
         private String title;

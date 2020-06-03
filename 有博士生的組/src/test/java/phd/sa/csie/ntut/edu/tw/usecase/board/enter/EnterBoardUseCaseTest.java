@@ -1,9 +1,9 @@
-package phd.sa.csie.ntut.edu.tw.usecase.column.read;
+package phd.sa.csie.ntut.edu.tw.usecase.board.enter;
 
 import org.junit.Before;
 import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter;
-import phd.sa.csie.ntut.edu.tw.adapter.presenter.column.read.GetColumnsByBoardIDPresenter;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.enter.EnterBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
@@ -22,7 +22,7 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class GetColumnsByBoardIDUseCaseTest {
+public class EnterBoardUseCaseTest {
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
     private UUID boardID;
@@ -56,16 +56,16 @@ public class GetColumnsByBoardIDUseCaseTest {
 
     @Test
     public void test_get_columns_structure_by_board_id() {
-        GetColumnsByBoardIDUseCase getColumnsByBoardIDUseCase = new GetColumnsByBoardIDUseCase(this.boardRepository, this.cardRepository);
-        GetColumnsByBoardIDUseCaseInput getColumnsByBoardIDUsecaseInput = new GetColumnsByBoardIDUseCaseInput();
-        GetColumnsByBoardIDUseCaseOutput getColumnsByBoardIDUsecaseOutput = new GetColumnsByBoardIDPresenter();
+        EnterBoardUseCase enterBoardUseCase = new EnterBoardUseCase(this.boardRepository, this.cardRepository);
+        EnterBoardUseCaseInput enterBoardUsecaseInput = new EnterBoardUseCaseInput();
+        EnterBoardUseCaseOutput enterBoardUsecaseOutput = new EnterBoardPresenter();
 
-        getColumnsByBoardIDUsecaseInput.setBoardID(this.boardID.toString());
+        enterBoardUsecaseInput.setBoardID(this.boardID.toString());
 
-        getColumnsByBoardIDUseCase.execute(getColumnsByBoardIDUsecaseInput, getColumnsByBoardIDUsecaseOutput);
+        enterBoardUseCase.execute(enterBoardUsecaseInput, enterBoardUsecaseOutput);
 
-        assertEquals(2, getColumnsByBoardIDUsecaseOutput.getColumnList().size());
-        GetColumnsByBoardIDUseCaseOutput.ColumnViewObject backlogColumn = getColumnsByBoardIDUsecaseOutput.getColumnList().get(0);
+        assertEquals(2, enterBoardUsecaseOutput.getColumnList().size());
+        EnterBoardUseCaseOutput.ColumnViewObject backlogColumn = enterBoardUsecaseOutput.getColumnList().get(0);
         assertEquals("Backlog", backlogColumn.getTitle());
         assertNotNull(backlogColumn.getID());
         assertEquals(0, backlogColumn.getWIP());

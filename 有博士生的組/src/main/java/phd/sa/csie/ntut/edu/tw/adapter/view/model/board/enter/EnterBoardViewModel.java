@@ -1,17 +1,17 @@
-package phd.sa.csie.ntut.edu.tw.adapter.view.model.column;
+package phd.sa.csie.ntut.edu.tw.adapter.view.model.board.enter;
 
 import phd.sa.csie.ntut.edu.tw.adapter.view.model.AbstractViewModel;
-import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.usecase.board.enter.EnterBoardUseCaseOutput;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColumnViewModel extends AbstractViewModel {
+public class EnterBoardViewModel extends AbstractViewModel {
     private List<ColumnViewObject> columnList;
 
-    public ColumnViewModel(GetColumnsByBoardIDUseCaseOutput output) {
+    public EnterBoardViewModel(EnterBoardUseCaseOutput output) {
         this.columnList = new ArrayList<>();
-        for (GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject: output.getColumnList()) {
+        for (EnterBoardUseCaseOutput.ColumnViewObject columnViewObject: output.getColumnList()) {
             this.columnList.add(new ColumnViewObject(columnViewObject));
         }
     }
@@ -22,12 +22,12 @@ public class ColumnViewModel extends AbstractViewModel {
         private int wip;
         private List<ColumnViewObject.CardViewObject> cardList;
 
-        public ColumnViewObject(GetColumnsByBoardIDUseCaseOutput.ColumnViewObject columnViewObject) {
+        public ColumnViewObject(EnterBoardUseCaseOutput.ColumnViewObject columnViewObject) {
             this.id = columnViewObject.getID();
             this.title = columnViewObject.getTitle();
             this.wip = columnViewObject.getWIP();
             this.cardList = new ArrayList<>();
-            for (GetColumnsByBoardIDUseCaseOutput.ColumnViewObject.CardViewObject cardViewObject:
+            for (EnterBoardUseCaseOutput.ColumnViewObject.CardViewObject cardViewObject:
                     columnViewObject.getCardList()) {
                 this.cardList.add(new CardViewObject(cardViewObject));
             }
@@ -37,7 +37,7 @@ public class ColumnViewModel extends AbstractViewModel {
             private String id;
             private String name;
 
-            public CardViewObject(GetColumnsByBoardIDUseCaseOutput.ColumnViewObject.CardViewObject cardViewObject) {
+            public CardViewObject(EnterBoardUseCaseOutput.ColumnViewObject.CardViewObject cardViewObject) {
                 this.id = cardViewObject.getID();
                 this.name = cardViewObject.getName();
             }
