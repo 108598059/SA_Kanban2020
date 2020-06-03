@@ -46,11 +46,12 @@ public class HierarchyInitial {
     }
 
     public String CreateColumn(String workflowId){
-        CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(workflowRepository);
+        CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(workflowRepository, domainEventBus);
         CreateColumnInput createColumnInput = new CreateColumnInput("column1", workflowId);
         CreateColumnOutput createColumnOutput = new CreateColumnOutput();
 
         createColumnUseCase.execute(createColumnInput, createColumnOutput);
+
         return createColumnOutput.getColumnId();
     }
 }

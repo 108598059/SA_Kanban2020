@@ -8,6 +8,8 @@ import ddd.kanban.domain.model.card.Card;
 import ddd.kanban.domain.model.workflow.Lane;
 import ddd.kanban.domain.model.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
+import ddd.kanban.usecase.card.entity.CardEntity;
+import ddd.kanban.usecase.card.mapper.CardEntityMapper;
 import ddd.kanban.usecase.handler.DomainEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.CardRepository;
@@ -52,7 +54,7 @@ public class CreateCardUseCaseTest {
 
         createCardUseCase.execute(createCardInput, createCardOutput);
 
-        Card card = cardRepository.findById(createCardOutput.getCardId());
+        Card card = CardEntityMapper.mappingCardFrom(cardRepository.findById(createCardOutput.getCardId()));
 
         assertEquals(cardTitle, card.getTitle());
         assertEquals(createCardOutput.getCardId(), card.getId());

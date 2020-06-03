@@ -34,13 +34,12 @@ public class CreateColumnUseCaseTest {
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
         boardId = hierarchyInitial.CreateBoard();
         workflowId = hierarchyInitial.CreateWorkflow(boardId);
-
     }
 
 
     @Test
     public void testCreateColumn(){
-        CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(workflowRepository);
+        CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(workflowRepository, domainEventBus);
         CreateColumnInput createColumnInput = new CreateColumnInput("column", workflowId);
         CreateColumnOutput createColumnOutput = new CreateColumnOutput();
 

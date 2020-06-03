@@ -1,11 +1,8 @@
-package ddd.kanban.usecase.card.cycleTime.calculate;
+package ddd.kanban.usecase.card.cycleTime;
 
 import ddd.kanban.domain.model.FlowEvent;
-import ddd.kanban.domain.model.card.event.CardUnCommitted;
-import ddd.kanban.domain.model.workflow.Lane;
 import ddd.kanban.usecase.repository.FlowEventRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.entity.ColumnEntity;
 import ddd.kanban.usecase.workflow.entity.ColumnEntity;
 
 import java.util.ArrayList;
@@ -64,21 +61,18 @@ public class CalculateCycleTimeUseCase {
         Boolean isInLaneInterval = false;
 
         for(ColumnEntity laneEntity: this.workflowRepository.findById(workflowId).getLaneEntities()){
-            if (isInLaneInterval || laneEntity.getId() == beginningLaneId){
+            if (isInLaneInterval || laneEntity.getId().equals(beginningLaneId)){
                 laneIntervalIds.add(laneEntity.getId());
-                isInLaneInterval = (laneEntity.getId() == endLaneId) ? false : true;
+                isInLaneInterval = (laneEntity.getId().equals(endLaneId)) ? false : true;
             }
         }
         return laneIntervalIds;
     }
 
     private CycleTime calculateCycleTime(List<FlowEventPair> flowEventPairs, List<String> laneIntervalIds) {
-        long diff = 0;
-        for(FlowEventPair flowEventPair: flowEventPairs){
-            if (laneIntervalIds.contains(flowEventPair.getLaneId())){
-                diff += flowEventPair.getCycleTime().getMillisecond();
-            }
-        }
+        long diff = flowEventPairs.stream()
+                    .mapToLong(flowEventPair -> flowEventPair.getCycleTime().getMillisecond())
+                    .sum();
         return new CycleTime(diff);
     }
 }

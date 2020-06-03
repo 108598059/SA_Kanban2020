@@ -9,11 +9,11 @@ public class BoardDTO {
     private String description;
     private List<String> workflowIds;
 
-    public BoardDTO(String id, String title, String description){
+    public BoardDTO(String id, String title, String description, List<String> workflowIds){
         this.id = id;
         this.title = title;
         this.description = description;
-        this.workflowIds = new ArrayList<>();
+        this.workflowIds = workflowIds;
     }
 
     public String getId() {
@@ -30,9 +30,5 @@ public class BoardDTO {
 
     public List<String> getWorkflowIds() {
         return workflowIds;
-    }
-
-    public void setWorkflowIds(List<String> workflowIds) {
-        this.workflowIds = workflowIds;
     }
 }

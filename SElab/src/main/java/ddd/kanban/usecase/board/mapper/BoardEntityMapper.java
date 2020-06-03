@@ -5,14 +5,11 @@ import ddd.kanban.usecase.board.entity.BoardEntity;
 
 public class BoardEntityMapper {
     public static Board mappingBoardFrom(BoardEntity boardEntity){
-        Board board = new Board(boardEntity.getId(), boardEntity.getTitle(), boardEntity.getDescription());
-        board.setWorkflowIds(boardEntity.getWorkflowIds());
-        return board;
+        return new Board(boardEntity.getId(), boardEntity.getTitle(), boardEntity.getDescription()
+                , boardEntity.getWorkflowIds());
     }
 
     public static BoardEntity mappingBoardEntityFrom(Board board){
-        BoardEntity boardEntity = new BoardEntity(board.getId(), board.getTitle(), board.getDescription());
-        boardEntity.setWorkflowIds(board.getWorkflowIds());
-        return boardEntity;
+        return new BoardEntity(board.getId(), board.getTitle(), board.getDescription(), board.getWorkflowIds());
     }
 }
