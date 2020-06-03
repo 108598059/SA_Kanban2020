@@ -25,7 +25,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardEnteredColumnEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.EventSourcingHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.dto.DomainEventDTO;
@@ -74,9 +73,6 @@ public class MoveCardUseCaseTest {
         createCardUseCaseInput.setCardName("Implement a board");
         this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
         this.card2 = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
-
-        DomainEventHandler cardEnterColumnEventHandler = new CardEnteredColumnEventHandler(this.eventBus, this.cardRepository);
-        this.eventBus.register(cardEnterColumnEventHandler);
 
         this.fromColumnID = board.getBacklogColumn().getID().toString();
 
@@ -132,7 +128,7 @@ public class MoveCardUseCaseTest {
 
         moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
-        assertEquals(3, eventLogRepository.size());
+        assertEquals(2, eventLogRepository.size());
 
         List<DomainEventDTO> eventList = eventLogRepository.getAll();
 

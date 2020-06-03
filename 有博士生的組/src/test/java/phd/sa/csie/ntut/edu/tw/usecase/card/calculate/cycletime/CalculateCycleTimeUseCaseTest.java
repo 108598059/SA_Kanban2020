@@ -7,6 +7,7 @@ import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardReposi
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardEnteredColumnEventRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardLeftColumnEventRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
+import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
@@ -23,8 +24,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.BoardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardEnteredColumnEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.move.MoveCardEventSourcingHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.event.CardEnteredColumnEventRepository;
@@ -58,34 +59,17 @@ public class CalculateCycleTimeUseCaseTest {
         this.cardLeftColumnEventRepository = new MemoryCardLeftColumnEventRepository();
         this.moveCardEventSourcingHandler = new MoveCardEventSourcingHandler(this.cardEnteredColumnEventRepository,
                                                                              this.cardLeftColumnEventRepository);
-        CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
         this.eventBus.register(this.moveCardEventSourcingHandler);
 
         this.board = new Board(UUID.randomUUID(), "Kanban");
+        this.board.createColumn("Backlog", 0);
+        this.board.createColumn("Develop", 1);
+        this.board.createColumn("Archive", 2);
+
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
         CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository);
         this.eventBus.register(cardCreatedEventHandler);
-
-        DomainEventHandler cardEnterColumnEventHandler = new CardEnteredColumnEventHandler(this.eventBus, this.cardRepository);
-        this.eventBus.register(cardEnterColumnEventHandler);
-
-        CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
-        CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
-
-        createColumnUseCaseInput.setBoardID(this.board.getID().toString());
-
-        createColumnUseCaseInput.setColumnIndex(0);
-        createColumnUseCaseInput.setTitle("Backlog");
-        createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
-
-        createColumnUseCaseInput.setColumnIndex(1);
-        createColumnUseCaseInput.setTitle("develop");
-        createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
-
-        createColumnUseCaseInput.setColumnIndex(2);
-        createColumnUseCaseInput.setTitle("Archive");
-        createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
         this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
     }

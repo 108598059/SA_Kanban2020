@@ -2,9 +2,11 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.enter;
 
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.board.Column;
+import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
+import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
@@ -36,11 +38,11 @@ public class EnterBoardUseCase extends UseCase<EnterBoardUseCaseInput, EnterBoar
             List<EnterBoardUseCaseOutput.ColumnViewObject.CardViewObject> cardList = new ArrayList<>();
             List<UUID> cardIDList = column.getCardIDs();
             for (UUID cardID: cardIDList) {
-                CardDTO cardDTO = this.cardRepository.findByID(cardID.toString());
+                Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(cardID.toString()));
                 EnterBoardUseCaseOutput.ColumnViewObject.CardViewObject cardViewObject =
                         new EnterBoardUseCaseOutput.ColumnViewObject.CardViewObject();
-                cardViewObject.setID(cardDTO.getID());
-                cardViewObject.setName(cardDTO.getName());
+                cardViewObject.setID(card.getID().toString());
+                cardViewObject.setName(card.getName());
                 cardList.add(cardViewObject);
             }
             columnViewObject.setCardList(cardList);

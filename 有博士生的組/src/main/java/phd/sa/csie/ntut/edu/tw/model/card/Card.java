@@ -39,14 +39,6 @@ public class Card extends AggregateRoot {
         return this.name;
     }
 
-    public UUID getBelongsColumnID() {
-        return UUID.randomUUID();
-    }
-
-    public void setBelongsColumnID(UUID belongsColumnID) {
-        this.addDomainEvent(new CardBelongsColumnSetEvent(this.id.toString(), belongsColumnID.toString()));
-    }
-
     public long getLeadTime() {
         return leadTime;
     }
