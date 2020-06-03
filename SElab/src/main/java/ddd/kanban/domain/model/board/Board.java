@@ -1,6 +1,7 @@
 package ddd.kanban.domain.model.board;
 
 
+import com.google.common.io.LittleEndianDataOutputStream;
 import ddd.kanban.domain.model.AggregateRoot;
 import ddd.kanban.domain.model.board.event.BoardCreated;
 
@@ -18,6 +19,12 @@ public class Board extends AggregateRoot {
         this.description = description;
         this.workflowIds = new ArrayList<>();
         addDomainEvent(new BoardCreated(this.id, title, UUID.randomUUID().toString()));
+    }
+
+    public Board(String id, String title, String description, List<String> workflowIds){
+        super(id, title);
+        this.description = description;
+        this.workflowIds = workflowIds;
     }
 
     public String getDescription() {

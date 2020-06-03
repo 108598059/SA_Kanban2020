@@ -83,7 +83,7 @@ public class CommitWorkflowUseCaseTest {
 
         CommitWorkflowInput commitWorkflowInput = new CommitWorkflowInput(this.boardId, workflow.getId());
         CommitWorkflowOutput commitWorkflowOutput = new CommitWorkflowOutput();
-        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(this.boardRepository);
+        CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(this.boardRepository, domainEventBus);
 
         commitWorkflowUseCase.execute(commitWorkflowInput, commitWorkflowOutput);
 

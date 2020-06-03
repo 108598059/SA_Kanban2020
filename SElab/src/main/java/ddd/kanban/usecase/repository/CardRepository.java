@@ -1,13 +1,13 @@
 package ddd.kanban.usecase.repository;
 
-import ddd.kanban.domain.model.card.Card;
+import ddd.kanban.usecase.card.entity.CardEntity;
 
 public interface CardRepository {
-    void add(Card card);
+    void add(CardEntity card);
 
-    void update(Card card);
+    void update(CardEntity card);
 
-    void save(Card card);
+    void save(CardEntity card);
 
-    Card findById(String cardId);
+    CardEntity findById(String cardId);
 }
