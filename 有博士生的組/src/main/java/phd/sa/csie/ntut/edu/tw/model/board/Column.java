@@ -11,12 +11,14 @@ public class Column extends Entity {
     private String title;
     private int wip;
     private List<UUID> cardIDs;
+    private List<UUID> preservedPosition;
 
     public Column(String title) {
         super();
         this.setTitle(title);
         this.wip = 0;
         this.cardIDs = new ArrayList<>();
+        this.preservedPosition = new ArrayList<>();
     }
 
     public Column(Column col) {
@@ -24,15 +26,17 @@ public class Column extends Entity {
         this.setTitle(col.title);
         this.wip = col.wip;
         this.cardIDs = new ArrayList<>();
+        this.preservedPosition = new ArrayList<>();
         for (UUID cardID : col.cardIDs) {
             this.cardIDs.add(cardID);
         }
     }
 
-    public Column(UUID id, String title, List<UUID> cardIDs, int wip) {
+    public Column(UUID id, String title, List<UUID> cardIDs, List<UUID> preservedPosition, int wip) {
         this.id = id;
         this.setTitle(title);
         this.cardIDs = cardIDs;
+        this.preservedPosition = preservedPosition;
         this.wip = wip;
     }
 
@@ -59,15 +63,12 @@ public class Column extends Entity {
     }
 
     public void addCard(UUID id) {
-        if (this.wip != 0 && cardIDs.size() == this.wip) {
-            throw new IllegalStateException("The card cannot be moved to the column that has achieved its WIP limit.");
-        } else {
-            cardIDs.add(id);
-        }
+        cardIDs.add(id);
     }
 
     public void removeCard(UUID id) {
-        cardIDs.remove(id);
+        this.preservedPosition.add(id);
+        this.cardIDs.remove(id);
     }
 
     public boolean cardExist(UUID id) {
@@ -83,4 +84,15 @@ public class Column extends Entity {
         return this.cardIDs;
     }
 
+    public List<UUID> getPreservedPosition() {
+        return this.preservedPosition;
+    }
+
+    public void releasePreservedPosition(UUID targetID) {
+        for (UUID cardID: this.preservedPosition) {
+            if (cardID.equals(targetID)) {
+                this.preservedPosition.remove(cardID);
+            }
+        }
+    }
 }

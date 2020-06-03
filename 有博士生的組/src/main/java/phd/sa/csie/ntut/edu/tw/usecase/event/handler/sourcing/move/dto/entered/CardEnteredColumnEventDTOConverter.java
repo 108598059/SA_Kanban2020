@@ -12,7 +12,7 @@ public class CardEnteredColumnEventDTOConverter {
         cardEnteredColumnEventDTO.setSourceID(e.getSourceID());
         cardEnteredColumnEventDTO.setSourceName(e.getSourceName());
         cardEnteredColumnEventDTO.setCardID(e.getCardID());
-        cardEnteredColumnEventDTO.setColumnID(e.getColumnID());
+        cardEnteredColumnEventDTO.setColumnID(e.getToColumnID());
 
         return cardEnteredColumnEventDTO;
     }

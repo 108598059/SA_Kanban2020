@@ -8,6 +8,7 @@ public class ColumnDTO extends DTO {
     private String title;
     private int wip;
     private List<String> cardIDs;
+    private List<String> preservedPosition;
 
     public String getTitle() {
         return title;
@@ -32,5 +33,12 @@ public class ColumnDTO extends DTO {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
+    public List<String> getPreservedPosition() {
+        return preservedPosition;
+    }
+
+    public void setPreservedPosition(List<String> preservedPosition) {
+        this.preservedPosition = preservedPosition;
+    }
 }

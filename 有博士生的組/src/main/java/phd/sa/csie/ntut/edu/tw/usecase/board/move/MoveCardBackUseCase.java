@@ -1,17 +1,17 @@
 package phd.sa.csie.ntut.edu.tw.usecase.board.move;
 
-import java.util.UUID;
-
-import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
-public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCaseOutput> {
+import java.util.UUID;
+
+public class MoveCardBackUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCaseOutput> {
     private BoardRepository boardRepository;
 
-    public MoveCardUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
+    public MoveCardBackUseCase(DomainEventBus eventBus, BoardRepository boardRepository) {
         super(eventBus);
         this.boardRepository = boardRepository;
     }
@@ -22,7 +22,7 @@ public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCa
         String fromColumnID = input.getFromColumnID();
         String toColumnID = input.getToColumnID();
 
-        String newColumnID = board.moveCard(UUID.fromString(cardID),
+        String newColumnID = board.moveCardBack(UUID.fromString(cardID),
                 UUID.fromString(fromColumnID),
                 UUID.fromString(toColumnID));
 

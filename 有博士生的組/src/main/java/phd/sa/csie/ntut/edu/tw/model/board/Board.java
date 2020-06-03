@@ -1,5 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
+import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardMovedBackEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.AggregateRoot;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.ColumnCreatedEvent;
@@ -34,7 +35,7 @@ public class Board extends AggregateRoot {
     public void commitCard(Card card) {
         Column backlog = this.columns.get(0);
         backlog.addCard(card.getID());
-        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), card.getID().toString(), backlog.getID().toString()));
+        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), card.getID().toString(), backlog.getID().toString(), null));
     }
 
     public int getColumnNumber() {
@@ -95,8 +96,20 @@ public class Board extends AggregateRoot {
         this.addDomainEvent(new CardLeftColumnEvent(this.id.toString(), cardID.toString(), fromColumnID.toString()));
 
         to.addCard(cardID);
-        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), cardID.toString(), toColumnID.toString()));
+        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), cardID.toString(), toColumnID.toString(), fromColumnID.toString()));
 
+        return to.getID().toString();
+    }
+
+    public String moveCardBack(UUID cardID, UUID fromColumnID, UUID toColumnID) {
+        Column from = this.getColumnByID(fromColumnID);
+        Column to = this.getColumnByID(toColumnID);
+
+        from.removeCard(cardID);
+        to.addCard(cardID);
+
+        this.releasePreservedPosition(toColumnID, toColumnID);
+        this.addDomainEvent(new CardMovedBackEvent(this.id.toString(), toColumnID.toString(), cardID.toString()));
         return to.getID().toString();
     }
 
@@ -123,5 +136,27 @@ public class Board extends AggregateRoot {
 
     public void setWorkspaceID(UUID workspaceID) {
         this.workspaceID = workspaceID;
+    }
+
+    public boolean checkWIP(UUID columnID) {
+        Column column = this.getColumnByID(columnID);
+
+        if (column.getWIP() == 0) {
+            return true;
+        }
+
+        int wip = 0;
+        wip += column.getCardIDs().size();
+        wip += column.getPreservedPosition().size();
+
+        if (wip <= column.getWIP()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void releasePreservedPosition(UUID columnID, UUID cardID) {
+        Column column = this.getColumnByID(columnID);
+        column.releasePreservedPosition(cardID);
     }
 }

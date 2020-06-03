@@ -86,6 +86,20 @@ public class MysqlBoardRepository extends BoardRepository {
                             cardColumnMapperStmt.executeUpdate();
                         }
                     }
+
+                    PreparedStatement getPreservedPositionStmt = connection.prepareStatement(
+                            "DELETE FROM `PreservedPositionMapper` WHERE `ColumnID`=?");
+                    getPreservedPositionStmt.setString(1, columnDTO.getID());
+                    getPreservedPositionStmt.executeUpdate();
+
+                    for (String cardID: columnDTO.getPreservedPosition()) {
+                        PreparedStatement preservedPositionMapperstmt = connection.prepareStatement(
+                                "INSERT INTO `PreservedPositionMapper`(`CardID`, `ColumnID`) " +
+                                        "VALUES (?, ?)");
+                        preservedPositionMapperstmt.setString(1, cardID);
+                        preservedPositionMapperstmt.setString(2, columnDTO.getID());
+                        preservedPositionMapperstmt.executeUpdate();
+                    }
                 } else {
                     this.insertColumn(connection, columnDTO, boardDTO.getID(), columnDTOList.indexOf(columnDTO));
                 }
@@ -147,6 +161,22 @@ public class MysqlBoardRepository extends BoardRepository {
                 }
 
                 columnDTO.setCardIDs(cardIDs);
+
+                PreparedStatement preservedPositionStmt = connection.prepareStatement(
+                        "SELECT `CardID` " +
+                            "FROM `PreservedPositionMapper` " +
+                            "WHERE `ColumnID`=?");
+                preservedPositionStmt.setString(1, columnDTO.getID());
+
+                ResultSet preservedPositionResult = preservedPositionStmt.executeQuery();
+
+                List<String> preservedPosition = new ArrayList<>();
+                while (cardsResult.next()) {
+                    preservedPosition.add(cardsResult.getString("CardID"));
+                }
+
+                columnDTO.setPreservedPosition(preservedPosition);
+
                 columnDTOList.add(columnDTO);
             }
             boardDTO.setColumnDTOs(columnDTOList);

@@ -26,6 +26,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.CardEnteredColumnEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.EventSourcingHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.dto.DomainEventDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -62,11 +63,14 @@ public class MoveCardUseCaseTest {
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
         this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
 
+        CardEnteredColumnEventHandler cardEnteredColumnEventHandler = new CardEnteredColumnEventHandler(this.eventBus, this.boardRepository);
+        this.eventBus.register(cardEnteredColumnEventHandler);
+
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
         createCardUseCaseInput.setCardName("Implement a column");
-        createCardUseCaseInput.setBoardID(this.boardID.toString());
+        createCardUseCaseInput.setBoardID(this.boardID);
         this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
         this.card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
 
@@ -79,7 +83,7 @@ public class MoveCardUseCaseTest {
         CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
-        createColumnUseCaseInput.setBoardID(this.boardID.toString());
+        createColumnUseCaseInput.setBoardID(this.boardID);
         createColumnUseCaseInput.setTitle("develop");
 
         this.createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
@@ -104,7 +108,7 @@ public class MoveCardUseCaseTest {
         assertEquals(this.fromColumnID, moveCardUseCaseOutput.getOldColumnID());
         assertEquals(this.toColumnID, moveCardUseCaseOutput.getNewColumnID());
 
-        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.boardID.toString()));
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.boardID));
         assertTrue(board.findColumnByID(UUID.fromString(this.toColumnID)).cardExist(this.card.getID()));
         assertFalse(board.findColumnByID(UUID.fromString(this.fromColumnID)).cardExist(this.card.getID()));
     }
@@ -137,12 +141,12 @@ public class MoveCardUseCaseTest {
     }
 
     @Test
-    public void the_card_cannot_be_moved_to_the_column_when_WIP_limit_is_reached() {
+    public void if_move_to_a_column_reached_wip_limit_the_card_should_be_moved_back() {
         SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.eventBus, this.boardRepository);
         SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
         SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
 
-        setColumnWIPUseCaseInput.setBoardID(this.boardID.toString());
+        setColumnWIPUseCaseInput.setBoardID(this.boardID);
         setColumnWIPUseCaseInput.setColumnID(this.toColumnID);
         setColumnWIPUseCaseInput.setColumnWIP(1);
 
@@ -159,15 +163,14 @@ public class MoveCardUseCaseTest {
 
         moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
+        moveCardUseCaseInput.setCardID(this.card2.getID().toString());
 
-        try {
-            moveCardUseCaseInput.setCardID(this.card2.getID().toString());
-            moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
-        } catch (IllegalStateException e) {
-            assertEquals("The card cannot be moved to the column that has achieved its WIP limit.", e.getMessage());
-            return;
-        }
-        fail("The card cannot be moved to the column that has achieved its WIP limit.");
+        moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.boardID));
+        assertTrue(board.findColumnByID(UUID.fromString(this.toColumnID)).cardExist(this.card.getID()));
+        assertFalse(board.findColumnByID(UUID.fromString(this.fromColumnID)).cardExist(this.card.getID()));
+        assertFalse(board.findColumnByID(UUID.fromString(this.toColumnID)).cardExist(this.card2.getID()));
+        assertTrue(board.findColumnByID(UUID.fromString(this.fromColumnID)).cardExist(this.card2.getID()));
     }
-
 }
