@@ -5,6 +5,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.column.dto.ColumnDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
+import javax.security.auth.login.Configuration;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,19 +25,10 @@ public class MysqlBoardRepository extends BoardRepository {
 
             stmt.executeUpdate();
 
-            List<ColumnDTO> columnList = boardDTO.getColumnDTOs();
-            for (ColumnDTO columnDTO: columnList) {
-                PreparedStatement columnStmt = connection.prepareStatement(
-                        "INSERT INTO `Column`(`ID`, `Title`, `WIP`, `BoardID`, `Position`) " +
-                            "VALUES (?, ?, ?, ?, ?)");
-                columnStmt.setString(1, columnDTO.getID());
-                columnStmt.setString(2, columnDTO.getTitle());
-                columnStmt.setInt(3, columnDTO.getWIP());
-                columnStmt.setString(4, boardDTO.getID());
-                columnStmt.setInt(5, columnList.indexOf(columnDTO));
-                columnStmt.executeUpdate();
+            List<ColumnDTO> columnDTOList = boardDTO.getColumnDTOs();
+            for (ColumnDTO columnDTO: columnDTOList) {
+                this.insertColumn(connection, columnDTO, boardDTO.getID(), columnDTOList.indexOf(columnDTO));
             }
-
             DB_connector.closeConnection(connection);
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
@@ -54,18 +46,49 @@ public class MysqlBoardRepository extends BoardRepository {
 
             stmt.executeUpdate();
 
-            List<ColumnDTO> columnList = boardDTO.getColumnDTOs();
-            for (ColumnDTO columnDTO: columnList) {
-                PreparedStatement columnStmt = connection.prepareStatement(
-                        "UPDATE `Column` " +
-                            "SET `Title`=?,`WIP`=?,`BoardID`=?,`Position`=? " +
-                            "WHERE `ID`=?");
-                columnStmt.setString(1, columnDTO.getTitle());
-                columnStmt.setInt(2, columnDTO.getWIP());
-                columnStmt.setString(3, boardDTO.getID());
-                columnStmt.setInt(4, columnList.indexOf(columnDTO));
-                columnStmt.setString(5, columnDTO.getID());;
-                columnStmt.executeUpdate();
+            List<ColumnDTO> columnDTOList = boardDTO.getColumnDTOs();
+            for (ColumnDTO columnDTO: columnDTOList) {
+
+                PreparedStatement checkColumnStmt = connection.prepareStatement("SELECT * FROM `Column` " +
+                        "WHERE `ID`=?");
+                checkColumnStmt.setString(1, columnDTO.getID());
+                ResultSet checkColumnResult = checkColumnStmt.executeQuery();
+                if (checkColumnResult.next()) {
+                    PreparedStatement columnStmt = connection.prepareStatement(
+                            "UPDATE `Column` " +
+                                "SET `Title`=?,`WIP`=?,`BoardID`=?,`Position`=? " +
+                                "WHERE `ID`=?");
+                    columnStmt.setString(1, columnDTO.getTitle());
+                    columnStmt.setInt(2, columnDTO.getWIP());
+                    columnStmt.setString(3, boardDTO.getID());
+                    columnStmt.setInt(4, columnDTOList.indexOf(columnDTO));
+                    columnStmt.setString(5, columnDTO.getID());;
+                    columnStmt.executeUpdate();
+
+                    for (String cardID: columnDTO.getCardIDs()) {
+                        PreparedStatement checkCardColumnMapperStmt = connection.prepareStatement(
+                                "SELECT * FROM `CardColumnMapper` WHERE `CardID`=?");
+                        checkCardColumnMapperStmt.setString(1, cardID);
+                        ResultSet checkCardColumnMapperResult = checkCardColumnMapperStmt.executeQuery();
+
+                        if (checkCardColumnMapperResult.next()) {
+                            PreparedStatement cardColumnMapperStmt = connection.prepareStatement(
+                                    "UPDATE `CardColumnMapper` SET `ColumnID`=? WHERE `CardID`=?");
+                            cardColumnMapperStmt.setString(1, columnDTO.getID());
+                            cardColumnMapperStmt.setString(2, cardID);
+                            cardColumnMapperStmt.executeUpdate();
+                        } else {
+                            PreparedStatement cardColumnMapperStmt = connection.prepareStatement(
+                                    "INSERT INTO `CardColumnMapper`(`CardID`, `ColumnID`) " +
+                                            "VALUES (?, ?)");
+                            cardColumnMapperStmt.setString(1, cardID);
+                            cardColumnMapperStmt.setString(2, columnDTO.getID());
+                            cardColumnMapperStmt.executeUpdate();
+                        }
+                    }
+                } else {
+                    this.insertColumn(connection, columnDTO, boardDTO.getID(), columnDTOList.indexOf(columnDTO));
+                }
             }
 
             DB_connector.closeConnection(connection);
@@ -79,41 +102,50 @@ public class MysqlBoardRepository extends BoardRepository {
         try {
             Connection connection = DB_connector.getConnection();
 
-            PreparedStatement stmt = connection.prepareStatement(
+            PreparedStatement findBoardStmt = connection.prepareStatement(
+                    "SELECT * FROM `Board` WHERE `ID`=?"
+            );
+
+            findBoardStmt.setString(1, id);
+
+            ResultSet findBoardResultSet = findBoardStmt.executeQuery();
+            if (!findBoardResultSet.next()) {
+                throw new RuntimeException("Board not found");
+            }
+
+            BoardDTO boardDTO = new BoardDTO();
+            boardDTO.setID(findBoardResultSet.getString("Board.ID"));
+            boardDTO.setName(findBoardResultSet.getString("Board.Name"));
+            boardDTO.setWorkspaceID(findBoardResultSet.getString("Board.WorkspaceID"));
+
+            PreparedStatement findColumnsStmt = connection.prepareStatement(
                     "SELECT * FROM `Board`, `Column` " +
                         "WHERE `Board`.`ID`=? AND`Column`.`BoardID`=`Board`.`ID` " +
                         "ORDER BY `Column`.`Position` ASC");
-            stmt.setString(1, id);
+            findColumnsStmt.setString(1, id);
 
-            ResultSet resultSet = stmt.executeQuery();
+            ResultSet resultSet = findColumnsStmt.executeQuery();
 
-            BoardDTO boardDTO = new BoardDTO();
             List<ColumnDTO> columnDTOList = new ArrayList<>();
             while (resultSet.next()) {
-                if (boardDTO.getID() == null || boardDTO.getID().isEmpty()) {
-                    boardDTO.setID(resultSet.getString("Board.ID"));
-                    boardDTO.setName(resultSet.getString("Board.Name"));
-                    boardDTO.setWorkspaceID(resultSet.getString("Board.WorkspaceID"));
-                }
-
                 ColumnDTO columnDTO = new ColumnDTO();
                 columnDTO.setID(resultSet.getString("Column.ID"));
                 columnDTO.setTitle(resultSet.getString("Column.Title"));
                 columnDTO.setWIP(resultSet.getInt("Column.WIP"));
 
                 PreparedStatement cardStmt = connection.prepareStatement(
-                        "SELECT `Card`.`ID` " +
-                            "FROM `Column`, `Card` " +
-                            "WHERE `Column`.`ID`=? AND`Card`.`ColumnID`=`Column`.`ID`");
+                        "SELECT `CardID` " +
+                            "FROM `CardColumnMapper` " +
+                            "WHERE `ColumnID`=?");
                 cardStmt.setString(1, columnDTO.getID());
 
                 ResultSet cardsResult = cardStmt.executeQuery();
 
                 List<String> cardIDs = new ArrayList<>();
                 while (cardsResult.next()) {
-                    cardIDs.add(cardsResult.getString("ID"));
+                    cardIDs.add(cardsResult.getString("CardID"));
                 }
-                stmt.setString(1, id);
+
                 columnDTO.setCardIDs(cardIDs);
                 columnDTOList.add(columnDTO);
             }
@@ -122,5 +154,17 @@ public class MysqlBoardRepository extends BoardRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    private void insertColumn(Connection connection, ColumnDTO columnDTO, String boardID, int index) throws SQLException {
+        PreparedStatement columnStmt = connection.prepareStatement(
+                "INSERT INTO `Column`(`ID`, `Title`, `WIP`, `BoardID`, `Position`) " +
+                        "VALUES (?, ?, ?, ?, ?)");
+        columnStmt.setString(1, columnDTO.getID());
+        columnStmt.setString(2, columnDTO.getTitle());
+        columnStmt.setInt(3, columnDTO.getWIP());
+        columnStmt.setString(4, boardID);
+        columnStmt.setInt(5, index);
+        columnStmt.executeUpdate();
     }
 }

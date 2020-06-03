@@ -11,22 +11,19 @@ import phd.sa.csie.ntut.edu.tw.model.card.event.calculate.LeadTimeCalculatedEven
 
 public class Card extends AggregateRoot {
     private String name;
-    private UUID belongsColumnID;
     private long leadTime;
 
     public Card(String name, Board board) {
         super();
         this.addDomainEvent(new CardCreatedEvent(this.id.toString(), this, board.getID().toString()));
         this.setName(name);
-        this.setBelongsColumnID(board.getBacklogColumn().getID());
         this.leadTime = -1;
     }
 
     // For DTO Converter
-    public Card(UUID id, String name, UUID belongsColumnID, long leadTime) {
+    public Card(UUID id, String name, long leadTime) {
         this.id = id;
         this.name = name;
-        this.belongsColumnID = belongsColumnID;
         this.leadTime = leadTime;
     }
 
@@ -43,12 +40,11 @@ public class Card extends AggregateRoot {
     }
 
     public UUID getBelongsColumnID() {
-        return this.belongsColumnID;
+        return UUID.randomUUID();
     }
 
     public void setBelongsColumnID(UUID belongsColumnID) {
-        this.belongsColumnID = belongsColumnID;
-        this.addDomainEvent(new CardBelongsColumnSetEvent(this.id.toString(), this.belongsColumnID.toString()));
+        this.addDomainEvent(new CardBelongsColumnSetEvent(this.id.toString(), belongsColumnID.toString()));
     }
 
     public long getLeadTime() {

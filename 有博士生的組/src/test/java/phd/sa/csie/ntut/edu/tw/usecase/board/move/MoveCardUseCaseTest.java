@@ -57,6 +57,8 @@ public class MoveCardUseCaseTest {
         this.createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
 
         Board board = new Board(UUID.randomUUID(), "Kanban");
+        board.createColumn("Backlog", 0);
+        board.createColumn("Archive", 1);
         this.boardID = board.getID().toString();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
         this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
@@ -76,7 +78,7 @@ public class MoveCardUseCaseTest {
         DomainEventHandler cardEnterColumnEventHandler = new CardEnteredColumnEventHandler(this.eventBus, this.cardRepository);
         this.eventBus.register(cardEnterColumnEventHandler);
 
-        this.fromColumnID = this.card.getBelongsColumnID().toString();
+        this.fromColumnID = board.getBacklogColumn().getID().toString();
 
         CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
@@ -112,7 +114,7 @@ public class MoveCardUseCaseTest {
     }
 
     @Test
-    public void move_card_should_post_left_events_and_entered_events_and_update_column_of_card() {
+    public void move_card_should_post_left_events_and_entered_events() {
         EventLogRepository eventLogRepository = new MemoryEventLogRepository();
         DomainEventHandler eventSourcingHandler = new EventSourcingHandler(eventLogRepository);
         this.eventBus.register(eventSourcingHandler);
@@ -133,11 +135,9 @@ public class MoveCardUseCaseTest {
         assertEquals(3, eventLogRepository.size());
 
         List<DomainEventDTO> eventList = eventLogRepository.getAll();
-        Card resultCard = CardDTOConverter.toEntity(this.cardRepository.findByID(this.card.getID().toString()));
 
         assertEquals("[Card Left Column Event] Card: " + this.card.getID() + " left the column: " + this.fromColumnID, eventList.get(0).getSourceName());
         assertEquals("[Card Entered Event] Card: " + this.card.getID() + " entered column: " + this.toColumnID, eventList.get(1).getSourceName());
-        assertEquals(this.toColumnID, resultCard.getBelongsColumnID().toString());
     }
 
     @Test

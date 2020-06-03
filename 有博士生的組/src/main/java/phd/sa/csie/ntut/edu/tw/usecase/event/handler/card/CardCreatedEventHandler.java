@@ -24,12 +24,12 @@ public class CardCreatedEventHandler implements DomainEventHandler<CardCreatedEv
     @Subscribe
     @Override
     public void listen(CardCreatedEvent e) {
-        CommitCardUseCase commitCard = new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
         CommitCardUseCaseInput input = new CommitCardUseCaseInput();
 
         input.setBoardID(e.getBoardID().toString());
         input.setCardID(e.getEntity().getID().toString());
 
-        commitCard.execute(input, new CommitCardUseCaseOutput());
+        commitCardUseCase.execute(input, new CommitCardUseCaseOutput());
     }
 }

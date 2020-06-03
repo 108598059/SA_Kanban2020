@@ -14,10 +14,9 @@ public class MysqlCardRepository extends CardRepository {
     public void save(CardDTO cardDTO) {
         try {
             Connection connection = DB_connector.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Card VALUES(?, ?, ?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Card VALUES(?, ?)");
             stmt.setString(1, cardDTO.getID());
             stmt.setString(2, cardDTO.getName());
-            stmt.setString(3, cardDTO.getColumnID());
 
             stmt.executeUpdate();
             DB_connector.closeConnection(connection);
@@ -32,11 +31,10 @@ public class MysqlCardRepository extends CardRepository {
             Connection connection = DB_connector.getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE `Card` " +
-                            "SET `Name`=?,`ColumnID`=? " +
+                            "SET `Name`=? " +
                             "WHERE `ID`=?");
             stmt.setString(1, cardDTO.getName());
-            stmt.setString(2, cardDTO.getColumnID());
-            stmt.setString(3, cardDTO.getID());
+            stmt.setString(2, cardDTO.getID());
 
             stmt.executeUpdate();
             DB_connector.closeConnection(connection);
@@ -59,7 +57,6 @@ public class MysqlCardRepository extends CardRepository {
             while (resultSet.next()) {
                 result.setID(resultSet.getString("ID"));
                 result.setName(resultSet.getString("Name"));
-                result.setColumnID(resultSet.getString("ColumnID"));
             }
 
             DB_connector.closeConnection(connection);

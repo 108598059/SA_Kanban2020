@@ -33,6 +33,8 @@ public class EnterBoardUseCaseTest {
         this.cardRepository = new MemoryCardRepository();
 
         Board board = new Board(UUID.randomUUID(), "Kanban");
+        board.createColumn("Backlog", 0);
+        board.createColumn("Archive", 1);
         this.boardID = board.getID();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
 

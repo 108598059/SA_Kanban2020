@@ -43,6 +43,15 @@ public class MysqlCreateCardUseCaseTest {
         this.eventBus.register(cardCreatedEventHandler);
     }
 
+    @After
+    public void tearDown() throws SQLException {
+        Connection conn = DB_connector.getConnection();
+        PreparedStatement statement = conn.prepareStatement("DELETE FROM Card Where ID = ?");
+        statement.setString(1, this.cardID);
+        statement.executeUpdate();
+        DB_connector.closeConnection(conn);
+    }
+
     @Test
     public void create_card_should_save_card_to_database() {
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
@@ -62,12 +71,4 @@ public class MysqlCreateCardUseCaseTest {
         assertEquals("Create a card", cardDTO.getName());
     }
 
-    @After
-    public void tear_down() throws SQLException {
-        Connection conn = DB_connector.getConnection();
-        PreparedStatement statement = conn.prepareStatement("DELETE FROM Card Where ID = ?");
-        statement.setString(1, this.cardID);
-        statement.executeUpdate();
-        DB_connector.closeConnection(conn);
-    }
 }

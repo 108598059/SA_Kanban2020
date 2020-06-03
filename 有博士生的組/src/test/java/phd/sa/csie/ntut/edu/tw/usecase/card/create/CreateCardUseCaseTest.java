@@ -48,6 +48,7 @@ public class CreateCardUseCaseTest {
         this.boardRepository = new MemoryBoardRepository();
 
         this.board = new Board(UUID.randomUUID(), "Kanban");
+        this.board.createColumn("Backlog", 0);
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
         this.eventBus = new DomainEventBus();
@@ -87,7 +88,8 @@ public class CreateCardUseCaseTest {
         createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
-        assertEquals(this.board.getBacklogColumn().getID().toString(), card.getBelongsColumnID().toString());
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
+        assertTrue(board.getBacklogColumn().getCardIDs().contains(card.getID()));
     }
 
     @Test

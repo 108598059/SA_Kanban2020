@@ -26,6 +26,7 @@ public class CommitCardUseCaseTest {
     @Before
     public void create_a_card_and_create_a_board() {
         this.board = new Board(UUID.randomUUID(), "Kanban");
+        this.board.createColumn("Backlog", 0);
         this.boardRepository = new MemoryBoardRepository();
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 

@@ -27,6 +27,7 @@ public class CommitCardUseCase extends UseCase<CommitCardUseCaseInput, CommitCar
 
         this.boardRepository.update(BoardDTOConverter.toDTO(board));
         this.eventBus.postAll(board);
+
         output.setBoardID(board.getID().toString());
         output.setCardID(card.getID().toString());
     }

@@ -74,9 +74,19 @@ public class CalculateCycleTimeUseCaseTest {
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
         createColumnUseCaseInput.setBoardID(this.board.getID().toString());
-        createColumnUseCaseInput.setTitle("develop");
 
+        createColumnUseCaseInput.setColumnIndex(0);
+        createColumnUseCaseInput.setTitle("Backlog");
         createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
+
+        createColumnUseCaseInput.setColumnIndex(1);
+        createColumnUseCaseInput.setTitle("develop");
+        createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
+
+        createColumnUseCaseInput.setColumnIndex(2);
+        createColumnUseCaseInput.setTitle("Archive");
+        createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
+
         this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
     }
 

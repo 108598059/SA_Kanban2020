@@ -32,25 +32,19 @@ public class BoardTest {
     }
 
     @Test
-    public void get_backlog_column() {
-        Board board = new Board(UUID.randomUUID(), "Kanban");
-        assertEquals("Backlog", board.getBacklogColumn().getTitle());
-    }
-
-    @Test
     public void create_column_should_between_backlog_and_archive() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
-        board.createColumn("Develop");
-        assertEquals("Backlog", board.get(0).getTitle());
-        assertEquals("Develop", board.get(1).getTitle());
-        assertEquals("Archive", board.get(2).getTitle());
+        board.createColumn("Develop", 0);
+        assertEquals("Develop", board.get(0).getTitle());
     }
 
     @Test
     public void add_duplicate_column_exception() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
+        board.createColumn("Backlog", 0);
+        assertEquals("Backlog", board.get(0).getTitle());
         try {
-            board.createColumn("Backlog");
+            board.createColumn("Backlog", 1);
         } catch (IllegalArgumentException e) {
             assertEquals("Column title duplicated", e.getMessage());
             return;
@@ -59,41 +53,39 @@ public class BoardTest {
     }
 
     @Test
-    public void get_archive_column() {
-        Board board = new Board(UUID.randomUUID(), "Kanban");
-        assertEquals("Archive", board.getArchiveColumn().getTitle());
-    }
-
-    @Test
     public void commit_card() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
+        board.createColumn("Backlog", 0);
         Card card = new Card("Implement a card", board);
-        assertEquals(1, board.getDomainEvents().size());
+        assertEquals(2, board.getDomainEvents().size());
         board.commitCard(card);
         assertTrue(board.getBacklogColumn().cardExist(card.getID()));
-        assertEquals(2, board.getDomainEvents().size());
-        assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(1).getClass());
+        assertEquals(3, board.getDomainEvents().size());
+        assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(2).getClass());
     }
 
     @Test
     public void move_card(){
         Board board = new Board(UUID.randomUUID(), "Kanban");
+        board.createColumn("Backlog", 0);
+        board.createColumn("Archive", 1);
         Card card = new Card("Implement a card", board);
         board.addCardToColumn(card.getID(), board.getBacklogColumn().getID());
 
-        assertEquals(1, board.getDomainEvents().size());
+        assertEquals(3, board.getDomainEvents().size());
 
         board.moveCard(card.getID(), board.getBacklogColumn().getID(), board.getArchiveColumn().getID());
 
-        assertEquals(3, board.getDomainEvents().size());
-        assertEquals(CardLeftColumnEvent.class, board.getDomainEvents().get(1).getClass());
-        assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(2).getClass());
+        assertEquals(5, board.getDomainEvents().size());
+        assertEquals(CardLeftColumnEvent.class, board.getDomainEvents().get(3).getClass());
+        assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(4).getClass());
         assertTrue(board.getArchiveColumn().cardExist(card.getID()));
     }
 
     @Test
     public void get_column_by_id() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
+        board.createColumn("Backlog", 0);
         UUID columnID = board.getBacklogColumn().getID();
         assertEquals("Backlog", board.findColumnByID(columnID).getTitle());
     }
@@ -112,7 +104,7 @@ public class BoardTest {
         Board board = new Board(UUID.randomUUID(), "Kanban");
         assertEquals(1, board.getDomainEvents().size());
 
-        board.createColumn("develop");
+        board.createColumn("develop", 0);
         assertEquals(2, board.getDomainEvents().size());
         assertEquals(ColumnCreatedEvent.class, board.getDomainEvents().get(1).getClass());
     }
@@ -120,7 +112,7 @@ public class BoardTest {
     @Test
     public void set_column_wip_should_issue_column_wip_set_event() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
-        UUID columnID = board.createColumn("develop");
+        UUID columnID = board.createColumn("develop", 0);
         assertEquals(2, board.getDomainEvents().size());
 
         board.setColumnWIP(columnID, 3);

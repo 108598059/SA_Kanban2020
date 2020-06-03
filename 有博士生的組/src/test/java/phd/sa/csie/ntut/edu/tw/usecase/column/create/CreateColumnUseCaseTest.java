@@ -39,12 +39,13 @@ public class CreateColumnUseCaseTest {
 
         createColumnUseCaseInput.setTitle("develop");
         createColumnUseCaseInput.setBoardID(this.boardID.toString());
+        createColumnUseCaseInput.setColumnIndex(0);
 
         createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
         assertNotNull(createColumnUseCaseOutput.getID());
 
         BoardDTO boardDTO = this.boardRepository.findByID(this.boardID.toString());
-        assertEquals("develop", boardDTO.getColumnDTOs().get(1).getTitle());
+        assertEquals("develop", boardDTO.getColumnDTOs().get(0).getTitle());
     }
 }

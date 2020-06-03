@@ -20,10 +20,6 @@ public class Board extends AggregateRoot {
         this.workspaceID = workspaceID;
         this.setName(name);
         this.columns = new ArrayList<Column>();
-        Column backlog = new Column("Backlog");
-        Column archive = new Column("Archive");
-        this.columns.add(backlog);
-        this.columns.add(archive);
         this.addDomainEvent(new BoardCreatedEvent(this.id.toString(), this.name));
     }
 
@@ -68,14 +64,14 @@ public class Board extends AggregateRoot {
         return new Column(this.columns.get(this.columns.size()-1));
     }
 
-    public UUID createColumn(String columnTitle) {
+    public UUID createColumn(String columnTitle, int index) {
         for (Column column: this.getColumns()) {
             if (column.getTitle().equals(columnTitle)) {
                 throw new IllegalArgumentException("Column title duplicated");
             }
         }
         Column column = new Column(columnTitle);
-        this.columns.add(this.columns.size()-1, column);
+        this.columns.add(index, column);
         this.addDomainEvent(new ColumnCreatedEvent(this.id.toString(), column.getID().toString(), column.getTitle()));
 
         return column.getID();
