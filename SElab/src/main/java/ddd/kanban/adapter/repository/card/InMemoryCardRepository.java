@@ -21,12 +21,9 @@ public class InMemoryCardRepository implements CardRepository {
 
     @Override
     public void update(CardEntity cardEntity){
-        for(int i = 0 ; i < cards.size() ; i ++)
-        {
-            if(cards.get(i).getId().equals(cardEntity.getId()))
-            {
-                cards.set(i, cardEntity);
-            }
+        for (CardEntity each : cards){
+            if (each.getId().equals(cardEntity.getId()))
+                cards.set(cards.indexOf(each), cardEntity);
         }
     }
 

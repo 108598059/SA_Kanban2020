@@ -1,4 +1,4 @@
-package ddd.kanban.usecase.handler;
+package ddd.kanban.usecase.domainevent.handler;
 
 import com.google.common.eventbus.Subscribe;
 import ddd.kanban.domain.model.FlowEvent;

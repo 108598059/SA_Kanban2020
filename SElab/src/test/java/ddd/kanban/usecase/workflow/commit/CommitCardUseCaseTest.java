@@ -7,7 +7,7 @@ import ddd.kanban.domain.model.card.Card;
 import ddd.kanban.domain.model.workflow.Lane;
 import ddd.kanban.domain.model.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
-import ddd.kanban.usecase.handler.DomainEventHandler;
+import ddd.kanban.usecase.domainevent.handler.DomainEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.FlowEventRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;

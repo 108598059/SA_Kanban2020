@@ -21,7 +21,6 @@ public class Card extends AggregateRoot {
     private Date plannedStartDate;
     private Date plannedFinishDate;
     private int priority;
-
     public Card(final String id, String title, String boardId, String workflowId, String laneId) {
         super(id, title);
         this.boardId = boardId;
@@ -129,4 +128,7 @@ public class Card extends AggregateRoot {
         return laneId;
     }
 
+    public void setLaneId(String laneId) {
+        this.laneId = laneId;
+    }
 }

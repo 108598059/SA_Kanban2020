@@ -6,25 +6,17 @@ import ddd.kanban.adapter.repository.flowevent.InMemoryFlowEventRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.card.Card;
-import ddd.kanban.domain.model.card.CardType;
 import ddd.kanban.domain.model.card.Task;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.card.mapper.CardEntityMapper;
-import ddd.kanban.usecase.handler.DomainEventHandler;
-import ddd.kanban.usecase.handler.FlowEventHandler;
+import ddd.kanban.usecase.domainevent.handler.DomainEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.CardRepository;
 import ddd.kanban.usecase.repository.FlowEventRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
 import ddd.kanban.usecase.workflow.mapper.WorkflowEntityMapper;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;

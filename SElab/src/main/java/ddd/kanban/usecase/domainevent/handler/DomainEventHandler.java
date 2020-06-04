@@ -1,9 +1,10 @@
-package ddd.kanban.usecase.handler;
+package ddd.kanban.usecase.domainevent.handler;
 
 import com.google.common.eventbus.Subscribe;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.board.event.BoardCreated;
 import ddd.kanban.domain.model.card.event.CardCreated;
+import ddd.kanban.domain.model.card.event.CardMoved;
 import ddd.kanban.domain.model.workflow.event.WorkflowCreated;
 import ddd.kanban.usecase.board.commit.CommitWorkflowInput;
 import ddd.kanban.usecase.board.commit.CommitWorkflowOutput;
@@ -57,5 +58,4 @@ public class DomainEventHandler {
 
         commitCardUseCase.execute(commitCardInput, commitCardOutput);
     }
-
 }

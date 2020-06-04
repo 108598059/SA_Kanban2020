@@ -11,11 +11,8 @@ import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.card.create.CreateCardInput;
 import ddd.kanban.usecase.card.create.CreateCardOutput;
 import ddd.kanban.usecase.card.create.CreateCardUseCase;
-import ddd.kanban.usecase.card.edit.EditCardUseCase;
-import ddd.kanban.usecase.card.edit.EditCardUseCaseInput;
-import ddd.kanban.usecase.card.edit.EditCardUseCaseOutput;
 import ddd.kanban.usecase.card.mapper.CardEntityMapper;
-import ddd.kanban.usecase.handler.DomainEventHandler;
+import ddd.kanban.usecase.domainevent.handler.DomainEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.CardRepository;
 import ddd.kanban.usecase.repository.FlowEventRepository;
@@ -26,7 +23,6 @@ import org.junit.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 

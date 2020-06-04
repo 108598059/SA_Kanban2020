@@ -5,14 +5,17 @@ import ddd.kanban.adapter.repository.card.InMemoryCardRepository;
 import ddd.kanban.adapter.repository.flowevent.InMemoryFlowEventRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
+import ddd.kanban.domain.model.card.Card;
 import ddd.kanban.domain.model.workflow.Lane;
 import ddd.kanban.domain.model.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.card.create.CreateCardInput;
 import ddd.kanban.usecase.card.create.CreateCardOutput;
 import ddd.kanban.usecase.card.create.CreateCardUseCase;
-import ddd.kanban.usecase.handler.DomainEventHandler;
-import ddd.kanban.usecase.handler.FlowEventHandler;
+import ddd.kanban.usecase.card.mapper.CardEntityMapper;
+import ddd.kanban.usecase.domainevent.handler.CardEventHandler;
+import ddd.kanban.usecase.domainevent.handler.DomainEventHandler;
+import ddd.kanban.usecase.domainevent.handler.FlowEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.CardRepository;
 import ddd.kanban.usecase.repository.FlowEventRepository;
@@ -46,6 +49,7 @@ public class MoveCardUseCaseTest {
         this.domainEventBus = new DomainEventBus();
         domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, this.domainEventBus));
         domainEventBus.register(new FlowEventHandler(flowEventRepository));
+        domainEventBus.register(new CardEventHandler(cardRepository));
 
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
         this.boardId = hierarchyInitial.CreateBoard();
@@ -58,10 +62,12 @@ public class MoveCardUseCaseTest {
     public void testMoveCardFromDefaultColumnToColumn1(){
         String cardId = this.createCardToDefaultLane();
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(this.workflowId));
-        Lane defaultColunn = workflow.findColumnById(this.defaultColumnId);
+        Lane defaultColumn = workflow.findColumnById(this.defaultColumnId);
         Lane column1 = workflow.findColumnById(this.columnId);
+        Card card = CardEntityMapper.mappingCardFrom(cardRepository.findById(cardId));
 
-        assertEquals(1, defaultColunn.getCommittedCards().size());
+        assertEquals(defaultColumnId, card.getLaneId());
+        assertEquals(1, defaultColumn.getCommittedCards().size());
         assertEquals(0, column1.getCommittedCards().size());
 
         MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, domainEventBus);
@@ -72,8 +78,11 @@ public class MoveCardUseCaseTest {
 
         assertEquals(cardId, moveCardOutput.getCardId());
 
-        assertEquals(0, defaultColunn.getCommittedCards().size());
+        assertEquals(0, defaultColumn.getCommittedCards().size());
         assertEquals(1, column1.getCommittedCards().size());
+
+        card = CardEntityMapper.mappingCardFrom(cardRepository.findById(cardId));
+        assertEquals(column1.getId(), card.getLaneId());
     }
 
     private String createCardToDefaultLane(){

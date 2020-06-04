@@ -2,6 +2,7 @@ package ddd.kanban.domain.model.workflow;
 
 import ddd.kanban.domain.model.AggregateRoot;
 import ddd.kanban.domain.model.card.event.CardCommitted;
+import ddd.kanban.domain.model.card.event.CardMoved;
 import ddd.kanban.domain.model.card.event.CardUnCommitted;
 import ddd.kanban.domain.model.workflow.event.WorkflowCreated;
 
@@ -65,6 +66,7 @@ public class Workflow extends AggregateRoot {
 
         addDomainEvent(new CardUnCommitted(cardId, this.id, fromLane.getId(), fromLane.getTitle(), UUID.randomUUID().toString()));
         addDomainEvent(new CardCommitted(cardId, this.id, toLane.getId(), toLane.getTitle(), UUID.randomUUID().toString()));
+        addDomainEvent(new CardMoved(cardId, toLane.getTitle(), toLane.getId(), UUID.randomUUID().toString()));
 
         return cardId;
     }

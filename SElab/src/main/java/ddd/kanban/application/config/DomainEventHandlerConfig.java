@@ -1,10 +1,9 @@
 package ddd.kanban.application.config;
 
 import ddd.kanban.domain.model.DomainEventBus;
-import ddd.kanban.usecase.handler.DomainEventHandler;
+import ddd.kanban.usecase.domainevent.handler.DomainEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
