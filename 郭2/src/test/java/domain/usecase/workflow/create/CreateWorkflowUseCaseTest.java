@@ -4,7 +4,6 @@ import domain.adapter.repository.workflow.MySqlWorkflowRepository;
 import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.model.aggregate.workflow.Workflow;
-import domain.usecase.board.BoardEntity;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
@@ -29,7 +28,7 @@ public class CreateWorkflowUseCaseTest {
         eventBus = new DomainEventBus();
 
         boardRepository = new MySqlBoardRepository();
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
 

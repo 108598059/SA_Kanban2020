@@ -1,13 +1,17 @@
 package domain.usecase.swimlane.create;
 
+import domain.model.aggregate.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CreateSwimlaneUseCase {
     private IWorkflowRepository workflowRepository;
-    public CreateSwimlaneUseCase(IWorkflowRepository workflowRepository) {
+    private DomainEventBus eventBus;
+
+    public CreateSwimlaneUseCase(IWorkflowRepository workflowRepository, DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
+        this.eventBus = eventBus;
     }
 
     public void execute(CreateSwimlaneUseCaseInput input, CreateSwimlaneUseCaseOutput output) {
@@ -16,6 +20,7 @@ public class CreateSwimlaneUseCase {
 
 //        workflow.addLane(swimlane);
         workflowRepository.save(workflow);
+        eventBus.postAll(workflow);
 
         output.setWorkflowId(swimlane.getWorkflowId());
         output.setSwimlaneName(swimlane.getLaneName());

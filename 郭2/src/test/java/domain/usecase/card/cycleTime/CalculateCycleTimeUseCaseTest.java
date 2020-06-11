@@ -71,7 +71,7 @@ public class CalculateCycleTimeUseCaseTest {
         eventBus.register(new FlowEventHandler(flowEventRepository));
         eventBus.register(new CardEventHandler(workflowRepository, eventBus));
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
@@ -84,21 +84,21 @@ public class CalculateCycleTimeUseCaseTest {
         workflowInput.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
         createWorkflowUseCase.execute(workflowInput, workflowOutput);
 
-        createStageUseCase = new CreateStageUseCase(workflowRepository);
+        createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         stageOutput1 = new CreateStageUseCaseOutput();
         CreateStageUseCaseInput stageInput = new CreateStageUseCaseInput();
         stageInput.setStageName("ToDo");
         stageInput.setWorkflowId(workflowOutput.getWorkflowId());
         createStageUseCase.execute(stageInput, stageOutput1);
 
-        createStageUseCase = new CreateStageUseCase(workflowRepository);
+        createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         stageOutput2 = new CreateStageUseCaseOutput();
         stageInput = new CreateStageUseCaseInput();
         stageInput.setStageName("Doing");
         stageInput.setWorkflowId(workflowOutput.getWorkflowId());
         createStageUseCase.execute(stageInput, stageOutput2);
 
-        createStageUseCase = new CreateStageUseCase(workflowRepository);
+        createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         stageOutput3 = new CreateStageUseCaseOutput();
         stageInput = new CreateStageUseCaseInput();
         stageInput.setStageName("Done");

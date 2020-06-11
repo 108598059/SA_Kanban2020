@@ -91,4 +91,12 @@ public class Card extends AggregateRoot {
     public void addTaskId(Task task) {
         taskList.add(task);
     }
+
+    public String getWorkflowId() {
+        return workflowId;
+    }
+
+    public String getLaneId() {
+        return laneId;
+    }
 }

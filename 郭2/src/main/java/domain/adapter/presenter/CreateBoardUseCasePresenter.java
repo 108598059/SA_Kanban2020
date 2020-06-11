@@ -1,40 +1,40 @@
 package domain.adapter.presenter;
 
-import domain.adapter.BoardEntityDto;
 import domain.adapter.view_model.CreateBoardViewModel;
+import domain.usecase.board.BoardDTO;
 import domain.usecase.board.create.CreateBoardUseCaseOutput;
 
 public class CreateBoardUseCasePresenter implements Presenter<CreateBoardViewModel>, CreateBoardUseCaseOutput {
-    BoardEntityDto boardEntityDto;
+    BoardDTO boardDTO;
 
     public CreateBoardUseCasePresenter() {
-        boardEntityDto = new BoardEntityDto();
+        boardDTO = new BoardDTO();
     }
 
     @Override
-    public CreateBoardViewModel createView() {
+    public CreateBoardViewModel createViewModel() {
         CreateBoardViewModel viewModel = new CreateBoardViewModel();
-        viewModel.setViewModel(boardEntityDto);
+        viewModel.setViewModel(boardDTO);
         return viewModel;
     }
 
     @Override
     public void setBoardId(String boardId) {
-        boardEntityDto.setBoardId(boardId);
+        boardDTO.setBoardId(boardId);
     }
 
     @Override
     public String getBoardId() {
-        return boardEntityDto.getBoardId();
+        return boardDTO.getBoardId();
     }
 
     @Override
     public void setBoardName(String boardName) {
-        boardEntityDto.setBoardName(boardName);
+        boardDTO.setBoardName(boardName);
     }
 
     @Override
     public String getBoardName() {
-        return boardEntityDto.getBoardName();
+        return boardDTO.getBoardName();
     }
 }

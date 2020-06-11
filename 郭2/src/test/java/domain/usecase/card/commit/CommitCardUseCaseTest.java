@@ -36,7 +36,7 @@ public class CommitCardUseCaseTest {
         boardRepository = new MySqlBoardRepository();
         workflowRepository = new MySqlWorkflowRepository();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
@@ -50,7 +50,7 @@ public class CommitCardUseCaseTest {
         workflowInput.setBoardId(createBoardUseCaseOutputImpl.getBoardId());
         createWorkflowUseCase.execute(workflowInput, workflowOutput);
 
-        createStageUseCase = new CreateStageUseCase(workflowRepository);
+        createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         stageOutput = new CreateStageUseCaseOutput();
         CreateStageUseCaseInput stageInput = new CreateStageUseCaseInput();
         stageInput.setStageName("ToDo");

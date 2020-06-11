@@ -27,7 +27,7 @@ public class CreateSwimlaneUseCaseTest {
         boardRepository = new MySqlBoardRepository();
         eventBus = new DomainEventBus();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
@@ -46,7 +46,7 @@ public class CreateSwimlaneUseCaseTest {
 
     @Test
     public void createSwimlaneUseCase(){
-        CreateSwimlaneUseCase createStageUseCase = new CreateSwimlaneUseCase(workflowRepository);
+        CreateSwimlaneUseCase createStageUseCase = new CreateSwimlaneUseCase(workflowRepository,eventBus);
         CreateSwimlaneUseCaseInput input = new CreateSwimlaneUseCaseInput();
         CreateSwimlaneUseCaseOutput output = new CreateSwimlaneUseCaseOutput();
 

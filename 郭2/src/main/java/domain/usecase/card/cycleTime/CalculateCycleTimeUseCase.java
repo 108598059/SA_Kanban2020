@@ -3,7 +3,8 @@ package domain.usecase.card.cycleTime;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.model.FlowEvent;
-import domain.model.valueObject.CycleTime;
+import domain.model.aggregate.workflow.valueObject.cycleTime.CycleTime;
+import domain.model.aggregate.workflow.valueObject.flowEvent.FlowEventPair;
 import domain.usecase.flowEvent.repository.IFlowEventRepository;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
@@ -38,9 +39,9 @@ public class CalculateCycleTimeUseCase {
             }
         }
 
-        if(!stack.empty()){
-            flowEventPairList.add(new FlowEventPair(stack.pop()));
-        }
+//        if(!stack.empty()){
+//            flowEventPairList.add(new FlowEventPair(stack.pop()));
+//        }
 
         Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
         boolean isbool = false;

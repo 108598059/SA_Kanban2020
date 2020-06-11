@@ -56,8 +56,8 @@ public class Workflow extends AggregateRoot {
         return boardId;
     }
 
-    public Lane createSwimlane(String swimlanName) {
-        Lane swimlane = new Swimlane(swimlanName, workflowId);
+    public Lane createSwimlane(String swimlaneName) {
+        Lane swimlane = new Swimlane(swimlaneName, workflowId);
         laneList.add(swimlane);
         addDomainEvent(new SwimlaneCreated(boardId, workflowId, swimlane.getLaneId()));
         return swimlane;
@@ -99,4 +99,5 @@ public class Workflow extends AggregateRoot {
         deleteCardFromLane(fromLaneId, cardId);
         addCardInLane(toLaneId, cardId);
     }
+
 }

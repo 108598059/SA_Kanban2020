@@ -1,4 +1,4 @@
-package domain.model.valueObject;
+package domain.model.aggregate.workflow.valueObject.cycleTime;
 
 public class CycleTimeInLane {
     private String laneId;

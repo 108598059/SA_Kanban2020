@@ -1,8 +1,8 @@
-package domain.usecase.card.cycleTime;
+package domain.model.aggregate.workflow.valueObject.flowEvent;
 
 import domain.model.FlowEvent;
+import domain.model.aggregate.workflow.valueObject.cycleTime.CycleTimeInLane;
 import domain.model.common.DateProvider;
-import domain.model.valueObject.CycleTimeInLane;
 
 import java.util.Date;
 

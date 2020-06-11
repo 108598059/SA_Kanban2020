@@ -2,6 +2,11 @@ package domain.model.aggregate.board;
 
 import domain.model.aggregate.AggregateRoot;
 import domain.model.aggregate.board.event.BoardCreated;
+import domain.model.aggregate.board.event.WorkflowCommited;
+import domain.model.aggregate.card.Task;
+import domain.model.aggregate.workflow.Lane;
+import domain.model.aggregate.workflow.Workflow;
+import domain.model.aggregate.workflow.event.CardUnCommitted;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +43,12 @@ public class Board extends AggregateRoot {
     }
 
     public void addWorkflowId(String workflowId) {
+        if (null == workflowId)
+            throw new RuntimeException("Cannot commit a workflow in board '" + workflowId + "'");
+
         workflowIds.add(workflowId);
+
+        addDomainEvent(new WorkflowCommited(workflowId, boardId));
     }
 
     public void setWorkflowIds(List<String> workflowIds) {
@@ -48,4 +58,6 @@ public class Board extends AggregateRoot {
     public List<String> getWorkflowIds() {
         return workflowIds;
     }
+
+
 }

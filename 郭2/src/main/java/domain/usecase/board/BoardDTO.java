@@ -2,7 +2,7 @@ package domain.usecase.board;
 
 import java.util.List;
 
-public class BoardEntity {
+public class BoardDTO {
     private String boardName;
     private String boardId;
     private List<String> workflowIds;
