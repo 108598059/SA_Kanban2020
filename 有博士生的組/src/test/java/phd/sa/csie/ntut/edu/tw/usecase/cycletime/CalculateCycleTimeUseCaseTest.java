@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime;
+package phd.sa.csie.ntut.edu.tw.usecase.cycletime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -84,12 +84,12 @@ public class CalculateCycleTimeUseCaseTest {
         CalculateCycleTimeUseCaseOutput calculateCycleTimeUseCaseOutput = new CalculateCycleTimeUseCaseOutput();
 
         calculateCycleTimeUseCaseInput.setCardID(card.getID().toString());
+        calculateCycleTimeUseCaseInput.setStartColumnIndex(0);
+        calculateCycleTimeUseCaseInput.setEndColumnIndex(1);
         calculateCycleTimeUseCase.execute(calculateCycleTimeUseCaseInput, calculateCycleTimeUseCaseOutput);
 
-        List<CycleTime> cycleTimeList = calculateCycleTimeUseCaseOutput.getCycleTimeList();
-        assertEquals(2, cycleTimeList.size());
-        assertEquals(24 * 60 * 60 * 1000, cycleTimeList.get(0).getTime());
-        assertEquals(5 * 24 * 60 * 60 * 1000, cycleTimeList.get(1).getTime());
+        CycleTime cycleTime = calculateCycleTimeUseCaseOutput.getCycleTime();
+        assertEquals(24 * 60 * 60 * 1000, cycleTime.getTime());
     }
 
     private Card create_card(String cardName) {

@@ -1,4 +1,4 @@
-package phd.sa.csie.ntut.edu.tw.usecase.card.calculate.cycletime;
+package phd.sa.csie.ntut.edu.tw.usecase.cycletime;
 
 import java.util.Date;
 
