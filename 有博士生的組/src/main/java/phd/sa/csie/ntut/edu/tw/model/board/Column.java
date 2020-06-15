@@ -67,7 +67,6 @@ public class Column extends Entity {
     }
 
     public void removeCard(UUID id) {
-        this.preservedPosition.add(id);
         this.cardIDs.remove(id);
     }
 
@@ -88,11 +87,11 @@ public class Column extends Entity {
         return this.preservedPosition;
     }
 
+    public void addPreservedPosition(UUID cardID) {
+        this.preservedPosition.add(cardID);
+    }
+
     public void releasePreservedPosition(UUID targetID) {
-        for (UUID cardID: this.preservedPosition) {
-            if (cardID.equals(targetID)) {
-                this.preservedPosition.remove(cardID);
-            }
-        }
+        this.preservedPosition.remove(targetID);
     }
 }

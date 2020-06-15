@@ -7,24 +7,18 @@ import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardReposi
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardEnteredColumnEventRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryCardLeftColumnEventRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
-import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.model.common.DateProvider;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.board.move.MoveCardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.move.PreMoveCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.move.MoveCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.board.move.MoveCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.BoardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.move.MoveCardEventSourcingHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -110,7 +104,7 @@ public class CalculateCycleTimeUseCaseTest {
     }
 
     private void move_card(Card card, String fromColumnID, String toColumnID) {
-        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
+        PreMoveCardUseCase preMoveCardUseCase = new PreMoveCardUseCase(this.eventBus, this.boardRepository);
         MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
         MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -119,6 +113,6 @@ public class CalculateCycleTimeUseCaseTest {
         moveCardUseCaseInput.setFromColumnID(fromColumnID);
         moveCardUseCaseInput.setToColumnID(toColumnID);
 
-        moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+        preMoveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
     }
 }

@@ -26,7 +26,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.CardEnteredColumnEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.CardPreMovedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.EventSourcingHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.dto.DomainEventDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -35,7 +35,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.event.EventLogRepository;
 
 import static org.junit.Assert.*;
 
-public class MoveCardUseCaseTest {
+public class PreMoveCardUseCaseTest {
 
     private CardRepository cardRepository;
     private BoardRepository boardRepository;
@@ -63,8 +63,8 @@ public class MoveCardUseCaseTest {
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
         this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
 
-        CardEnteredColumnEventHandler cardEnteredColumnEventHandler = new CardEnteredColumnEventHandler(this.eventBus, this.boardRepository);
-        this.eventBus.register(cardEnteredColumnEventHandler);
+        CardPreMovedEventHandler cardPreMovedEventHandler = new CardPreMovedEventHandler(this.eventBus, this.boardRepository);
+        this.eventBus.register(cardPreMovedEventHandler);
 
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
@@ -93,7 +93,7 @@ public class MoveCardUseCaseTest {
 
     @Test
     public void the_to_column_should_contain_the_moved_card () {
-        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
+        PreMoveCardUseCase preMoveCardUseCase = new PreMoveCardUseCase(this.eventBus, this.boardRepository);
         MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
         MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -102,7 +102,7 @@ public class MoveCardUseCaseTest {
         moveCardUseCaseInput.setFromColumnID(this.fromColumnID);
         moveCardUseCaseInput.setToColumnID(this.toColumnID);
 
-        moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+        preMoveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
         assertEquals(this.card.getID().toString(), moveCardUseCaseOutput.getCardID());
         assertEquals(this.fromColumnID, moveCardUseCaseOutput.getOldColumnID());
@@ -114,12 +114,12 @@ public class MoveCardUseCaseTest {
     }
 
     @Test
-    public void move_card_should_post_left_events_and_entered_events() {
+    public void pre_move_card_should_post_card_pre_moved_event() {
         EventLogRepository eventLogRepository = new MemoryEventLogRepository();
         DomainEventHandler eventSourcingHandler = new EventSourcingHandler(eventLogRepository);
         this.eventBus.register(eventSourcingHandler);
 
-        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
+        PreMoveCardUseCase preMoveCardUseCase = new PreMoveCardUseCase(this.eventBus, this.boardRepository);
         MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
         MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -130,18 +130,18 @@ public class MoveCardUseCaseTest {
 
         assertEquals(0, eventLogRepository.size());
 
-        moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+        preMoveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
-        assertEquals(2, eventLogRepository.size());
+        assertEquals(1, eventLogRepository.size());
 
         List<DomainEventDTO> eventList = eventLogRepository.getAll();
 
-        assertEquals("[Card Left Column Event] Card: " + this.card.getID() + " left the column: " + this.fromColumnID, eventList.get(0).getSourceName());
-        assertEquals("[Card Entered Event] Card: " + this.card.getID() + " entered column: " + this.toColumnID, eventList.get(1).getSourceName());
+        assertEquals("[Card Pre-moved Event] Card: " + this.card.getID() + " pre-moved from the column: " +
+                this.fromColumnID + " to the column: " + this.toColumnID, eventList.get(0).getSourceName());
     }
 
     @Test
-    public void if_move_to_a_column_reached_wip_limit_the_card_should_be_moved_back() {
+    public void if_pre_move_to_a_column_reached_wip_limit_the_card_should_not_be_moved() {
         SetColumnWIPUseCase setColumnWIPUseCase = new SetColumnWIPUseCase(this.eventBus, this.boardRepository);
         SetColumnWIPUseCaseInput setColumnWIPUseCaseInput = new SetColumnWIPUseCaseInput();
         SetColumnWIPUseCaseOutput setColumnWIPUseCaseOutput = new SetColumnWIPUseCaseOutput();
@@ -152,7 +152,7 @@ public class MoveCardUseCaseTest {
 
         setColumnWIPUseCase.execute(setColumnWIPUseCaseInput, setColumnWIPUseCaseOutput);
 
-        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
+        PreMoveCardUseCase preMoveCardUseCase = new PreMoveCardUseCase(this.eventBus, this.boardRepository);
         MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
         MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
@@ -161,13 +161,16 @@ public class MoveCardUseCaseTest {
         moveCardUseCaseInput.setFromColumnID(this.fromColumnID);
         moveCardUseCaseInput.setToColumnID(this.toColumnID);
 
-        moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+        preMoveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
         moveCardUseCaseInput.setCardID(this.card2.getID().toString());
-
-        moveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
-
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.boardID));
+
+        assertTrue(board.findColumnByID(UUID.fromString(this.fromColumnID)).cardExist(this.card2.getID()));
+
+        preMoveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
+
+        board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.boardID));
         assertTrue(board.findColumnByID(UUID.fromString(this.toColumnID)).cardExist(this.card.getID()));
         assertFalse(board.findColumnByID(UUID.fromString(this.fromColumnID)).cardExist(this.card.getID()));
         assertFalse(board.findColumnByID(UUID.fromString(this.toColumnID)).cardExist(this.card2.getID()));

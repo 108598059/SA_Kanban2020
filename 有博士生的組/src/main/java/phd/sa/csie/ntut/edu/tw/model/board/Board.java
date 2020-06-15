@@ -1,6 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
 import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardMovedBackEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardPreMovedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.AggregateRoot;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.ColumnCreatedEvent;
@@ -94,23 +95,18 @@ public class Board extends AggregateRoot {
 
         from.removeCard(cardID);
         this.addDomainEvent(new CardLeftColumnEvent(this.id.toString(), cardID.toString(), fromColumnID.toString()));
-
+        System.out.println("YYYY");
         to.addCard(cardID);
         this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), cardID.toString(), toColumnID.toString(), fromColumnID.toString()));
-
+        to.releasePreservedPosition(cardID);
         return to.getID().toString();
     }
 
-    public String moveCardBack(UUID cardID, UUID fromColumnID, UUID toColumnID) {
-        Column from = this.getColumnByID(fromColumnID);
-        Column to = this.getColumnByID(toColumnID);
+    public void preMoveCard(UUID cardID, UUID fromColumnID, UUID toColumnID) {
+         Column to = this.getColumnByID(toColumnID);
 
-        from.removeCard(cardID);
-        to.addCard(cardID);
-
-        this.releasePreservedPosition(toColumnID, toColumnID);
-        this.addDomainEvent(new CardMovedBackEvent(this.id.toString(), toColumnID.toString(), cardID.toString()));
-        return to.getID().toString();
+         to.addPreservedPosition(cardID);
+         this.addDomainEvent(new CardPreMovedEvent(this.id.toString(), cardID.toString(), fromColumnID.toString(), toColumnID.toString()));
     }
 
     private Column getColumnByID(UUID id) {
