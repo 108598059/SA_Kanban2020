@@ -1,8 +1,8 @@
-package kanban.domain.usecase.handler.domainEvent;
+package kanban.domain.usecase.handler.flowEvent;
 
 import com.google.common.eventbus.Subscribe;
 import kanban.domain.model.FlowEvent;
-import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 
 public class FlowEventHandler {
 

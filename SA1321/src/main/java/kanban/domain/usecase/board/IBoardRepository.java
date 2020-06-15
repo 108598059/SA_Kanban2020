@@ -1,4 +1,4 @@
-package kanban.domain.usecase.board.repository;
+package kanban.domain.usecase.board;
 
 
 import kanban.domain.usecase.board.BoardEntity;

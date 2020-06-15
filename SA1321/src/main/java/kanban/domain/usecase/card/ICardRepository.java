@@ -1,4 +1,4 @@
-package kanban.domain.usecase.card.repository;
+package kanban.domain.usecase.card;
 
 import kanban.domain.adapter.repository.card.data.CardData;
 import kanban.domain.model.aggregate.card.Card;

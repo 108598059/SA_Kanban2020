@@ -4,9 +4,8 @@ import kanban.domain.adapter.database.table.CardTable;
 import kanban.domain.adapter.database.MySqlDatabaseHelper;
 import kanban.domain.adapter.repository.card.data.CardData;
 import kanban.domain.adapter.repository.card.mapper.CardEntityDataMapper;
-import kanban.domain.model.aggregate.card.Card;
 import kanban.domain.usecase.card.CardEntity;
-import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.card.ICardRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

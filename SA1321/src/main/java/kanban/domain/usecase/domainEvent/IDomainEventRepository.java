@@ -1,4 +1,4 @@
-package kanban.domain.usecase.domainEvent.repository;
+package kanban.domain.usecase.domainEvent;
 
 import kanban.domain.model.DomainEvent;
 

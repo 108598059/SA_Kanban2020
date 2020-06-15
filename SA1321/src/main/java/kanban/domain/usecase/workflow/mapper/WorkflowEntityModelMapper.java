@@ -18,7 +18,9 @@ public class WorkflowEntityModelMapper {
 
         List<Stage> stages = new ArrayList<>();
         for(StageEntity stageEntity: workflowEntity.getStageEntities()) {
-            stages.add(StageEntityModelMapper.transformEntityToModel(stageEntity));
+            Stage _stage = StageEntityModelMapper.transformEntityToModel(stageEntity);
+
+            stages.add(_stage);
         }
         workflow.setStages(stages);
 

@@ -10,18 +10,19 @@ import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.usecase.card.repository.ICardRepository;
-import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.card.ICardRepository;
+import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 import kanban.domain.usecase.stage.create.CreateStageInput;
 import kanban.domain.usecase.stage.create.CreateStageOutput;
 import kanban.domain.usecase.stage.create.CreateStageUseCase;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
 public class CreateStageTest {
@@ -62,18 +63,28 @@ public class CreateStageTest {
         CreateStageInput input = createStageUseCase;
         input.setStageName("stageName");
         input.setWorkflowId(workflowId);
+        input.setWipLimit(1);
+        input.setLayout("Horizontal");
         CreateStageOutput output = new CreateStagePresenter();
 
         createStageUseCase.execute(input, output);
+
+        assertNotNull(output.getStageId());
 
         workflow = WorkflowEntityModelMapper.transformEntityToModel(
                 workflowRepository.getWorkflowById(workflowId));
 
         assertEquals(1,workflow.getStages().size());
 
-        Stage cloneStage = workflow.getStageCloneById(output.getStageId());
+        Stage stage = workflow.getStageCloneById(output.getStageId());
 
-        assertEquals("stageName", cloneStage.getName());
+        assertEquals("stageName", stage.getName());
+        assertEquals(workflowId, stage.getWorkflowId());
+        assertEquals(1, stage.getWipLimit().toInt());
+        assertEquals("Horizontal", stage.getLayout().toString());
+
+        assertEquals(0, stage.getStages().size());
+        assertEquals(0, stage.getCardIds().size());
     }
 
     @Test(expected = RuntimeException.class)

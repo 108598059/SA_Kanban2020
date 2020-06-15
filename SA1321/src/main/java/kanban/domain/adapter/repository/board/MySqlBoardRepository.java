@@ -5,7 +5,7 @@ import kanban.domain.adapter.database.table.BoardTable;
 import kanban.domain.adapter.database.table.BoardWorkflowTable;
 import kanban.domain.adapter.repository.board.data.BoardData;
 import kanban.domain.adapter.repository.board.mapper.BoardEntityDataMapper;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 import kanban.domain.usecase.board.BoardEntity;
 
 import java.sql.PreparedStatement;

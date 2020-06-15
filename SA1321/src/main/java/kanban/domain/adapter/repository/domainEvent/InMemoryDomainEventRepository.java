@@ -1,7 +1,7 @@
 package kanban.domain.adapter.repository.domainEvent;
 
 import kanban.domain.model.DomainEvent;
-import kanban.domain.usecase.domainEvent.repository.IDomainEventRepository;
+import kanban.domain.usecase.domainEvent.IDomainEventRepository;
 
 import java.util.ArrayList;
 import java.util.List;

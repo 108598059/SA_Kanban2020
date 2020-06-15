@@ -1,6 +1,4 @@
-package kanban.domain.usecase.workflow.repository;
-
-import kanban.domain.usecase.workflow.WorkflowEntity;
+package kanban.domain.usecase.workflow;
 
 public interface IWorkflowRepository {
 

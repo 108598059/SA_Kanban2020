@@ -3,10 +3,9 @@ package kanban.domain.usecase.card.cycleTime;
 import kanban.domain.model.FlowEvent;
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.model.common.DateProvider;
-import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 import java.util.*;
 

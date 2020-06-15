@@ -1,4 +1,4 @@
-package kanban.domain.usecase.flowEvent.repository;
+package kanban.domain.usecase.flowEvent;
 
 import kanban.domain.model.FlowEvent;
 
