@@ -33,7 +33,6 @@ public class CardPreMovedEventHandler implements DomainEventHandler<CardPreMoved
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(cardPreMovedEvent.getBoardID()));
 
         if (board.checkWIP(UUID.fromString(toColumnID))) {
-            System.out.println("IIII");
             MoveCardUseCase moveCardUseCase = new MoveCardUseCase(this.eventBus, this.boardRepository);
             MoveCardUseCaseInput input = new MoveCardUseCaseInput();
             input.setFromColumnID(fromColumnID);
@@ -43,7 +42,6 @@ public class CardPreMovedEventHandler implements DomainEventHandler<CardPreMoved
             moveCardUseCase.execute(input, new MoveCardUseCaseOutput());
 
         } else {
-            System.out.println("EEEE");
             board.releasePreservedPosition(UUID.fromString(toColumnID), UUID.fromString(cardID));
             this.boardRepository.update(BoardDTOConverter.toDTO(board));
         }

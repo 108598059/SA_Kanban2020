@@ -71,12 +71,10 @@ public class Column extends Entity {
     }
 
     public boolean cardExist(UUID id) {
-        for (int i = 0; i < this.cardIDs.size(); ++i) {
-            if (id.equals(this.cardIDs.get(i))) {
-                return true;
-            }
+        if (this.cardIDs.indexOf(id) == -1) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public List<UUID> getCardIDs() {

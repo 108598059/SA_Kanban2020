@@ -10,6 +10,7 @@ import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryEventLogRepository;
+import phd.sa.csie.ntut.edu.tw.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
@@ -27,6 +28,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.CardPreMovedEventHandler;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.EventSourcingHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.dto.DomainEventDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -61,7 +63,7 @@ public class PreMoveCardUseCaseTest {
         board.createColumn("Archive", 1);
         this.boardID = board.getID().toString();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
-        this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
+        this.eventBus.register(new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository));
 
         CardPreMovedEventHandler cardPreMovedEventHandler = new CardPreMovedEventHandler(this.eventBus, this.boardRepository);
         this.eventBus.register(cardPreMovedEventHandler);
@@ -115,11 +117,12 @@ public class PreMoveCardUseCaseTest {
 
     @Test
     public void pre_move_card_should_post_card_pre_moved_event() {
+        DomainEventBus eventBusWithoutPreMovedHandler = new DomainEventBus();
         EventLogRepository eventLogRepository = new MemoryEventLogRepository();
         DomainEventHandler eventSourcingHandler = new EventSourcingHandler(eventLogRepository);
-        this.eventBus.register(eventSourcingHandler);
+        eventBusWithoutPreMovedHandler.register(eventSourcingHandler);
 
-        PreMoveCardUseCase preMoveCardUseCase = new PreMoveCardUseCase(this.eventBus, this.boardRepository);
+        PreMoveCardUseCase preMoveCardUseCase = new PreMoveCardUseCase(eventBusWithoutPreMovedHandler, this.boardRepository);
         MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();
         MoveCardUseCaseOutput moveCardUseCaseOutput = new MoveCardUseCaseOutput();
 
