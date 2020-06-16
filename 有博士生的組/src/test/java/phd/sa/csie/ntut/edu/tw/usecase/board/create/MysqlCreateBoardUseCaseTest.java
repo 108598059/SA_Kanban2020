@@ -54,7 +54,7 @@ public class MysqlCreateBoardUseCaseTest {
     }
 
     @Test
-    public void create_board() {
+    public void created_board_should_be_saved_in_database() {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardPresenter();

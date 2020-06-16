@@ -25,12 +25,12 @@ public class BoardCreatedEventHandler implements DomainEventHandler<BoardCreated
         CreateColumnUseCaseInput input = new CreateColumnUseCaseInput();
 
         input.setBoardID(boardCreatedEvent.getSourceID());
-        input.setTitle("Backlog");
+        input.setColumnTitle("Backlog");
         input.setColumnIndex(0);
 
         createColumnUseCase.execute(input, new CreateColumnUseCaseOutput());
 
-        input.setTitle("Archive");
+        input.setColumnTitle("Archive");
         input.setColumnIndex(1);
 
         createColumnUseCase.execute(input, new CreateColumnUseCaseOutput());

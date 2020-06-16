@@ -5,7 +5,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 public class SetColumnWIPUseCaseInput implements UseCaseInput {
 
     private String columnID;
-    private int columnWIP = 0;
+    private int columnWIP;
     private String boardID;
 
     public void setColumnID(String id) {

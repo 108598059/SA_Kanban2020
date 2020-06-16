@@ -29,7 +29,7 @@ public class CreateCardUseCaseTest {
     private Board board;
     private DomainEventBus eventBus;
 
-    private class MockCardCreatedEventListener {
+    private static class MockCardCreatedEventListener {
         private int count = 0;
 
         @Subscribe
@@ -43,7 +43,7 @@ public class CreateCardUseCaseTest {
     }
 
     @Before
-    public void given_a_board() {
+    public void given_a_board_and_a_column() {
         this.cardRepository = new MemoryCardRepository();
         this.boardRepository = new MemoryBoardRepository();
 

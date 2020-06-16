@@ -10,23 +10,17 @@ import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryEventLogRepository;
-import phd.sa.csie.ntut.edu.tw.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.column.setwip.SetColumnWIPUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.CardPreMovedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.domain.EventSourcingHandler;
@@ -39,10 +33,7 @@ import static org.junit.Assert.*;
 
 public class PreMoveCardUseCaseTest {
 
-    private CardRepository cardRepository;
     private BoardRepository boardRepository;
-    private CreateCardUseCase createCardUseCase;
-    private CreateColumnUseCase createColumnUseCase;
     private Card card;
     private Card card2;
     private String fromColumnID;
@@ -51,19 +42,22 @@ public class PreMoveCardUseCaseTest {
     private DomainEventBus eventBus;
 
     @Before
-    public void given_a_card_and_a_board_and_two_columns() {
+    public void given_two_cards_and_a_board_and_two_columns() {
         this.eventBus = new DomainEventBus();
-        this.cardRepository = new MemoryCardRepository();
+        CardRepository cardRepository = new MemoryCardRepository();
         this.boardRepository = new MemoryBoardRepository();
-        this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
-        this.createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, cardRepository, this.boardRepository);
 
         Board board = new Board(UUID.randomUUID(), "Kanban");
         board.createColumn("Backlog", 0);
         board.createColumn("Archive", 1);
+
+        this.fromColumnID = board.get(0).getID().toString();
+        this.toColumnID = board.get(1).getID().toString();
+
         this.boardID = board.getID().toString();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
-        this.eventBus.register(new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository));
+        this.eventBus.register(new CardCreatedEventHandler(this.eventBus, cardRepository, this.boardRepository));
 
         CardPreMovedEventHandler cardPreMovedEventHandler = new CardPreMovedEventHandler(this.eventBus, this.boardRepository);
         this.eventBus.register(cardPreMovedEventHandler);
@@ -73,24 +67,12 @@ public class PreMoveCardUseCaseTest {
 
         createCardUseCaseInput.setCardName("Implement a column");
         createCardUseCaseInput.setBoardID(this.boardID);
-        this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
-        this.card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
+        createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+        this.card = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
 
         createCardUseCaseInput.setCardName("Implement a board");
-        this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
-        this.card2 = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
-
-        this.fromColumnID = board.get(0).getID().toString();
-
-        CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
-        CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
-
-        createColumnUseCaseInput.setBoardID(this.boardID);
-        createColumnUseCaseInput.setTitle("develop");
-
-        this.createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
-
-        this.toColumnID = createColumnUseCaseOutput.getID();
+        createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+        this.card2 = CardDTOConverter.toEntity(cardRepository.findByID(createCardUseCaseOutput.getCardID()));
     }
 
     @Test
@@ -107,8 +89,8 @@ public class PreMoveCardUseCaseTest {
         preMoveCardUseCase.execute(moveCardUseCaseInput, moveCardUseCaseOutput);
 
         assertEquals(this.card.getID().toString(), moveCardUseCaseOutput.getCardID());
-        assertEquals(this.fromColumnID, moveCardUseCaseOutput.getOldColumnID());
-        assertEquals(this.toColumnID, moveCardUseCaseOutput.getNewColumnID());
+        assertEquals(this.fromColumnID, moveCardUseCaseOutput.getFromColumnID());
+        assertEquals(this.toColumnID, moveCardUseCaseOutput.getToColumnID());
 
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.boardID));
         assertTrue(board.findColumnByID(UUID.fromString(this.toColumnID)).cardExist(this.card.getID()));
@@ -119,8 +101,7 @@ public class PreMoveCardUseCaseTest {
     public void pre_move_card_should_post_card_pre_moved_event() {
         DomainEventBus eventBusWithoutPreMovedHandler = new DomainEventBus();
         EventLogRepository eventLogRepository = new MemoryEventLogRepository();
-        DomainEventHandler eventSourcingHandler = new EventSourcingHandler(eventLogRepository);
-        eventBusWithoutPreMovedHandler.register(eventSourcingHandler);
+        eventBusWithoutPreMovedHandler.register(new EventSourcingHandler(eventLogRepository));
 
         PreMoveCardUseCase preMoveCardUseCase = new PreMoveCardUseCase(eventBusWithoutPreMovedHandler, this.boardRepository);
         MoveCardUseCaseInput moveCardUseCaseInput = new MoveCardUseCaseInput();

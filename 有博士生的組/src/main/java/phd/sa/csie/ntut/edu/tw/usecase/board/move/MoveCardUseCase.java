@@ -30,8 +30,8 @@ public class MoveCardUseCase extends UseCase<MoveCardUseCaseInput, MoveCardUseCa
         this.eventBus.postAll(board);
 
         output.setCardID(cardID);
-        output.setOldColumnID(fromColumnID);
-        output.setNewColumnID(newColumnID);
+        output.setFromColumnID(fromColumnID);
+        output.setToColumnID(newColumnID);
     }
 
 }

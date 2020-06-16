@@ -39,10 +39,9 @@ public class CalculateCycleTimeUseCaseTest {
     private BoardRepository boardRepository;
     private CardEnteredColumnEventRepository cardEnteredColumnEventRepository;
     private CardLeftColumnEventRepository cardLeftColumnEventRepository;
-    private MoveCardEventSourcingHandler moveCardEventSourcingHandler;
 
     private Board board;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Before
     public void setup() {
@@ -51,9 +50,9 @@ public class CalculateCycleTimeUseCaseTest {
         this.boardRepository = new MemoryBoardRepository();
         this.cardEnteredColumnEventRepository = new MemoryCardEnteredColumnEventRepository();
         this.cardLeftColumnEventRepository = new MemoryCardLeftColumnEventRepository();
-        this.moveCardEventSourcingHandler = new MoveCardEventSourcingHandler(this.cardEnteredColumnEventRepository,
-                                                                             this.cardLeftColumnEventRepository);
-        this.eventBus.register(this.moveCardEventSourcingHandler);
+        MoveCardEventSourcingHandler moveCardEventSourcingHandler = new MoveCardEventSourcingHandler(this.cardEnteredColumnEventRepository,
+                this.cardLeftColumnEventRepository);
+        this.eventBus.register(moveCardEventSourcingHandler);
 
         this.board = new Board(UUID.randomUUID(), "Kanban");
         this.board.createColumn("Backlog", 0);

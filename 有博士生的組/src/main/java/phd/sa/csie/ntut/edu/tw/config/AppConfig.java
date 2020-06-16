@@ -45,12 +45,12 @@ public class AppConfig {
     }
 
     @Bean
-    public CommitCardUseCase getCommitUsecase() {
+    public CommitCardUseCase getCommitUseCase() {
         return new CommitCardUseCase(this.getDomainEventBus(), this.getCardRepository(), this.getBoardRepository());
     }
 
     @Bean
     public EnterBoardUseCase getGetColumnsByBoardIDUseCase() {
-        return new EnterBoardUseCase(this.getBoardRepository(), this.getCardRepository());
+        return new EnterBoardUseCase(this.getDomainEventBus(), this.getBoardRepository(), this.getCardRepository());
     }
 }

@@ -6,5 +6,5 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.IRepository;
 import java.util.List;
 
 public interface CardLeftColumnEventRepository extends IRepository<CardLeftColumnEventDTO> {
-    public List<CardLeftColumnEventDTO> findByCardID(String cardID);
+    List<CardLeftColumnEventDTO> findByCardID(String cardID);
 }

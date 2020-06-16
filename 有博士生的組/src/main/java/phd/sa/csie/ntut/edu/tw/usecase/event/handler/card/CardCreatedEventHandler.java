@@ -11,9 +11,9 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 public class CardCreatedEventHandler implements DomainEventHandler<CardCreatedEvent> {
-    private CardRepository cardRepository;
-    private BoardRepository boardRepository;
-    private DomainEventBus eventBus;
+    private final CardRepository cardRepository;
+    private final BoardRepository boardRepository;
+    private final DomainEventBus eventBus;
 
     public CardCreatedEventHandler(DomainEventBus eventBus, CardRepository cardRepository, BoardRepository boardRepository) {
         this.eventBus = eventBus;

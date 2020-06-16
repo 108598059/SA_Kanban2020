@@ -37,7 +37,7 @@ public class CreateColumnUseCaseTest {
         CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
-        createColumnUseCaseInput.setTitle("develop");
+        createColumnUseCaseInput.setColumnTitle("develop");
         createColumnUseCaseInput.setBoardID(this.boardID.toString());
         createColumnUseCaseInput.setColumnIndex(0);
 

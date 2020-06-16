@@ -18,11 +18,11 @@ public class CreateColumnUseCase extends UseCase<CreateColumnUseCaseInput, Creat
 
     public void execute(CreateColumnUseCaseInput input,
                         CreateColumnUseCaseOutput output) {
-        String title = input.getTitle();
+        String columnTitle = input.getColumnTitle();
         String boardID = input.getBoardID();
 
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID));
-        UUID columnID = board.createColumn(title, input.getColumnIndex());
+        UUID columnID = board.createColumn(columnTitle, input.getColumnIndex());
 
         this.boardRepository.update(BoardDTOConverter.toDTO(board));
         this.eventBus.postAll(board);

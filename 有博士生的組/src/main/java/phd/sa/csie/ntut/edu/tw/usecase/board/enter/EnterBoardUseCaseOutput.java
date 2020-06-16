@@ -71,7 +71,7 @@ public interface EnterBoardUseCaseOutput extends UseCaseOutput {
         }
     }
 
-    public List<ColumnViewObject> getColumnList();
+    public List<ColumnViewObject> getColumnViewList();
 
-    public void setColumnList(List<ColumnViewObject> columnList);
+    public void setColumnViewList(List<ColumnViewObject> columnViewList);
 }

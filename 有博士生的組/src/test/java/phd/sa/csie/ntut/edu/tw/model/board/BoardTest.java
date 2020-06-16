@@ -3,6 +3,7 @@ package phd.sa.csie.ntut.edu.tw.model.board;
 import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.ColumnCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.board.event.enter.BoardEnteredEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardEnteredColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardLeftColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.wip.ColumnWIPSetEvent;
@@ -118,5 +119,15 @@ public class BoardTest {
         board.setColumnWIP(columnID, 3);
         assertEquals(3, board.getDomainEvents().size());
         assertEquals(ColumnWIPSetEvent.class, board.getDomainEvents().get(2).getClass());
+    }
+
+    @Test
+    public void enter_board_should_issue_board_entered_event() {
+        Board board = new Board(UUID.randomUUID(), "Kanban");
+        assertEquals(1, board.getDomainEvents().size());
+
+        board.enter();
+        assertEquals(2, board.getDomainEvents().size());
+        assertEquals(BoardEnteredEvent.class, board.getDomainEvents().get(1).getClass());
     }
 }

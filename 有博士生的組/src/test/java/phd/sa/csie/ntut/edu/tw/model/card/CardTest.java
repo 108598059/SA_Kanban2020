@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.event.create.CardCreatedEvent;
-import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardNameSetEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardNameEditedEvent;
 
 import java.util.UUID;
 
@@ -15,7 +15,7 @@ public class CardTest {
     public void create_card_should_issue_card_created_event() {
         Card card = new Card("create card", new Board(UUID.randomUUID(), "Kanban"));
 
-        assertEquals(2, card.getDomainEvents().size());
+        assertEquals(1, card.getDomainEvents().size());
         assertEquals(CardCreatedEvent.class, card.getDomainEvents().get(0).getClass());
     }
 
@@ -46,9 +46,9 @@ public class CardTest {
         Board board = new Board(UUID.randomUUID(), "Kanban");
         Card card = new Card("Create card", board);
 
+        assertEquals(1, card.getDomainEvents().size());
+        card.updateName("Set card name");
         assertEquals(2, card.getDomainEvents().size());
-        card.setName("Set card name");
-        assertEquals(3, card.getDomainEvents().size());
-        assertEquals(CardNameSetEvent.class, card.getDomainEvents().get(2).getClass());
+        assertEquals(CardNameEditedEvent.class, card.getDomainEvents().get(1).getClass());
     }
 }

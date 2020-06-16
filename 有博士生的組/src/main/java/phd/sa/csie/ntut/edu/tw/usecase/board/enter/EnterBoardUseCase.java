@@ -3,9 +3,9 @@ package phd.sa.csie.ntut.edu.tw.usecase.board.enter;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.board.Column;
 import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
@@ -18,7 +18,8 @@ public class EnterBoardUseCase extends UseCase<EnterBoardUseCaseInput, EnterBoar
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
 
-    public EnterBoardUseCase(BoardRepository boardRepository, CardRepository cardRepository) {
+    public EnterBoardUseCase(DomainEventBus eventBus, BoardRepository boardRepository, CardRepository cardRepository) {
+        super(eventBus);
         this.boardRepository = boardRepository;
         this.cardRepository = cardRepository;
     }
@@ -26,7 +27,7 @@ public class EnterBoardUseCase extends UseCase<EnterBoardUseCaseInput, EnterBoar
     @Override
     public void execute(EnterBoardUseCaseInput input, EnterBoardUseCaseOutput output) {
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID()));
-        List<Column> columnList = board.getColumns();
+        List<Column> columnList = board.enter();
 
         List<EnterBoardUseCaseOutput.ColumnViewObject> columnViewList = new ArrayList<>();
         for (Column column: columnList) {
@@ -49,6 +50,9 @@ public class EnterBoardUseCase extends UseCase<EnterBoardUseCaseInput, EnterBoar
 
             columnViewList.add(columnViewObject);
         }
-        output.setColumnList(columnViewList);
+
+        this.eventBus.postAll(board);
+
+        output.setColumnViewList(columnViewList);
     }
 }

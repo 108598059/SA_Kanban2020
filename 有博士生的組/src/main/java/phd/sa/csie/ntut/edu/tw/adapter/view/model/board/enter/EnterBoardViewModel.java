@@ -11,7 +11,7 @@ public class EnterBoardViewModel extends AbstractViewModel {
 
     public EnterBoardViewModel(EnterBoardUseCaseOutput output) {
         this.columnList = new ArrayList<>();
-        for (EnterBoardUseCaseOutput.ColumnViewObject columnViewObject: output.getColumnList()) {
+        for (EnterBoardUseCaseOutput.ColumnViewObject columnViewObject: output.getColumnViewList()) {
             this.columnList.add(new ColumnViewObject(columnViewObject));
         }
     }

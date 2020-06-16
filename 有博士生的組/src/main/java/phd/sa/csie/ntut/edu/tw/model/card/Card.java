@@ -5,7 +5,7 @@ import java.util.UUID;
 import phd.sa.csie.ntut.edu.tw.model.domain.AggregateRoot;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.model.card.event.create.CardCreatedEvent;
-import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardNameSetEvent;
+import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardNameEditedEvent;
 
 public class Card extends AggregateRoot {
     private String name;
@@ -22,12 +22,16 @@ public class Card extends AggregateRoot {
         this.name = name;
     }
 
-    public void setName(String name) {
+    public void updateName(String name) {
+        this.setName(name);
+        this.addDomainEvent(new CardNameEditedEvent(this.id.toString(), this.name));
+    }
+
+    private void setName(String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Card name should not be empty");
         }
         this.name = name;
-        this.addDomainEvent(new CardNameSetEvent(this.id.toString(), this.name));
     }
 
     public String getName() {

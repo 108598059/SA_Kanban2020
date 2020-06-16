@@ -19,7 +19,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
-import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.name.EditCardNameUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.edit.name.EditCardNameUseCaseInput;
@@ -31,29 +30,28 @@ public class EditCardNameUseCaseTest {
 
     private Card card;
     private CardRepository cardRepository;
-    private BoardRepository boardRepository;
-    private CreateCardUseCase createCardUseCase;
     private DomainEventBus eventBus;
 
     @Before
     public void given_a_card() {
         this.eventBus = new DomainEventBus();
         this.cardRepository = new MemoryCardRepository();
-        this.boardRepository = new MemoryBoardRepository();
+        BoardRepository boardRepository = new MemoryBoardRepository();
 
         Board board = new Board(UUID.randomUUID(), "Kanban");
-        this.boardRepository.save(BoardDTOConverter.toDTO(board));
+        boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, this.boardRepository));
-        this.createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, boardRepository));
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, boardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
+
         createCardUseCaseInput.setCardName("Old Name");
         createCardUseCaseInput.setBoardID(board.getID().toString());
-        this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
-        UUID cardID = UUID.fromString(createCardUseCaseOutput.getCardID());
-        this.card = CardDTOConverter.toEntity(this.cardRepository.findByID(cardID.toString()));
+        createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
+
+        this.card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
     }
 
     @Test
@@ -70,8 +68,8 @@ public class EditCardNameUseCaseTest {
         assertEquals(this.card.getID().toString(), editCardNameUseCaseOutput.getCardID());
         assertEquals("New Name", editCardNameUseCaseOutput.getCardName());
 
-        CardDTO cardDTO = this.cardRepository.findByID(this.card.getID().toString());
-        assertEquals(editCardNameUseCaseInput.getCardName(), cardDTO.getName());
+        Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(this.card.getID().toString()));
+        assertEquals(editCardNameUseCaseInput.getCardName(), card.getName());
     }
 
     @Test

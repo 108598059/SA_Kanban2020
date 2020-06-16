@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnterBoardPresenter implements EnterBoardUseCaseOutput {
-    private List<ColumnViewObject> columnList;
+    private List<ColumnViewObject> columnViewList;
 
     public EnterBoardPresenter() {
-        this.columnList = new ArrayList<>();
+        this.columnViewList = new ArrayList<>();
     }
 
     public EnterBoardViewModel build() {
@@ -18,12 +18,12 @@ public class EnterBoardPresenter implements EnterBoardUseCaseOutput {
     }
 
     @Override
-    public List<ColumnViewObject> getColumnList() {
-        return columnList;
+    public List<ColumnViewObject> getColumnViewList() {
+        return columnViewList;
     }
 
     @Override
-    public void setColumnList(List<ColumnViewObject> columnList) {
-        this.columnList = columnList;
+    public void setColumnViewList(List<ColumnViewObject> columnViewList) {
+        this.columnViewList = columnViewList;
     }
 }

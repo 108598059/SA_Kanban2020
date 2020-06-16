@@ -2,7 +2,6 @@ package phd.sa.csie.ntut.edu.tw.usecase.event.handler.board;
 
 import com.google.common.eventbus.Subscribe;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardEnteredColumnEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardPreMovedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
@@ -21,7 +20,6 @@ public class CardPreMovedEventHandler implements DomainEventHandler<CardPreMoved
     public CardPreMovedEventHandler(DomainEventBus eventBus, BoardRepository boardRepository) {
         this.eventBus = eventBus;
         this.boardRepository = boardRepository;
-
     }
 
     @Subscribe
@@ -40,13 +38,9 @@ public class CardPreMovedEventHandler implements DomainEventHandler<CardPreMoved
             input.setBoardID(cardPreMovedEvent.getBoardID());
             input.setCardID(cardID);
             moveCardUseCase.execute(input, new MoveCardUseCaseOutput());
-
         } else {
             board.releasePreservedPosition(UUID.fromString(toColumnID), UUID.fromString(cardID));
             this.boardRepository.update(BoardDTOConverter.toDTO(board));
         }
-
-
-
     }
 }

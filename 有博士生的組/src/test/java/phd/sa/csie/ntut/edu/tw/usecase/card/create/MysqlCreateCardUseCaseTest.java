@@ -18,7 +18,6 @@ import phd.sa.csie.ntut.edu.tw.model.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
-import phd.sa.csie.ntut.edu.tw.usecase.event.handler.DomainEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
@@ -39,8 +38,7 @@ public class MysqlCreateCardUseCaseTest {
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
         this.eventBus = new DomainEventBus();
-        DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository);
-        this.eventBus.register(cardCreatedEventHandler);
+        this.eventBus.register(new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository));
     }
 
     @After

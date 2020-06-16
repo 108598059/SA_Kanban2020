@@ -1,5 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
+import phd.sa.csie.ntut.edu.tw.model.board.event.enter.BoardEnteredEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardPreMovedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.AggregateRoot;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
@@ -14,13 +15,13 @@ import java.util.*;
 public class Board extends AggregateRoot {
     private UUID workspaceID;
     private String name;
-    private List<Column> columns;
+    private final List<Column> columns;
 
     public Board(UUID workspaceID, String name) {
         super();
         this.workspaceID = workspaceID;
         this.setName(name);
-        this.columns = new ArrayList<Column>();
+        this.columns = new ArrayList<>();
         this.addDomainEvent(new BoardCreatedEvent(this.id.toString(), this.name));
     }
 
@@ -32,9 +33,8 @@ public class Board extends AggregateRoot {
     }
 
     public void commitCard(Card card, UUID columnID) {
-        Column backlog = this.getColumnByID(columnID);
-        backlog.addCard(card.getID());
-        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), card.getID().toString(), backlog.getID().toString()));
+        this.getColumnByID(columnID).addCard(card.getID());
+        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), card.getID().toString(), columnID.toString()));
     }
 
     public int getColumnNumber() {
@@ -112,6 +112,11 @@ public class Board extends AggregateRoot {
 
     public List<Column> getColumns() {
         return Collections.unmodifiableList(this.columns);
+    }
+
+    public List<Column> enter() {
+        this.addDomainEvent(new BoardEnteredEvent(this.id.toString()));
+        return this.getColumns();
     }
 
     public UUID getWorkspaceID() {

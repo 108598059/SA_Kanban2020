@@ -33,23 +33,19 @@ public class SetColumnWIPTest {
         this.boardRepository = new MemoryBoardRepository();
         this.eventBus = new DomainEventBus();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
-        CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardPresenter();
+        Board board = new Board(UUID.randomUUID(), "Software Architecture");
+        UUID boardID = board.getID();
+        this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        createBoardUseCaseInput.setBoardName("Software Architecture");
-        createBoardUseCaseInput.setWorkspaceID(UUID.randomUUID().toString());
-
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
-
-        this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createBoardUseCaseOutput.getBoardID()));
+        this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
 
         CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
         CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
         createColumnUseCaseInput.setBoardID(this.board.getID().toString());
-        createColumnUseCaseInput.setTitle("develop");
+        createColumnUseCaseInput.setColumnTitle("develop");
+        createColumnUseCaseInput.setColumnIndex(0);
 
         createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
@@ -70,6 +66,10 @@ public class SetColumnWIPTest {
 
         assertNotNull(setColumnWIPUseCaseOutput.getColumnID());
         assertEquals(3, setColumnWIPUseCaseOutput.getColumnWIP());
+
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
+
+        assertEquals(3, board.get(0).getWIP());
     }
 
     @Test

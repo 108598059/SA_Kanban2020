@@ -7,7 +7,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 public class EditCardNameUseCase extends UseCase<EditCardNameUseCaseInput, EditCardNameUseCaseOutput> {
-    private CardRepository cardRepository;
+    private final CardRepository cardRepository;
 
     public EditCardNameUseCase(DomainEventBus eventBus, CardRepository repository) {
         super(eventBus);
@@ -19,7 +19,7 @@ public class EditCardNameUseCase extends UseCase<EditCardNameUseCaseInput, EditC
         String cardName = input.getCardName();
 
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(cardID));
-        card.setName(cardName);
+        card.updateName(cardName);
 
         this.cardRepository.save(CardDTOConverter.toDTO(card));
         this.eventBus.postAll(card);

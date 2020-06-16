@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class EnterBoardUseCaseTest {
+    private DomainEventBus eventBus;
     private BoardRepository boardRepository;
     private CardRepository cardRepository;
     private UUID boardID;
@@ -38,11 +39,11 @@ public class EnterBoardUseCaseTest {
         this.boardID = board.getID();
         this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        DomainEventBus eventBus = new DomainEventBus();
-        DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(eventBus, this.cardRepository, this.boardRepository);
-        eventBus.register(cardCreatedEventHandler);
+        this.eventBus = new DomainEventBus();
+        DomainEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository);
+        this.eventBus.register(cardCreatedEventHandler);
 
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(eventBus, this.cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
         CreateCardUseCaseInput createCardInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardOutput = new CreateCardPresenter();
 
@@ -58,7 +59,7 @@ public class EnterBoardUseCaseTest {
 
     @Test
     public void test_get_columns_structure_by_board_id() {
-        EnterBoardUseCase enterBoardUseCase = new EnterBoardUseCase(this.boardRepository, this.cardRepository);
+        EnterBoardUseCase enterBoardUseCase = new EnterBoardUseCase(this.eventBus, this.boardRepository, this.cardRepository);
         EnterBoardUseCaseInput enterBoardUsecaseInput = new EnterBoardUseCaseInput();
         EnterBoardUseCaseOutput enterBoardUsecaseOutput = new EnterBoardPresenter();
 
@@ -66,8 +67,8 @@ public class EnterBoardUseCaseTest {
 
         enterBoardUseCase.execute(enterBoardUsecaseInput, enterBoardUsecaseOutput);
 
-        assertEquals(2, enterBoardUsecaseOutput.getColumnList().size());
-        EnterBoardUseCaseOutput.ColumnViewObject backlogColumn = enterBoardUsecaseOutput.getColumnList().get(0);
+        assertEquals(2, enterBoardUsecaseOutput.getColumnViewList().size());
+        EnterBoardUseCaseOutput.ColumnViewObject backlogColumn = enterBoardUsecaseOutput.getColumnViewList().get(0);
         assertEquals("Backlog", backlogColumn.getTitle());
         assertNotNull(backlogColumn.getID());
         assertEquals(0, backlogColumn.getWIP());
