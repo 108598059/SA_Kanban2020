@@ -32,10 +32,10 @@ public class Board extends AggregateRoot {
         this.columns = columns;
     }
 
-    public void commitCard(Card card) {
-        Column backlog = this.backlogColumn();
+    public void commitCard(Card card, UUID columnID) {
+        Column backlog = this.getColumnByID(columnID);
         backlog.addCard(card.getID());
-        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), card.getID().toString(), backlog.getID().toString(), null));
+        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), card.getID().toString(), backlog.getID().toString()));
     }
 
     public int getColumnNumber() {
@@ -55,22 +55,6 @@ public class Board extends AggregateRoot {
 
     public String getName() {
         return this.name;
-    }
-
-    public Column getBacklogColumn() {
-        return new Column(this.backlogColumn());
-    }
-
-    private Column backlogColumn() {
-        return this.columns.get(0);
-    }
-
-    public Column getArchiveColumn() {
-        return new Column(this.archiveColumn());
-    }
-
-    private Column archiveColumn() {
-        return this.columns.get(this.columns.size()-1);
     }
 
     public UUID createColumn(String columnTitle, int index) {
@@ -103,7 +87,7 @@ public class Board extends AggregateRoot {
         from.removeCard(cardID);
         this.addDomainEvent(new CardLeftColumnEvent(this.id.toString(), cardID.toString(), fromColumnID.toString()));
         to.addCard(cardID);
-        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), cardID.toString(), toColumnID.toString(), fromColumnID.toString()));
+        this.addDomainEvent(new CardEnteredColumnEvent(this.id.toString(), cardID.toString(), toColumnID.toString()));
         to.releasePreservedPosition(cardID);
         return to.getID().toString();
     }

@@ -73,7 +73,7 @@ public class CreateCardUseCaseTest {
 
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
         Board boardResult = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
-        assertEquals(card.getID(), boardResult.getBacklogColumn().getCardIDs().get(0));
+        assertEquals(card.getID(), boardResult.get(0).getCardIDs().get(0));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class CreateCardUseCaseTest {
 
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
-        assertTrue(board.getBacklogColumn().getCardIDs().contains(card.getID()));
+        assertTrue(board.get(0).getCardIDs().contains(card.getID()));
     }
 
     @Test

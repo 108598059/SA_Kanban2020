@@ -16,4 +16,8 @@ public class CardLeftColumnEventDTOConverter {
 
         return cardLeftColumnEventDTO;
     }
+
+    public static CardLeftColumnEvent toEntity(CardLeftColumnEventDTO e) {
+        return new CardLeftColumnEvent(e.getOccurredTime(), e.getSourceID(), e.getSourceName(), e.getID(), e.getCardID(), e.getColumnID());
+    }
 }

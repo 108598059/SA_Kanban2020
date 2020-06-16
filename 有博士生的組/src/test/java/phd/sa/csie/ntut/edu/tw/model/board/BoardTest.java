@@ -58,8 +58,8 @@ public class BoardTest {
         board.createColumn("Backlog", 0);
         Card card = new Card("Implement a card", board);
         assertEquals(2, board.getDomainEvents().size());
-        board.commitCard(card);
-        assertTrue(board.getBacklogColumn().cardExist(card.getID()));
+        board.commitCard(card, board.get(0).getID());
+        assertTrue(board.get(0).cardExist(card.getID()));
         assertEquals(3, board.getDomainEvents().size());
         assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(2).getClass());
     }
@@ -70,23 +70,23 @@ public class BoardTest {
         board.createColumn("Backlog", 0);
         board.createColumn("Archive", 1);
         Card card = new Card("Implement a card", board);
-        board.addCardToColumn(card.getID(), board.getBacklogColumn().getID());
+        board.addCardToColumn(card.getID(), board.get(0).getID());
 
         assertEquals(3, board.getDomainEvents().size());
 
-        board.moveCard(card.getID(), board.getBacklogColumn().getID(), board.getArchiveColumn().getID());
+        board.moveCard(card.getID(), board.get(0).getID(), board.get(1).getID());
 
         assertEquals(5, board.getDomainEvents().size());
         assertEquals(CardLeftColumnEvent.class, board.getDomainEvents().get(3).getClass());
         assertEquals(CardEnteredColumnEvent.class, board.getDomainEvents().get(4).getClass());
-        assertTrue(board.getArchiveColumn().cardExist(card.getID()));
+        assertTrue(board.get(1).cardExist(card.getID()));
     }
 
     @Test
     public void get_column_by_id() {
         Board board = new Board(UUID.randomUUID(), "Kanban");
         board.createColumn("Backlog", 0);
-        UUID columnID = board.getBacklogColumn().getID();
+        UUID columnID = board.get(0).getID();
         assertEquals("Backlog", board.findColumnByID(columnID).getTitle());
     }
 

@@ -19,6 +19,7 @@ import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseOutput;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.CardPreMovedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.move.MoveCardEventSourcingHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -28,7 +29,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.card.CardRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -64,6 +64,7 @@ public class CalculateCycleTimeUseCaseTest {
 
         CardCreatedEventHandler cardCreatedEventHandler = new CardCreatedEventHandler(this.eventBus, this.cardRepository, this.boardRepository);
         this.eventBus.register(cardCreatedEventHandler);
+        this.eventBus.register(new CardPreMovedEventHandler(this.eventBus, this.boardRepository));
 
         this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
     }
@@ -74,21 +75,22 @@ public class CalculateCycleTimeUseCaseTest {
         Card card = this.create_card("Calculate Cycle Time");
 
         DateProvider.setDate(dateFormat.parse("2020-05-22 00:00:00"));
-        this.move_card(card, this.board.getBacklogColumn().getID().toString(), this.board.get(1).getID().toString());
+        this.move_card(card, this.board.get(0).getID().toString(), this.board.get(1).getID().toString());
 
         DateProvider.setDate(dateFormat.parse("2020-05-27 00:00:00"));
-        this.move_card(card, this.board.get(1).getID().toString(), this.board.getArchiveColumn().getID().toString());
+        this.move_card(card, this.board.get(1).getID().toString(), this.board.get(2).getID().toString());
 
         CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(this.eventBus, this.cardEnteredColumnEventRepository, this.cardLeftColumnEventRepository);
         CalculateCycleTimeUseCaseInput calculateCycleTimeUseCaseInput = new CalculateCycleTimeUseCaseInput();
         CalculateCycleTimeUseCaseOutput calculateCycleTimeUseCaseOutput = new CalculateCycleTimeUseCaseOutput();
 
         calculateCycleTimeUseCaseInput.setCardID(card.getID().toString());
-        calculateCycleTimeUseCaseInput.setStartColumnIndex(0);
-        calculateCycleTimeUseCaseInput.setEndColumnIndex(1);
+        calculateCycleTimeUseCaseInput.setStartColumnID(this.board.get(0).getID().toString());
+        calculateCycleTimeUseCaseInput.setEndColumnID(this.board.get(0).getID().toString());
         calculateCycleTimeUseCase.execute(calculateCycleTimeUseCaseInput, calculateCycleTimeUseCaseOutput);
 
         CycleTime cycleTime = calculateCycleTimeUseCaseOutput.getCycleTime();
+
         assertEquals(24 * 60 * 60 * 1000, cycleTime.getTime());
     }
 

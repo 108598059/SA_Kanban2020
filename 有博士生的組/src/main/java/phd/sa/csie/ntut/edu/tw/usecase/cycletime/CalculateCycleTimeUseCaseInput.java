@@ -4,8 +4,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class CalculateCycleTimeUseCaseInput implements UseCaseInput {
     private String cardID;
-    private int startColumnIndex;
-    private int endColumnIndex;
+    private String startColumnID;
+    private String endColumnID;
 
     public String getCardID() {
         return cardID;
@@ -15,19 +15,19 @@ public class CalculateCycleTimeUseCaseInput implements UseCaseInput {
         this.cardID = cardID;
     }
 
-    public int getStartColumnIndex() {
-        return startColumnIndex;
+    public String getStartColumnID() {
+        return startColumnID;
     }
 
-    public void setStartColumnIndex(int startColumnIndex) {
-        this.startColumnIndex = startColumnIndex;
+    public void setStartColumnID(String startColumnID) {
+        this.startColumnID = startColumnID;
     }
 
-    public int getEndColumnIndex() {
-        return endColumnIndex;
+    public String getEndColumnID() {
+        return endColumnID;
     }
 
-    public void setEndColumnIndex(int endColumnIndex) {
-        this.endColumnIndex = endColumnIndex;
+    public void setEndColumnID(String endColumnID) {
+        this.endColumnID = endColumnID;
     }
 }

@@ -52,6 +52,6 @@ public class CommitCardUseCaseTest {
         assertEquals(this.card.getID().toString(), output.getCardID());
 
         Board resultBoard = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
-        assertEquals(this.card.getID(), resultBoard.getBacklogColumn().getCardIDs().get(0));
+        assertEquals(this.card.getID(), resultBoard.get(0).getCardIDs().get(0));
     }
 }

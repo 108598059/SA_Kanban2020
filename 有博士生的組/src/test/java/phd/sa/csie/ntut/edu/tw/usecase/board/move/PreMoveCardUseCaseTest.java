@@ -80,7 +80,7 @@ public class PreMoveCardUseCaseTest {
         this.createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
         this.card2 = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
 
-        this.fromColumnID = board.getBacklogColumn().getID().toString();
+        this.fromColumnID = board.get(0).getID().toString();
 
         CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();

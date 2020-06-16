@@ -23,7 +23,7 @@ public class CommitCardUseCase extends UseCase<CommitCardUseCaseInput, CommitCar
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(input.getBoardID()));
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(input.getCardID()));
 
-        board.commitCard(card);
+        board.commitCard(card, board.get(0).getID());
 
         this.boardRepository.update(BoardDTOConverter.toDTO(board));
         this.eventBus.postAll(board);
