@@ -10,8 +10,8 @@ public class Column extends Entity {
 
     private String title;
     private int wip;
-    private List<UUID> cardIDs;
-    private List<UUID> preservedPosition;
+    private final List<UUID> cardIDs;
+    private final List<UUID> preservedPosition;
 
     public Column(String title) {
         super();
@@ -27,9 +27,7 @@ public class Column extends Entity {
         this.wip = col.wip;
         this.cardIDs = new ArrayList<>();
         this.preservedPosition = new ArrayList<>();
-        for (UUID cardID : col.cardIDs) {
-            this.cardIDs.add(cardID);
-        }
+        this.cardIDs.addAll(col.cardIDs);
     }
 
     public Column(UUID id, String title, List<UUID> cardIDs, List<UUID> preservedPosition, int wip) {

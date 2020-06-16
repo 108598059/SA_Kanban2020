@@ -10,14 +10,12 @@ public class CardDTOConverter {
 
         cardDTO.setID(card.getID().toString());
         cardDTO.setName(card.getName());
-        cardDTO.setLeadTime(card.getLeadTime());
 
         return cardDTO;
     }
 
     public static Card toEntity(CardDTO cardDTO) {
         return new Card(UUID.fromString(cardDTO.getID()),
-                        cardDTO.getName(),
-                        cardDTO.getLeadTime());
+                        cardDTO.getName());
     }
 }

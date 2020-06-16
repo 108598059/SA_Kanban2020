@@ -3,8 +3,6 @@ package phd.sa.csie.ntut.edu.tw.model.card;
 import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.event.calculate.LeadTimeCalculatedEvent;
-import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardBelongsColumnSetEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.event.create.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardNameSetEvent;
 
@@ -52,16 +50,5 @@ public class CardTest {
         card.setName("Set card name");
         assertEquals(3, card.getDomainEvents().size());
         assertEquals(CardNameSetEvent.class, card.getDomainEvents().get(2).getClass());
-    }
-
-    @Test
-    public void set_lead_time_should_issue_lead_time_calculated_event() {
-        Board board = new Board(UUID.randomUUID(), "Kanban");
-        Card card = new Card("Create card", board);
-
-        assertEquals(2, card.getDomainEvents().size());
-        card.setLeadTime(24 * 60 * 60 * 1000);
-        assertEquals(3, card.getDomainEvents().size());
-        assertEquals(LeadTimeCalculatedEvent.class, card.getDomainEvents().get(2).getClass());
     }
 }

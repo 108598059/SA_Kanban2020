@@ -1,6 +1,5 @@
 package phd.sa.csie.ntut.edu.tw.model.board;
 
-import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardMovedBackEvent;
 import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardPreMovedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.AggregateRoot;
 import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
@@ -28,7 +27,7 @@ public class Board extends AggregateRoot {
     public Board(UUID id, UUID workspaceID, String name, List<Column> columns) {
         this.id = id;
         this.workspaceID = workspaceID;
-        this.name = name;
+        this.setName(name);
         this.columns = columns;
     }
 
@@ -71,8 +70,7 @@ public class Board extends AggregateRoot {
     }
 
     public void addCardToColumn(UUID cardID, UUID columnID) {
-        Column column = this.getColumnByID(columnID);
-        column.addCard(cardID);
+        this.getColumnByID(columnID).addCard(cardID);
     }
 
     public void setColumnWIP(UUID columnID, int wip) {
@@ -142,7 +140,6 @@ public class Board extends AggregateRoot {
     }
 
     public void releasePreservedPosition(UUID columnID, UUID cardID) {
-        Column column = this.getColumnByID(columnID);
-        column.releasePreservedPosition(cardID);
+        this.getColumnByID(columnID).releasePreservedPosition(cardID);
     }
 }

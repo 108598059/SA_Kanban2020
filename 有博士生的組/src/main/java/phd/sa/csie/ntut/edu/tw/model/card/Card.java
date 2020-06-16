@@ -4,27 +4,22 @@ import java.util.UUID;
 
 import phd.sa.csie.ntut.edu.tw.model.domain.AggregateRoot;
 import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardBelongsColumnSetEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.event.create.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.card.event.edit.CardNameSetEvent;
-import phd.sa.csie.ntut.edu.tw.model.card.event.calculate.LeadTimeCalculatedEvent;
 
 public class Card extends AggregateRoot {
     private String name;
-    private long leadTime;
 
     public Card(String name, Board board) {
         super();
         this.addDomainEvent(new CardCreatedEvent(this.id.toString(), this, board.getID().toString()));
         this.setName(name);
-        this.leadTime = -1;
     }
 
     // For DTO Converter
-    public Card(UUID id, String name, long leadTime) {
+    public Card(UUID id, String name) {
         this.id = id;
         this.name = name;
-        this.leadTime = leadTime;
     }
 
     public void setName(String name) {
@@ -37,14 +32,5 @@ public class Card extends AggregateRoot {
 
     public String getName() {
         return this.name;
-    }
-
-    public long getLeadTime() {
-        return leadTime;
-    }
-
-    public void setLeadTime(long leadTime) {
-        this.leadTime = leadTime;
-        this.addDomainEvent(new LeadTimeCalculatedEvent(this.id.toString(), this.leadTime));
     }
 }
