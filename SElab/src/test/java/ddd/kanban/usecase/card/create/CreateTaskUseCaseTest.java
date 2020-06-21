@@ -14,7 +14,7 @@ import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.CardRepository;
 import ddd.kanban.usecase.repository.FlowEventRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.mapper.WorkflowEntityMapper;
+import ddd.kanban.usecase.kanbanboard.workflow.mapper.WorkflowEntityMapper;
 import org.junit.Before;
 import org.junit.Test;
 

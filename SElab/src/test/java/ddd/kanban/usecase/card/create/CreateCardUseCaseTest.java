@@ -5,15 +5,15 @@ import ddd.kanban.adapter.repository.card.InMemoryCardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.card.Card;
-import ddd.kanban.domain.model.workflow.Lane;
-import ddd.kanban.domain.model.workflow.Workflow;
+import ddd.kanban.domain.model.kanbanboard.workflow.Lane;
+import ddd.kanban.domain.model.kanbanboard.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.card.mapper.CardEntityMapper;
 import ddd.kanban.usecase.domainevent.handler.DomainEventHandler;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.CardRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.mapper.WorkflowEntityMapper;
+import ddd.kanban.usecase.kanbanboard.workflow.mapper.WorkflowEntityMapper;
 import org.junit.Before;
 import org.junit.Test;
 
