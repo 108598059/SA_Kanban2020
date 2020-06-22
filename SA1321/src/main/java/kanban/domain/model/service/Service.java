@@ -1,4 +1,4 @@
-package kanban.domain.model.aggregate;
+package kanban.domain.model.service;
 
 import kanban.domain.model.DomainEvent;
 import kanban.domain.model.DomainEventHolder;
@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AggregateRoot implements DomainEventHolder {
+public class Service implements DomainEventHolder {
 
     private List<DomainEvent> domainEvents;
 
-    public AggregateRoot() {
+    public Service() {
         domainEvents = new ArrayList<>();
     }
 

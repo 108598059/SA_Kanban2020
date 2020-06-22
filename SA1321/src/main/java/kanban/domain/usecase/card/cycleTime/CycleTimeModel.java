@@ -1,12 +1,12 @@
 package kanban.domain.usecase.card.cycleTime;
 
-public class CycleTime {
+public class CycleTimeModel {
     private long diffDays;
     private long diffHours;
     private long diffMinutes;
     private long diffSeconds;
 
-    public CycleTime(long diff) {
+    public CycleTimeModel(long diff) {
         diffDays = diff/(24*3600);
         diffHours = diff %(24*3600)/3600;
         diffMinutes = diff % 3600/60;

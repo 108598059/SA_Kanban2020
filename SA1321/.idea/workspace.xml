@@ -7,58 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="271faf23-e55f-4643-8b02-caea93a7525c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Layout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/WipLimit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEventHolder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/service/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/service/cycleTime/CalculateCycleTimeCalculater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/service/event/CycleTimeCalculated.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/ApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/ApplicationContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/KanbanStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/KanbanStart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/InMemoryBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/InMemoryBoardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/MySqlBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/board/MySqlBoardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/card/InMemoryCardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/card/InMemoryCardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/card/MySqlCardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/card/MySqlCardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/domainEvent/InMemoryDomainEventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/domainEvent/InMemoryDomainEventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/flowEvent/InMemoryFlowEventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/flowEvent/InMemoryFlowEventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/InMemoryWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/InMemoryWorkflowRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/MySqlWorkflowRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/data/StageData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/data/StageData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/mapper/StageEntityDataMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/repository/workflow/mapper/StageEntityDataMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Stage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Stage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Workflow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/Workflow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/event/StageCreated.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/workflow/event/StageCreated.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/create/CreateBoardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/create/CreateBoardUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/get/GetBoardsUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/get/GetBoardsUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/repository/IBoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/board/IBoardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/commit/CommitCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/commit/CommitCardUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/create/CreateCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/create/CreateCardUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/presenter/card/cycleTime/CalculateCycleTimePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/presenter/card/cycleTime/CalculateCycleTimePresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEventBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEventBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/AggregateRoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/AggregateRoot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeOutput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/move/MoveCardUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/move/MoveCardUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/repository/ICardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/ICardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/domainEvent/repository/IDomainEventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/domainEvent/IDomainEventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/flowEvent/repository/IFlowEventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/flowEvent/IFlowEventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/card/CardEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/card/CardEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/domainEvent/DomainEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/domainEvent/DomainEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/domainEvent/FlowEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/flowEvent/FlowEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/workflow/WorkflowEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/handler/workflow/WorkflowEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/StageEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/StageEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/create/CreateStageInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/create/CreateStageInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/create/CreateStageUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/create/CreateStageUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/mapper/StageEntityModelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/stage/mapper/StageEntityModelMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/commit/CommitWorkflowUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/create/CreateWorkflowUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/mapper/WorkflowEntityModelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/mapper/WorkflowEntityModelMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/repository/IWorkflowRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/workflow/IWorkflowRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTimeModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTimeInStage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/FlowEventPair.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/unit_test/workflow/WorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/unit_test/workflow/WorkflowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/CreateBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/CreateBoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/GetBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/board/GetBoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CalculateCycleTimeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CalculateCycleTimeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CommitCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CommitCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CreateCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CreateCardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/MoveCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/MoveCardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/domainEvent/DomainEventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/domainEvent/DomainEventTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/stage/CreateStageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/stage/CreateStageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CommitWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CommitWorkflowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CreateWorkflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/workflow/CreateWorkflowTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -107,11 +71,11 @@
       <recent name="kanban.domain" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="kanban.domain.model.service" />
       <recent name="kanban.domain.usecase.card.cycleTime" />
       <recent name="kanban.domain.model.aggregate.workflow.event" />
       <recent name="kanban.domain.usecase.card.move" />
       <recent name="kanban.domain.adapter.repository.domainEvent" />
-      <recent name="kanban.domain.usecase.domainEvent.repository" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -126,7 +90,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in SA1321">
+  <component name="RunManager" selected="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card">
     <configuration name="All in SA1321" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <option name="PACKAGE_NAME" value="" />
@@ -135,7 +99,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CalculateCycleTimeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <extension name="coverage">
         <pattern>
@@ -145,8 +109,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="kanban.domain.usecase.card" />
       <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.card.CalculateCycleTimeTest" />
-      <option name="METHOD_NAME" value="Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -183,16 +146,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="kanban.domain.usecase in SA1321" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.*" />
+          <option name="PATTERN" value="kanban.domain.usecase.domainEvent.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="kanban.domain.usecase.domainEvent" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.domainEvent.DomainEventTest" />
+      <option name="METHOD_NAME" value="Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -271,20 +236,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.kanban.domain.usecase in SA1321" />
-      <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" />
       <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
       <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card_From_Ready_To_ReadyToDeploy" />
       <item itemvalue="JUnit.All in SA1321" />
+      <item itemvalue="JUnit.CalculateCycleTimeTest" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.12" />
+      <item itemvalue="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
         <item itemvalue="JUnit.All in SA1321" />
         <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card_From_Ready_To_ReadyToDeploy" />
-        <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" />
+        <item itemvalue="JUnit.CalculateCycleTimeTest" />
         <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
-        <item itemvalue="JUnit.kanban.domain.usecase in SA1321" />
       </list>
     </recent_temporary>
   </component>
@@ -317,6 +282,9 @@
       <workItem from="1590559537532" duration="608000" />
       <workItem from="1590574799363" duration="2120000" />
       <workItem from="1592217249302" duration="6082000" />
+      <workItem from="1592532419477" duration="16000" />
+      <workItem from="1592539143331" duration="3935000" />
+      <workItem from="1592820669839" duration="5249000" />
     </task>
     <servers />
   </component>

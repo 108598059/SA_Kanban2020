@@ -16,7 +16,7 @@ import kanban.domain.usecase.card.create.CreateCardUseCase;
 import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeInput;
 import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeOutput;
 import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeUseCase;
-import kanban.domain.usecase.card.cycleTime.CycleTime;
+import kanban.domain.usecase.card.cycleTime.CycleTimeModel;
 import kanban.domain.usecase.card.move.MoveCardInput;
 import kanban.domain.usecase.card.move.MoveCardOutput;
 import kanban.domain.usecase.card.move.MoveCardUseCase;
@@ -149,8 +149,8 @@ public class Utility {
         return output.getCardId();
     }
 
-    public CycleTime calculateCycleTime(String workflowId, String cardId, String beginningStageId, String endingStageId){
-        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository);
+    public CycleTimeModel calculateCycleTime(String workflowId, String cardId, String beginningStageId, String endingStageId){
+        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository, eventBus);
         CalculateCycleTimeInput input = calculateCycleTimeUseCase;
         input.setWorkflowId(workflowId);
         input.setCardId(cardId);
@@ -159,7 +159,7 @@ public class Utility {
         CalculateCycleTimeOutput output = new CalculateCycleTimePresenter();
 
         calculateCycleTimeUseCase.execute(input, output);
-        return output.getCycleTime();
+        return output.getCycleTimeModel();
     }
 
     public String getDefaultBoardId() {

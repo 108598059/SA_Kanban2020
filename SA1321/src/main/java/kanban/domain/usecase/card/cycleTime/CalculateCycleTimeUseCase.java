@@ -1,8 +1,10 @@
 package kanban.domain.usecase.card.cycleTime;
 
+import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.FlowEvent;
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.model.aggregate.workflow.Workflow;
+import kanban.domain.model.service.cycleTime.CalculateCycleTimeCalculater;
 import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.IWorkflowRepository;
@@ -17,67 +19,51 @@ public class CalculateCycleTimeUseCase implements CalculateCycleTimeInput {
 
     private IWorkflowRepository workflowRepository;
     private IFlowEventRepository flowEventRepository;
-    private List<FlowEventPair> flowEventPairs;
+    private DomainEventBus domainEventBus;
 
-    public CalculateCycleTimeUseCase(IWorkflowRepository workflowRepository, IFlowEventRepository flowEventRepository) {
+    public CalculateCycleTimeUseCase(IWorkflowRepository workflowRepository, IFlowEventRepository flowEventRepository, DomainEventBus domainEventBus) {
         this.workflowRepository = workflowRepository;
         this.flowEventRepository = flowEventRepository;
-        flowEventPairs = new ArrayList<>();
+        this.domainEventBus = domainEventBus;
     }
 
     public void execute(CalculateCycleTimeInput input, CalculateCycleTimeOutput output) {
-        Stack<FlowEvent> stack = new Stack<>();
 
-        for(FlowEvent flowEvent: flowEventRepository.getAll()) {
-            if(!flowEvent.getCardId().equals(input.getCardId())) {
-                continue;
-            }
-            if(stack.empty()) {
-                // committedCard
-                stack.push(flowEvent);
-            }else {
-                FlowEvent committed = stack.pop();
-                flowEventPairs.add(new FlowEventPair(committed, flowEvent));
-            }
-        }
+        List<String> boundaryStageIds = getBoundaryStageIds();
 
-        if(!stack.empty()){
-            flowEventPairs.add(new FlowEventPair(stack.pop()));
-        }
+        List<FlowEvent> flowEvents = flowEventRepository.getAll();
 
-        Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
-                workflowRepository.getWorkflowById(input.getWorkflowId()));
-        boolean isInBoundary = false;
+        CalculateCycleTimeCalculater calculateCycleTimeCalculater =
+                new CalculateCycleTimeCalculater(
+                        boundaryStageIds,
+                        flowEvents,
+                        input.getCardId());
+
+        CycleTimeModel cycleTimeModel = new CycleTimeModel(calculateCycleTimeCalculater.process());
+
+        domainEventBus.postAll(calculateCycleTimeCalculater);
+        output.setCycleTimeModel(cycleTimeModel);
+    }
+
+    private List<String> getBoundaryStageIds() {
         List<String> stageIds = new ArrayList();
+        Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
+                workflowRepository.getWorkflowById(getWorkflowId()));
+        boolean isInBoundary = false;
+
         for(Stage stage: workflow.getStages()){
-            if(stage.getStageId().equals(input.getBeginningStageId())){
+            if(stage.getStageId().equals(getBeginningStageId())){
                 isInBoundary = true;
-            }else if(stage.getStageId().equals(input.getEndingStageId())){
+            }else if(stage.getStageId().equals(getEndingStageId())){
                 stageIds.add(stage.getStageId());
                 break;
             }
             if(isInBoundary) {
                 stageIds.add(stage.getStageId());
             }
-
         }
-
-        long time = 0;
-        for(String stageId: stageIds){
-            for(FlowEventPair flowEventPair: flowEventPairs){
-                if(flowEventPair.getCycleTimeInStage().getStageId().equals(stageId)){
-                    time+= flowEventPair.getCycleTimeInStage().getDiff();
-                }
-            }
-        }
-
-        CycleTime cycleTime = new CycleTime(time);
-
-        output.setCycleTime(cycleTime);
-
+        return stageIds;
     }
-
-
 
     @Override
     public String getWorkflowId() {
@@ -118,5 +104,4 @@ public class CalculateCycleTimeUseCase implements CalculateCycleTimeInput {
     public void setEndingStageId(String endingStageId) {
         this.endingStageId = endingStageId;
     }
-
 }
