@@ -1,8 +1,7 @@
 package ddd.kanban.adapter.repository.workflow;
 
-import ddd.kanban.domain.model.workflow.Workflow;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.entity.WorkflowEntity;
+import ddd.kanban.usecase.kanbanboard.workflow.entity.WorkflowEntity;
 
 import java.util.ArrayList;
 import java.util.List;

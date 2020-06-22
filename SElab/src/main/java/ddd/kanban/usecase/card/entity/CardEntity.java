@@ -1,14 +1,12 @@
 package ddd.kanban.usecase.card.entity;
 
-import ddd.kanban.domain.model.card.CardType;
-
 import java.util.Date;
 import java.util.List;
 
 public class CardEntity {
     private String id;
     private String title;
-    private List<TaskEntity> taskEntitys;
+    private List<TaskEntity> taskEntities;
     private String boardId;
     private String workflowId;
     private String laneId;
@@ -36,12 +34,12 @@ public class CardEntity {
         return title;
     }
 
-    public List<TaskEntity> getTaskEntitys() {
-        return taskEntitys;
+    public List<TaskEntity> getTaskEntities() {
+        return taskEntities;
     }
 
-    public void setTaskEntitys(List<TaskEntity> taskEntitys) {
-        this.taskEntitys = taskEntitys;
+    public void setTaskEntities(List<TaskEntity> taskEntities) {
+        this.taskEntities = taskEntities;
     }
 
     public String getBoardId() {

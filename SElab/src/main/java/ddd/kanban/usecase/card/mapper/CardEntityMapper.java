@@ -15,7 +15,7 @@ public class CardEntityMapper {
                                                 .stream()
                                                 .map(TaskEntityMapper::mappingTaskEntityFrom)
                                                 .collect(Collectors.toList());
-        cardEntity.setTaskEntitys(taskEntityList);
+        cardEntity.setTaskEntities(taskEntityList);
         cardEntity.setDescription(card.getDescription());
         cardEntity.setCardTypeEntity(CardTypeMapper.mappingCardTypeEntityFrom(card.getCardType()));
         cardEntity.setTags(card.getTags());
@@ -28,7 +28,7 @@ public class CardEntityMapper {
     }
 
     public static Card mappingCardFrom(CardEntity cardEntity) {
-        List<Task> tasks =  cardEntity.getTaskEntitys()
+        List<Task> tasks =  cardEntity.getTaskEntities()
                                         .stream()
                                         .map(TaskEntityMapper::mappingTaskFrom)
                                         .collect(Collectors.toList());

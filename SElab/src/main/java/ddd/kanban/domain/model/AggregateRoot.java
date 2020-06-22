@@ -1,13 +1,13 @@
 package ddd.kanban.domain.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class AggregateRoot extends Entity {
+public abstract class AggregateRoot extends Entity implements EventPostable {
 
     private List<DomainEvent> domainEvents;
+
+    private PostableEventObject postableEventObjectObject = new PostableEventObject();
 
     public AggregateRoot(final String id, String title) {
         super(id, title);
@@ -15,14 +15,14 @@ public abstract class AggregateRoot extends Entity {
     }
 
     public void addDomainEvent(DomainEvent event) {
-        domainEvents.add(event);
+        postableEventObjectObject.addDomainEvent(event);
     }
 
     public List<DomainEvent> getDomainEvents() {
-        return Collections.unmodifiableList(domainEvents);
+        return postableEventObjectObject.getDomainEvents();
     }
 
     public void clearDomainEvents() {
-        domainEvents.clear();
+        this.postableEventObjectObject.clearDomainEvents();
     }
 }
