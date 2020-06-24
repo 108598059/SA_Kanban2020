@@ -50,6 +50,7 @@ public class CalculateCycleTimeUseCase extends UseCase<CalculateCycleTimeUseCase
                                                         enteredEventList, leftEventList);
 
         this.eventBus.postAll(cycleTimeCalculator);
+
         output.setCardID(input.getCardID());
         output.setStartColumnID(input.getStartColumnID());
         output.setEndColumnID(input.getEndColumnID());
