@@ -2,13 +2,13 @@ package domain.usecase.workflow;
 
 import domain.adapters.repository.BoardRepositoryImpl;
 import domain.adapters.repository.WorkflowRepositoryImpl;
-import domain.adapters.controller.board.CreateBoardInputImpl;
-import domain.adapters.controller.board.CreateBoardOutputImpl;
-import domain.adapters.controller.workflow.CreateWorkflowInputImpl;
-import domain.adapters.controller.workflow.CreateWorkflowOutputImpl;
+import domain.adapters.controller.board.input.CreateBoardInputImpl;
+import domain.adapters.controller.board.output.CreateBoardOutputImpl;
+import domain.adapters.controller.workflow.input.CreateWorkflowInputImpl;
+import domain.adapters.controller.workflow.output.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
-import domain.entity.board.Board;
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.board.Board;
+import domain.entity.aggregate.workflow.Workflow;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.BoardTransformer;
 import domain.usecase.board.create.CreateBoardInput;
@@ -67,7 +67,7 @@ public class CreateWorkFlowTest {
         createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
 
 
-        Workflow workflow = workflowRepository.getWorkFlowById(createWorkflowOutput.getWorkflowId());
+        Workflow workflow = WorkflowTransformer.toWorkflow(workflowRepository.getWorkFlowById(createWorkflowOutput.getWorkflowId()));
         assertEquals("workflow1",workflow.getName());
 
 

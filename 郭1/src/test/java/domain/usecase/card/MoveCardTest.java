@@ -1,21 +1,29 @@
 package domain.usecase.card;
-import domain.adapters.controller.card.MoveCardInputImpl;
-import domain.adapters.controller.card.MoveCardOutputImpl;
-import domain.adapters.controller.workflow.*;
+import domain.adapters.controller.card.input.MoveCardInputImpl;
+import domain.adapters.controller.card.output.MoveCardOutputImpl;
+import domain.adapters.controller.workflow.input.CreateStageInputImpl;
+import domain.adapters.controller.workflow.input.CreateSwimlaneInputImpl;
+import domain.adapters.controller.workflow.input.CreateWorkflowInputImpl;
+import domain.adapters.controller.workflow.output.CreateStageOutputImpl;
+import domain.adapters.controller.workflow.output.CreateSwimlaneOutputImpl;
+import domain.adapters.controller.workflow.output.CreateWorkflowOutputImpl;
+import domain.adapters.repository.InMemoryFlowEventRepository;
 import domain.adapters.repository.WorkflowRepositoryImpl;
 import domain.entity.DomainEventBus;
-import domain.entity.card.Card;
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.card.Card;
+import domain.entity.aggregate.workflow.Workflow;
 import domain.usecase.card.move.MoveCardInput;
 import domain.usecase.card.move.MoveCardOutput;
 import domain.usecase.card.move.MoveCardUseCase;
 import domain.usecase.flowevent.FlowEventRepository;
-import domain.usecase.stage.create.CreateStageInput;
-import domain.usecase.stage.create.CreateStageOutput;
-import domain.usecase.stage.create.CreateStageUseCase;
-import domain.usecase.swimlane.create.CreateSwimlaneInput;
-import domain.usecase.swimlane.create.CreateSwimlaneOutput;
-import domain.usecase.swimlane.create.CreateSwimlaneUseCase;
+import domain.usecase.workflow.WorkflowDTO;
+import domain.usecase.workflow.WorkflowTransformer;
+import domain.usecase.workflow.create.CreateStageInput;
+import domain.usecase.workflow.create.CreateStageOutput;
+import domain.usecase.workflow.create.CreateStageUseCase;
+import domain.usecase.workflow.create.CreateSwimlaneInput;
+import domain.usecase.workflow.create.CreateSwimlaneOutput;
+import domain.usecase.workflow.create.CreateSwimlaneUseCase;
 import domain.usecase.workflow.WorkflowRepository;
 import domain.usecase.workflow.create.CreateWorkflowInput;
 import domain.usecase.workflow.create.CreateWorkflowOutput;
@@ -62,7 +70,6 @@ public class MoveCardTest {
         fromStageId = createStageOutput.getStageId();
         toStageId = createStageOutput.getStageId();
 
-
         CreateSwimlaneUseCase createSwimlaneUseCase = new CreateSwimlaneUseCase(workflowRepository, eventBus);
         CreateSwimlaneInput createSwimlaneInput = new CreateSwimlaneInputImpl();
         CreateSwimlaneOutput createSwimlaneOutput = new CreateSwimlaneOutputImpl();
@@ -82,9 +89,11 @@ public class MoveCardTest {
 
         card = new Card() ;
         card.setName( "eatBreakfast" );
-        Workflow workflow =  workflowRepository.getWorkFlowById(workflowId);
+        Workflow workflow = WorkflowTransformer.toWorkflow(workflowRepository.getWorkFlowById(workflowId));
         workflow.getStageById(fromStageId).getSwimlaneById(fromSwimLaneId).addCard(card.getId());
-        workflowRepository.save(workflow);
+        workflowRepository.save(WorkflowTransformer.toDTO(workflow));
+
+        flowEventRepository = new InMemoryFlowEventRepository() ;
 
     }
 
@@ -92,7 +101,7 @@ public class MoveCardTest {
     public void Card_should_be_moved_from_todoStage_to_doingStage() {
         MoveCardInput moveCardUseCaseInput = new MoveCardInputImpl();
         MoveCardOutput moveCardUseCaseOutput = new MoveCardOutputImpl();
-        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(flowEventRepository, workflowRepository, eventBus);
+        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, eventBus);
 
         moveCardUseCaseInput.setWorkflowId(workflowId);
         moveCardUseCaseInput.setFromStageId(fromStageId);
@@ -109,13 +118,4 @@ public class MoveCardTest {
 
     }
 
-    @Test
-    public void Card_should_be_moved_from_doingStage_to_doneStage() {
-
-    }
-
-    @Test
-    public void Card_should_be_moved_from_doneStage_to_todoStage() {
-
-    }
 }

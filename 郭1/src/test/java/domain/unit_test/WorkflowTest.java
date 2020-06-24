@@ -1,6 +1,6 @@
 package domain.unit_test;
 
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.workflow.Workflow;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,15 +1,20 @@
 package domain.usecase.workflow;
 
+import domain.adapters.controller.workflow.input.CreateStageInputImpl;
+import domain.adapters.controller.workflow.input.CreateSwimlaneInputImpl;
+import domain.adapters.controller.workflow.input.CreateWorkflowInputImpl;
+import domain.adapters.controller.workflow.output.CreateStageOutputImpl;
+import domain.adapters.controller.workflow.output.CreateSwimlaneOutputImpl;
+import domain.adapters.controller.workflow.output.CreateWorkflowOutputImpl;
 import domain.adapters.repository.WorkflowRepositoryImpl;
-import domain.adapters.controller.workflow.*;
 import domain.entity.DomainEventBus;
-import domain.entity.workflow.Workflow;
-import domain.usecase.stage.create.CreateStageInput;
-import domain.usecase.stage.create.CreateStageOutput;
-import domain.usecase.stage.create.CreateStageUseCase;
-import domain.usecase.swimlane.create.CreateSwimlaneInput;
-import domain.usecase.swimlane.create.CreateSwimlaneOutput;
-import domain.usecase.swimlane.create.CreateSwimlaneUseCase;
+import domain.entity.aggregate.workflow.Workflow;
+import domain.usecase.workflow.create.CreateStageInput;
+import domain.usecase.workflow.create.CreateStageOutput;
+import domain.usecase.workflow.create.CreateStageUseCase;
+import domain.usecase.workflow.create.CreateSwimlaneInput;
+import domain.usecase.workflow.create.CreateSwimlaneOutput;
+import domain.usecase.workflow.create.CreateSwimlaneUseCase;
 import domain.usecase.workflow.create.CreateWorkflowInput;
 import domain.usecase.workflow.create.CreateWorkflowOutput;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
@@ -63,7 +68,7 @@ public class CreateSwimlaneTest {
 
         createSwimlaneUseCase.execute(createSwimlaneInput,createSwimlaneOutput);
 
-        Workflow workflow = workflowRepository.getWorkFlowById(workflowId);
+        Workflow workflow = WorkflowTransformer.toWorkflow(workflowRepository.getWorkFlowById(workflowId));
 
         assertEquals(1, workflow.getStageById(stageId).getSwimlanes().size());
         assertEquals("Ready", workflow.getStageById(stageId).getSwimlaneById(createSwimlaneOutput.getSwimlaneId()).getName());

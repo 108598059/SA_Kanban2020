@@ -1,18 +1,23 @@
 package util;
 
-import domain.adapters.controller.board.CreateBoardInputImpl;
-import domain.adapters.controller.board.CreateBoardOutputImpl;
-import domain.adapters.controller.card.*;
-import domain.adapters.controller.workflow.*;
-import domain.adapters.repository.WorkflowRepositoryImpl;
+import domain.adapters.controller.board.input.CreateBoardInputImpl;
+import domain.adapters.controller.board.output.CreateBoardOutputImpl;
+import domain.adapters.controller.card.input.CalculateCycleTimeInputImpl;
+import domain.adapters.controller.card.input.CreateCardInputImpl;
+import domain.adapters.controller.card.input.MoveCardInputImpl;
+import domain.adapters.controller.card.output.CalculateCycleTimeOutputImpl;
+import domain.adapters.controller.card.output.CreateCardOutputImpl;
+import domain.adapters.controller.card.output.MoveCardOutputImpl;
+import domain.adapters.controller.workflow.input.CreateStageInputImpl;
+import domain.adapters.controller.workflow.input.CreateSwimlaneInputImpl;
+import domain.adapters.controller.workflow.input.CreateWorkflowInputImpl;
+import domain.adapters.controller.workflow.output.CreateStageOutputImpl;
+import domain.adapters.controller.workflow.output.CreateSwimlaneOutputImpl;
+import domain.adapters.controller.workflow.output.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
-import domain.entity.board.Board;
-import domain.entity.card.Card;
-import domain.entity.workflow.Stage;
-import domain.entity.workflow.Swimlane;
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.workflow.Swimlane;
+import domain.entity.aggregate.workflow.Workflow;
 import domain.usecase.board.BoardRepository;
-import domain.usecase.board.BoardTransformer;
 import domain.usecase.board.create.CreateBoardInput;
 import domain.usecase.board.create.CreateBoardOutput;
 import domain.usecase.board.create.CreateBoardUseCase;
@@ -20,20 +25,21 @@ import domain.usecase.card.CardRepository;
 import domain.usecase.card.create.CreateCardInput;
 import domain.usecase.card.create.CreateCardOutput;
 import domain.usecase.card.create.CreateCardUseCase;
-import domain.usecase.card.cycletime.CalculateCycleTimeInput;
-import domain.usecase.card.cycletime.CalculateCycleTimeOutput;
-import domain.usecase.card.cycletime.CalculateCycleTimeUseCase;
-import domain.usecase.card.cycletime.CycleTime;
+import domain.usecase.cycleTimeCalculator.calculate.CalculateCycleTimeInput;
+import domain.usecase.cycleTimeCalculator.calculate.CalculateCycleTimeOutput;
+import domain.usecase.cycleTimeCalculator.calculate.CalculateCycleTimeUseCase;
+import domain.usecase.cycleTimeCalculator.CycleTime;
 import domain.usecase.card.move.MoveCardInput;
 import domain.usecase.card.move.MoveCardOutput;
 import domain.usecase.card.move.MoveCardUseCase;
 import domain.usecase.flowevent.FlowEventRepository;
-import domain.usecase.stage.create.CreateStageInput;
-import domain.usecase.stage.create.CreateStageOutput;
-import domain.usecase.stage.create.CreateStageUseCase;
-import domain.usecase.swimlane.create.CreateSwimlaneInput;
-import domain.usecase.swimlane.create.CreateSwimlaneOutput;
-import domain.usecase.swimlane.create.CreateSwimlaneUseCase;
+import domain.usecase.workflow.WorkflowTransformer;
+import domain.usecase.workflow.create.CreateStageInput;
+import domain.usecase.workflow.create.CreateStageOutput;
+import domain.usecase.workflow.create.CreateStageUseCase;
+import domain.usecase.workflow.create.CreateSwimlaneInput;
+import domain.usecase.workflow.create.CreateSwimlaneOutput;
+import domain.usecase.workflow.create.CreateSwimlaneUseCase;
 import domain.usecase.workflow.WorkflowRepository;
 import domain.usecase.workflow.create.CreateWorkflowInput;
 import domain.usecase.workflow.create.CreateWorkflowOutput;
@@ -81,7 +87,7 @@ public class Utilities {
 
         boardId = createBoard("kanbanboard");
         workflowId = createWorkflow(boardId, "kanbanWorkflow");
-        workflow = workflowRepository.getWorkFlowById(workflowId);
+        workflow = WorkflowTransformer.toWorkflow(workflowRepository.getWorkFlowById(workflowId));
 
         readyStageId = createStage(workflowId ,"readyStage");
         analysisStageId = createStage(workflowId, "analysisStage");
@@ -152,7 +158,7 @@ public class Utilities {
     public void moveCard(String workflowId, String fromStageId, String toStageId, String fromSwimlaneId, String toSwimlaneId, String cardId){
         MoveCardInput moveCardUseCaseInput = new MoveCardInputImpl();
         MoveCardOutput moveCardUseCaseOutput = new MoveCardOutputImpl();
-        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(flowEventRepository, workflowRepository, eventBus);
+        MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, eventBus);
 
         moveCardUseCaseInput.setWorkflowId(workflowId);
         moveCardUseCaseInput.setFromStageId(fromStageId);
@@ -165,7 +171,7 @@ public class Utilities {
     }
     public CycleTime calculateCycleTime(String workflowId, String fromStageId, String toStageId, String fromSwimlaneId, String toSwimlaneId, String cardId){
 
-        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository);
+        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository, eventBus);
         CalculateCycleTimeInput input = new CalculateCycleTimeInputImpl();
         CalculateCycleTimeOutput output = new CalculateCycleTimeOutputImpl();
 

@@ -1,9 +1,10 @@
 package domain.adapters.repository;
 
 import domain.adapters.database.Database;
-import domain.entity.workflow.Stage;
-import domain.entity.workflow.Swimlane;
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.workflow.Stage;
+import domain.entity.aggregate.workflow.Swimlane;
+import domain.entity.aggregate.workflow.Workflow;
+import domain.usecase.workflow.WorkflowDTO;
 import domain.usecase.workflow.WorkflowRepository;
 
 import java.sql.Connection;
@@ -19,12 +20,12 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
     }
 
-    public Workflow getWorkFlowById(String id){
+    public WorkflowDTO getWorkFlowById(String id){
 
         String sql;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        Workflow workflow = null;
+        WorkflowDTO workflow = null;
 
 
         try {
@@ -36,8 +37,8 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
             resultSet = ps.executeQuery();
             resultSet.first();
 
-            workflow = new Workflow();
-            workflow.setId(resultSet.getString("id"));
+            workflow = new WorkflowDTO(resultSet.getString("id"));
+
             workflow.setName(resultSet.getString("name"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,7 +133,7 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
         return workflow;
     }
 
-    public void save(Workflow workflow) {
+    public void save(WorkflowDTO workflow) {
 
         delete(workflow);
 
@@ -230,7 +231,7 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
     }
 
 
-    public void add(Workflow workflow){
+    public void add(WorkflowDTO workflow){
         //save workflow
 
         String sql = "INSERT INTO kanban.workflow(id, name) VALUES (?,?)";
@@ -264,7 +265,7 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
     }
 
-    public void delete(Workflow workflow){
+    public void delete(WorkflowDTO workflow){
         String sql;
 
 

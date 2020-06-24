@@ -1,8 +1,9 @@
 package domain.adapters.repository;
 
 import domain.adapters.database.Database;
-import domain.entity.card.Card;
-import domain.entity.card.Subtask;
+import domain.entity.aggregate.card.Card;
+import domain.entity.aggregate.card.Subtask;
+import domain.usecase.card.CardDTO;
 import domain.usecase.card.CardRepository;
 
 import java.sql.Connection;
@@ -18,11 +19,11 @@ public class CardRepositoryImpl implements CardRepository {
 
     }
 
-    public Card getCardById(String id){
+    public CardDTO getCardById(String id){
         String sql;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        Card card= null;
+        CardDTO card= null;
 
         try {
             this.conn = Database.getConnection();
@@ -33,9 +34,10 @@ public class CardRepositoryImpl implements CardRepository {
             resultSet = ps.executeQuery();
             resultSet.first();
 
-            card = new Card();
-            card.setId(resultSet.getString("id"));
-            card.setName(resultSet.getString("name"));
+            card = new CardDTO(
+                    resultSet.getString("id"),
+                    resultSet.getString("name"));
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,7 +81,7 @@ public class CardRepositoryImpl implements CardRepository {
         return card;
     }
 
-    public void save(Card card){
+    public void save(CardDTO card){
 
         String sql = "INSERT INTO kanban.subtask(id, name, cardid) VALUES (?,?,?) ON DUPLICATE KEY UPDATE name=?,cardid=?";
         PreparedStatement ps = null;
@@ -122,7 +124,7 @@ public class CardRepositoryImpl implements CardRepository {
 
 
 
-    public void add(Card card){
+    public void add(CardDTO card){
         //save card
         String sql = "INSERT INTO kanban.card(id, name) VALUES (?,?)";
         PreparedStatement ps = null;

@@ -1,8 +1,7 @@
 package domain.unit_test;
 
 
-import domain.entity.card.Card;
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.card.Card;
 import org.junit.Before;
 import org.junit.Test;
 

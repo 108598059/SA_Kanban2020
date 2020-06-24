@@ -33,7 +33,6 @@
       <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/CreateStageUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/CreateStageUseCase.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/domain/usecase/CreateWorkflowUseCase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/domain/usecase/CreateWorkflowUseCase.class" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,24 +46,17 @@
       </list>
     </option>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1aWP4AXRrAxB7Ot0GXoN6D5XJsG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/domain/usecase/cycleTimeCalculator/calculate" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -79,36 +71,28 @@
       <recent name="domain.usecase.workflow" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="domain.usecase.card" />
       <recent name="domain.usecase.workflow" />
-      <recent name="domain.usecase.board" />
-      <recent name="domain.controller" />
-      <recent name="domain.adapter.repository" />
+      <recent name="domain.usecase.cycleTimeCalculator" />
+      <recent name="domain.usecase.cycleTimeCalculator.calculate" />
+      <recent name="domain.adapters.controller.board.output" />
+      <recent name="domain.adapters.controller.board.input" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="domain.usecase.team.commit" />
+      <recent name="domain.adapters.repository" />
+      <recent name="domain.usecase.team" />
+      <recent name="domain.entity.team.event" />
       <recent name="domain.usecase.workflow" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="domain.usecase.team" />
+      <recent name="domain.adapters.controller.team" />
+      <recent name="domain.usecase.team.commit" />
+      <recent name="domain.entity.user.event" />
       <recent name="domain.viewmodel" />
-      <recent name="domain.presenter" />
-      <recent name="domain.controller.presenter" />
-      <recent name="domain.controller" />
-      <recent name="domain.usecase.workflow.commit" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="JUnit.CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime">
+  <component name="RunManager" selected="JUnit.All in 郭1">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -118,15 +102,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="domain.view.MainFrame" />
+    <configuration name="All in 郭1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="domain.adapters.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -135,7 +114,7 @@
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="domain.usecase.card.*" />
+          <option name="PATTERN" value="domain.usecase.board.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -162,7 +141,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="domain.usecase in 郭1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CreateBoardTest.create_board_and_the_board_should_be_committed_to_a_specified_team_Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="郭1" />
       <extension name="coverage">
         <pattern>
@@ -170,26 +149,28 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="domain.usecase" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="domain.usecase.board" />
+      <option name="MAIN_CLASS_NAME" value="domain.usecase.board.CreateBoardTest" />
+      <option name="METHOD_NAME" value="create_board_and_the_board_should_be_committed_to_a_specified_team_Test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.MainFrame" />
-      <item itemvalue="JUnit.domain.usecase in 郭1" />
-      <item itemvalue="JUnit.CreateBoardTest" />
       <item itemvalue="JUnit.CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime" />
+      <item itemvalue="JUnit.CreateBoardTest.create_board_and_the_board_should_be_committed_to_a_specified_team_Test" />
+      <item itemvalue="JUnit.CreateBoardTest" />
+      <item itemvalue="JUnit.All in 郭1" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime" />
-        <item itemvalue="JUnit.domain.usecase in 郭1" />
+        <item itemvalue="JUnit.All in 郭1" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.CalculateMoveCardCycleTimeTest.CalculateMoveCardCycleTime" />
+        <item itemvalue="JUnit.CreateBoardTest.create_board_and_the_board_should_be_committed_to_a_specified_team_Test" />
         <item itemvalue="JUnit.CreateBoardTest" />
-        <item itemvalue="Application.MainFrame" />
       </list>
     </recent_temporary>
   </component>
@@ -236,32 +217,88 @@
       <workItem from="1590027981493" duration="4319000" />
       <workItem from="1590479721314" duration="911000" />
       <workItem from="1590549138225" duration="9128000" />
+      <workItem from="1591949149024" duration="8182000" />
+      <workItem from="1592278724626" duration="12291000" />
+      <workItem from="1592544619736" duration="768000" />
+      <workItem from="1592564405571" duration="3607000" />
+      <workItem from="1592715905577" duration="13306000" />
+      <workItem from="1592972349902" duration="22434000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="722" y="406" width="414" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1586995163476">
+    <state x="521" y="198" key="#SQL_Dialects" timestamp="1592293794456">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
+    <state x="521" y="198" key="#SQL_Dialects/0.0.1858.1080/-1920.0.1920.1040@0.0.1858.1080" timestamp="1592293794456" />
+    <state x="686" y="93" key="#com.intellij.ide.util.MemberChooser" timestamp="1592995940090">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="488" y="65" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1591958348715" />
+    <state x="-1234" y="93" key="#com.intellij.ide.util.MemberChooser/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592728355195" />
+    <state x="686" y="93" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592995940090" />
+    <state x="628" y="443" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1592993680161">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="628" y="443" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592993680161" />
+    <state x="746" y="391" width="758" height="274" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1592995452986">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="531" y="274" width="443" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728@0.0.1366.728" timestamp="1591957082513" />
+    <state x="-1174" y="391" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592565757482" />
     <state x="722" y="406" width="414" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1858.1080@0.0.1858.1080" timestamp="1586995163476" />
-    <state width="1815" height="295" key="GridCell.Tab.0.bottom" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state x="746" y="391" width="758" height="274" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592995452986" />
+    <state x="748" y="400" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1592983046535">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="748" y="400" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592983046535" />
+    <state x="-1187" y="284" key="FileChooserDialogImpl" timestamp="1592627455692">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1187" y="284" key="FileChooserDialogImpl/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592627455692" />
+    <state x="709" y="295" key="FileChooserDialogImpl/0.0.1858.1080/-1920.0.1920.1040@0.0.1858.1080" timestamp="1592560367667" />
+    <state width="1877" height="268" key="GridCell.Tab.0.bottom" timestamp="1592998348228">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1860" height="279" key="GridCell.Tab.0.bottom/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592730318895" />
+    <state width="1815" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080/-1920.0.1920.1040@0.0.1858.1080" timestamp="1592469865368" />
     <state width="1815" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
-    <state width="1815" height="295" key="GridCell.Tab.0.center" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state width="1877" height="268" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592998348228" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1591949242442" />
+    <state width="1877" height="268" key="GridCell.Tab.0.center" timestamp="1592998348227">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1860" height="279" key="GridCell.Tab.0.center/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592730318895" />
+    <state width="1815" height="295" key="GridCell.Tab.0.center/0.0.1858.1080/-1920.0.1920.1040@0.0.1858.1080" timestamp="1592469865368" />
     <state width="1815" height="295" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
-    <state width="1815" height="295" key="GridCell.Tab.0.left" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state width="1877" height="268" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592998348227" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1591949242442" />
+    <state width="1877" height="268" key="GridCell.Tab.0.left" timestamp="1592998348227">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1860" height="279" key="GridCell.Tab.0.left/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592730318895" />
+    <state width="1815" height="295" key="GridCell.Tab.0.left/0.0.1858.1080/-1920.0.1920.1040@0.0.1858.1080" timestamp="1592469865368" />
     <state width="1815" height="295" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
-    <state width="1815" height="295" key="GridCell.Tab.0.right" timestamp="1586997619905">
-      <screen x="0" y="0" width="1858" height="1080" />
+    <state width="1877" height="268" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592998348227" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1591949242442" />
+    <state width="1877" height="268" key="GridCell.Tab.0.right" timestamp="1592998348227">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1860" height="279" key="GridCell.Tab.0.right/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592730318895" />
+    <state width="1815" height="295" key="GridCell.Tab.0.right/0.0.1858.1080/-1920.0.1920.1040@0.0.1858.1080" timestamp="1592469865368" />
     <state width="1815" height="295" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1586997619905" />
+    <state width="1877" height="268" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592998348227" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1591949242442" />
+    <state x="927" y="306" key="chooseDestDirectoryDialog" timestamp="1592990194552">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="927" y="306" key="chooseDestDirectoryDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592990194552" />
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1592721346133">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1858.1080/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1592721346133" />
   </component>
 </project>

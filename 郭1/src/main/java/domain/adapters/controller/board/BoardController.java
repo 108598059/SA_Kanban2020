@@ -1,6 +1,6 @@
 package domain.adapters.controller.board;
 
-import domain.adapters.repository.BoardRepositoryImpl;
+import domain.adapters.controller.board.input.CreateBoardInputImpl;
 import domain.adapters.presenter.BoardPresenter;
 import domain.adapters.viewmodel.board.BoardViewModel;
 

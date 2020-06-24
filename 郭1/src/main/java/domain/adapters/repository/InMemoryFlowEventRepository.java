@@ -8,10 +8,10 @@ import java.util.List;
 
 public class InMemoryFlowEventRepository implements FlowEventRepository {
 
-    List<FlowEvent> flowEvents = new ArrayList<FlowEvent>();
+    private List<FlowEvent> flowEvents = new ArrayList<FlowEvent>();
 
 
-    public void save(FlowEvent flowEvent) {
+    public void add(FlowEvent flowEvent) {
         flowEvents.add(flowEvent);
     }
 

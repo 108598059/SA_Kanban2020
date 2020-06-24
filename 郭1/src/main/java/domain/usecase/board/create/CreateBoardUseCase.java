@@ -1,7 +1,7 @@
 package domain.usecase.board.create;
 
 import domain.entity.DomainEventBus;
-import domain.entity.board.Board;
+import domain.entity.aggregate.board.Board;
 import domain.usecase.board.BoardDTO;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.BoardTransformer;
@@ -18,11 +18,14 @@ public class CreateBoardUseCase {
 
     public void execute(CreateBoardInput createBoardInput, CreateBoardOutput createBoardOutput) {
 
-        Board board = new Board();
+        // new a board and add a boardCreated evvent to itself(inside Aggregate)
+        Board board = new Board(createBoardInput.getTeamId());
         board.setName(createBoardInput.getName());
 
         BoardDTO boardDTO = BoardTransformer.toDTO(board);
         boardRepository.add(boardDTO);
+
+        // post the events, if someone is interest in, write a subscriber in Handler to listen
         eventBus.postAll(board);
 
         createBoardOutput.setBoardId(board.getId());

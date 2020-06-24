@@ -1,7 +1,7 @@
 package domain.usecase.board.commit;
 
 import domain.entity.DomainEventBus;
-import domain.entity.board.Board;
+import domain.entity.aggregate.board.Board;
 import domain.usecase.board.BoardDTO;
 import domain.usecase.board.BoardRepository;
 import domain.usecase.board.BoardTransformer;

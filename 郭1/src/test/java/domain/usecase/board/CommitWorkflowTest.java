@@ -2,14 +2,14 @@ package domain.usecase.board;
 
 import domain.adapters.repository.BoardRepositoryImpl;
 import domain.adapters.repository.WorkflowRepositoryImpl;
-import domain.adapters.controller.board.CreateBoardInputImpl;
-import domain.adapters.controller.board.CreateBoardOutputImpl;
-import domain.adapters.controller.workflow.CommitWorkflowInputImpl;
-import domain.adapters.controller.workflow.CommitWorkflowOutputImpl;
-import domain.adapters.controller.workflow.CreateWorkflowInputImpl;
-import domain.adapters.controller.workflow.CreateWorkflowOutputImpl;
+import domain.adapters.controller.board.input.CreateBoardInputImpl;
+import domain.adapters.controller.board.output.CreateBoardOutputImpl;
+import domain.adapters.controller.workflow.input.CommitWorkflowInputImpl;
+import domain.adapters.controller.workflow.output.CommitWorkflowOutputImpl;
+import domain.adapters.controller.workflow.input.CreateWorkflowInputImpl;
+import domain.adapters.controller.workflow.output.CreateWorkflowOutputImpl;
 import domain.entity.DomainEventBus;
-import domain.entity.board.Board;
+import domain.entity.aggregate.board.Board;
 import domain.usecase.board.commit.CommitWorkflowInput;
 import domain.usecase.board.commit.CommitWorkflowOutput;
 import domain.usecase.board.commit.CommitWorkflowUseCase;
@@ -43,15 +43,12 @@ public class CommitWorkflowTest {
         CreateBoardOutput createBoardOutput = new CreateBoardOutputImpl();
         createBoardInput.setName("board1");
 
-
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         createBoardUseCase.execute(createBoardInput,createBoardOutput);
-
 
         boardId = createBoardOutput.getBoardId();
 
         workflowRepository = new WorkflowRepositoryImpl();
-        eventBus = new DomainEventBus();
 
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository,eventBus);
         CreateWorkflowInput createWorkflowInput = new CreateWorkflowInputImpl();
