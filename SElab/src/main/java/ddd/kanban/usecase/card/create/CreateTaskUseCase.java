@@ -1,8 +1,7 @@
 package ddd.kanban.usecase.card.create;
 
 import ddd.kanban.domain.model.DomainEventBus;
-import ddd.kanban.domain.model.card.Card;
-import ddd.kanban.domain.model.card.Task;
+import ddd.kanban.domain.model.card.card.Card;
 import ddd.kanban.usecase.card.mapper.CardEntityMapper;
 import ddd.kanban.usecase.repository.CardRepository;
 

@@ -1,10 +1,5 @@
 package ddd.kanban.usecase.card.create;
 
-import ddd.kanban.domain.model.card.CardType;
-
-import java.util.Date;
-import java.util.List;
-
 public class CreateCardOutput {
     private String cardId;
     private String cardTitle;

@@ -2,21 +2,23 @@ package ddd.kanban.usecase.domainevent.handler;
 
 import com.google.common.eventbus.Subscribe;
 import ddd.kanban.domain.model.DomainEventBus;
-import ddd.kanban.domain.model.board.event.BoardCreated;
-import ddd.kanban.domain.model.card.event.CardCreated;
-import ddd.kanban.domain.model.card.event.CardMoved;
-import ddd.kanban.domain.model.workflow.event.WorkflowCreated;
-import ddd.kanban.usecase.board.commit.CommitWorkflowInput;
-import ddd.kanban.usecase.board.commit.CommitWorkflowOutput;
-import ddd.kanban.usecase.board.commit.CommitWorkflowUseCase;
+import ddd.kanban.domain.model.kanbanboard.board.event.BoardCreated;
+import ddd.kanban.domain.model.card.card.event.CardCreated;
+import ddd.kanban.domain.model.kanbanboard.workflow.Column;
+import ddd.kanban.domain.model.kanbanboard.workflow.Workflow;
+import ddd.kanban.domain.model.kanbanboard.workflow.event.WorkflowCreated;
+import ddd.kanban.usecase.kanbanboard.workflow.commit.CommitWorkflowInput;
+import ddd.kanban.usecase.kanbanboard.workflow.commit.CommitWorkflowOutput;
+import ddd.kanban.usecase.kanbanboard.workflow.commit.CommitWorkflowUseCase;
+import ddd.kanban.usecase.kanbanboard.workflow.mapper.WorkflowEntityMapper;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.commit.CommitCardInput;
-import ddd.kanban.usecase.workflow.commit.CommitCardOutput;
-import ddd.kanban.usecase.workflow.commit.CommitCardUseCase;
-import ddd.kanban.usecase.workflow.create.CreateWorkflowInput;
-import ddd.kanban.usecase.workflow.create.CreateWorkflowOutput;
-import ddd.kanban.usecase.workflow.create.CreateWorkflowUseCase;
+import ddd.kanban.usecase.card.commit.CommitCardInput;
+import ddd.kanban.usecase.card.commit.CommitCardOutput;
+import ddd.kanban.usecase.card.commit.CommitCardUseCase;
+import ddd.kanban.usecase.kanbanboard.workflow.create.CreateWorkflowInput;
+import ddd.kanban.usecase.kanbanboard.workflow.create.CreateWorkflowOutput;
+import ddd.kanban.usecase.kanbanboard.workflow.create.CreateWorkflowUseCase;
 
 public class DomainEventHandler {
 
@@ -52,8 +54,11 @@ public class DomainEventHandler {
 
     @Subscribe
     public void handleDomainEvent(CardCreated cardCreated){
+        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(cardCreated.getWorkflowId()));
+        Column defaultColumn = workflow.findColumnById(cardCreated.getColumnId());
+
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository,domainEventBus);
-        CommitCardInput commitCardInput = new CommitCardInput(cardCreated.getSourceId(), cardCreated.getWorkflowId(), cardCreated.getLaneId());
+        CommitCardInput commitCardInput = new CommitCardInput(cardCreated.getSourceId(), cardCreated.getWorkflowId(), cardCreated.getColumnId());
         CommitCardOutput commitCardOutput = new CommitCardOutput();
 
         commitCardUseCase.execute(commitCardInput, commitCardOutput);

@@ -1,6 +1,6 @@
 package ddd.kanban.domain;
 
-import ddd.kanban.domain.model.card.Card;
+import ddd.kanban.domain.model.card.card.Card;
 import org.junit.Test;
 
 import java.util.UUID;

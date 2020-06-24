@@ -1,17 +1,15 @@
 package ddd.kanban.usecase.card.entity;
 
-import ddd.kanban.domain.model.card.CardType;
-
 import java.util.Date;
 import java.util.List;
 
 public class CardEntity {
     private String id;
     private String title;
-    private List<TaskEntity> taskEntitys;
+    private List<TaskEntity> taskEntities;
     private String boardId;
     private String workflowId;
-    private String laneId;
+    private String ColumnId;
     private String description;
     private CardTypeEntity cardTypeEntity;
     private List<String> tags;
@@ -20,12 +18,12 @@ public class CardEntity {
     private Date plannedFinishDate;
     private int priority;
 
-    public CardEntity(String id, String title, String boardId, String workflowId, String laneId) {
+    public CardEntity(String id, String title, String boardId, String workflowId, String ColumnId) {
         this.id = id;
         this.title = title;
         this.boardId = boardId;
         this.workflowId = workflowId;
-        this.laneId = laneId;
+        this.ColumnId = ColumnId;
     }
 
     public String getId() {
@@ -36,12 +34,12 @@ public class CardEntity {
         return title;
     }
 
-    public List<TaskEntity> getTaskEntitys() {
-        return taskEntitys;
+    public List<TaskEntity> getTaskEntities() {
+        return taskEntities;
     }
 
-    public void setTaskEntitys(List<TaskEntity> taskEntitys) {
-        this.taskEntitys = taskEntitys;
+    public void setTaskEntities(List<TaskEntity> taskEntities) {
+        this.taskEntities = taskEntities;
     }
 
     public String getBoardId() {
@@ -52,8 +50,8 @@ public class CardEntity {
         return workflowId;
     }
 
-    public String getLaneId() {
-        return laneId;
+    public String getColumnId() {
+        return ColumnId;
     }
 
     public String getDescription() {
