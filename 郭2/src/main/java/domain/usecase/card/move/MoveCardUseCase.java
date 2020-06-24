@@ -1,6 +1,6 @@
 package domain.usecase.card.move;
 
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
@@ -14,7 +14,7 @@ public class MoveCardUseCase {
     }
 
 
-    public void execute(MoveCardUseCaseInput input, MoveCardUseCaseOutput output) {
+    public void execute(MoveCardUseCaseInput input, MoveCardUseCaseOutput output) throws CloneNotSupportedException {
         Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
 
         workflow.moveCard(input.getCardId(), input.getFromLaneId(), input.getToLaneId());

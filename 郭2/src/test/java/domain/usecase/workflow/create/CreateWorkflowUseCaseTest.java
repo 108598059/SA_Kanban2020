@@ -1,10 +1,9 @@
 package domain.usecase.workflow.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.model.aggregate.workflow.Workflow;
-import domain.usecase.board.BoardEntity;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;

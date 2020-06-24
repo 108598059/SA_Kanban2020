@@ -3,7 +3,7 @@ package domain.usecase.card.move;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
@@ -41,7 +41,7 @@ public class MoveCardUseCaseTest {
     private DomainEventBus eventBus;
 
     @Before
-    public void SetUp(){
+    public void SetUp() throws CloneNotSupportedException {
         eventBus = new DomainEventBus();
 
         boardRepository = new MySqlBoardRepository();
@@ -92,7 +92,7 @@ public class MoveCardUseCaseTest {
         createCardUseCase.execute(createCardUseCaseInput, cardOutput);
     }
     @Test
-    public void move_card_should_move_it_from_original_lane_of_the_workflow_to_another_lane_of_the_workflow() {
+    public void move_card_should_move_it_from_original_lane_of_the_workflow_to_another_lane_of_the_workflow() throws CloneNotSupportedException {
         MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, eventBus);
         MoveCardUseCaseInput input = new MoveCardUseCaseInput();
         MoveCardUseCaseOutput output = new MoveCardUseCaseOutput();

@@ -1,6 +1,6 @@
 package domain.model.aggregate.card;
 
-import domain.model.aggregate.AggregateRoot;
+import domain.model.DomainEventPoster;
 import domain.model.aggregate.card.event.CardCreated;
 import domain.model.aggregate.card.event.TaskCreated;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Card extends AggregateRoot {
+public class Card extends DomainEventPoster {
     private String cardId;
     private String cardName;
     private String cardContent;
@@ -32,10 +32,10 @@ public class Card extends AggregateRoot {
         this.cardId = UUID.randomUUID().toString();
     }
 
-    public Task getTaskById(String taskId) {
+    public Task getTaskById(String taskId) throws CloneNotSupportedException {
         for (Task each : taskList) {
             if (each.getTaskId().equalsIgnoreCase(taskId)) {
-                return each;
+                return (Task) each.clone();
             }
         }
         throw new RuntimeException("Task is not found,id=" + taskId);
@@ -73,11 +73,11 @@ public class Card extends AggregateRoot {
         return cardType;
     }
 
-    public Task createTask(String cardId, String taskName) {
+    public Task createTask(String cardId, String taskName) throws CloneNotSupportedException {
         Task task = new Task(cardId, taskName);
         taskList.add(task);
         addDomainEvent(new TaskCreated(task.getTaskId(), taskName, cardId));
-        return task;
+        return (Task) task.clone();
     }
 
     public void setTaskList(List<Task> taskList) {
@@ -85,7 +85,8 @@ public class Card extends AggregateRoot {
     }
 
     public List<Task> getTaskList() {
-        return taskList;
+        List<Task> clonedTaskList = new ArrayList<Task>(taskList);
+        return clonedTaskList;
     }
 
     public void addTaskId(Task task) {

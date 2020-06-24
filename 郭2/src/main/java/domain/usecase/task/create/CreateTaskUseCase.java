@@ -12,7 +12,7 @@ public class CreateTaskUseCase {
         this.cardRepository = cardRepository;
     }
 
-    public void execute(CreateTaskUseCaseInput input, CreateTaskUseCaseOutput output) {
+    public void execute(CreateTaskUseCaseInput input, CreateTaskUseCaseOutput output) throws CloneNotSupportedException {
         Card card = cardRepository.getCardById(input.getCardId());
         task = card.createTask(input.getCardId(), input.getTaskName());
 

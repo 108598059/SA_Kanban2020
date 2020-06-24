@@ -10,7 +10,7 @@ public class CreateSwimlaneUseCase {
         this.workflowRepository = workflowRepository;
     }
 
-    public void execute(CreateSwimlaneUseCaseInput input, CreateSwimlaneUseCaseOutput output) {
+    public void execute(CreateSwimlaneUseCaseInput input, CreateSwimlaneUseCaseOutput output) throws CloneNotSupportedException {
         Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
         Lane swimlane = workflow.createSwimlane(input.getSwimlaneName());
 

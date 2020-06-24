@@ -29,7 +29,7 @@ public class Homepage extends HttpServlet {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
         CreateBoardUseCaseInput input = new CreateBoardUseCaseInput();
 //        CreateBoardUseCaseOutputImpl output = new CreateBoardUseCaseOutputImpl();
-        CreateBoardUseCasePresenter presenter = new CreateBoardUseCasePresenter();
+        CreateBoardUseCasePresenter presenter = new CreateBoardUseCasePresenter();//?????????????
 
         input.setBoardName(request.getParameter("boardName"));
 

@@ -1,6 +1,6 @@
 package domain.usecase.workflow.commit;
 import domain.adapter.repository.board.MySqlBoardRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.create.CreateBoardUseCase;

@@ -55,7 +55,6 @@ public class CalculateCycleTimeUseCase {
             if(isbool) {
                 stageIds.add(lane.getLaneId());
             }
-
         }
 
         long time = 0;

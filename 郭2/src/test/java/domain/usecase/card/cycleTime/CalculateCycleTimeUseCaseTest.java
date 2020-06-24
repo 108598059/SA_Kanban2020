@@ -1,13 +1,10 @@
 package domain.usecase.card.cycleTime;
 
 import domain.adapter.repository.board.InMemoryBoardRepository;
-import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.InMemoryCardRepository;
-import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.flowEvent.ImMemoryFlowEventRepository;
 import domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.common.DateProvider;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
@@ -119,7 +116,7 @@ public class CalculateCycleTimeUseCaseTest {
     }
 
     @Test
-    public void move_card_from_Todo_to_Done() throws ParseException {
+    public void move_card_from_Todo_to_Done() throws ParseException, CloneNotSupportedException {
         DateProvider.setDate(dateFormat.parse("2020/5/25 01:01:01"));
 
         MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, eventBus);

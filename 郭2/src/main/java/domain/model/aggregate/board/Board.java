@@ -1,13 +1,13 @@
 package domain.model.aggregate.board;
 
-import domain.model.aggregate.AggregateRoot;
+import domain.model.DomainEventPoster;
 import domain.model.aggregate.board.event.BoardCreated;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Board extends AggregateRoot {
+public class Board extends DomainEventPoster {
     private List<String> workflowIds;
     private String boardId;
     private String boardName;
