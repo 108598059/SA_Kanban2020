@@ -3,9 +3,9 @@ package phd.sa.csie.ntut.edu.tw.adapter.database;
 import java.sql.*;
 
 public class DB_connector {
-    private final static String url = "jdbc:mysql://140.124.181.94:3306/SA";
-    private final static String user = "SA";
-    private final static String password = "sa";
+    private final static String url = "jdbc:mysql://db4free.net:3306/teddysa";
+    private final static String user = "teddysa";
+    private final static String password = "lab1321bal";
 
     public final static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);

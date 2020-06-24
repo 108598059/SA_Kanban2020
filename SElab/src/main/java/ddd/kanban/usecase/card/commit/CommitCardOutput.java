@@ -3,7 +3,7 @@ package ddd.kanban.usecase.card.commit;
 public class CommitCardOutput {
     private String cardId;
     private String workflowId;
-    private String laneId;
+    private String ColumnId;
 
     public CommitCardOutput() {
     }
@@ -12,8 +12,8 @@ public class CommitCardOutput {
         return workflowId;
     }
 
-    public String getLaneId() {
-        return laneId;
+    public String getColumnId() {
+        return ColumnId;
     }
 
     public String getCardId() {
@@ -29,7 +29,7 @@ public class CommitCardOutput {
         this.workflowId = workflowId;
     }
 
-    public void setLaneId(String laneId) {
-        this.laneId = laneId;
+    public void setColumnId(String columnId) {
+        this.ColumnId = columnId;
     }
 }

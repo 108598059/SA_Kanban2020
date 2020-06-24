@@ -1,8 +1,8 @@
 package phd.sa.csie.ntut.edu.tw.usecase.event.handler.board;
 
 import com.google.common.eventbus.Subscribe;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardPreMovedEvent;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.event.move.CardPreMovedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.board.move.MoveCardUseCase;

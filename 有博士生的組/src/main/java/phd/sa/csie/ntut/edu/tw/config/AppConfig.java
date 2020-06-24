@@ -41,7 +41,7 @@ public class AppConfig {
         BoardRepository boardRepo = this.getBoardRepository();
         CardRepository cardRepo = this.getCardRepository();
         eventBus.register(new CardCreatedEventHandler(eventBus, cardRepo, boardRepo));
-        return new CreateCardUseCase(eventBus, cardRepo, boardRepo);
+        return new CreateCardUseCase(eventBus, cardRepo);
     }
 
     @Bean

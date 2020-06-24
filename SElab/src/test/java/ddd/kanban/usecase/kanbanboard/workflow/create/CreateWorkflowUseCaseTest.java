@@ -12,27 +12,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class CreateWorkflowUseCaseTest {
     private WorkflowRepository workflowRepository;
     private BoardRepository boardRepository;
     private HierarchyInitial hierarchyInitial;
-    private String boardId;
     private DomainEventBus domainEventBus;
 
     @Before
     public void setUp(){
         workflowRepository = new InMemoryWorkflowRepository();
         boardRepository = new InMemoryBoardRepository();
-        this.domainEventBus = new DomainEventBus();
+        domainEventBus = new DomainEventBus();
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
-        this.boardId = hierarchyInitial.CreateBoard();
-
     }
 
     @Test
     public void testCreateWorkflow() {
+        String boardId = hierarchyInitial.CreateBoard();
         CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, domainEventBus);
         CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput("Workflow 1", boardId);
         CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
@@ -47,13 +44,10 @@ public class CreateWorkflowUseCaseTest {
 
     @Test
     public void testCreateWorkflowShouldCreateDefaultColumn(){
-        CreateWorkflowUseCase createWorkflowUseCase = new CreateWorkflowUseCase(workflowRepository, domainEventBus);
+        String boardId = hierarchyInitial.CreateBoard();
+        String workflowId = hierarchyInitial.CreateWorkflow(boardId);
 
-        CreateWorkflowInput createWorkflowInput = new CreateWorkflowInput("Workflow 1", boardId);
-        CreateWorkflowOutput createWorkflowOutput = new CreateWorkflowOutput();
-        createWorkflowUseCase.execute(createWorkflowInput, createWorkflowOutput);
-
-        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(createWorkflowOutput.getWorkflowId()));
+        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(workflowId));
         assertEquals(1, workflow.getColumns().size());
     }
 }

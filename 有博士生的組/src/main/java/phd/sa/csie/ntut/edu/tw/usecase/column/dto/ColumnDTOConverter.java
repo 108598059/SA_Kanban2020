@@ -1,6 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.column.dto;
 
-import phd.sa.csie.ntut.edu.tw.model.board.Column;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Column;
 import phd.sa.csie.ntut.edu.tw.usecase.DTO;
 
 import java.util.ArrayList;

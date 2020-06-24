@@ -9,7 +9,7 @@ public class CardEntity {
     private List<TaskEntity> taskEntities;
     private String boardId;
     private String workflowId;
-    private String laneId;
+    private String ColumnId;
     private String description;
     private CardTypeEntity cardTypeEntity;
     private List<String> tags;
@@ -18,12 +18,12 @@ public class CardEntity {
     private Date plannedFinishDate;
     private int priority;
 
-    public CardEntity(String id, String title, String boardId, String workflowId, String laneId) {
+    public CardEntity(String id, String title, String boardId, String workflowId, String ColumnId) {
         this.id = id;
         this.title = title;
         this.boardId = boardId;
         this.workflowId = workflowId;
-        this.laneId = laneId;
+        this.ColumnId = ColumnId;
     }
 
     public String getId() {
@@ -50,8 +50,8 @@ public class CardEntity {
         return workflowId;
     }
 
-    public String getLaneId() {
-        return laneId;
+    public String getColumnId() {
+        return ColumnId;
     }
 
     public String getDescription() {

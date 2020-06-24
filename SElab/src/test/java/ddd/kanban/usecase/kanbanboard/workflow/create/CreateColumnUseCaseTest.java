@@ -3,7 +3,7 @@ package ddd.kanban.usecase.kanbanboard.workflow.create;
 import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
-import ddd.kanban.domain.model.kanbanboard.workflow.Lane;
+import ddd.kanban.domain.model.kanbanboard.workflow.Column;
 import ddd.kanban.domain.model.kanbanboard.workflow.Workflow;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.repository.BoardRepository;
@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+
 
 public class CreateColumnUseCaseTest {
     private WorkflowRepository workflowRepository;
@@ -27,7 +27,7 @@ public class CreateColumnUseCaseTest {
     public void setUp(){
         workflowRepository = new InMemoryWorkflowRepository();
         boardRepository = new InMemoryBoardRepository();
-        this.domainEventBus = new DomainEventBus();
+        domainEventBus = new DomainEventBus();
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
         boardId = hierarchyInitial.CreateBoard();
         workflowId = hierarchyInitial.CreateWorkflow(boardId);
@@ -43,7 +43,7 @@ public class CreateColumnUseCaseTest {
         createColumnUseCase.execute(createColumnInput, createColumnOutput);
 
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(workflowId));
-        Lane column = workflow.findColumnById(createColumnOutput.getColumnId());
+        Column column = workflow.findColumnById(createColumnOutput.getColumnId());
 
         assertEquals(createColumnOutput.getColumnId(), column.getId());
     }

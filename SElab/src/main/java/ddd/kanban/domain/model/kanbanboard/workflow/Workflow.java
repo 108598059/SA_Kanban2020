@@ -1,9 +1,9 @@
 package ddd.kanban.domain.model.kanbanboard.workflow;
 
 import ddd.kanban.domain.model.AggregateRoot;
-import ddd.kanban.domain.model.card.event.CardCommitted;
-import ddd.kanban.domain.model.card.event.CardMoved;
-import ddd.kanban.domain.model.card.event.CardUnCommitted;
+import ddd.kanban.domain.model.card.card.event.CardCommitted;
+import ddd.kanban.domain.model.card.card.event.CardMoved;
+import ddd.kanban.domain.model.card.card.event.CardUnCommitted;
 import ddd.kanban.domain.model.kanbanboard.workflow.event.WorkflowCreated;
 
 import java.util.ArrayList;
@@ -46,28 +46,28 @@ public class Workflow extends AggregateRoot {
         return columns;
     }
 
-    public static Predicate<Lane> judgeColumnId(String columnId){
+    public static Predicate<Column> judgeColumnId(String columnId){
         return column -> column.getId().equals(columnId);
     }
 
     public String getBoardId(){return boardId;}
 
-    public String commitCard(String cardId, String laneId, String defaultColumnTitle) {
-        Lane column = this.findColumnById(laneId);
-        addDomainEvent(new CardCommitted(cardId, this.id, laneId, defaultColumnTitle, UUID.randomUUID().toString()));
+    public String commitCard(String cardId, String columnId) {
+        Column column = this.findColumnById(columnId);
+        addDomainEvent(new CardCommitted(cardId, this.id, columnId, UUID.randomUUID().toString()));
         return column.commitCard(cardId);
     }
 
-    public String moveCard(String cardId, String fromLaneId, String toLaneId) {
-        Lane fromLane = findColumnById(fromLaneId);
-        Lane toLane = findColumnById(toLaneId);
+    public String moveCard(String cardId, String fromColumnId, String toColumnId) {
+        Column fromColumn = findColumnById(fromColumnId);
+        Column toColumn = findColumnById(toColumnId);
 
-        fromLane.unCommitCard(cardId);
-        toLane.commitCard(cardId);
+        fromColumn.unCommitCard(cardId);
+        toColumn.commitCard(cardId);
 
-        addDomainEvent(new CardUnCommitted(cardId, this.id, fromLane.getId(), fromLane.getTitle(), UUID.randomUUID().toString()));
-        addDomainEvent(new CardCommitted(cardId, this.id, toLane.getId(), toLane.getTitle(), UUID.randomUUID().toString()));
-        addDomainEvent(new CardMoved(cardId, toLane.getTitle(), toLane.getId(), UUID.randomUUID().toString()));
+        addDomainEvent(new CardUnCommitted(cardId, this.id, fromColumn.getId(), UUID.randomUUID().toString()));
+        addDomainEvent(new CardCommitted(cardId, this.id, toColumn.getId(), UUID.randomUUID().toString()));
+        addDomainEvent(new CardMoved(cardId, toColumn.getId(), UUID.randomUUID().toString()));
 
         return cardId;
     }

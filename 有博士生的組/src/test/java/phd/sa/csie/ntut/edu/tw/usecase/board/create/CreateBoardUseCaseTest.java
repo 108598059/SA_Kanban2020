@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.BoardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;

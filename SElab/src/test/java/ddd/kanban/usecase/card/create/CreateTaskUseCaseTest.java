@@ -5,8 +5,8 @@ import ddd.kanban.adapter.repository.card.InMemoryCardRepository;
 import ddd.kanban.adapter.repository.flowevent.InMemoryFlowEventRepository;
 import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
 import ddd.kanban.domain.model.DomainEventBus;
-import ddd.kanban.domain.model.card.Card;
-import ddd.kanban.domain.model.card.Task;
+import ddd.kanban.domain.model.card.card.Card;
+import ddd.kanban.domain.model.card.card.Task;
 import ddd.kanban.usecase.HierarchyInitial;
 import ddd.kanban.usecase.card.mapper.CardEntityMapper;
 import ddd.kanban.usecase.domainevent.handler.DomainEventHandler;
@@ -34,34 +34,25 @@ public class CreateTaskUseCaseTest {
     private CardRepository cardRepository;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         workflowRepository = new InMemoryWorkflowRepository();
         boardRepository = new InMemoryBoardRepository();
         cardRepository = new InMemoryCardRepository();
         flowEventRepository = new InMemoryFlowEventRepository();
 
-        this.domainEventBus = new DomainEventBus();
-        domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, this.domainEventBus));
+        domainEventBus = new DomainEventBus();
+        domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, domainEventBus));
 
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
-        this.boardId = hierarchyInitial.CreateBoard();
-        this.workflowId = hierarchyInitial.CreateWorkflow(this.boardId);
-        this.columnId = hierarchyInitial.CreateColumn(this.workflowId);
-        this.defaultColumnId = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(this.workflowId)).getColumns().get(0).getId();
-    }
-
-    private String createCard(){
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, this.domainEventBus);
-        CreateCardInput createCardInput = new CreateCardInput("Test", this.boardId, this.workflowId, this.defaultColumnId);
-        CreateCardOutput createCardOutput = new CreateCardOutput();
-
-        createCardUseCase.execute(createCardInput, createCardOutput);
-        return createCardOutput.getCardId();
+        boardId = hierarchyInitial.CreateBoard();
+        workflowId = hierarchyInitial.CreateWorkflow(boardId);
+        columnId = hierarchyInitial.CreateColumn(workflowId);
+        defaultColumnId = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(workflowId)).getColumns().get(0).getId();
     }
 
     @Test
-    public void testCreateTask(){
-        String cardId = this.createCard();
+    public void testCreateTask() {
+        String cardId = createCard();
 
         CreateTaskUseCase createTaskUseCase = new CreateTaskUseCase(cardRepository, domainEventBus);
         CreateTaskInput createTaskInput = new CreateTaskInput("Test Task", cardId);
@@ -74,6 +65,15 @@ public class CreateTaskUseCaseTest {
 
         assertEquals(createTaskOutput.getTaskId(), task.getId());
         assertEquals("Test Task", task.getTitle());
+    }
+
+    private String createCard() {
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, this.domainEventBus);
+        CreateCardInput createCardInput = new CreateCardInput("Test", this.boardId, this.workflowId, this.defaultColumnId);
+        CreateCardOutput createCardOutput = new CreateCardOutput();
+
+        createCardUseCase.execute(createCardInput, createCardOutput);
+        return createCardOutput.getCardId();
     }
 
 }
