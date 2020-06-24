@@ -3,7 +3,7 @@ package kanban.domain.usecase.stage.create;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 public class CreateStageUseCase implements CreateStageInput {
     private IWorkflowRepository workflowRepository;
@@ -11,6 +11,8 @@ public class CreateStageUseCase implements CreateStageInput {
 
     private String stageName;
     private String workflowId;
+    private int wipLimit;
+    private String layout;
 
     public CreateStageUseCase(IWorkflowRepository workflowRepository, DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
@@ -22,7 +24,11 @@ public class CreateStageUseCase implements CreateStageInput {
         Workflow workflow = WorkflowEntityModelMapper.transformEntityToModel(
                 workflowRepository.getWorkflowById(input.getWorkflowId()));
 
-        String stageId = workflow.createStage(input.getStageName());
+        String stageId = workflow.createStage(
+                input.getStageName(),
+                input.getWipLimit(),
+                input.getLayout()
+        );
 
         workflowRepository.save(WorkflowEntityModelMapper.transformModelToEntity(workflow));
         eventBus.postAll(workflow);
@@ -47,5 +53,25 @@ public class CreateStageUseCase implements CreateStageInput {
     @Override
     public void setWorkflowId(String workflowId) {
         this.workflowId = workflowId;
+    }
+
+    @Override
+    public int getWipLimit() {
+        return wipLimit;
+    }
+
+    @Override
+    public void setWipLimit(int wipLimit) {
+        this.wipLimit = wipLimit;
+    }
+
+    @Override
+    public String getLayout() {
+        return layout;
+    }
+
+    @Override
+    public void setLayout(String layout) {
+        this.layout = layout;
     }
 }

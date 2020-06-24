@@ -1,6 +1,6 @@
 package ddd.kanban.domain;
 
-import ddd.kanban.domain.model.workflow.Workflow;
+import ddd.kanban.domain.model.kanbanboard.workflow.Workflow;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -11,10 +11,11 @@ public class WorkflowTest {
 
     @Test
     public void testCreateWorkflowShouldGenerateWorkflowCreatedDomainEvent(){
-        Workflow workflow = new Workflow(UUID.randomUUID().toString(), "Default workflow", UUID.randomUUID().toString());
+        String boardId = UUID.randomUUID().toString();
+        String workflowId = UUID.randomUUID().toString();
+        Workflow workflow = new Workflow(workflowId, "Default workflow", boardId);
 
         assertEquals(1, workflow.getDomainEvents().size());
         workflow.clearDomainEvents();
     }
-
 }

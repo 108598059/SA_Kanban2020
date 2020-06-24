@@ -1,18 +1,13 @@
 package ddd.kanban.usecase;
 
-import ddd.kanban.adapter.presenter.board.create.CreateBoardPresenter;
-import ddd.kanban.adapter.repository.board.InMemoryBoardRepository;
-import ddd.kanban.adapter.repository.workflow.InMemoryWorkflowRepository;
+import ddd.kanban.adapter.presenter.kanbanboard.board.create.CreateBoardPresenter;
 import ddd.kanban.domain.model.DomainEventBus;
-import ddd.kanban.usecase.board.create.CreateBoardInput;
-import ddd.kanban.usecase.board.create.CreateBoardOutput;
-import ddd.kanban.usecase.board.create.CreateBoardUseCase;
-import ddd.kanban.usecase.card.create.CreateCardUseCase;
+import ddd.kanban.usecase.kanbanboard.board.create.CreateBoardInput;
+import ddd.kanban.usecase.kanbanboard.board.create.CreateBoardOutput;
+import ddd.kanban.usecase.kanbanboard.board.create.CreateBoardUseCase;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
-import ddd.kanban.usecase.workflow.create.*;
-
-import java.util.UUID;
+import ddd.kanban.usecase.kanbanboard.workflow.create.*;
 
 public class HierarchyInitial {
     private BoardRepository boardRepository;
@@ -46,11 +41,12 @@ public class HierarchyInitial {
     }
 
     public String CreateColumn(String workflowId){
-        CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(workflowRepository);
+        CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(workflowRepository, domainEventBus);
         CreateColumnInput createColumnInput = new CreateColumnInput("column1", workflowId);
         CreateColumnOutput createColumnOutput = new CreateColumnOutput();
 
         createColumnUseCase.execute(createColumnInput, createColumnOutput);
+
         return createColumnOutput.getColumnId();
     }
 }

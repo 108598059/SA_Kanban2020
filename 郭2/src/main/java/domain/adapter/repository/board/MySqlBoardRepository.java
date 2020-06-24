@@ -2,19 +2,15 @@ package domain.adapter.repository.board;
 
 import domain.adapter.database.DbConn;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.board.BoardEntity;
+import domain.usecase.board.BoardDTO;
 
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
-import javax.inject.Singleton;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-@Alternative
-@Singleton
+
 public class MySqlBoardRepository implements IBoardRepository {
     private Connection conn;
 
@@ -22,7 +18,7 @@ public class MySqlBoardRepository implements IBoardRepository {
         conn = DbConn.getConnection();
     }
 
-    public void add(BoardEntity board) {
+    public void add(BoardDTO board) {
         String sql = "INSERT INTO kanban.board(board_id,board_name) VALUES (?,?)";
         PreparedStatement ps = null;
         try {
@@ -46,16 +42,16 @@ public class MySqlBoardRepository implements IBoardRepository {
         }
     }
 
-    public BoardEntity getBoardById(String boardId) {
+    public BoardDTO getBoardById(String boardId) {
         String sql = "SELECT * FROM kanban.board WHERE board_id = '" + boardId + "'";
-        BoardEntity board = null;
+        BoardDTO board = null;
         PreparedStatement ps = null;
         ResultSet rset = null;
         try {
             ps = conn.prepareStatement(sql);
             rset = ps.executeQuery();
             while (rset.next()) {
-                board = new BoardEntity();
+                board = new BoardDTO();
                 board.setBoardName(rset.getString("board_name"));
                 board.setBoardId(boardId);
                 board.setWorkflowIds(getWorkflowIdsByBoardId(boardId));
@@ -81,7 +77,7 @@ public class MySqlBoardRepository implements IBoardRepository {
         return board;
     }
 
-    public void save(BoardEntity board) {
+    public void save(BoardDTO board) {
         String sql = "Insert Into kanban.board Values (? , ?) On Duplicate Key Update board_name= ?";
         PreparedStatement ps = null;
         try {
@@ -109,7 +105,7 @@ public class MySqlBoardRepository implements IBoardRepository {
     }
 
     @Override
-    public List<BoardEntity> getAllBoard() {
+    public List<BoardDTO> getAllBoard() {
         return null;
     }
 

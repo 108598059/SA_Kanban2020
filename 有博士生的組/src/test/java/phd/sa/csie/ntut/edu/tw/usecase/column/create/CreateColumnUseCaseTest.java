@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -37,14 +37,15 @@ public class CreateColumnUseCaseTest {
         CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
-        createColumnUseCaseInput.setTitle("develop");
+        createColumnUseCaseInput.setColumnTitle("develop");
         createColumnUseCaseInput.setBoardID(this.boardID.toString());
+        createColumnUseCaseInput.setColumnIndex(0);
 
         createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
         assertNotNull(createColumnUseCaseOutput.getID());
 
         BoardDTO boardDTO = this.boardRepository.findByID(this.boardID.toString());
-        assertEquals("develop", boardDTO.getColumnDTOs().get(1).getTitle());
+        assertEquals("develop", boardDTO.getColumnDTOs().get(0).getTitle());
     }
 }

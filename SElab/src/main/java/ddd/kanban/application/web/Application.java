@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = {
         "ddd.kanban.application.config",
-        "ddd.kanban.adapter.rest.board"
+        "ddd.kanban.adapter.rest.kanbanboard"
 })
 
 @SpringBootApplication

@@ -12,10 +12,10 @@ public class DomainEventBus extends EventBus {
         super();
     }
 
-    public void postAll(AggregateRoot aggregateRoot){
+    public void postAll(DomainEventHolder eventHolder){
         List<DomainEvent> events =
-                new ArrayList(aggregateRoot.getDomainEvents());
-        aggregateRoot.clearDomainEvents();
+                new ArrayList(eventHolder.getDomainEvents());
+        eventHolder.clearDomainEvents();
 
         for(DomainEvent each : events){
             post(each);

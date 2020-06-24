@@ -3,22 +3,22 @@ package domain.usecase.board;
 import domain.model.aggregate.board.Board;
 
 public class BoardTransfer {
-    public static BoardEntity BoardToBoardEntity(Board board) {
-        BoardEntity boardEntity = new BoardEntity();
+    public static BoardDTO BoardToBoardDTO(Board board) {
+        BoardDTO boardDTO = new BoardDTO();
 
-        boardEntity.setBoardId(board.getBoardId());
-        boardEntity.setBoardName(board.getBoardName());
-        boardEntity.setWorkflowIds(board.getWorkflowIds());
+        boardDTO.setBoardId(board.getBoardId());
+        boardDTO.setBoardName(board.getBoardName());
+        boardDTO.setWorkflowIds(board.getWorkflowIds());
 
-        return boardEntity;
+        return boardDTO;
     }
 
-    public static Board BoardEntityToBoard(BoardEntity boardEntity) {
+    public static Board BoardDTOToBoard(BoardDTO boardDTO) {
         Board board = new Board();
 
-        board.setBoardId(boardEntity.getBoardId());
-        board.setBoardName(boardEntity.getBoardName());
-        board.setWorkflowIds(boardEntity.getWorkflowIds());
+        board.setBoardId(boardDTO.getBoardId());
+        board.setBoardName(boardDTO.getBoardName());
+        board.setWorkflowIds(boardDTO.getWorkflowIds());
 
         return board;
     }

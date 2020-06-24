@@ -3,7 +3,7 @@ package kanban.domain.adapter.repository.workflow;
 import kanban.domain.adapter.repository.workflow.data.WorkflowData;
 import kanban.domain.adapter.repository.workflow.mapper.WorkflowEntityDataMapper;
 import kanban.domain.usecase.workflow.WorkflowEntity;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package ddd.kanban.usecase.card.edit;
 
-import ddd.kanban.domain.model.card.CardType;
+import ddd.kanban.domain.model.card.card.CardType;
 
 import java.util.Date;
 import java.util.List;

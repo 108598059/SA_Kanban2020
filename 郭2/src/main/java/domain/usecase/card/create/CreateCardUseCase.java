@@ -1,7 +1,8 @@
 package domain.usecase.card.create;
 
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
+import domain.usecase.card.CardTransfer;
 import domain.usecase.card.repository.ICardRepository;
 
 
@@ -19,7 +20,7 @@ public class CreateCardUseCase {
         card.setCardContent(createCardUseCaseInput.getCardContent());
         card.setCardType(createCardUseCaseInput.getCardType());
 
-        cardRepository.add(card);
+        cardRepository.add(CardTransfer.CardToCardDTO(card));
 
         eventBus.postAll(card);
 

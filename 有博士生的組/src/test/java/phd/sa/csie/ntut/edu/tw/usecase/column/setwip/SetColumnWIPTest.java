@@ -9,13 +9,9 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
@@ -33,23 +29,19 @@ public class SetColumnWIPTest {
         this.boardRepository = new MemoryBoardRepository();
         this.eventBus = new DomainEventBus();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(this.eventBus, this.boardRepository);
-        CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
-        CreateBoardUseCaseOutput createBoardUseCaseOutput = new CreateBoardPresenter();
+        Board board = new Board(UUID.randomUUID(), "Software Architecture");
+        UUID boardID = board.getID();
+        this.boardRepository.save(BoardDTOConverter.toDTO(board));
 
-        createBoardUseCaseInput.setBoardName("Software Architecture");
-        createBoardUseCaseInput.setWorkspaceID(UUID.randomUUID().toString());
-
-        createBoardUseCase.execute(createBoardUseCaseInput, createBoardUseCaseOutput);
-
-        this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createBoardUseCaseOutput.getBoardID()));
+        this.board = BoardDTOConverter.toEntity(this.boardRepository.findByID(boardID.toString()));
 
         CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(this.eventBus, this.boardRepository);
         CreateColumnUseCaseInput createColumnUseCaseInput = new CreateColumnUseCaseInput();
         CreateColumnUseCaseOutput createColumnUseCaseOutput = new CreateColumnUseCaseOutput();
 
         createColumnUseCaseInput.setBoardID(this.board.getID().toString());
-        createColumnUseCaseInput.setTitle("develop");
+        createColumnUseCaseInput.setColumnTitle("develop");
+        createColumnUseCaseInput.setColumnIndex(0);
 
         createColumnUseCase.execute(createColumnUseCaseInput, createColumnUseCaseOutput);
 
@@ -70,6 +62,10 @@ public class SetColumnWIPTest {
 
         assertNotNull(setColumnWIPUseCaseOutput.getColumnID());
         assertEquals(3, setColumnWIPUseCaseOutput.getColumnWIP());
+
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
+
+        assertEquals(3, board.get(0).getWIP());
     }
 
     @Test

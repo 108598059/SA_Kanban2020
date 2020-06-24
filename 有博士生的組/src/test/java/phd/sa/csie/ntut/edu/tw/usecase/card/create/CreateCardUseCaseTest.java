@@ -9,9 +9,9 @@ import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.model.card.event.create.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.event.create.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
@@ -29,7 +29,7 @@ public class CreateCardUseCaseTest {
     private Board board;
     private DomainEventBus eventBus;
 
-    private class MockCardCreatedEventListener {
+    private static class MockCardCreatedEventListener {
         private int count = 0;
 
         @Subscribe
@@ -43,11 +43,12 @@ public class CreateCardUseCaseTest {
     }
 
     @Before
-    public void given_a_board() {
+    public void given_a_board_and_a_column() {
         this.cardRepository = new MemoryCardRepository();
         this.boardRepository = new MemoryBoardRepository();
 
         this.board = new Board(UUID.randomUUID(), "Kanban");
+        this.board.createColumn("Backlog", 0);
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
         this.eventBus = new DomainEventBus();
@@ -57,7 +58,7 @@ public class CreateCardUseCaseTest {
 
     @Test
     public void create_card_should_commit_the_card_to_the_backlog_column() {
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
@@ -72,12 +73,12 @@ public class CreateCardUseCaseTest {
 
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
         Board boardResult = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
-        assertEquals(card.getID(), boardResult.getBacklogColumn().getCardIDs().get(0));
+        assertEquals(card.getID(), boardResult.get(0).getCardIDs().get(0));
     }
 
     @Test
     public void created_card_change_should_be_save_to_the_board_repository() {
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
@@ -87,12 +88,13 @@ public class CreateCardUseCaseTest {
         createCardUseCase.execute(createCardUseCaseInput, createCardUseCaseOutput);
 
         Card card = CardDTOConverter.toEntity(this.cardRepository.findByID(createCardUseCaseOutput.getCardID()));
-        assertEquals(this.board.getBacklogColumn().getID().toString(), card.getBelongsColumnID().toString());
+        Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
+        assertTrue(board.get(0).getCardIDs().contains(card.getID()));
     }
 
     @Test
     public void create_card_event_should_be_posted_when_a_card_being_created() {
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 

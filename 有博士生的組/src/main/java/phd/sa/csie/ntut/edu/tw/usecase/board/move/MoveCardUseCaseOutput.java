@@ -5,8 +5,8 @@ import phd.sa.csie.ntut.edu.tw.usecase.UseCaseOutput;
 public class MoveCardUseCaseOutput implements UseCaseOutput {
 
     private String cardID;
-    private String oldColumnID;
-    private String newColumnID;
+    private String fromColumnID;
+    private String toColumnID;
 
     public void setCardID(String cardID) {
         this.cardID = cardID;
@@ -16,19 +16,19 @@ public class MoveCardUseCaseOutput implements UseCaseOutput {
         return cardID;
     }
 
-    public void setOldColumnID(String id) {
-        this.oldColumnID = id;
+    public void setFromColumnID(String id) {
+        this.fromColumnID = id;
     }
 
-    public String getOldColumnID() {
-        return oldColumnID;
+    public String getFromColumnID() {
+        return fromColumnID;
     }
 
-    public void setNewColumnID(String id) {
-        this.newColumnID = id;
+    public void setToColumnID(String id) {
+        this.toColumnID = id;
     }
 
-    public String getNewColumnID() {
-        return newColumnID;
+    public String getToColumnID() {
+        return toColumnID;
     }
 }

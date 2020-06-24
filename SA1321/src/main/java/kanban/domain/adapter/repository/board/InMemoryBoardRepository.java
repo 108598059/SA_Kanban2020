@@ -2,7 +2,7 @@ package kanban.domain.adapter.repository.board;
 
 import kanban.domain.adapter.repository.board.data.BoardData;
 import kanban.domain.adapter.repository.board.mapper.BoardEntityDataMapper;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 import kanban.domain.usecase.board.BoardEntity;
 
 import java.util.ArrayList;

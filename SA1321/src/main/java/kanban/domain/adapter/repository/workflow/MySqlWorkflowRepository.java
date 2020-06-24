@@ -9,7 +9,7 @@ import kanban.domain.adapter.repository.workflow.data.WorkflowData;
 import kanban.domain.adapter.repository.workflow.mapper.WorkflowEntityDataMapper;
 import kanban.domain.usecase.stage.StageEntity;
 import kanban.domain.usecase.workflow.WorkflowEntity;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

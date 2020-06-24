@@ -4,7 +4,7 @@ import domain.adapter.database.DbConn;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Stage;
 import domain.model.aggregate.workflow.Swimlane;
-import domain.model.aggregate.workflow.Workflow;
+import domain.usecase.workflow.WorkflowDTO;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 import java.sql.Connection;
@@ -21,7 +21,7 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
          conn = DbConn.getConnection();
     }
 
-    public void add(Workflow workflow) {
+    public void add(WorkflowDTO workflow) {
         String sql = "INSERT INTO kanban.workflow(workflow_id,workflow_name) VALUES (?,?)";
         PreparedStatement ps = null;
         try {
@@ -70,16 +70,17 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         }
     }
 
-    public Workflow getWorkflowById(String workflowId) {
+    public WorkflowDTO getWorkflowById(String workflowId) {
         String sql = "SELECT * FROM kanban.workflow WHERE workflow_id = '" + workflowId + "'";
-        Workflow workflow = null;
+        WorkflowDTO workflow = null;
         PreparedStatement ps = null;
         ResultSet rset = null;
         try {
             ps = conn.prepareStatement(sql);
             rset = ps.executeQuery();
             if(rset.first()) {
-                workflow = new Workflow(rset.getString("workflow_name"));
+                workflow = new WorkflowDTO();
+                workflow.setWorkflowName(rset.getString("workflow_name"));
                 workflow.setWorkflowId(workflowId);
                 workflow.setLaneList(getLaneListByWorkflowId(workflowId));
             }
@@ -104,7 +105,7 @@ public class MySqlWorkflowRepository implements IWorkflowRepository {
         return workflow;
     }
 
-    public void save(Workflow workflow) {
+    public void save(WorkflowDTO workflow) {
         String sql = "Insert Into kanban.workflow Values (? , ?) On Duplicate Key Update workflow_name= ?";
         PreparedStatement ps = null;
         try {

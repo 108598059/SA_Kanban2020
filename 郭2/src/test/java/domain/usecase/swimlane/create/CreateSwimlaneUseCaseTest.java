@@ -1,13 +1,14 @@
 package domain.usecase.swimlane.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -27,7 +28,7 @@ public class CreateSwimlaneUseCaseTest {
         boardRepository = new MySqlBoardRepository();
         eventBus = new DomainEventBus();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
@@ -45,8 +46,8 @@ public class CreateSwimlaneUseCaseTest {
     }
 
     @Test
-    public void createSwimlaneUseCase(){
-        CreateSwimlaneUseCase createStageUseCase = new CreateSwimlaneUseCase(workflowRepository);
+    public void createSwimlaneUseCase() throws CloneNotSupportedException {
+        CreateSwimlaneUseCase createStageUseCase = new CreateSwimlaneUseCase(workflowRepository,eventBus);
         CreateSwimlaneUseCaseInput input = new CreateSwimlaneUseCaseInput();
         CreateSwimlaneUseCaseOutput output = new CreateSwimlaneUseCaseOutput();
 
@@ -59,7 +60,7 @@ public class CreateSwimlaneUseCaseTest {
         assertNotNull(output.getSwimlaneId());
         assertEquals("Emergency", output.getSwimlaneName());
 
-        Workflow workflow = workflowRepository.getWorkflowById(workflowOutput.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId()));
         Lane lane = workflow.getLaneById(output.getSwimlaneId());
 
         assertEquals(output.getSwimlaneId(), lane.getLaneId());

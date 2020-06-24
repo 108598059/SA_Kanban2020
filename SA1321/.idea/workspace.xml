@@ -7,9 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="271faf23-e55f-4643-8b02-caea93a7525c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEventHolder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/service/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/service/cycleTime/CalculateCycleTimeCalculater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/service/event/CycleTimeCalculated.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CalculateCycleTimeInStageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CalculateCycleTimeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/presenter/card/cycleTime/CalculateCycleTimePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/adapter/presenter/card/cycleTime/CalculateCycleTimePresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEventBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/DomainEventBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/AggregateRoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/model/aggregate/AggregateRoot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CalculateCycleTimeUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTimeModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/CycleTimeInStage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kanban/domain/usecase/card/cycleTime/FlowEventPair.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CalculateCycleTimeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/card/CalculateCycleTimeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/domainEvent/DomainEventTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kanban/domain/usecase/domainEvent/DomainEventTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,18 +64,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="kanban.domain.usecase.workflow" />
+      <recent name="kanban.domain.usecase.board" />
+      <recent name="kanban.domain.usecase.card" />
       <recent name="kanban.domain.usecase.domainEvent" />
       <recent name="kanban.domain" />
-      <recent name="kanban.domain.usecase.board" />
-      <recent name="kanban.domain.usecase.stage" />
-      <recent name="kanban.domain.usecase.workflow" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="kanban.domain.model.service" />
       <recent name="kanban.domain.usecase.card.cycleTime" />
       <recent name="kanban.domain.model.aggregate.workflow.event" />
       <recent name="kanban.domain.usecase.card.move" />
       <recent name="kanban.domain.adapter.repository.domainEvent" />
-      <recent name="kanban.domain.usecase.domainEvent.repository" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -86,7 +99,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CalculateCycleTimeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <extension name="coverage">
         <pattern>
@@ -96,8 +109,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="kanban.domain.usecase.card" />
       <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.card.CalculateCycleTimeTest" />
-      <option name="METHOD_NAME" value="Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -134,16 +146,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="kanban.domain.usecase in SA1321" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="kanban.domain.usecase.*" />
+          <option name="PATTERN" value="kanban.domain.usecase.domainEvent.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="kanban.domain.usecase" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="kanban.domain.usecase.domainEvent" />
+      <option name="MAIN_CLASS_NAME" value="kanban.domain.usecase.domainEvent.DomainEventTest" />
+      <option name="METHOD_NAME" value="Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -222,20 +236,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.kanban.domain.usecase in SA1321" />
-      <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" />
       <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
-      <item itemvalue="Tomcat Server.Tomcat 9.0.12" />
       <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card_From_Ready_To_ReadyToDeploy" />
       <item itemvalue="JUnit.All in SA1321" />
+      <item itemvalue="JUnit.CalculateCycleTimeTest" />
+      <item itemvalue="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.12" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in SA1321" />
+        <item itemvalue="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
         <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card_From_Ready_To_ReadyToDeploy" />
-        <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card" />
+        <item itemvalue="JUnit.CalculateCycleTimeTest" />
         <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
-        <item itemvalue="JUnit.kanban.domain.usecase in SA1321" />
       </list>
     </recent_temporary>
   </component>
@@ -267,6 +281,10 @@
       <workItem from="1590554964075" duration="1047000" />
       <workItem from="1590559537532" duration="608000" />
       <workItem from="1590574799363" duration="2120000" />
+      <workItem from="1592217249302" duration="6082000" />
+      <workItem from="1592532419477" duration="16000" />
+      <workItem from="1592539143331" duration="3935000" />
+      <workItem from="1592820669839" duration="5249000" />
     </task>
     <servers />
   </component>

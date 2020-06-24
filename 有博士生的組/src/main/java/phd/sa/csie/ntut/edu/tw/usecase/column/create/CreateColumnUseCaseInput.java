@@ -3,15 +3,16 @@ package phd.sa.csie.ntut.edu.tw.usecase.column.create;
 import phd.sa.csie.ntut.edu.tw.usecase.UseCaseInput;
 
 public class CreateColumnUseCaseInput implements UseCaseInput {
-    private String title;
+    private String columnTitle;
     private String boardID;
+    private int columnIndex;
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setColumnTitle(String columnTitle) {
+        this.columnTitle = columnTitle;
     }
 
-    public String getTitle() {
-        return title;
+    public String getColumnTitle() {
+        return columnTitle;
     }
 
     public void setBoardID(String boardID) {
@@ -20,5 +21,13 @@ public class CreateColumnUseCaseInput implements UseCaseInput {
 
     public String getBoardID() {
         return boardID;
+    }
+
+    public void setColumnIndex(int columnIndex) {
+        this.columnIndex = columnIndex;
+    }
+
+    public int getColumnIndex() {
+        return columnIndex;
     }
 }

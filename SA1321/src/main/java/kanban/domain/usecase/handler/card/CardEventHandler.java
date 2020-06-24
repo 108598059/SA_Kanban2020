@@ -4,10 +4,10 @@ import com.google.common.eventbus.Subscribe;
 import kanban.domain.adapter.presenter.card.commit.CommitCardPresenter;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.event.CardCreated;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 import kanban.domain.usecase.card.commit.CommitCardInput;
 import kanban.domain.usecase.card.commit.CommitCardUseCase;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 public class CardEventHandler {
 

@@ -6,8 +6,8 @@ import kanban.domain.model.DomainEventBus;
 import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
 import kanban.domain.usecase.board.get.GetBoardsUseCase;
-import kanban.domain.usecase.board.repository.IBoardRepository;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.board.IBoardRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 public class ApplicationContext {
 

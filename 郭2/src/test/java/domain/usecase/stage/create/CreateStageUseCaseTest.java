@@ -2,13 +2,14 @@ package domain.usecase.stage.create;
 
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -31,7 +32,7 @@ public class CreateStageUseCaseTest {
         eventBus = new DomainEventBus();
         boardRepository = new MySqlBoardRepository();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
@@ -49,8 +50,8 @@ public class CreateStageUseCaseTest {
     }
 
     @Test
-    public void createStageUseCase() {
-        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
+    public void createStageUseCase() throws CloneNotSupportedException {
+        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         CreateStageUseCaseInput input = new CreateStageUseCaseInput();
         CreateStageUseCaseOutput output = new CreateStageUseCaseOutput();
         input.setWorkflowId(workflowOutput.getWorkflowId());
@@ -62,7 +63,7 @@ public class CreateStageUseCaseTest {
         assertNotNull(output.getStageId());
         assertEquals("Doing", output.getStageName());
 
-        Workflow workflow = workflowRepository.getWorkflowById(workflowOutput.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId()));
         Lane lane = workflow.getLaneById(output.getStageId());
 
         assertEquals(output.getStageId(), lane.getLaneId());

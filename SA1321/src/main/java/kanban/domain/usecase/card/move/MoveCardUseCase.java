@@ -3,7 +3,7 @@ package kanban.domain.usecase.card.move;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 public class MoveCardUseCase implements MoveCardInput {
     private IWorkflowRepository workflowRepository;

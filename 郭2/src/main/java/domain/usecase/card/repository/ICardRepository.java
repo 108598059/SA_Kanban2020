@@ -1,11 +1,11 @@
 package domain.usecase.card.repository;
 
-import domain.model.aggregate.card.Card;
+import domain.usecase.card.CardDTO;
 
 public interface ICardRepository {
-    void add(Card card);
+    void add(CardDTO card);
 
-    Card getCardById(String cardId);
+    CardDTO getCardById(String cardId);
 
-    void save(Card card);
+    void save(CardDTO card);
 }

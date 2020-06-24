@@ -4,11 +4,10 @@ import com.google.common.eventbus.Subscribe;
 import kanban.domain.adapter.presenter.workflow.commit.CommitWorkflowPresenter;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowInput;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowOutput;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowUseCase;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class WorkflowEventHandler {
 

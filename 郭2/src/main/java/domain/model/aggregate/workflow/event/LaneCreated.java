@@ -38,6 +38,6 @@ abstract public class LaneCreated implements DomainEvent {
 
     @Override
     public String detail() {
-        return "LaneCreated " + "workflowId = " + workflowId;
+        return "LaneCreated " + "laneId = " + laneId;
     }
 }

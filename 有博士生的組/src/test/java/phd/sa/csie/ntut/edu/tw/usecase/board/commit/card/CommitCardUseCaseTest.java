@@ -5,8 +5,8 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -26,10 +26,11 @@ public class CommitCardUseCaseTest {
     @Before
     public void create_a_card_and_create_a_board() {
         this.board = new Board(UUID.randomUUID(), "Kanban");
+        this.board.createColumn("Backlog", 0);
         this.boardRepository = new MemoryBoardRepository();
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
-        this.card = new Card("Card1", this.board);
+        this.card = new Card("Card1", this.board.getID().toString());
         this.cardRepository = new MemoryCardRepository();
         this.cardRepository.save(CardDTOConverter.toDTO(this.card));
 
@@ -51,6 +52,6 @@ public class CommitCardUseCaseTest {
         assertEquals(this.card.getID().toString(), output.getCardID());
 
         Board resultBoard = BoardDTOConverter.toEntity(this.boardRepository.findByID(this.board.getID().toString()));
-        assertEquals(this.card.getID(), resultBoard.getBacklogColumn().getCardIDs().get(0));
+        assertEquals(this.card.getID(), resultBoard.get(0).getCardIDs().get(0));
     }
 }

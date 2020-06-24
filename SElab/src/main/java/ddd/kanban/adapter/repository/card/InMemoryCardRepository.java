@@ -1,6 +1,6 @@
 package ddd.kanban.adapter.repository.card;
 
-import ddd.kanban.domain.model.card.Card;
+import ddd.kanban.usecase.card.entity.CardEntity;
 import ddd.kanban.usecase.repository.CardRepository;
 
 import java.util.ArrayList;
@@ -8,42 +8,39 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class InMemoryCardRepository implements CardRepository {
-    private List<Card> cards;
+    private List<CardEntity> cards;
 
     public InMemoryCardRepository(){
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<CardEntity>();
     }
 
     @Override
-    public void add(Card card){
-        cards.add(card);
+    public void add(CardEntity cardEntity){
+        cards.add(cardEntity);
     }
 
     @Override
-    public void update(Card card){
-        for(int i = 0 ; i < cards.size() ; i ++)
-        {
-            if(cards.get(i).getId().equals(card.getId()))
-            {
-                cards.set(i, card);
-            }
+    public void update(CardEntity cardEntity){
+        for (CardEntity each : cards){
+            if (each.getId().equals(cardEntity.getId()))
+                cards.set(cards.indexOf(each), cardEntity);
         }
     }
 
     @Override
-    public void save(Card card){
-        update(card); // TBD
+    public void save(CardEntity cardEntity){
+        update(cardEntity); // TBD
     }
 
     @Override
-    public Card findById(String cardId){
+    public CardEntity findById(String cardId){
         return cards.stream()
                 .filter(findCardById(cardId))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
     }
 
-    private static Predicate<Card> findCardById(String cardId){
-        return card -> card.getId().equals(cardId);
+    private static Predicate<CardEntity> findCardById(String cardId){
+        return cardEntity -> cardEntity.getId().equals(cardId);
     }
 }

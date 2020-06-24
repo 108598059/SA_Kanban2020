@@ -9,4 +9,12 @@ public interface CreateStageInput {
     public String getWorkflowId();
 
     public void setWorkflowId(String workflowId);
+
+    public int getWipLimit();
+
+    public void setWipLimit(int wipLimit);
+
+    public String getLayout();
+
+    public void setLayout(String layout);
 }

@@ -8,7 +8,8 @@ import org.junit.Test;
 
 import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.BoardCreatedEventHandler;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
@@ -23,6 +24,8 @@ public class CreateBoardUseCaseTest {
     public void setUp() {
         this.eventBus = new DomainEventBus();
         this.boardRepository = new MemoryBoardRepository();
+        BoardCreatedEventHandler boardCreatedEventHandler = new BoardCreatedEventHandler(this.eventBus, this.boardRepository);
+        this.eventBus.register(boardCreatedEventHandler);
     }
 
     @Test
@@ -54,7 +57,7 @@ public class CreateBoardUseCaseTest {
         Board board = BoardDTOConverter.toEntity(this.boardRepository.findByID(createBoardUseCaseOutput.getBoardID()));
 
         assertEquals(2, board.getColumnNumber());
-        assertEquals("Software Architecture", createBoardUseCaseOutput.getBoardName());
+        assertEquals("Software Architecture", board.getName());
         assertEquals("Backlog", board.get(0).getTitle());
         assertEquals("Archive", board.get(board.getColumnNumber() - 1).getTitle());
         assertEquals(workspaceID, board.getWorkspaceID());

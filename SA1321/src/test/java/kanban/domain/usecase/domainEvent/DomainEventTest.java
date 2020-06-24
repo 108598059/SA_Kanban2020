@@ -1,6 +1,7 @@
 package kanban.domain.usecase.domainEvent;
 
 import kanban.domain.Utility;
+import kanban.domain.adapter.presenter.card.cycleTime.CalculateCycleTimePresenter;
 import kanban.domain.adapter.repository.board.InMemoryBoardRepository;
 import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.adapter.repository.domainEvent.InMemoryDomainEventRepository;
@@ -15,15 +16,18 @@ import kanban.domain.model.aggregate.workflow.event.CardUnCommitted;
 import kanban.domain.model.aggregate.workflow.event.StageCreated;
 import kanban.domain.model.aggregate.workflow.event.WorkflowCreated;
 import kanban.domain.model.common.DateProvider;
-import kanban.domain.usecase.board.repository.IBoardRepository;
-import kanban.domain.usecase.card.repository.ICardRepository;
-import kanban.domain.usecase.domainEvent.repository.IDomainEventRepository;
-import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.model.service.event.CycleTimeCalculated;
+import kanban.domain.usecase.board.IBoardRepository;
+import kanban.domain.usecase.card.ICardRepository;
+import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeInput;
+import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeOutput;
+import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeUseCase;
+import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 import kanban.domain.usecase.handler.card.CardEventHandler;
 import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
-import kanban.domain.usecase.handler.domainEvent.FlowEventHandler;
+import kanban.domain.usecase.handler.flowEvent.FlowEventHandler;
 import kanban.domain.usecase.handler.workflow.WorkflowEventHandler;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -177,4 +181,33 @@ public class DomainEventTest {
     }
 
 
+    @Test
+    public void Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        DateProvider.setDate(sdf.parse("2020/05/23"));
+
+        utility = new Utility(boardRepository, workflowRepository, flowEventRepository, cardRepository, eventBus);
+        utility.createDefaultKanbanBoard();
+        cardId = utility.createCardInDefaultKanbanBoard("First");
+
+        DateProvider.setDate(sdf.parse("2020/05/28"));
+
+        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository, eventBus);
+        CalculateCycleTimeInput input = calculateCycleTimeUseCase;
+        input.setWorkflowId(utility.getDefaultWorkflowId());
+        input.setCardId(cardId);
+        input.setBeginningStageId(utility.getReadyStageId());
+        input.setEndingStageId(utility.getDeployedStageId());
+
+        CalculateCycleTimeOutput output = new CalculateCycleTimePresenter();
+
+        calculateCycleTimeUseCase.execute(input, output);
+
+        assertEquals(12, domainEventRepository.getAll().size());
+
+        assertEquals("2020/05/28", sdf.format(domainEventRepository.getAll().get(11).getOccurredOn()));
+        assertEquals(cardId, ((CycleTimeCalculated)domainEventRepository.getAll().get(11)).getCardId());
+        assertEquals(432000,((CycleTimeCalculated) domainEventRepository.getAll().get(11)).getCycleTime());
+    }
 }
