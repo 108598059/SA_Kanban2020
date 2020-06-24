@@ -1,6 +1,6 @@
 package domain.usecase.board.create;
 
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.repository.IBoardRepository;
@@ -17,9 +17,9 @@ public class CreateBoardUseCase {
     }
 
     public void execute(CreateBoardUseCaseInput input, CreateBoardUseCaseOutput output) {
-        board = new Board(input.getBoardName());
+        board = new Board(input.getUserId(), input.getBoardName());
 
-        BoardDTO boardDTO = BoardTransfer.BoardToBoardEntity(board);
+        BoardDTO boardDTO = BoardTransfer.BoardToBoardDTO(board);
 
         boardRepository.add(boardDTO);
         eventBus.postAll(board);

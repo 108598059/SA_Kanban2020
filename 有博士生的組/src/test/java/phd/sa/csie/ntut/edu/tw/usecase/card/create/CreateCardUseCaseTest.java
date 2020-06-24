@@ -9,9 +9,9 @@ import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.Card;
-import phd.sa.csie.ntut.edu.tw.model.card.event.create.CardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.event.create.CardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.card.CardCreatedEventHandler;
@@ -58,7 +58,7 @@ public class CreateCardUseCaseTest {
 
     @Test
     public void create_card_should_commit_the_card_to_the_backlog_column() {
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
@@ -78,7 +78,7 @@ public class CreateCardUseCaseTest {
 
     @Test
     public void created_card_change_should_be_save_to_the_board_repository() {
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 
@@ -94,7 +94,7 @@ public class CreateCardUseCaseTest {
 
     @Test
     public void create_card_event_should_be_posted_when_a_card_being_created() {
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 

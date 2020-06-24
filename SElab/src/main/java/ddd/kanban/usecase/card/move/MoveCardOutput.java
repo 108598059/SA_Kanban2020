@@ -1,15 +1,15 @@
 package ddd.kanban.usecase.card.move;
 
 public class MoveCardOutput {
-    private String toLaneId;
+    private String toColumnId;
     private String cardId;
 
-    public String getToLaneId() {
-        return toLaneId;
+    public String getToColumnId() {
+        return toColumnId;
     }
 
-    public void setToLaneId(String toLaneId) {
-        this.toLaneId = toLaneId;
+    public void setToColumnId(String toColumnId) {
+        this.toColumnId = toColumnId;
     }
 
     public String getCardId() {

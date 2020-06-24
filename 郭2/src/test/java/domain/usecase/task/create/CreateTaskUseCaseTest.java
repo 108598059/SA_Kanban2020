@@ -3,13 +3,14 @@ package domain.usecase.task.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
 import domain.model.aggregate.card.Task;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.card.CardTransfer;
 import domain.usecase.card.create.CreateCardUseCase;
 import domain.usecase.card.create.CreateCardUseCaseInput;
 import domain.usecase.card.create.CreateCardUseCaseOutput;
@@ -41,7 +42,7 @@ public class CreateTaskUseCaseTest {
     private DomainEventBus eventBus;
 
     @Before
-    public void SetUp(){
+    public void SetUp() throws CloneNotSupportedException {
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
         cardRepository = new MySqlCardRepository();
@@ -79,7 +80,7 @@ public class CreateTaskUseCaseTest {
     }
 
     @Test
-    public void createTaskUseCase(){
+    public void createTaskUseCase() throws CloneNotSupportedException {
         CreateTaskUseCase createTaskUseCase = new CreateTaskUseCase(cardRepository,eventBus);
         CreateTaskUseCaseInput createTaskUseCaseInput = new CreateTaskUseCaseInput();
         CreateTaskUseCaseOutput createTaskUseCaseOutput = new CreateTaskUseCaseOutput();
@@ -93,7 +94,7 @@ public class CreateTaskUseCaseTest {
         assertNotNull(createTaskUseCaseOutput.getTaskId());
         assertEquals("CreateTask", createTaskUseCaseOutput.getTaskName());
 
-        Card card = cardRepository.getCardById(cardOutput.getCardId());
+        Card card = CardTransfer.CardDTOToCard(cardRepository.getCardById(cardOutput.getCardId()));
         Task task = card.getTaskById(createTaskUseCaseOutput.getTaskId());
 
         assertEquals(createTaskUseCaseOutput.getTaskId(), task.getTaskId());

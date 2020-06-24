@@ -2,11 +2,16 @@ package domain.model.aggregate.card;
 
 import java.util.UUID;
 
-public class Task {
+public class Task implements Cloneable{
     private String taskId;
     private String cardId;
     private String taskName;
     private String taskContent;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     public Task(String cardId, String taskName) {
         this.cardId = cardId;

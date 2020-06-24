@@ -6,7 +6,7 @@ public class WorkflowEntity {
     private String id;
     private String title;
     private String boardId;
-    private List<ColumnEntity> laneEntities;
+    private List<ColumnEntity> columnEntities;
 
     public WorkflowEntity(String id, String title, String boardId) {
         this.id = id;
@@ -26,11 +26,11 @@ public class WorkflowEntity {
         return boardId;
     }
 
-    public List<ColumnEntity> getLaneEntities() {
-        return laneEntities;
+    public List<ColumnEntity> getColumnEntities() {
+        return columnEntities;
     }
 
-    public void setLaneEntities(List<ColumnEntity> laneEntities) {
-        this.laneEntities = laneEntities;
+    public void setColumnEntities(List<ColumnEntity> columnEntities) {
+        this.columnEntities = columnEntities;
     }
 }

@@ -11,8 +11,8 @@ import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardReposi
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.event.MemoryEventLogRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCaseInput;
@@ -46,7 +46,7 @@ public class PreMoveCardUseCaseTest {
         this.eventBus = new DomainEventBus();
         CardRepository cardRepository = new MemoryCardRepository();
         this.boardRepository = new MemoryBoardRepository();
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, cardRepository, this.boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, cardRepository);
 
         Board board = new Board(UUID.randomUUID(), "Kanban");
         board.createColumn("Backlog", 0);

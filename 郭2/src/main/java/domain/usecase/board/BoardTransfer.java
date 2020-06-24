@@ -3,7 +3,7 @@ package domain.usecase.board;
 import domain.model.aggregate.board.Board;
 
 public class BoardTransfer {
-    public static BoardDTO BoardToBoardEntity(Board board) {
+    public static BoardDTO BoardToBoardDTO(Board board) {
         BoardDTO boardDTO = new BoardDTO();
 
         boardDTO.setBoardId(board.getBoardId());
@@ -13,7 +13,7 @@ public class BoardTransfer {
         return boardDTO;
     }
 
-    public static Board BoardEntityToBoard(BoardDTO boardDTO) {
+    public static Board BoardDTOToBoard(BoardDTO boardDTO) {
         Board board = new Board();
 
         board.setBoardId(boardDTO.getBoardId());

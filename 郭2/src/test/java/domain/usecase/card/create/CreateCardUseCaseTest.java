@@ -3,7 +3,7 @@ package domain.usecase.card.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
@@ -11,12 +11,14 @@ import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.card.CardTransfer;
 import domain.usecase.handler.card.CardEventHandler;
 import domain.usecase.card.repository.ICardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -41,7 +43,7 @@ public class CreateCardUseCaseTest {
     private DomainEventBus eventBus;
 
     @Before
-    public void SetUp(){
+    public void SetUp() throws CloneNotSupportedException {
         eventBus = new DomainEventBus();
 
         boardRepository = new MySqlBoardRepository();
@@ -72,7 +74,7 @@ public class CreateCardUseCaseTest {
         eventBus.register(new CardEventHandler(workflowRepository, eventBus));
     }
     @Test
-    public void create_card_should_commit_it_to_its_lane_of_the_workflow(){
+    public void create_card_should_commit_it_to_its_lane_of_the_workflow() throws CloneNotSupportedException {
         cardRepository = new MySqlCardRepository();
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
@@ -91,13 +93,13 @@ public class CreateCardUseCaseTest {
         assertEquals("People Development", createCardUseCaseOutput.getCardType());
         assertNotNull(createCardUseCaseOutput.getCardId());
 
-        Card card = cardRepository.getCardById(createCardUseCaseOutput.getCardId());
+        Card card = CardTransfer.CardDTOToCard(cardRepository.getCardById(createCardUseCaseOutput.getCardId()));
 
         assertEquals(createCardUseCaseOutput.getCardId(), card.getCardId());
         assertEquals(createCardUseCaseOutput.getCardName(), card.getCardName());
 
         workflowRepository = new MySqlWorkflowRepository();
-        Workflow workflow = workflowRepository.getWorkflowById(workflowOutput.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId()));
 
         Lane lane = workflow.getLaneById(stageOutput.getStageId());
         List<String> cardList = lane.getCardIdList();

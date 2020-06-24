@@ -1,8 +1,9 @@
 package domain.usecase.card.create;
 
 import domain.entity.DomainEventBus;
-import domain.entity.card.Card;
+import domain.entity.aggregate.card.Card;
 import domain.usecase.card.CardRepository;
+import domain.usecase.card.CardTransformer;
 
 public class CreateCardUseCase {
     private CardRepository cardRepository;
@@ -18,7 +19,7 @@ public class CreateCardUseCase {
         Card newCard = new Card(input.getWorkflowId(),input.getStageId(),input.getSwimlaneId()) ;
         newCard.setName( input.getCardName() ) ;
 
-        cardRepository.add( newCard ) ;
+        cardRepository.add(CardTransformer.toDTO(newCard) ) ;
 
         eventBus.postAll(newCard);
 

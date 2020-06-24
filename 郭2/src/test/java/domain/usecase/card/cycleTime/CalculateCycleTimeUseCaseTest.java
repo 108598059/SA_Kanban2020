@@ -1,13 +1,10 @@
 package domain.usecase.card.cycleTime;
 
 import domain.adapter.repository.board.InMemoryBoardRepository;
-import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.InMemoryCardRepository;
-import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.flowEvent.ImMemoryFlowEventRepository;
 import domain.adapter.repository.workflow.InMemoryWorkflowRepository;
-import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.common.DateProvider;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
@@ -16,6 +13,9 @@ import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.card.move.MoveCardUseCase;
 import domain.usecase.card.move.MoveCardUseCaseInput;
 import domain.usecase.card.move.MoveCardUseCaseOutput;
+import domain.usecase.cycleTime.CalculateCycleTimeInput;
+import domain.usecase.cycleTime.CalculateCycleTimeOutput;
+import domain.usecase.cycleTime.CalculateCycleTimeUseCase;
 import domain.usecase.flowEvent.repository.IFlowEventRepository;
 import domain.usecase.handler.card.CardEventHandler;
 import domain.usecase.card.create.CreateCardUseCase;
@@ -26,7 +26,7 @@ import domain.usecase.handler.domainEvent.FlowEventHandler;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -119,7 +119,7 @@ public class CalculateCycleTimeUseCaseTest {
     }
 
     @Test
-    public void move_card_from_Todo_to_Done() throws ParseException {
+    public void move_card_from_Todo_to_Done() throws ParseException, CloneNotSupportedException {
         DateProvider.setDate(dateFormat.parse("2020/5/25 01:01:01"));
 
         MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, eventBus);
@@ -133,7 +133,7 @@ public class CalculateCycleTimeUseCaseTest {
 
         moveCardUseCase.execute(moveCardInput, moveCardOutput);
 
-        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository);
+        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository, eventBus);
         CalculateCycleTimeInput calculateCycleTimeInput = new CalculateCycleTimeInput();
         CalculateCycleTimeOutput calculateCycleTimeOutput = new CalculateCycleTimeOutput();
 
@@ -144,10 +144,10 @@ public class CalculateCycleTimeUseCaseTest {
 
         calculateCycleTimeUseCase.execute(calculateCycleTimeInput, calculateCycleTimeOutput);
 
-        assertEquals(1, calculateCycleTimeOutput.getCycleTime().getDiffDays());
-        assertEquals(1, calculateCycleTimeOutput.getCycleTime().getDiffHours());
-        assertEquals(1, calculateCycleTimeOutput.getCycleTime().getDiffMinutes());
-        assertEquals(1, calculateCycleTimeOutput.getCycleTime().getDiffSeconds());
+        assertEquals(1, calculateCycleTimeOutput.getDiffDays());
+        assertEquals(1, calculateCycleTimeOutput.getDiffHours());
+        assertEquals(1, calculateCycleTimeOutput.getDiffMinutes());
+        assertEquals(1, calculateCycleTimeOutput.getDiffSeconds());
 
         DateProvider.setDate(dateFormat.parse("2020/5/26 02:02:02"));
 
@@ -162,7 +162,7 @@ public class CalculateCycleTimeUseCaseTest {
 
         moveCardUseCase.execute(moveCardInput, moveCardOutput);
 
-        calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository);
+        calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository, eventBus);
         calculateCycleTimeInput = new CalculateCycleTimeInput();
         calculateCycleTimeOutput = new CalculateCycleTimeOutput();
 
@@ -173,9 +173,9 @@ public class CalculateCycleTimeUseCaseTest {
 
         calculateCycleTimeUseCase.execute(calculateCycleTimeInput, calculateCycleTimeOutput);
 
-        assertEquals(2, calculateCycleTimeOutput.getCycleTime().getDiffDays());
-        assertEquals(2, calculateCycleTimeOutput.getCycleTime().getDiffHours());
-        assertEquals(2, calculateCycleTimeOutput.getCycleTime().getDiffMinutes());
-        assertEquals(2, calculateCycleTimeOutput.getCycleTime().getDiffSeconds());
+        assertEquals(2, calculateCycleTimeOutput.getDiffDays());
+        assertEquals(2, calculateCycleTimeOutput.getDiffHours());
+        assertEquals(2, calculateCycleTimeOutput.getDiffMinutes());
+        assertEquals(2, calculateCycleTimeOutput.getDiffSeconds());
     }
 }

@@ -7,7 +7,7 @@ import phd.sa.csie.ntut.edu.tw.adapter.database.DB_connector;
 import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.mysql.board.MysqlBoardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTO;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.event.handler.board.BoardCreatedEventHandler;
@@ -15,7 +15,6 @@ import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;

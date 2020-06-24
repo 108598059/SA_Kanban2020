@@ -12,8 +12,8 @@ import phd.sa.csie.ntut.edu.tw.adapter.presenter.card.create.CreateCardPresenter
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.board.commit.card.CommitCardUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.card.create.CreateCardUseCase;
@@ -42,7 +42,7 @@ public class EditCardNameUseCaseTest {
         boardRepository.save(BoardDTOConverter.toDTO(board));
 
         this.eventBus.register(new CommitCardUseCase(this.eventBus, this.cardRepository, boardRepository));
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository, boardRepository);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(this.eventBus, this.cardRepository);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();
         CreateCardUseCaseOutput createCardUseCaseOutput = new CreateCardPresenter();
 

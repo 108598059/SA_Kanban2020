@@ -10,7 +10,7 @@ public class BoardCreated implements DomainEvent {
     private String boardName;
     private Date occurredOn;
 
-    public BoardCreated(String boardId, String boardName){
+    public BoardCreated(String userId, String boardId, String boardName){
         this.boardId = boardId;
         this.boardName = boardName;
         occurredOn = DateProvider.now();

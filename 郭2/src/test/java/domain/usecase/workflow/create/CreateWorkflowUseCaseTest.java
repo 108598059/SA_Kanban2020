@@ -1,7 +1,7 @@
 package domain.usecase.workflow.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.BoardTransfer;
@@ -11,7 +11,8 @@ import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 
 
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.*;
 
@@ -55,12 +56,12 @@ public class CreateWorkflowUseCaseTest {
         assertNotNull(output.getWorkflowId());
         assertEquals("KanbanDevelopment", output.getWorkflowName());
 
-        Workflow workflow = workflowRepository.getWorkflowById(output.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(output.getWorkflowId()));
 
         assertEquals(output.getWorkflowId(), workflow.getWorkflowId());
         assertEquals(output.getWorkflowName(), workflow.getWorkflowName());
 
-        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(createBoardUseCaseOutputImpl.getBoardId()));
+        Board board = BoardTransfer.BoardDTOToBoard(boardRepository.getBoardById(createBoardUseCaseOutputImpl.getBoardId()));
 
         assertTrue(board.getWorkflowIds().contains(workflow.getWorkflowId()));
     }

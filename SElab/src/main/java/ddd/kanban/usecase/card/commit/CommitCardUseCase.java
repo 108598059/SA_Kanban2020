@@ -17,7 +17,7 @@ public class CommitCardUseCase {
     public void execute(CommitCardInput commitCardInput, CommitCardOutput commitCardOutput) {
        Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(commitCardInput.getWorkflowId()));
        String cardId = workflow.commitCard(commitCardInput.getCardId(),
-                                           commitCardInput.getLaneId(), commitCardInput.getLaneTitle());
+                                           commitCardInput.getColumnId());
 
        workflowRepository.save(WorkflowEntityMapper.mappingWorkflowEntityFrom(workflow));
        domainEventBus.postAll(workflow);

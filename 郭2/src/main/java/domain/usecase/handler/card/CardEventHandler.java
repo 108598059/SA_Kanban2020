@@ -1,9 +1,8 @@
 package domain.usecase.handler.card;
 
 import com.google.common.eventbus.Subscribe;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.event.CardCreated;
-import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.card.commit.CommitCardUseCase;
 import domain.usecase.card.commit.CommitCardUseCaseInput;
 import domain.usecase.card.commit.CommitCardUseCaseOutput;
@@ -21,7 +20,7 @@ public class CardEventHandler{
     }
 
     @Subscribe
-    public void createCardHandleEvent(CardCreated cardCreated){
+    public void createCardHandleEvent(CardCreated cardCreated) throws CloneNotSupportedException {
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, eventBus);
         CommitCardUseCaseInput commitCardUseCaseInput = new CommitCardUseCaseInput();
         CommitCardUseCaseOutput commitCardUseCaseOutput = new CommitCardUseCaseOutput();

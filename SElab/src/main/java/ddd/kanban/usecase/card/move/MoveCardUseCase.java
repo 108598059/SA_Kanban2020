@@ -16,7 +16,7 @@ public class MoveCardUseCase {
 
     public void execute(MoveCardInput moveCardInput, MoveCardOutput moveCardOutput) {
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(moveCardInput.getWorkflowId()));
-        String cardId = workflow.moveCard(moveCardInput.getCardId(), moveCardInput.getFromLaneId(), moveCardInput.getToLaneId());
+        String cardId = workflow.moveCard(moveCardInput.getCardId(), moveCardInput.getFromColumnId(), moveCardInput.getToColumnId());
 
         workflowRepository.save(WorkflowEntityMapper.mappingWorkflowEntityFrom(workflow));
 

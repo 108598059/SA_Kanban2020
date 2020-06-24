@@ -1,6 +1,5 @@
 package domain.usecase.card;
 
-import domain.adapters.controller.workflow.*;
 import domain.adapters.repository.BoardRepositoryImpl;
 import domain.adapters.repository.CardRepositoryImpl;
 
@@ -9,22 +8,13 @@ import domain.adapters.repository.WorkflowRepositoryImpl;
 import domain.common.DateProvider;
 import domain.entity.DomainEventBus;
 import domain.entity.FlowEvent;
-import domain.entity.card.Card;
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.workflow.Workflow;
+import domain.usecase.FlowEventHandler;
 import domain.usecase.board.BoardRepository;
-import domain.usecase.card.cycletime.CycleTime;
+import domain.usecase.cycleTimeCalculator.CycleTime;
 import domain.usecase.flowevent.FlowEventRepository;
-import domain.usecase.stage.create.CreateStageInput;
-import domain.usecase.stage.create.CreateStageOutput;
-import domain.usecase.stage.create.CreateStageUseCase;
-import domain.usecase.swimlane.create.CreateSwimlaneInput;
-import domain.usecase.swimlane.create.CreateSwimlaneOutput;
-import domain.usecase.swimlane.create.CreateSwimlaneUseCase;
 import domain.usecase.workflow.WorkflowEventHandler;
 import domain.usecase.workflow.WorkflowRepository;
-import domain.usecase.workflow.create.CreateWorkflowInput;
-import domain.usecase.workflow.create.CreateWorkflowOutput;
-import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import org.junit.Before;
 import org.junit.Test;
 import util.Utilities;
@@ -42,12 +32,12 @@ public class CalculateMoveCardCycleTimeTest {
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
     private Utilities util;
-    private FlowEventRepository flowEventRepository;
     private String APPLY_PAY_ID;
     private Workflow kanbanDefaultWorkflow;
 
     private DomainEventBus eventBus;
 
+    private FlowEventRepository flowEventRepository;
     private BoardRepository boardRepository;
     private WorkflowRepository workflowRepository;
     private CardRepository cardRepository;
@@ -67,6 +57,7 @@ public class CalculateMoveCardCycleTimeTest {
 
         eventBus.register(new WorkflowEventHandler(boardRepository, eventBus));
         eventBus.register(new CardEventHandler(flowEventRepository, workflowRepository, eventBus));
+        eventBus.register(new FlowEventHandler(flowEventRepository));
 
 
         util = new Utilities(flowEventRepository, boardRepository, workflowRepository, cardRepository, eventBus);
@@ -83,6 +74,8 @@ public class CalculateMoveCardCycleTimeTest {
 
         // card create should commit to its workflow
         // and save cardCommitted FlowEvent
+        // createCard in flowEvent -> new card from init stage move to init stage
+
         assertEquals(3, flowEventRepository.getFlowEvents().size());
         assertEquals(3, util.getReady().getCards().size());
         assertEquals(0, util.getAnalysis().getCards().size());
@@ -101,7 +94,6 @@ public class CalculateMoveCardCycleTimeTest {
                 util.getReadySwimlaneId(),
                 util.getAnalysisSwimlaneId(),
                 util.getCardId().get(0));
-        System.out.println(flowEventRepository.getFlowEvents().get(3).getOccurredOn().getTime());
 
         assertEquals(2, util.getReady().getCards().size());
         assertEquals(1, util.getAnalysis().getCards().size());
@@ -120,5 +112,30 @@ public class CalculateMoveCardCycleTimeTest {
         assertEquals(1, cycleTime.getDiffHours());
         assertEquals(1, cycleTime.getDiffMinutes());
         assertEquals(2, cycleTime.getDiffSeconds());
+
+        DateProvider.setDate(dateFormat.parse("2020-01-03 02:02:03"));
+
+        util.moveCard(
+                util.getWorkflowId(),
+                util.getAnalysisStageId(),
+                util.getDevelopmentStageId(),
+                util.getAnalysisSwimlaneId(),
+                util.getDevelopmentSwimlaneId(),
+                util.getCardId().get(0));
+        for(FlowEvent flowEvent : flowEventRepository.getFlowEvents()){
+            System.out.println(flowEvent.getCardId() + " : " + flowEvent.getOccurredOn());
+        }
+        cycleTime = util.calculateCycleTime(
+                util.getWorkflowId(),
+                util.getReadyStageId(),
+                util.getDevelopmentStageId(),
+                util.getReadySwimlaneId(),
+                util.getDevelopmentSwimlaneId(),
+                util.getCardId().get(0));
+
+        assertEquals(2, cycleTime.getDiffDays());
+        assertEquals(2, cycleTime.getDiffHours());
+        assertEquals(2, cycleTime.getDiffMinutes());
+        assertEquals(3, cycleTime.getDiffSeconds());
     }
 }

@@ -1,28 +1,28 @@
 package domain.adapter.repository.card;
 
-import domain.model.aggregate.card.Card;
+import domain.usecase.card.CardDTO;
 import domain.usecase.card.repository.ICardRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryCardRepository implements ICardRepository {
-    private List<Card> cardList = new ArrayList<Card>();
+    private List<CardDTO> cardList = new ArrayList<>();
 
-    public void add(Card card) {
+    public void add(CardDTO card) {
         cardList.add(card);
     }
 
-    public Card getCardById(String cardId){
-        for (Card each:cardList) {
+    public CardDTO getCardById(String cardId){
+        for (CardDTO each:cardList) {
             if(cardId.equals(each.getCardId()))
                 return each;
         }
         throw new RuntimeException("not found cardId = " + cardId);
     }
 
-    public void save(Card card) {
-        for (Card each : cardList) {
+    public void save(CardDTO card) {
+        for (CardDTO each : cardList) {
             if (each.getCardId().equals(card.getCardId())) {
                 cardList.set(cardList.indexOf(each), card);
                 break;

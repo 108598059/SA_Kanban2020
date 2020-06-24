@@ -11,7 +11,9 @@ public class WorkflowTest {
 
     @Test
     public void testCreateWorkflowShouldGenerateWorkflowCreatedDomainEvent(){
-        Workflow workflow = new Workflow(UUID.randomUUID().toString(), "Default workflow", UUID.randomUUID().toString());
+        String boardId = UUID.randomUUID().toString();
+        String workflowId = UUID.randomUUID().toString();
+        Workflow workflow = new Workflow(workflowId, "Default workflow", boardId);
 
         assertEquals(1, workflow.getDomainEvents().size());
         workflow.clearDomainEvents();

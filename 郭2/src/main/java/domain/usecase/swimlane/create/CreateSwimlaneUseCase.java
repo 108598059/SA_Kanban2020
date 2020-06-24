@@ -1,8 +1,9 @@
 package domain.usecase.swimlane.create;
 
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CreateSwimlaneUseCase {
@@ -14,12 +15,12 @@ public class CreateSwimlaneUseCase {
         this.eventBus = eventBus;
     }
 
-    public void execute(CreateSwimlaneUseCaseInput input, CreateSwimlaneUseCaseOutput output) {
-        Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
+    public void execute(CreateSwimlaneUseCaseInput input, CreateSwimlaneUseCaseOutput output) throws CloneNotSupportedException {
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(input.getWorkflowId()));
         Lane swimlane = workflow.createSwimlane(input.getSwimlaneName());
 
 //        workflow.addLane(swimlane);
-        workflowRepository.save(workflow);
+        workflowRepository.save(WorkflowTransfer.WorkflowToWorkflowDTO(workflow));
         eventBus.postAll(workflow);
 
         output.setWorkflowId(swimlane.getWorkflowId());

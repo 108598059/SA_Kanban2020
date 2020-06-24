@@ -5,8 +5,8 @@ import org.junit.Test;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.card.MemoryCardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.model.card.Card;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.card.Card;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.card.dto.CardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.repository.board.BoardRepository;
@@ -30,7 +30,7 @@ public class CommitCardUseCaseTest {
         this.boardRepository = new MemoryBoardRepository();
         this.boardRepository.save(BoardDTOConverter.toDTO(this.board));
 
-        this.card = new Card("Card1", this.board);
+        this.card = new Card("Card1", this.board.getID().toString());
         this.cardRepository = new MemoryCardRepository();
         this.cardRepository.save(CardDTOConverter.toDTO(this.card));
 

@@ -1,10 +1,10 @@
 package domain.usecase.card;
 
 import com.google.common.eventbus.Subscribe;
-import domain.adapters.controller.card.CommitCardInputImpl;
-import domain.adapters.controller.card.CommitCardOutputImpl;
+import domain.adapters.controller.card.input.CommitCardInputImpl;
+import domain.adapters.controller.card.output.CommitCardOutputImpl;
 import domain.entity.DomainEventBus;
-import domain.entity.card.event.CardCreated;
+import domain.entity.aggregate.card.event.CardCreated;
 import domain.usecase.flowevent.FlowEventRepository;
 import domain.usecase.workflow.WorkflowRepository;
 import domain.usecase.workflow.commit.CommitCardInput;
@@ -27,7 +27,7 @@ public class CardEventHandler{
 
         CommitCardInput commitCardInput = new CommitCardInputImpl();
         CommitCardOutput commitCardOutput = new CommitCardOutputImpl();
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(flowEventRepository, workflowRepository, eventBus);
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, eventBus);
 
         commitCardInput.setWorkflowId(cardCreated.getWorkflowId());
         commitCardInput.setStageId(cardCreated.getStageId());

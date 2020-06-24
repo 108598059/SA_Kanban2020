@@ -2,9 +2,9 @@ package domain.usecase.workflow.create;
 
 
 import domain.entity.DomainEventBus;
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.workflow.Workflow;
 import domain.usecase.workflow.WorkflowRepository;
-
+import domain.usecase.workflow.WorkflowTransformer;
 
 
 public class CreateWorkflowUseCase {
@@ -24,7 +24,7 @@ public class CreateWorkflowUseCase {
 
         newWorkflow.setName(createWorkflowInput.getWorkflowName());
 
-        workflowRepository.add(newWorkflow);
+        workflowRepository.add(WorkflowTransformer.toDTO(newWorkflow));
         eventBus.postAll(newWorkflow);
 
         createWorkflowOutput.setWorkFlowId(newWorkflow.getId());

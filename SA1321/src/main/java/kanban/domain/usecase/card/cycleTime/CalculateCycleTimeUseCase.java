@@ -4,7 +4,7 @@ import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.FlowEvent;
 import kanban.domain.model.aggregate.workflow.Stage;
 import kanban.domain.model.aggregate.workflow.Workflow;
-import kanban.domain.model.service.cycleTime.CalculateCycleTimeCalculater;
+import kanban.domain.model.service.cycleTime.CycleTimeCalculater;
 import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
 import kanban.domain.usecase.workflow.IWorkflowRepository;
@@ -33,15 +33,15 @@ public class CalculateCycleTimeUseCase implements CalculateCycleTimeInput {
 
         List<FlowEvent> flowEvents = flowEventRepository.getAll();
 
-        CalculateCycleTimeCalculater calculateCycleTimeCalculater =
-                new CalculateCycleTimeCalculater(
+        CycleTimeCalculater cycleTimeCalculater =
+                new CycleTimeCalculater(
                         boundaryStageIds,
                         flowEvents,
                         input.getCardId());
 
-        CycleTimeModel cycleTimeModel = new CycleTimeModel(calculateCycleTimeCalculater.process());
+        CycleTimeModel cycleTimeModel = new CycleTimeModel(cycleTimeCalculater.process());
 
-        domainEventBus.postAll(calculateCycleTimeCalculater);
+        domainEventBus.postAll(cycleTimeCalculater);
         output.setCycleTimeModel(cycleTimeModel);
     }
 

@@ -1,14 +1,14 @@
 package domain.usecase.workflow;
 
 
-import domain.entity.workflow.Workflow;
+import domain.entity.aggregate.workflow.Workflow;
 
 
 public interface WorkflowRepository {
 
-    Workflow getWorkFlowById(String id);
-    void add(Workflow workflow);
-    void save(Workflow workflow);
+    WorkflowDTO getWorkFlowById(String id);
+    void add(WorkflowDTO workflow);
+    void save(WorkflowDTO workflow);
 
 
 }

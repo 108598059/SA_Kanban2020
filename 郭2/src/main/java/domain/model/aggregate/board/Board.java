@@ -1,29 +1,25 @@
 package domain.model.aggregate.board;
 
-import domain.model.aggregate.AggregateRoot;
+import domain.model.DomainEventHolder;
 import domain.model.aggregate.board.event.BoardCreated;
 import domain.model.aggregate.board.event.WorkflowCommited;
-import domain.model.aggregate.card.Task;
-import domain.model.aggregate.workflow.Lane;
-import domain.model.aggregate.workflow.Workflow;
-import domain.model.aggregate.workflow.event.CardUnCommitted;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Board extends AggregateRoot {
+public class Board extends DomainEventHolder {
     private List<String> workflowIds;
     private String boardId;
     private String boardName;
 
     public Board(){}
 
-    public Board(String boardName){
+    public Board(String userId, String boardName){
         workflowIds = new ArrayList<String>();
         this.boardId = UUID.randomUUID().toString();
         this.boardName = boardName;
-        addDomainEvent(new BoardCreated(boardId,boardName));
+        addDomainEvent(new BoardCreated(userId,boardId,boardName));
     }
 
     public void setBoardId(String boardId) {

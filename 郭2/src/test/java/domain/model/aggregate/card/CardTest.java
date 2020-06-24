@@ -26,7 +26,7 @@ public class CardTest {
     }
 
     @Test
-    public void create_task_should_generate_TaskCreated_event_in_the_domainEvent_list() {
+    public void create_task_should_generate_TaskCreated_event_in_the_domainEvent_list() throws CloneNotSupportedException {
 
         card.createTask(card.getCardId(),"taskName");
 

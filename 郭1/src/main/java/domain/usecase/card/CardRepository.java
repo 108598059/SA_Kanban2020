@@ -1,9 +1,9 @@
 package domain.usecase.card;
 
-import domain.entity.card.Card;
+import domain.entity.aggregate.card.Card;
 
 public interface CardRepository {
-    void save(Card card);
-    void add(Card card);
-    Card getCardById(String id);
+    void save(CardDTO cardDTO);
+    void add(CardDTO cardDTO);
+    CardDTO getCardById(String id);
 }

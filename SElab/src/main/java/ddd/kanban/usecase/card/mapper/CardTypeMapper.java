@@ -1,6 +1,6 @@
 package ddd.kanban.usecase.card.mapper;
 
-import ddd.kanban.domain.model.card.CardType;
+import ddd.kanban.domain.model.card.card.CardType;
 import ddd.kanban.usecase.card.entity.CardTypeEntity;
 
 public class CardTypeMapper {

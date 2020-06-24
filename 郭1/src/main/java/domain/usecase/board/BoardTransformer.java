@@ -1,6 +1,6 @@
 package domain.usecase.board;
 
-import domain.entity.board.Board;
+import domain.entity.aggregate.board.Board;
 
 public class BoardTransformer {
 
