@@ -1,7 +1,7 @@
 package phd.sa.csie.ntut.edu.tw.usecase.event.handler.board;
 
 import com.google.common.eventbus.Subscribe;
-import phd.sa.csie.ntut.edu.tw.model.board.event.create.BoardCreatedEvent;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.event.create.BoardCreatedEvent;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;

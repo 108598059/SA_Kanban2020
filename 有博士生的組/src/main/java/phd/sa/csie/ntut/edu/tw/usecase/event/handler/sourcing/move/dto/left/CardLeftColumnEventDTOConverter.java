@@ -1,6 +1,6 @@
 package phd.sa.csie.ntut.edu.tw.usecase.event.handler.sourcing.move.dto.left;
 
-import phd.sa.csie.ntut.edu.tw.model.board.event.move.CardLeftColumnEvent;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.event.move.CardLeftColumnEvent;
 
 public class CardLeftColumnEventDTOConverter {
     public static CardLeftColumnEventDTO toDTO(CardLeftColumnEvent e) {

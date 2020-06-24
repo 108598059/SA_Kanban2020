@@ -9,7 +9,7 @@ public interface DomainEvent {
 
     String detail();
 
-    public String getSourceID();
+    String getSourceID();
 
-    public String getSourceName();
+    String getSourceName();
 }

@@ -9,13 +9,9 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.create.CreateBoardPresenter;
 import phd.sa.csie.ntut.edu.tw.adapter.repository.memory.board.MemoryBoardRepository;
 import phd.sa.csie.ntut.edu.tw.model.domain.DomainEventBus;
-import phd.sa.csie.ntut.edu.tw.model.board.Board;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.board.create.CreateBoardUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.model.aggregate.board.Board;
 import phd.sa.csie.ntut.edu.tw.usecase.board.dto.BoardDTOConverter;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCase;
 import phd.sa.csie.ntut.edu.tw.usecase.column.create.CreateColumnUseCaseInput;
