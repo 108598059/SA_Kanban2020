@@ -90,7 +90,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card">
+  <component name="RunManager" selected="JUnit.All in SA1321">
     <configuration name="All in SA1321" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SA1321" />
       <option name="PACKAGE_NAME" value="" />
@@ -240,13 +240,13 @@
       <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card_From_Ready_To_ReadyToDeploy" />
       <item itemvalue="JUnit.All in SA1321" />
       <item itemvalue="JUnit.CalculateCycleTimeTest" />
-      <item itemvalue="Tomcat Server.Tomcat 9.0.12" />
       <item itemvalue="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
+      <item itemvalue="Tomcat Server.Tomcat 9.0.12" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
         <item itemvalue="JUnit.All in SA1321" />
+        <item itemvalue="JUnit.DomainEventTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />
         <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_With_Moving_Card_From_Ready_To_ReadyToDeploy" />
         <item itemvalue="JUnit.CalculateCycleTimeTest" />
         <item itemvalue="JUnit.CalculateCycleTimeTest.Calculate_CycleTime_Should_Be_Correct_Without_Moving_Card" />

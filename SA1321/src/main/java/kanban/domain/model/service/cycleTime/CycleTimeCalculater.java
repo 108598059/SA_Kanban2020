@@ -7,11 +7,11 @@ import kanban.domain.model.service.event.CycleTimeCalculated;
 
 import java.util.*;
 
-public class CalculateCycleTimeCalculater extends Service {
+public class CycleTimeCalculater extends Service {
     private List<String> boundaryStageIds;
     private List<FlowEvent> flowEvents;
     private String cardId;
-    public CalculateCycleTimeCalculater(List<String> boundaryStageIds, List<FlowEvent> flowEvents, String cardId) {
+    public CycleTimeCalculater(List<String> boundaryStageIds, List<FlowEvent> flowEvents, String cardId) {
         this.boundaryStageIds = boundaryStageIds;
         this.flowEvents = flowEvents;
         this.cardId = cardId;
