@@ -19,7 +19,7 @@ public class CreateBoardUseCase {
     public void execute(CreateBoardUseCaseInput input, CreateBoardUseCaseOutput output) {
         board = new Board(input.getUserId(), input.getBoardName());
 
-        BoardDTO boardDTO = BoardTransfer.BoardToBoardEntity(board);
+        BoardDTO boardDTO = BoardTransfer.BoardToBoardDTO(board);
 
         boardRepository.add(boardDTO);
         eventBus.postAll(board);

@@ -15,10 +15,10 @@ public class CommitWorkflowUseCase {
     }
 
     public void execute(CommitWorkflowUseCaseInput input, CommitWorkflowUseCaseOutput output) {
-        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(input.getBoardId()));
+        Board board = BoardTransfer.BoardDTOToBoard(boardRepository.getBoardById(input.getBoardId()));
         board.addWorkflowId(input.getWorkflowId());
 
-        boardRepository.save(BoardTransfer.BoardToBoardEntity(board));
+        boardRepository.save(BoardTransfer.BoardToBoardDTO(board));
 
         eventBus.postAll(board);
 

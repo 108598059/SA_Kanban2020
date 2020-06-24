@@ -10,6 +10,7 @@ import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.card.CardTransfer;
 import domain.usecase.card.create.CreateCardUseCase;
 import domain.usecase.card.create.CreateCardUseCaseInput;
 import domain.usecase.card.create.CreateCardUseCaseOutput;
@@ -93,7 +94,7 @@ public class CreateTaskUseCaseTest {
         assertNotNull(createTaskUseCaseOutput.getTaskId());
         assertEquals("CreateTask", createTaskUseCaseOutput.getTaskName());
 
-        Card card = cardRepository.getCardById(cardOutput.getCardId());
+        Card card = CardTransfer.CardDTOToCard(cardRepository.getCardById(cardOutput.getCardId()));
         Task task = card.getTaskById(createTaskUseCaseOutput.getTaskId());
 
         assertEquals(createTaskUseCaseOutput.getTaskId(), task.getTaskId());

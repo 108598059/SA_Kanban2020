@@ -73,6 +73,14 @@ public class Card extends DomainEventHolder {
         return cardType;
     }
 
+    public void setLaneId(String laneId) {
+        this.laneId = laneId;
+    }
+
+    public void setWorkflowId(String workflowId) {
+        this.workflowId = workflowId;
+    }
+
     public Task createTask(String cardId, String taskName) throws CloneNotSupportedException {
         Task task = new Task(cardId, taskName);
         taskList.add(task);

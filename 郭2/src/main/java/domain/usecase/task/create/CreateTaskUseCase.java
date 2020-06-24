@@ -3,6 +3,7 @@ package domain.usecase.task.create;
 import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
 import domain.model.aggregate.card.Task;
+import domain.usecase.card.CardTransfer;
 import domain.usecase.card.repository.ICardRepository;
 
 public class CreateTaskUseCase {
@@ -16,12 +17,12 @@ public class CreateTaskUseCase {
     }
 
     public void execute(CreateTaskUseCaseInput input, CreateTaskUseCaseOutput output) throws CloneNotSupportedException {
-        Card card = cardRepository.getCardById(input.getCardId());
+        Card card = CardTransfer.CardDTOToCard(cardRepository.getCardById(input.getCardId()));
         task = card.createTask(input.getCardId(), input.getTaskName());
 
         card.addTaskId(task);
 
-        cardRepository.save(card);
+        cardRepository.save(CardTransfer.CardToCardDTO(card));
         eventBus.postAll(card);
 
         output.setCardId(task.getCardId());

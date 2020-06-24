@@ -8,6 +8,7 @@ import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -59,7 +60,7 @@ public class CreateSwimlaneUseCaseTest {
         assertNotNull(output.getSwimlaneId());
         assertEquals("Emergency", output.getSwimlaneName());
 
-        Workflow workflow = workflowRepository.getWorkflowById(workflowOutput.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId()));
         Lane lane = workflow.getLaneById(output.getSwimlaneId());
 
         assertEquals(output.getSwimlaneId(), lane.getLaneId());

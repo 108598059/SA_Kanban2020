@@ -17,6 +17,7 @@ import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
 import domain.usecase.handler.workflow.WorkflowEventHandler;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -106,7 +107,7 @@ public class MoveCardUseCaseTest {
 
         assertEquals(workflowOutput.getWorkflowId(), output.getWorkflowId());
 
-        assertFalse(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId()).getLaneById(stageOutput1.getStageId()).getCardIdList().contains(cardOutput.getCardId()));
-        assertTrue(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId()).getLaneById(stageOutput2.getStageId()).getCardIdList().contains(cardOutput.getCardId()));
+        assertFalse(WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId())).getLaneById(stageOutput1.getStageId()).getCardIdList().contains(cardOutput.getCardId()));
+        assertTrue(WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId())).getLaneById(stageOutput2.getStageId()).getCardIdList().contains(cardOutput.getCardId()));
     }
 }

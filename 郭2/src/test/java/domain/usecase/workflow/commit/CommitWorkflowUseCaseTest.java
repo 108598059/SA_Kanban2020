@@ -42,7 +42,7 @@ public class CommitWorkflowUseCaseTest {
         input.setWorkflowId("workflowId");
         commitWorkflowUseCase.execute(input, output);
 
-        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(input.getBoardId()));
+        Board board = BoardTransfer.BoardDTOToBoard(boardRepository.getBoardById(input.getBoardId()));
 
         assertEquals(1,board.getWorkflowIds().size());
         assertEquals("workflowId",board.getWorkflowIds().get(0));

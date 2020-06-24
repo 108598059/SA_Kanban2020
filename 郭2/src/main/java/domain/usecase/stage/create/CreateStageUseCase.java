@@ -3,6 +3,7 @@ package domain.usecase.stage.create;
 import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CreateStageUseCase {
@@ -16,11 +17,11 @@ public class CreateStageUseCase {
     }
 
     public void execute(CreateStageUseCaseInput input, CreateStageUseCaseOutput output) throws CloneNotSupportedException {
-        Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(input.getWorkflowId()));
         stage = workflow.createStage(input.getStageName());
 
 //        workflow.addLane(stage);
-        workflowRepository.save(workflow);
+        workflowRepository.save(WorkflowTransfer.WorkflowToWorkflowDTO(workflow));
         eventBus.postAll(workflow);
 
         output.setWorkflowId(stage.getWorkflowId());

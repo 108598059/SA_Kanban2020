@@ -12,6 +12,7 @@ import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.handler.workflow.WorkflowEventHandler;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.*;
 
@@ -55,12 +56,12 @@ public class CreateWorkflowUseCaseTest {
         assertNotNull(output.getWorkflowId());
         assertEquals("KanbanDevelopment", output.getWorkflowName());
 
-        Workflow workflow = workflowRepository.getWorkflowById(output.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(output.getWorkflowId()));
 
         assertEquals(output.getWorkflowId(), workflow.getWorkflowId());
         assertEquals(output.getWorkflowName(), workflow.getWorkflowName());
 
-        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(createBoardUseCaseOutputImpl.getBoardId()));
+        Board board = BoardTransfer.BoardDTOToBoard(boardRepository.getBoardById(createBoardUseCaseOutputImpl.getBoardId()));
 
         assertTrue(board.getWorkflowIds().contains(workflow.getWorkflowId()));
     }

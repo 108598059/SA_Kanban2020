@@ -2,6 +2,7 @@ package domain.usecase.workflow.create;
 
 import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Workflow;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CreateWorkflowUseCase {
@@ -16,7 +17,7 @@ public class CreateWorkflowUseCase {
     public void execute(CreateWorkflowUseCaseInput input, CreateWorkflowUseCaseOutput output) {
         Workflow workflow = new Workflow(input.getWorkflowName(), input.getBoardId());
 
-        workflowRepository.add(workflow);
+        workflowRepository.add(WorkflowTransfer.WorkflowToWorkflowDTO(workflow));
 
         eventBus.postAll(workflow);
 

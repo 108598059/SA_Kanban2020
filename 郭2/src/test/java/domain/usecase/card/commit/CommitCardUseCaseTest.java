@@ -12,6 +12,7 @@ import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -70,7 +71,7 @@ public class CommitCardUseCaseTest {
 
         commitCardUseCase.execute(input, output);
 
-        Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(input.getWorkflowId()));
 
         assertTrue(workflow.getLaneById(stageOutput.getStageId()).getCardIdList().contains(output.getCardId()));
     }

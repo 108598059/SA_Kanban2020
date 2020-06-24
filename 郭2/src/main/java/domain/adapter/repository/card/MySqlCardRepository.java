@@ -1,8 +1,8 @@
 package domain.adapter.repository.card;
 
 import domain.adapter.database.DbConn;
-import domain.model.aggregate.card.Card;
 import domain.model.aggregate.card.Task;
+import domain.usecase.card.CardDTO;
 import domain.usecase.card.repository.ICardRepository;
 
 import java.sql.Connection;
@@ -19,7 +19,7 @@ public class MySqlCardRepository implements ICardRepository {
         conn = DbConn.getConnection();
     }
 
-    public void add(Card card) {
+    public void add(CardDTO card) {
         String sql = "INSERT INTO kanban.card(card_id, card_name, card_content, card_type) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = null;
         try {
@@ -70,16 +70,17 @@ public class MySqlCardRepository implements ICardRepository {
         }
     }
 
-    public Card getCardById(String cardId) {
+    public CardDTO getCardById(String cardId) {
         String sql = "SELECT * FROM kanban.card WHERE card_id = '" + cardId + "'";
-        Card card = null;
+        CardDTO card = null;
         PreparedStatement ps = null;
         ResultSet rset = null;
         try {
             ps = conn.prepareStatement(sql);
             rset = ps.executeQuery();
             while (rset.next()) {
-                card = new Card(rset.getString("card_name"));
+                card = new CardDTO();
+                card.setCardName(rset.getString("card_name"));
                 card.setCardId(cardId);
                 card.setCardContent(rset.getString("card_content"));
                 card.setCardType(rset.getString("card_type"));
@@ -106,7 +107,7 @@ public class MySqlCardRepository implements ICardRepository {
         return card;
     }
 
-    public void save(Card card) {
+    public void save(CardDTO card) {
         String sql = "Insert Into kanban.card Values (?, ?, ?, ?) On Duplicate Key Update card_name=? ";
         PreparedStatement ps = null;
         try {

@@ -6,6 +6,7 @@ import domain.model.aggregate.workflow.Workflow;
 import domain.model.FlowEvent;
 import domain.model.service.cycleTime.CycleTimeCalculator;
 import domain.usecase.flowEvent.repository.IFlowEventRepository;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class CalculateCycleTimeUseCase {
     public void execute(CalculateCycleTimeInput input, CalculateCycleTimeOutput output) {
         List<FlowEvent> flowEventPairList = flowEventRepository.getAll();
 
-        Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(input.getWorkflowId()));
         boolean isbool = false;
         List<String> stageIds = new ArrayList();
         for(Lane lane: workflow.getLaneList()){

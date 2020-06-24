@@ -2,6 +2,7 @@ package domain.usecase.card.commit;
 
 import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Workflow;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 
 public class CommitCardUseCase {
@@ -14,10 +15,10 @@ public class CommitCardUseCase {
     }
 
     public void execute(CommitCardUseCaseInput input, CommitCardUseCaseOutput output) throws CloneNotSupportedException {
-        Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(input.getWorkflowId()));
         workflow.addCardInLane(input.getLaneId(), input.getCardId());
 
-        workflowRepository.save(workflow);
+        workflowRepository.save(WorkflowTransfer.WorkflowToWorkflowDTO(workflow));
 
         eventBus.postAll(workflow);
 

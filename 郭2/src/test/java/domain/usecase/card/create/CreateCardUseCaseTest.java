@@ -11,12 +11,14 @@ import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
+import domain.usecase.card.CardTransfer;
 import domain.usecase.handler.card.CardEventHandler;
 import domain.usecase.card.repository.ICardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
 import domain.usecase.handler.workflow.WorkflowEventHandler;
+import domain.usecase.workflow.WorkflowTransfer;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -91,13 +93,13 @@ public class CreateCardUseCaseTest {
         assertEquals("People Development", createCardUseCaseOutput.getCardType());
         assertNotNull(createCardUseCaseOutput.getCardId());
 
-        Card card = cardRepository.getCardById(createCardUseCaseOutput.getCardId());
+        Card card = CardTransfer.CardDTOToCard(cardRepository.getCardById(createCardUseCaseOutput.getCardId()));
 
         assertEquals(createCardUseCaseOutput.getCardId(), card.getCardId());
         assertEquals(createCardUseCaseOutput.getCardName(), card.getCardName());
 
         workflowRepository = new MySqlWorkflowRepository();
-        Workflow workflow = workflowRepository.getWorkflowById(workflowOutput.getWorkflowId());
+        Workflow workflow = WorkflowTransfer.WorkflowDTOToWorkflow(workflowRepository.getWorkflowById(workflowOutput.getWorkflowId()));
 
         Lane lane = workflow.getLaneById(stageOutput.getStageId());
         List<String> cardList = lane.getCardIdList();

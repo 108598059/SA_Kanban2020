@@ -27,7 +27,7 @@ public class CreateBoardUseCaseTest {
         assertNotNull(output.getBoardId());
         assertEquals("Kanban of KanbanDevelopment", output.getBoardName());
 
-        Board board = BoardTransfer.BoardEntityToBoard(boardRepository.getBoardById(output.getBoardId()));
+        Board board = BoardTransfer.BoardDTOToBoard(boardRepository.getBoardById(output.getBoardId()));
 
         assertEquals(output.getBoardId(), board.getBoardId());
         assertEquals(output.getBoardName(), board.getBoardName());
