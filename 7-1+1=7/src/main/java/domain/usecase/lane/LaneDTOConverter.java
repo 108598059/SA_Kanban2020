@@ -1,8 +1,8 @@
 package domain.usecase.lane;
 
-import domain.model.workflow.Lane;
-import domain.model.workflow.Stage;
-import domain.model.workflow.SwimLane;
+import domain.model.aggregate.workflow.Lane;
+import domain.model.aggregate.workflow.Stage;
+import domain.model.aggregate.workflow.SwimLane;
 
 
 public class LaneDTOConverter {
@@ -28,12 +28,14 @@ public class LaneDTOConverter {
                         laneDTO.getName(),
                         laneDTO.getId(),
                         laneDTO.getCardList());
+                break;
             case HORIZONTAL:
                 lane = new SwimLane(
                         laneDTO.getName(),
                         laneDTO.getId(),
                         laneDTO.getCardList()
                 );
+                break;
         }
         if (laneDTO.getChildLanes().size() != 0){
             for (LaneDTO childLaneDTO : laneDTO.getChildLanes()) {

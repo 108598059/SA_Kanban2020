@@ -1,31 +1,54 @@
 package domain.usecase.lane.createSwimLane;
 
+import domain.adapter.repository.workflow.converter.WorkflowRepositoryDTOConverter;
 import domain.model.DomainEventBus;
-import domain.model.workflow.Workflow;
-import domain.usecase.repository.IBoardRepository;
+import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.repository.IWorkflowRepository;
-import domain.usecase.workflow.WorkflowDTOConverter;
 
-public class CreateSwimLaneUseCase {
+public class CreateSwimLaneUseCase implements CreateSwimLaneInput{
     private DomainEventBus eventBus;
     private IWorkflowRepository workflowRepository;
-    private IBoardRepository boardRepository;
     private Workflow workflow;
+    private String swimLaneName;
+    private String workflowId;
+    private String parentLaneId;
 
-
-    public CreateSwimLaneUseCase(IWorkflowRepository workflowRepository, IBoardRepository boardRepository, DomainEventBus eventBus) {
+    public CreateSwimLaneUseCase(IWorkflowRepository workflowRepository, DomainEventBus eventBus) {
         this.workflowRepository = workflowRepository;
-        this.boardRepository = boardRepository;
         this.eventBus = eventBus;
     }
 
     public void execute(CreateSwimLaneInput input, CreateSwimLaneOutput output) {
-        workflow = WorkflowDTOConverter.toEntity(workflowRepository.findById(input.getWorkflowId()));
+        workflow = WorkflowRepositoryDTOConverter.toEntity(workflowRepository.findById(input.getWorkflowId()));
         String swimLaneId = workflow.createSwimLane(input.getSwimLaneName(), input.getParentLaneId());
 
-        workflowRepository.save(WorkflowDTOConverter.toDTO(workflow));
+        workflowRepository.save(WorkflowRepositoryDTOConverter.toDTO(workflow));
         eventBus.postAll(workflow);
 
         output.setSwimLaneId(swimLaneId);
+    }
+
+    public String getSwimLaneName() {
+        return swimLaneName;
+    }
+
+    public void setSwimLaneName(String swimLaneName) {
+        this.swimLaneName = swimLaneName;
+    }
+
+    public String getWorkflowId() {
+        return workflowId;
+    }
+
+    public void setWorkflowId(String workflowId) {
+        this.workflowId = workflowId;
+    }
+
+    public String getParentLaneId() {
+        return parentLaneId;
+    }
+
+    public void setParentLaneId(String parentLaneId) {
+        this.parentLaneId = parentLaneId;
     }
 }

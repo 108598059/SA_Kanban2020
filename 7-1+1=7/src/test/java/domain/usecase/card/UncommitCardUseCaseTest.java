@@ -1,13 +1,16 @@
 package domain.usecase.card;
 
-import domain.adapter.FlowEventInMemoryRepository;
-import domain.adapter.board.BoardInMemoryRepository;
-import domain.adapter.card.CardInMemoryRepository;
-import domain.adapter.card.commitCard.CommitCardPresenter;
-import domain.adapter.card.uncommitCard.UncommitCardPresenter;
-import domain.adapter.workflow.WorkflowInMemoryRepository;
+import domain.adapter.repository.domainEvent.DomainEventInMemoryRepository;
+import domain.adapter.repository.flowEvent.FlowEventInMemoryRepository;
+import domain.adapter.repository.board.BoardInMemoryRepository;
+import domain.adapter.repository.card.CardInMemoryRepository;
+import domain.adapter.presenter.card.commit.CommitCardPresenter;
+import domain.adapter.presenter.card.uncommit.UncommitCardPresenter;
+import domain.adapter.repository.workflow.WorkflowInMemoryRepository;
+import domain.adapter.repository.workflow.converter.WorkflowRepositoryDTOConverter;
 import domain.model.DomainEventBus;
-import domain.model.workflow.Lane;
+import domain.model.aggregate.workflow.Lane;
+import domain.usecase.DomainEventSaveHandler;
 import domain.usecase.TestUtility;
 import domain.usecase.card.commitCard.CommitCardInput;
 import domain.usecase.card.commitCard.CommitCardOutput;
@@ -15,11 +18,11 @@ import domain.usecase.card.commitCard.CommitCardUseCase;
 import domain.usecase.card.uncommitCard.UncommitCardInput;
 import domain.usecase.card.uncommitCard.UncommitCardOutput;
 import domain.usecase.card.uncommitCard.UncommitCardUseCase;
+import domain.usecase.domainEvent.repository.IDomainEventRepository;
 import domain.usecase.flowEvent.repository.IFlowEventRepository;
 import domain.usecase.repository.IBoardRepository;
 import domain.usecase.repository.ICardRepository;
 import domain.usecase.repository.IWorkflowRepository;
-import domain.usecase.workflow.WorkflowDTOConverter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,13 +31,14 @@ import static org.junit.Assert.*;
 public class UncommitCardUseCaseTest {
     private IBoardRepository boardRepository;
     private IWorkflowRepository workflowRepository;
+    private ICardRepository cardRepository;
+    private IFlowEventRepository flowEventRepository;
+    private IDomainEventRepository domainEventRepository;
     private String workflowId;
     private String laneId;
     private String cardId;
     private DomainEventBus eventBus;
     private TestUtility testUtility;
-    private IFlowEventRepository flowEventRepository;
-    private ICardRepository cardRepository;
 
 
     @Before
@@ -43,43 +47,33 @@ public class UncommitCardUseCaseTest {
         workflowRepository = new WorkflowInMemoryRepository();
         cardRepository = new CardInMemoryRepository();
         flowEventRepository = new FlowEventInMemoryRepository();
+        domainEventRepository = new DomainEventInMemoryRepository();
 
 
         eventBus = new DomainEventBus();
+        eventBus.register(new DomainEventSaveHandler(domainEventRepository));
+
         testUtility = new TestUtility(boardRepository, workflowRepository, cardRepository, flowEventRepository, eventBus);
 
-        String boardId = testUtility.createBoard("kanban777", "kanban");
+        String boardId = testUtility.createBoard("user777", "kanban");
         workflowId = testUtility.createWorkflow(boardId, "defaultWorkflow");
         laneId = testUtility.createTopStage(workflowId, "developing");
         cardId = "C012345678";
         commit_a_Card_to_Workflow_aggregate(cardId);
     }
 
-    public void commit_a_Card_to_Workflow_aggregate(String cardId) {
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, eventBus);
-
-        CommitCardInput input = (CommitCardInput) commitCardUseCase;
-        CommitCardOutput output = new CommitCardPresenter();
-
-        input.setWorkflowId(workflowId);
-        input.setLaneId(laneId);
-        input.setCardId(cardId);
-
-        commitCardUseCase.execute(input, output);
-    }
-
     @Test
     public void uncommit_a_Card_from_Workflow_aggregate() {
         UncommitCardUseCase uncommitCardUseCase = new UncommitCardUseCase(workflowRepository, eventBus);
 
-        UncommitCardInput input = (UncommitCardInput) uncommitCardUseCase;
+        UncommitCardInput input = uncommitCardUseCase;
         UncommitCardOutput output = new UncommitCardPresenter();
 
         input.setWorkflowId(workflowId);
         input.setLaneId(laneId);
         input.setCardId(cardId);
 
-        Lane lane = WorkflowDTOConverter
+        Lane lane = WorkflowRepositoryDTOConverter
                 .toEntity(workflowRepository.findById(workflowId))
                 .findLaneById(laneId);
 
@@ -88,11 +82,21 @@ public class UncommitCardUseCaseTest {
 
         uncommitCardUseCase.execute(input, output);
 
-        lane = WorkflowDTOConverter
-                .toEntity(workflowRepository.findById(workflowId))
-                .findLaneById(laneId);
-
+        assertNotNull(output.getCardId());
         assertEquals(0, lane.getCardList().size());
         assertFalse(lane.isCardContained(cardId));
+    }
+
+    private void commit_a_Card_to_Workflow_aggregate(String cardId) {
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, eventBus);
+
+        CommitCardInput input = commitCardUseCase;
+        CommitCardOutput output = new CommitCardPresenter();
+
+        input.setWorkflowId(workflowId);
+        input.setLaneId(laneId);
+        input.setCardId(cardId);
+
+        commitCardUseCase.execute(input, output);
     }
 }
