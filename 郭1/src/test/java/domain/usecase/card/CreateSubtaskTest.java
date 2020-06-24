@@ -6,6 +6,7 @@ import domain.adapters.controller.card.CreateCardOutputImpl;
 import domain.adapters.controller.card.CreateSubtaskInputImpl;
 import domain.adapters.controller.card.CreateSubtaskOutputImpl;
 import domain.entity.DomainEventBus;
+import domain.entity.card.Card;
 import domain.usecase.card.CardRepository;
 import domain.usecase.card.create.CreateCardInput;
 import domain.usecase.card.create.CreateCardOutput;
@@ -16,6 +17,7 @@ import domain.usecase.subtask.create.CreateSubtaskUseCase;
 import org.junit.Test;
 import org.junit.Before;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class CreateSubtaskTest {
@@ -41,7 +43,7 @@ public class CreateSubtaskTest {
 
     @Test
     public void CreateSubtaskTest(){
-        CreateSubtaskUseCase createSubtaskUseCase = new CreateSubtaskUseCase(cardRepository);
+        CreateSubtaskUseCase createSubtaskUseCase = new CreateSubtaskUseCase(cardRepository, eventBus);
         CreateSubtaskInput createSubtaskInput = new CreateSubtaskInputImpl();
         CreateSubtaskOutput createSubtaskOutput = new CreateSubtaskOutputImpl();
 
@@ -50,7 +52,10 @@ public class CreateSubtaskTest {
 
         createSubtaskUseCase.execute(createSubtaskInput, createSubtaskOutput);
 
-        assertNotNull(createSubtaskOutput.getSubtaskId());
+        Card card = cardRepository.getCardById(cardId);
+
+        assertEquals(1, card.getSubtasks().size());
+        assertEquals("show_club_list", card.getSubtaskById(createSubtaskOutput.getSubtaskId()).getName());
     }
 
 }

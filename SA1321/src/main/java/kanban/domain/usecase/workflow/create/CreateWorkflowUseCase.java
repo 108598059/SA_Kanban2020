@@ -3,7 +3,7 @@ package kanban.domain.usecase.workflow.create;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.workflow.Workflow;
 import kanban.domain.usecase.workflow.mapper.WorkflowEntityModelMapper;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 public class CreateWorkflowUseCase implements CreateWorkflowInput {
 

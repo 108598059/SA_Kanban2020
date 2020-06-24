@@ -88,7 +88,7 @@ public class CardRepositoryImpl implements CardRepository {
         try {
             ps = conn.prepareStatement(sql);
 
-            for(Subtask subtask : card.getTaskMap().values())
+            for(Subtask subtask : card.getSubtasks().values())
             {
 
                 ps.setString(1, subtask.getId());

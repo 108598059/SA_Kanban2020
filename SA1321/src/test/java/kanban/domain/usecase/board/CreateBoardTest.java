@@ -11,8 +11,7 @@ import kanban.domain.usecase.board.create.CreateBoardInput;
 import kanban.domain.usecase.board.create.CreateBoardOutput;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
 import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
-import kanban.domain.usecase.board.repository.IBoardRepository;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
 

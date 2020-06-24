@@ -1,14 +1,12 @@
 package domain.model.aggregate.workflow;
 
-import domain.model.DomainEventPoster;
+import domain.model.DomainEventHolder;
 import domain.model.aggregate.workflow.event.*;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Workflow extends DomainEventPoster {
+public class Workflow extends DomainEventHolder {
     private String boardId;
     private String workflowId;
     private String workflowName;
@@ -56,6 +54,7 @@ public class Workflow extends DomainEventPoster {
         return boardId;
     }
 
+
     public Lane createSwimlane(String swimlanName) throws CloneNotSupportedException {
         Lane swimlane = new Swimlane(swimlanName, workflowId);
         laneList.add(swimlane);
@@ -99,4 +98,5 @@ public class Workflow extends DomainEventPoster {
         deleteCardFromLane(fromLaneId, cardId);
         addCardInLane(toLaneId, cardId);
     }
+
 }

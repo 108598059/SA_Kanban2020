@@ -31,7 +31,7 @@ public class CreateStageUseCaseTest {
         eventBus = new DomainEventBus();
         boardRepository = new MySqlBoardRepository();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
@@ -49,8 +49,9 @@ public class CreateStageUseCaseTest {
     }
 
     @Test
+
     public void createStageUseCase() throws CloneNotSupportedException {
-        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository);
+        CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         CreateStageUseCaseInput input = new CreateStageUseCaseInput();
         CreateStageUseCaseOutput output = new CreateStageUseCaseOutput();
         input.setWorkflowId(workflowOutput.getWorkflowId());

@@ -11,7 +11,7 @@ import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 
 
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
 import domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.*;
 
@@ -28,7 +28,7 @@ public class CreateWorkflowUseCaseTest {
         eventBus = new DomainEventBus();
 
         boardRepository = new MySqlBoardRepository();
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
 

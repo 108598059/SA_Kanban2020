@@ -3,7 +3,7 @@ package kanban.domain.usecase.card.create;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.card.Card;
 import kanban.domain.usecase.card.mapper.CardEntityModelMapper;
-import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.card.ICardRepository;
 
 public class CreateCardUseCase {
 

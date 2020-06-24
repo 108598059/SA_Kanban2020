@@ -1,33 +1,29 @@
 package domain.adapter.repository.board;
 
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.board.BoardEntity;
+import domain.usecase.board.BoardDTO;
 
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
-import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
-@Default
-@Singleton
+
 public class InMemoryBoardRepository implements IBoardRepository {
 
-    public List<BoardEntity> boardList = new ArrayList<BoardEntity>();
+    public List<BoardDTO> boardList = new ArrayList<BoardDTO>();
 
-    public void add(BoardEntity board) {
+    public void add(BoardDTO board) {
         boardList.add(board);
     }
 
-    public BoardEntity getBoardById(String boardId){
-        for (BoardEntity each:boardList) {
+    public BoardDTO getBoardById(String boardId){
+        for (BoardDTO each:boardList) {
             if(boardId.equals(each.getBoardId()))
                 return each;
         }
         throw new RuntimeException("not found boardId = " + boardId);
     }
 
-    public void save(BoardEntity board) {
-        for (BoardEntity each : boardList) {
+    public void save(BoardDTO board) {
+        for (BoardDTO each : boardList) {
             if (each.getBoardId().equals(board.getBoardId())) {
                 boardList.set(boardList.indexOf(each), board);
                 break;
@@ -36,14 +32,14 @@ public class InMemoryBoardRepository implements IBoardRepository {
     }
 
     @Override
-    public List<BoardEntity> getAllBoard() {
+    public List<BoardDTO> getAllBoard() {
         return boardList;
     }
 
     @Override
     public String toString() {
         String boardList = "";
-        for (BoardEntity board : this.boardList){
+        for (BoardDTO board : this.boardList){
             boardList += board.getBoardName() + " ";
         }
         return boardList;

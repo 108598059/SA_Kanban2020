@@ -1,12 +1,13 @@
 package domain.entity.workflow;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Stage {
     private String name;
     private String id;
-    private HashMap<String, Swimlane> swimlanes;
+    private Map<String, Swimlane> swimlanes;
 
     public Stage(){
         this.swimlanes = new HashMap<String, Swimlane>();
@@ -31,7 +32,14 @@ public class Stage {
         return this.name;
     }
 
-    public HashMap<String, Swimlane> getSwimlaneMap(){
-        return this.swimlanes;
+    public Swimlane getSwimlaneById(String id){
+
+        return swimlanes.get(id);
     }
+
+    public Map<String, Swimlane> getSwimlanes() {
+        return swimlanes;
+    }
+
+
 }

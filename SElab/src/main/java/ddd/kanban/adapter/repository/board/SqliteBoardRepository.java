@@ -1,8 +1,8 @@
 package ddd.kanban.adapter.repository.board;
 
 import ddd.kanban.adapter.database.DataBaseUtility;
-import ddd.kanban.domain.model.board.Board;
-import ddd.kanban.usecase.board.Entity.BoardEntity;
+import ddd.kanban.domain.model.kanbanboard.board.Board;
+import ddd.kanban.usecase.kanbanboard.board.entity.BoardEntity;
 import ddd.kanban.usecase.repository.BoardRepository;
 
 import java.sql.*;
@@ -14,53 +14,46 @@ public class SqliteBoardRepository implements BoardRepository {
 
     private DataBaseUtility dataBaseUtility;
 
-    private List<BoardEntity> boards;
-
     public SqliteBoardRepository(){
         dataBaseUtility = new DataBaseUtility();
-        boards = new ArrayList<>();
-        boards.addAll(findAllBoardFromDatabase());
     }
 
     @Override
     public void add(BoardEntity boardEntity) {
-        if (isExist(boardEntity))
-            throw new RuntimeException("Board exist");
-        boards.add(boardEntity);
-        saveToDatabase(boardEntity);
-    }
+        Connection connection = dataBaseUtility.getConnection();
+        String saveCommand = String.format("INSERT INTO Board (id, name, description) VALUES (?, ?, ?)");
 
-    private boolean isExist(BoardEntity boardEntity) {
-        return boards.stream()
-                .map(BoardEntity::getId)
-                .anyMatch(id -> boardEntity.getId().equals(id));
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement(saveCommand);
+            preparedStatement.setString(1, boardEntity.getId());
+            preparedStatement.setString(2, boardEntity.getTitle());
+            preparedStatement.setString(3, boardEntity.getDescription());
+            boolean resultInformation = preparedStatement.execute();
+            connection.commit();
+        } catch (SQLException e) {
+            dataBaseUtility.rollBack(connection);
+        } finally {
+            dataBaseUtility.close(connection);
+        }
     }
 
     @Override
     public BoardEntity findById(String boardId) {
-        return boards.stream()
+        return findAllBoardFromDatabase().stream()
                 .filter(board -> board.getId().equals(boardId))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
     }
 
-    private static Predicate<Board> findBoardById(String boardId){
-        return board -> board.getId().equals(boardId);
-    }
-
     @Override
     public List<BoardEntity> findAll() {
-        return boards;
+        return findAllBoardFromDatabase();
     }
 
     @Override
     public void save(BoardEntity boardEntity) {
-        for (BoardEntity board : boards){
-            if (board.getId().equals(boardEntity.getId())){
-                boards.set(boards.indexOf(board), boardEntity);
-            }
-        }
-        boards.forEach(this::saveToDatabase);
+        saveToDatabase(boardEntity);
     }
 
     private void saveToDatabase(BoardEntity boardEntity){

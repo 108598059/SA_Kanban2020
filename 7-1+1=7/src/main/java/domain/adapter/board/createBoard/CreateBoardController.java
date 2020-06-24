@@ -1,13 +1,14 @@
 package domain.adapter.board.createBoard;
 
-import domain.ApplicationContext;
+import domain.model.DomainEventBus;
 import domain.usecase.board.createBoard.CreateBoardInput;
 import domain.usecase.board.createBoard.CreateBoardUseCase;
+import domain.usecase.repository.IBoardRepository;
 
 public class CreateBoardController {
-    public CreateBoardViewModel createBoard(String userName, String boardName){
+    public CreateBoardViewModel createBoard(String userName, String boardName, IBoardRepository boardRepository, DomainEventBus eventBus){
 
-        CreateBoardUseCase createBoardUseCase = ApplicationContext.getInstance().getCreateBoardUseCase();
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardInput createBoardInput = (CreateBoardInput)createBoardUseCase;
 
         createBoardInput.setUsername(userName);

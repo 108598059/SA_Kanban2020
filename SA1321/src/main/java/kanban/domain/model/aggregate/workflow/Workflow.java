@@ -26,10 +26,10 @@ public class Workflow extends AggregateRoot {
         addDomainEvent(new WorkflowCreated(boardId, workflowId, name));
     }
 
-    public String createStage(String stageName) {
-        Stage stage = new Stage(workflowId, stageName);
+    public String createStage(String stageName, int wipLimit, String layout) {
+        Stage stage = new Stage(workflowId, stageName, wipLimit, layout);
         stages.add(stage);
-        addDomainEvent(new StageCreated(workflowId, stage.getStageId(), stageName));
+        addDomainEvent(new StageCreated(workflowId, stage.getStageId(), stageName, wipLimit, layout));
         return stage.getStageId();
     }
 

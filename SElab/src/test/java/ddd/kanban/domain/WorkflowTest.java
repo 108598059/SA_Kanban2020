@@ -1,6 +1,6 @@
 package ddd.kanban.domain;
 
-import ddd.kanban.domain.model.workflow.Workflow;
+import ddd.kanban.domain.model.kanbanboard.workflow.Workflow;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -16,5 +16,4 @@ public class WorkflowTest {
         assertEquals(1, workflow.getDomainEvents().size());
         workflow.clearDomainEvents();
     }
-
 }

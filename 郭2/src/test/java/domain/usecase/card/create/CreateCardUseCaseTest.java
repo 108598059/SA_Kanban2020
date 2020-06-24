@@ -16,7 +16,7 @@ import domain.usecase.card.repository.ICardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -45,7 +45,7 @@ public class CreateCardUseCaseTest {
         eventBus = new DomainEventBus();
 
         boardRepository = new MySqlBoardRepository();
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository,eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         CreateBoardUseCaseOutputImpl createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
         createBoardUseCaseInput.setBoardName("Kanban of KanbanDevelopment");
@@ -62,7 +62,7 @@ public class CreateCardUseCaseTest {
         createWorkflowUseCase.execute(workflowInput, workflowOutput);
 
 
-        createStageUseCase = new CreateStageUseCase(workflowRepository);
+        createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         stageOutput = new CreateStageUseCaseOutput();
         CreateStageUseCaseInput stageInput = new CreateStageUseCaseInput();
         stageInput.setStageName("ToDo");

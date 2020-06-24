@@ -9,15 +9,14 @@ import kanban.domain.adapter.repository.flowEvent.InMemoryFlowEventRepository;
 import kanban.domain.adapter.repository.workflow.InMemoryWorkflowRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
-import kanban.domain.usecase.card.repository.ICardRepository;
-import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.card.ICardRepository;
+import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 import kanban.domain.usecase.handler.domainEvent.DomainEventHandler;
 import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowInput;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowOutput;
 import kanban.domain.usecase.workflow.commit.CommitWorkflowUseCase;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
 import org.junit.Before;
 import org.junit.Test;
 

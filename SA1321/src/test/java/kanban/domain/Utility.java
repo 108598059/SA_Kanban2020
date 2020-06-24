@@ -6,30 +6,29 @@ import kanban.domain.adapter.presenter.card.cycleTime.CalculateCycleTimePresente
 import kanban.domain.adapter.presenter.card.move.MoveCardPresenter;
 import kanban.domain.adapter.presenter.stage.create.CreateStagePresenter;
 import kanban.domain.adapter.presenter.workflow.create.CreateWorkflowPresenter;
-import kanban.domain.adapter.repository.card.InMemoryCardRepository;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.usecase.board.create.CreateBoardInput;
 import kanban.domain.usecase.board.create.CreateBoardOutput;
 import kanban.domain.usecase.board.create.CreateBoardUseCase;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 import kanban.domain.usecase.card.create.CreateCardInput;
 import kanban.domain.usecase.card.create.CreateCardUseCase;
 import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeInput;
 import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeOutput;
 import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeUseCase;
-import kanban.domain.usecase.card.cycleTime.CycleTime;
+import kanban.domain.usecase.card.cycleTime.CycleTimeModel;
 import kanban.domain.usecase.card.move.MoveCardInput;
 import kanban.domain.usecase.card.move.MoveCardOutput;
 import kanban.domain.usecase.card.move.MoveCardUseCase;
-import kanban.domain.usecase.card.repository.ICardRepository;
-import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.card.ICardRepository;
+import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 import kanban.domain.usecase.stage.create.CreateStageInput;
 import kanban.domain.usecase.stage.create.CreateStageOutput;
 import kanban.domain.usecase.stage.create.CreateStageUseCase;
 import kanban.domain.usecase.workflow.create.CreateWorkflowInput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowOutput;
 import kanban.domain.usecase.workflow.create.CreateWorkflowUseCase;
-import kanban.domain.usecase.workflow.repository.IWorkflowRepository;
+import kanban.domain.usecase.workflow.IWorkflowRepository;
 
 import static org.junit.Assert.assertEquals;
 
@@ -150,8 +149,8 @@ public class Utility {
         return output.getCardId();
     }
 
-    public CycleTime calculateCycleTime(String workflowId, String cardId, String beginningStageId, String endingStageId){
-        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository);
+    public CycleTimeModel calculateCycleTime(String workflowId, String cardId, String beginningStageId, String endingStageId){
+        CalculateCycleTimeUseCase calculateCycleTimeUseCase = new CalculateCycleTimeUseCase(workflowRepository, flowEventRepository, eventBus);
         CalculateCycleTimeInput input = calculateCycleTimeUseCase;
         input.setWorkflowId(workflowId);
         input.setCardId(cardId);
@@ -160,7 +159,7 @@ public class Utility {
         CalculateCycleTimeOutput output = new CalculateCycleTimePresenter();
 
         calculateCycleTimeUseCase.execute(input, output);
-        return output.getCycleTime();
+        return output.getCycleTimeModel();
     }
 
     public String getDefaultBoardId() {

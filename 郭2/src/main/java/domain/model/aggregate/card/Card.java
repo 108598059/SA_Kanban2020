@@ -1,6 +1,6 @@
 package domain.model.aggregate.card;
 
-import domain.model.DomainEventPoster;
+import domain.model.DomainEventHolder;
 import domain.model.aggregate.card.event.CardCreated;
 import domain.model.aggregate.card.event.TaskCreated;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Card extends DomainEventPoster {
+public class Card extends DomainEventHolder {
     private String cardId;
     private String cardName;
     private String cardContent;
@@ -91,5 +91,13 @@ public class Card extends DomainEventPoster {
 
     public void addTaskId(Task task) {
         taskList.add(task);
+    }
+
+    public String getWorkflowId() {
+        return workflowId;
+    }
+
+    public String getLaneId() {
+        return laneId;
     }
 }

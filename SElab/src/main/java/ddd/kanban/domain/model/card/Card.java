@@ -21,27 +21,21 @@ public class Card extends AggregateRoot {
     private Date plannedStartDate;
     private Date plannedFinishDate;
     private int priority;
-
     public Card(final String id, String title, String boardId, String workflowId, String laneId) {
         super(id, title);
         this.boardId = boardId;
         this.workflowId = workflowId;
         this.laneId = laneId;
         tasks = new ArrayList<>();
-        addDomainEvent(new CardCreated(id, workflowId, laneId));
+        addDomainEvent(new CardCreated(id, workflowId, laneId, title, UUID.randomUUID().toString()));
     }
 
-    public Card(final String id, String title, String description, CardType cardType, List<String> tags, List<String> assignUsers, Date plannedStartDate, Date plannedFinishDate, int priority) {
+    public Card(final String id, String title, String boardId, String workflowId, String laneId, List<Task> tasks) {
         super(id, title);
-        this.description = description;
-        this.cardType = cardType;
-        this.tags = tags;
-        this.assignUsers = assignUsers;
-        this.plannedStartDate = plannedStartDate;
-        this.plannedFinishDate = plannedFinishDate;
-        this.priority = priority;
-
-        tasks = new ArrayList<Task>();
+        this.boardId = boardId;
+        this.workflowId = workflowId;
+        this.laneId = laneId;
+        this.tasks = tasks;
     }
 
     public String createTask(String taskTitle, String cardId) {
@@ -118,4 +112,23 @@ public class Card extends AggregateRoot {
         this.priority = priority;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public String getBoardId() {
+        return boardId;
+    }
+
+    public String getWorkflowId() {
+        return workflowId;
+    }
+
+    public String getLaneId() {
+        return laneId;
+    }
+
+    public void setLaneId(String laneId) {
+        this.laneId = laneId;
+    }
 }

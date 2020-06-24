@@ -2,7 +2,7 @@ package kanban.domain.usecase.handler.domainEvent;
 
 import com.google.common.eventbus.Subscribe;
 import kanban.domain.model.DomainEvent;
-import kanban.domain.usecase.domainEvent.repository.IDomainEventRepository;
+import kanban.domain.usecase.domainEvent.IDomainEventRepository;
 
 public class DomainEventHandler {
 

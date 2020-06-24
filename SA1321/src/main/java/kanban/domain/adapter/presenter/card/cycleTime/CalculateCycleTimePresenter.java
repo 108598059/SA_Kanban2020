@@ -1,18 +1,18 @@
 package kanban.domain.adapter.presenter.card.cycleTime;
 
 import kanban.domain.usecase.card.cycleTime.CalculateCycleTimeOutput;
-import kanban.domain.usecase.card.cycleTime.CycleTime;
+import kanban.domain.usecase.card.cycleTime.CycleTimeModel;
 
 public class CalculateCycleTimePresenter implements CalculateCycleTimeOutput {
-    private CycleTime cycleTime;
+    private CycleTimeModel cycleTimeModel;
 
     @Override
-    public void setCycleTime(CycleTime cycleTime) {
-        this.cycleTime = cycleTime;
+    public void setCycleTimeModel(CycleTimeModel cycleTimeModel) {
+        this.cycleTimeModel = cycleTimeModel;
     }
 
     @Override
-    public CycleTime getCycleTime() {
-        return cycleTime;
+    public CycleTimeModel getCycleTimeModel() {
+        return cycleTimeModel;
     }
 }

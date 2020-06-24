@@ -1,26 +1,31 @@
 package domain.usecase.board.create;
 
+import domain.model.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.board.BoardEntity;
+import domain.usecase.board.BoardDTO;
 
 public class CreateBoardUseCase {
     private IBoardRepository boardRepository;
     private Board board;
+    private DomainEventBus eventBus;
 
-    public CreateBoardUseCase(IBoardRepository boardRepository) {
+    public CreateBoardUseCase(IBoardRepository boardRepository, DomainEventBus eventBus) {
         this.boardRepository = boardRepository;
+        this.eventBus = eventBus;
     }
 
     public void execute(CreateBoardUseCaseInput input, CreateBoardUseCaseOutput output) {
-        board = new Board(input.getBoardName());
+        board = new Board(input.getUserId(), input.getBoardName());
 
-        BoardEntity boardEntity = BoardTransfer.BoardToBoardEntity(board);
+        BoardDTO boardDTO = BoardTransfer.BoardToBoardEntity(board);
 
-        boardRepository.add(boardEntity);
+        boardRepository.add(boardDTO);
+        eventBus.postAll(board);
 
-        output.setBoardId(boardEntity.getBoardId());
-        output.setBoardName(boardEntity.getBoardName());
+
+        output.setBoardId(boardDTO.getBoardId());
+        output.setBoardName(boardDTO.getBoardName());
     }
 }

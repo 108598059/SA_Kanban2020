@@ -1,15 +1,15 @@
 package domain.usecase.board.repository;
 
-import domain.usecase.board.BoardEntity;
+import domain.usecase.board.BoardDTO;
 
 import java.util.List;
 
 public interface IBoardRepository {
-    void add(BoardEntity board);
+    void add(BoardDTO board);
 
-    BoardEntity getBoardById(String boardId);
+    BoardDTO getBoardById(String boardId);
 
-    void save(BoardEntity board);
+    void save(BoardDTO board);
 
-    List<BoardEntity> getAllBoard();
+    List<BoardDTO> getAllBoard();
 }

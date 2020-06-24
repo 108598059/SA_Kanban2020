@@ -1,15 +1,16 @@
 package domain.adapter.view_model;
 
-import domain.adapter.BoardEntityDto;
 
-public class CreateBoardViewModel implements ViewModel<BoardEntityDto> {
+import domain.usecase.board.BoardDTO;
+
+public class CreateBoardViewModel implements ViewModel<BoardDTO> {
     private String boardId;
     private String boardName;
 
     @Override
-    public ViewModel<BoardEntityDto> setViewModel(BoardEntityDto boardEntityDto) {
-        boardId = boardEntityDto.getBoardId();
-        boardName = boardEntityDto.getBoardName();
+    public ViewModel<BoardDTO> setViewModel(BoardDTO boardDTO) {
+        boardId = boardDTO.getBoardId();
+        boardName = boardDTO.getBoardName();
         return this;
     }
 

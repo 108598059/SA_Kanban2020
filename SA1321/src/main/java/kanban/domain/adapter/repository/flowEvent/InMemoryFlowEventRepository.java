@@ -1,7 +1,7 @@
 package kanban.domain.adapter.repository.flowEvent;
 
 import kanban.domain.model.FlowEvent;
-import kanban.domain.usecase.flowEvent.repository.IFlowEventRepository;
+import kanban.domain.usecase.flowEvent.IFlowEventRepository;
 
 import java.util.ArrayList;
 import java.util.List;

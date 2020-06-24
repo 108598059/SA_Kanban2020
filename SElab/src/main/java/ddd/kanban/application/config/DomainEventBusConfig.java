@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DomainEventBusConfig {
 
+
     @Bean
-    public DomainEventBus DomainEventBusFactory() {
-        return  new DomainEventBus();
+    public DomainEventBus domainEventBus() {
+        return new DomainEventBus();
     }
 }

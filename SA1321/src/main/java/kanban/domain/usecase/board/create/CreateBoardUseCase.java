@@ -3,7 +3,7 @@ package kanban.domain.usecase.board.create;
 import kanban.domain.model.DomainEventBus;
 import kanban.domain.model.aggregate.board.Board;
 import kanban.domain.usecase.board.mapper.BoardEntityModelMapper;
-import kanban.domain.usecase.board.repository.IBoardRepository;
+import kanban.domain.usecase.board.IBoardRepository;
 
 public class CreateBoardUseCase implements CreateBoardInput {
     private IBoardRepository boardRepository;

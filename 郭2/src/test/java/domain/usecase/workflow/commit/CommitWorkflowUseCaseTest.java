@@ -7,7 +7,7 @@ import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -21,7 +21,7 @@ public class CommitWorkflowUseCaseTest {
         eventBus = new DomainEventBus();
         boardRepository = new MySqlBoardRepository();
 
-        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository);
+        CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput createBoardUseCaseInput = new CreateBoardUseCaseInput();
         createBoardUseCaseOutputImpl = new CreateBoardUseCaseOutputImpl();
 
@@ -33,7 +33,7 @@ public class CommitWorkflowUseCaseTest {
     }
 
     @Test
-    public void workflow_should_be_committed_to_its_board() {
+    public void workflow_should_be_committed_in_its_board() {
         CommitWorkflowUseCase commitWorkflowUseCase = new CommitWorkflowUseCase(boardRepository, eventBus);
         CommitWorkflowUseCaseInput input = new CommitWorkflowUseCaseInput();
         CommitWorkflowUseCaseOutput output = new CommitWorkflowUseCaseOutput();

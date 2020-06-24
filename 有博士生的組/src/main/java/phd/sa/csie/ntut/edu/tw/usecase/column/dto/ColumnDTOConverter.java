@@ -21,6 +21,13 @@ public class ColumnDTOConverter {
         }
         columnDTO.setCardIDs(idStringList);
 
+        List<UUID> preservedPositionIDList = entity.getPreservedPosition();
+        List<String> preservedPositionList = new ArrayList<>();
+        for (UUID id: preservedPositionIDList) {
+            preservedPositionList.add(id.toString());
+        }
+        columnDTO.setPreservedPosition(preservedPositionList);
+
         return columnDTO;
     }
 
@@ -33,6 +40,12 @@ public class ColumnDTOConverter {
             idList.add(UUID.fromString(id));
         }
 
-        return new Column(UUID.fromString(columnDTO.getID()), columnDTO.getTitle(), idList, columnDTO.getWIP());
+        List<String> preservedPositionList = columnDTO.getPreservedPosition();
+        List<UUID> preservedPositionIDList = new ArrayList<>();
+        for (String id: preservedPositionList) {
+            preservedPositionIDList.add(UUID.fromString(id));
+        }
+
+        return new Column(UUID.fromString(columnDTO.getID()), columnDTO.getTitle(), idList, preservedPositionIDList, columnDTO.getWIP());
     }
 }

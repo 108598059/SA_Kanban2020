@@ -1,8 +1,7 @@
 package kanban.domain.adapter.repository.card;
 
-import kanban.domain.model.aggregate.card.Card;
 import kanban.domain.usecase.card.CardEntity;
-import kanban.domain.usecase.card.repository.ICardRepository;
+import kanban.domain.usecase.card.ICardRepository;
 
 import java.util.ArrayList;
 import java.util.List;

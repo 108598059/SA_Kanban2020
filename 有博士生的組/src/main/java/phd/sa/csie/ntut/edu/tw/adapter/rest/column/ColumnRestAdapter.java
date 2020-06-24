@@ -4,25 +4,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCase;
-import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCaseInput;
-import phd.sa.csie.ntut.edu.tw.usecase.column.read.GetColumnsByBoardIDUseCaseOutput;
+import phd.sa.csie.ntut.edu.tw.adapter.presenter.board.enter.EnterBoardPresenter;
+import phd.sa.csie.ntut.edu.tw.adapter.view.model.ViewModelStatus;
+import phd.sa.csie.ntut.edu.tw.adapter.view.model.board.enter.EnterBoardViewModel;
+import phd.sa.csie.ntut.edu.tw.usecase.board.enter.EnterBoardUseCase;
+import phd.sa.csie.ntut.edu.tw.usecase.board.enter.EnterBoardUseCaseInput;
 
 @RestController
 @RequestMapping(value = "/api/columns")
 public class ColumnRestAdapter {
     @Autowired
-    private GetColumnsByBoardIDUseCase getColumnsByBoardIDUseCase;
+    private EnterBoardUseCase enterBoardUseCase;
 
     @GetMapping
-    public ResponseEntity<ColumnResponseBody> getColumnsByBoardID(@RequestParam String boardID) {
-        GetColumnsByBoardIDUseCaseInput getColumnsByBoardIDUseCaseInput = new GetColumnsByBoardIDUseCaseInput();
-        GetColumnsByBoardIDUseCaseOutput getColumnsByBoardIDUseCaseOutput = new GetColumnsByBoardIDUseCaseOutput();
+    public ResponseEntity<EnterBoardViewModel> getColumnsByBoardID(@RequestParam String boardID) {
+        EnterBoardUseCaseInput enterBoardUseCaseInput = new EnterBoardUseCaseInput();
+        EnterBoardPresenter getColumnsByBoardIDUseCaseOutput = new EnterBoardPresenter();
 
-        getColumnsByBoardIDUseCaseInput.setBoardID(boardID);
+        enterBoardUseCaseInput.setBoardID(boardID);
 
-        this.getColumnsByBoardIDUseCase.execute(getColumnsByBoardIDUseCaseInput, getColumnsByBoardIDUseCaseOutput);
+        this.enterBoardUseCase.execute(enterBoardUseCaseInput, getColumnsByBoardIDUseCaseOutput);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ColumnResponseBody(getColumnsByBoardIDUseCaseOutput));
+        EnterBoardViewModel viewModel = getColumnsByBoardIDUseCaseOutput.build();
+        viewModel.setStatus(ViewModelStatus.NORMAL);
+        return ResponseEntity.status(HttpStatus.OK).body(viewModel);
     }
 }

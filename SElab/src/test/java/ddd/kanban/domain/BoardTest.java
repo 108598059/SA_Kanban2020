@@ -1,6 +1,6 @@
 package ddd.kanban.domain;
 
-import ddd.kanban.domain.model.board.Board;
+import ddd.kanban.domain.model.kanbanboard.board.Board;
 import org.junit.Test;
 
 import java.util.UUID;
