@@ -1,4 +1,4 @@
-package domain.model.aggregate;
+package domain.model;
 
 import domain.model.DomainEvent;
 
@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AggregateRoot {
+public class DomainEventHolder {
 
     private List<DomainEvent> domainEvents;
 
-    public AggregateRoot() {
+    public DomainEventHolder() {
         domainEvents = new ArrayList<DomainEvent>();
     }
     public void addDomainEvent(DomainEvent event){

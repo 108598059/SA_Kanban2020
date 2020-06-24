@@ -3,7 +3,7 @@ package domain.usecase.task.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
 import domain.model.aggregate.card.Task;
 import domain.usecase.board.create.CreateBoardUseCase;
@@ -41,7 +41,7 @@ public class CreateTaskUseCaseTest {
     private DomainEventBus eventBus;
 
     @Before
-    public void SetUp(){
+    public void SetUp() throws CloneNotSupportedException {
 //        workflowRepository = new InMemoryWorkflowRepository();
         workflowRepository = new MySqlWorkflowRepository();
         cardRepository = new MySqlCardRepository();
@@ -79,7 +79,7 @@ public class CreateTaskUseCaseTest {
     }
 
     @Test
-    public void createTaskUseCase(){
+    public void createTaskUseCase() throws CloneNotSupportedException {
         CreateTaskUseCase createTaskUseCase = new CreateTaskUseCase(cardRepository,eventBus);
         CreateTaskUseCaseInput createTaskUseCaseInput = new CreateTaskUseCaseInput();
         CreateTaskUseCaseOutput createTaskUseCaseOutput = new CreateTaskUseCaseOutput();

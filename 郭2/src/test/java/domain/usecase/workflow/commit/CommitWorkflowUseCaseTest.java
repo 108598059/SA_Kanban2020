@@ -1,13 +1,13 @@
 package domain.usecase.workflow.commit;
 import domain.adapter.repository.board.MySqlBoardRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.create.CreateBoardUseCaseOutputImpl;
 import domain.usecase.board.repository.IBoardRepository;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
 import org.junit.*;
 
 import static org.junit.Assert.*;

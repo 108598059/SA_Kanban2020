@@ -2,7 +2,7 @@ package domain.adapter.controller;
 
 import domain.adapter.presenter.CreateBoardUseCasePresenter;
 import domain.adapter.view_model.ViewModel;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
 import domain.usecase.board.repository.IBoardRepository;
@@ -31,7 +31,7 @@ public class Homepage extends HttpServlet {
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, eventBus);
         CreateBoardUseCaseInput input = new CreateBoardUseCaseInput();
 //        CreateBoardUseCaseOutputImpl output = new CreateBoardUseCaseOutputImpl();
-        CreateBoardUseCasePresenter presenter = new CreateBoardUseCasePresenter();
+        CreateBoardUseCasePresenter presenter = new CreateBoardUseCasePresenter();//?????????????
 
         input.setBoardName(request.getParameter("boardName"));
 

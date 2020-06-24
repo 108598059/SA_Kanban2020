@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-abstract public class Lane {
+abstract public class Lane implements Cloneable{
     private String workflowId;
     private String laneId;
     private String laneName;
     private List<Lane> laneList;
     private List<String> cardIdList;
     private String laneDirection;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     public Lane(String laneName, String workflowId, LaneDirection laneDirection) {
         cardIdList = new ArrayList<String>();

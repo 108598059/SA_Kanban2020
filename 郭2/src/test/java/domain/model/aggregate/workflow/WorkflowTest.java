@@ -24,7 +24,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void create_stage_should_generate_LaneCreated_event_in_the_domainEvent_list() {
+    public void create_stage_should_generate_LaneCreated_event_in_the_domainEvent_list() throws CloneNotSupportedException {
 
         workflow.createStage("stageName");
 
@@ -36,7 +36,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void create_swimlane_should_generate_LaneCreated_event_in_the_domainEvent_list() {
+    public void create_swimlane_should_generate_LaneCreated_event_in_the_domainEvent_list() throws CloneNotSupportedException {
 
         workflow.createSwimlane("swimlaneName");
 
@@ -48,7 +48,7 @@ public class WorkflowTest {
     }
 
     @Test
-    public void commit_card_and_uncommit_card_should_generate_FlowEvent_in_the_domainEvent_list() {
+    public void commit_card_and_uncommit_card_should_generate_FlowEvent_in_the_domainEvent_list() throws CloneNotSupportedException {
 
         Lane swimlane = workflow.createSwimlane("swimlaneName");
         Card card = new Card("cardName", workflow.getWorkflowId() ,swimlane.getLaneId());

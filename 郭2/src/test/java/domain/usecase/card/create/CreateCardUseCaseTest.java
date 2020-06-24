@@ -3,7 +3,7 @@ package domain.usecase.card.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.card.MySqlCardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
@@ -16,7 +16,7 @@ import domain.usecase.card.repository.ICardRepository;
 import domain.usecase.stage.create.CreateStageUseCase;
 import domain.usecase.stage.create.CreateStageUseCaseInput;
 import domain.usecase.stage.create.CreateStageUseCaseOutput;
-import domain.usecase.workflow.WorkflowEventHandler;
+import domain.usecase.handler.workflow.WorkflowEventHandler;
 import domain.usecase.workflow.create.CreateWorkflowUseCase;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseInput;
 import domain.usecase.workflow.create.CreateWorkflowUseCaseOutput;
@@ -41,7 +41,7 @@ public class CreateCardUseCaseTest {
     private DomainEventBus eventBus;
 
     @Before
-    public void SetUp(){
+    public void SetUp() throws CloneNotSupportedException {
         eventBus = new DomainEventBus();
 
         boardRepository = new MySqlBoardRepository();
@@ -72,7 +72,7 @@ public class CreateCardUseCaseTest {
         eventBus.register(new CardEventHandler(workflowRepository, eventBus));
     }
     @Test
-    public void create_card_should_commit_it_to_its_lane_of_the_workflow(){
+    public void create_card_should_commit_it_to_its_lane_of_the_workflow() throws CloneNotSupportedException {
         cardRepository = new MySqlCardRepository();
         CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, eventBus);
         CreateCardUseCaseInput createCardUseCaseInput = new CreateCardUseCaseInput();

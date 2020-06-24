@@ -3,7 +3,7 @@ package domain.usecase.card.commit;
 import static org.junit.Assert.*;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
 import domain.usecase.board.create.CreateBoardUseCaseInput;
@@ -31,7 +31,7 @@ public class CommitCardUseCaseTest {
     private DomainEventBus eventBus;
 
     @Before
-    public void SetUp(){
+    public void SetUp() throws CloneNotSupportedException {
         eventBus = new DomainEventBus();
         boardRepository = new MySqlBoardRepository();
         workflowRepository = new MySqlWorkflowRepository();
@@ -59,7 +59,7 @@ public class CommitCardUseCaseTest {
     }
 
     @Test
-    public void card_should_be_committed_in_its_Lane() {
+    public void card_should_be_committed_in_its_Lane() throws CloneNotSupportedException {
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, eventBus);
         CommitCardUseCaseOutput output = new CommitCardUseCaseOutput();
         CommitCardUseCaseInput input = new CommitCardUseCaseInput();

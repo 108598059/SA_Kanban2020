@@ -2,7 +2,7 @@ package domain;
 
 import domain.adapter.controller.Homepage;
 import domain.adapter.repository.board.InMemoryBoardRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.usecase.board.repository.IBoardRepository;
 
 import javax.servlet.ServletContext;

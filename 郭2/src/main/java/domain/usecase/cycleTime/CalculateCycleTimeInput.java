@@ -1,4 +1,4 @@
-package domain.usecase.card.cycleTime;
+package domain.usecase.cycleTime;
 
 public class CalculateCycleTimeInput {
     private String workflowId;

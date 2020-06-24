@@ -2,7 +2,7 @@ package domain.usecase.stage.create;
 
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
@@ -49,7 +49,8 @@ public class CreateStageUseCaseTest {
     }
 
     @Test
-    public void createStageUseCase() {
+
+    public void createStageUseCase() throws CloneNotSupportedException {
         CreateStageUseCase createStageUseCase = new CreateStageUseCase(workflowRepository,eventBus);
         CreateStageUseCaseInput input = new CreateStageUseCaseInput();
         CreateStageUseCaseOutput output = new CreateStageUseCaseOutput();

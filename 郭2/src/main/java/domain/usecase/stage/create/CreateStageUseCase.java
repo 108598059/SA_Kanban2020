@@ -1,6 +1,6 @@
 package domain.usecase.stage.create;
 
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.workflow.repository.IWorkflowRepository;
@@ -15,7 +15,7 @@ public class CreateStageUseCase {
         this.eventBus = eventBus;
     }
 
-    public void execute(CreateStageUseCaseInput input, CreateStageUseCaseOutput output) {
+    public void execute(CreateStageUseCaseInput input, CreateStageUseCaseOutput output) throws CloneNotSupportedException {
         Workflow workflow = workflowRepository.getWorkflowById(input.getWorkflowId());
         stage = workflow.createStage(input.getStageName());
 

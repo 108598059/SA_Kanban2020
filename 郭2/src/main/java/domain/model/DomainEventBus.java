@@ -1,7 +1,6 @@
-package domain.model.aggregate;
+package domain.model;
 
 import com.google.common.eventbus.EventBus;
-import domain.model.DomainEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +11,10 @@ public class DomainEventBus extends EventBus {
         super();
     }
 
-    public void postAll(AggregateRoot aggregateRoot){
+    public void postAll(DomainEventHolder domainEventHolder){
         List<DomainEvent> events =
-                new ArrayList(aggregateRoot.getDomainEvents());
-        aggregateRoot.clearDomainEvents();
+                new ArrayList(domainEventHolder.getDomainEvents());
+        domainEventHolder.clearDomainEvents();
 
         for(DomainEvent each : events){
             post(each);

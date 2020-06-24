@@ -1,6 +1,6 @@
 package domain.usecase.card.create;
 
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
 import domain.usecase.card.repository.ICardRepository;
 

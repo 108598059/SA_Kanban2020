@@ -1,7 +1,7 @@
 package domain.usecase.swimlane.create;
 import domain.adapter.repository.board.MySqlBoardRepository;
 import domain.adapter.repository.workflow.MySqlWorkflowRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.Lane;
 import domain.model.aggregate.workflow.Workflow;
 import domain.usecase.board.create.CreateBoardUseCase;
@@ -45,7 +45,7 @@ public class CreateSwimlaneUseCaseTest {
     }
 
     @Test
-    public void createSwimlaneUseCase(){
+    public void createSwimlaneUseCase() throws CloneNotSupportedException {
         CreateSwimlaneUseCase createStageUseCase = new CreateSwimlaneUseCase(workflowRepository,eventBus);
         CreateSwimlaneUseCaseInput input = new CreateSwimlaneUseCaseInput();
         CreateSwimlaneUseCaseOutput output = new CreateSwimlaneUseCaseOutput();

@@ -1,7 +1,7 @@
 package domain.usecase.board.create;
 
 import domain.adapter.repository.board.MySqlBoardRepository;
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.board.Board;
 import domain.usecase.board.BoardTransfer;
 import domain.usecase.board.repository.IBoardRepository;

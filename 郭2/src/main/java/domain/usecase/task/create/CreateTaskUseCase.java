@@ -1,6 +1,6 @@
 package domain.usecase.task.create;
 
-import domain.model.aggregate.DomainEventBus;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.card.Card;
 import domain.model.aggregate.card.Task;
 import domain.usecase.card.repository.ICardRepository;
@@ -15,7 +15,7 @@ public class CreateTaskUseCase {
         this.eventBus = eventBus;
     }
 
-    public void execute(CreateTaskUseCaseInput input, CreateTaskUseCaseOutput output) {
+    public void execute(CreateTaskUseCaseInput input, CreateTaskUseCaseOutput output) throws CloneNotSupportedException {
         Card card = cardRepository.getCardById(input.getCardId());
         task = card.createTask(input.getCardId(), input.getTaskName());
 

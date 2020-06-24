@@ -1,8 +1,7 @@
-package domain.usecase.workflow;
+package domain.usecase.handler.workflow;
 
 import com.google.common.eventbus.Subscribe;
-import domain.model.aggregate.DomainEventBus;
-import domain.model.aggregate.board.Board;
+import domain.model.DomainEventBus;
 import domain.model.aggregate.workflow.event.WorkflowCreated;
 import domain.usecase.board.repository.IBoardRepository;
 import domain.usecase.workflow.commit.CommitWorkflowUseCase;
