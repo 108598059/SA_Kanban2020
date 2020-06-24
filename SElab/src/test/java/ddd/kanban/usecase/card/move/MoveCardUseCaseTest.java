@@ -62,12 +62,12 @@ public class MoveCardUseCaseTest {
         String cardId = createCardToDefaultColumn();
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(workflowId));
         Column defaultColumn = workflow.findColumnById(defaultColumnId);
-        Column column1 = workflow.findColumnById(columnId);
+        Column toColumn = workflow.findColumnById(columnId);
         Card card = CardEntityMapper.mappingCardFrom(cardRepository.findById(cardId));
 
         assertEquals(defaultColumnId, card.getColumnId());
         assertEquals(1, defaultColumn.getCommittedCards().size());
-        assertEquals(0, column1.getCommittedCards().size());
+        assertEquals(0, toColumn.getCommittedCards().size());
 
         MoveCardUseCase moveCardUseCase = new MoveCardUseCase(workflowRepository, domainEventBus);
         MoveCardInput moveCardInput = new MoveCardInput(workflowId, defaultColumnId, columnId, cardId);
@@ -77,10 +77,10 @@ public class MoveCardUseCaseTest {
 
         assertEquals(cardId, moveCardOutput.getCardId());
         assertEquals(0, defaultColumn.getCommittedCards().size());
-        assertEquals(1, column1.getCommittedCards().size());
+        assertEquals(1, toColumn.getCommittedCards().size());
 
         card = CardEntityMapper.mappingCardFrom(cardRepository.findById(cardId));
-        assertEquals(column1.getId(), card.getColumnId());
+        assertEquals(toColumn.getId(), card.getColumnId());
     }
 
     private String createCardToDefaultColumn(){
@@ -89,6 +89,7 @@ public class MoveCardUseCaseTest {
         CreateCardOutput createCardOutput = new CreateCardOutput();
 
         createCardUseCase.execute(createCardInput, createCardOutput);
+
         return createCardOutput.getCardId();
     }
 }

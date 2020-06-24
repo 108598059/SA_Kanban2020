@@ -30,9 +30,7 @@ public class EditCardUseCaseTest {
     private WorkflowRepository workflowRepository;
     private HierarchyInitial hierarchyInitial;
     private BoardRepository boardRepository;
-    private FlowEventRepository flowEventRepository;
     private DomainEventBus domainEventBus;
-    private String columnId;
     private String defaultColumnId;
     private String workflowId;
     private String boardId;
@@ -43,7 +41,6 @@ public class EditCardUseCaseTest {
         workflowRepository = new InMemoryWorkflowRepository();
         boardRepository = new InMemoryBoardRepository();
         cardRepository = new InMemoryCardRepository();
-        flowEventRepository = new InMemoryFlowEventRepository();
 
         domainEventBus = new DomainEventBus();
         domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, domainEventBus));
@@ -51,7 +48,6 @@ public class EditCardUseCaseTest {
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
         boardId = hierarchyInitial.CreateBoard();
         workflowId = hierarchyInitial.CreateWorkflow(boardId);
-        columnId = hierarchyInitial.CreateColumn(workflowId);
         defaultColumnId = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(workflowId)).getColumns().get(0).getId();
     }
 
@@ -91,6 +87,7 @@ public class EditCardUseCaseTest {
         CreateCardOutput createCardOutput = new CreateCardOutput();
 
         createCardUseCase.execute(createCardInput, createCardOutput);
+
         return createCardOutput.getCardId();
     }
 

@@ -18,6 +18,9 @@ import ddd.kanban.usecase.kanbanboard.workflow.mapper.WorkflowEntityMapper;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
@@ -65,14 +68,19 @@ public class CreateTaskUseCaseTest {
 
         assertEquals(createTaskOutput.getTaskId(), task.getId());
         assertEquals("Test Task", task.getTitle());
+
+        List<Task> tasks = card.getTasks();
+        assertEquals(1, tasks.size());
+        assertEquals(tasks.get(0), task);
     }
 
     private String createCard() {
-        CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, this.domainEventBus);
+        CreateCardUseCase createCardUseCase = new CreateCardUseCase(cardRepository, domainEventBus);
         CreateCardInput createCardInput = new CreateCardInput("Test", this.boardId, this.workflowId, this.defaultColumnId);
         CreateCardOutput createCardOutput = new CreateCardOutput();
 
         createCardUseCase.execute(createCardInput, createCardOutput);
+
         return createCardOutput.getCardId();
     }
 

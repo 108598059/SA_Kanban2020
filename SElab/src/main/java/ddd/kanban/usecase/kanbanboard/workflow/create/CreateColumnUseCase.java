@@ -18,6 +18,7 @@ public class CreateColumnUseCase {
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(createColumnInput.getWorkflowId()));
         String columnId = workflow.createColumn(createColumnInput.getColumnTitle(), createColumnInput.getWorkflowId());
         createColumnOutput.setColumnId(columnId);
+        createColumnOutput.setColumnTitle(createColumnInput.getColumnTitle());
 
         workflowRepository.save(WorkflowEntityMapper.mappingWorkflowEntityFrom(workflow));
 

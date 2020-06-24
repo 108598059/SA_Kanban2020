@@ -26,8 +26,10 @@ public class CommitWorkflowUseCaseTest {
     public void setUp() {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
+
         domainEventBus = new DomainEventBus();
         domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, domainEventBus));
+
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
     }
 

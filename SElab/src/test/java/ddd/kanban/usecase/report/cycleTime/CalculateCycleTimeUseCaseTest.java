@@ -66,6 +66,7 @@ public class CalculateCycleTimeUseCaseTest {
         domainEventBus = new DomainEventBus();
         domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, domainEventBus));
         domainEventBus.register(new FlowEventHandler(flowEventRepository));
+
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
 
         boardId = hierarchyInitial.CreateBoard();
@@ -73,7 +74,7 @@ public class CalculateCycleTimeUseCaseTest {
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findAll().get(0));
         workflowId = workflow.getId();
         defaultColumnId = workflow.getColumns().get(0).getId();
-        createFullKanbanBoardGameColumns();
+        createKanbanBoardTemplateColumns();
     }
 
     @Test
@@ -166,7 +167,7 @@ public class CalculateCycleTimeUseCaseTest {
         moveCardUseCase.execute(moveCardInput, moveCardOutput);
     }
 
-    private void createFullKanbanBoardGameColumns(){
+    private void createKanbanBoardTemplateColumns(){
         beginningColumnId = createColumn(workflowId, "Ready");
         analysisColumnId = createColumn(workflowId, "Analysis");
         developmentColumnId = createColumn(workflowId, "Development");
