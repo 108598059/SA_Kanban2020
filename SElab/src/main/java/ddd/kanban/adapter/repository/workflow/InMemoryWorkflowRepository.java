@@ -11,7 +11,7 @@ public class InMemoryWorkflowRepository implements WorkflowRepository {
     private List<WorkflowEntity> workflowEntities;
 
     public InMemoryWorkflowRepository(){
-        workflowEntities = new ArrayList<WorkflowEntity>();
+        workflowEntities = new ArrayList<>();
     }
 
     @Override

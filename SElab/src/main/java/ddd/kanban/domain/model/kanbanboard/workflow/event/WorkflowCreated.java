@@ -6,7 +6,7 @@ public class WorkflowCreated extends AbstractDomainEvent {
     private String boardId;
 
     public WorkflowCreated(String workflowId, String boardId, String workflowTitle, String id){
-        super(workflowId, workflowTitle, id);
+        super(workflowId, id);
         this.boardId = boardId;
     }
 

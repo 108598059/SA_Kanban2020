@@ -6,6 +6,4 @@ public interface DomainEvent {
     public Date occurredOn();
 
     public String getSourceId();
-
-    public String getSourceName();
 }

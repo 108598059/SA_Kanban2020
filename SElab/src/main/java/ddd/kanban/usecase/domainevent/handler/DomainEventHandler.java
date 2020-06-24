@@ -3,15 +3,13 @@ package ddd.kanban.usecase.domainevent.handler;
 import com.google.common.eventbus.Subscribe;
 import ddd.kanban.domain.model.DomainEventBus;
 import ddd.kanban.domain.model.kanbanboard.board.event.BoardCreated;
-import ddd.kanban.domain.model.card.event.CardCreated;
+import ddd.kanban.domain.model.card.card.event.CardCreated;
 import ddd.kanban.domain.model.kanbanboard.workflow.Column;
-import ddd.kanban.domain.model.kanbanboard.workflow.Lane;
 import ddd.kanban.domain.model.kanbanboard.workflow.Workflow;
 import ddd.kanban.domain.model.kanbanboard.workflow.event.WorkflowCreated;
 import ddd.kanban.usecase.kanbanboard.workflow.commit.CommitWorkflowInput;
 import ddd.kanban.usecase.kanbanboard.workflow.commit.CommitWorkflowOutput;
 import ddd.kanban.usecase.kanbanboard.workflow.commit.CommitWorkflowUseCase;
-import ddd.kanban.usecase.kanbanboard.workflow.mapper.ColumnEntityMapper;
 import ddd.kanban.usecase.kanbanboard.workflow.mapper.WorkflowEntityMapper;
 import ddd.kanban.usecase.repository.BoardRepository;
 import ddd.kanban.usecase.repository.WorkflowRepository;
@@ -57,10 +55,10 @@ public class DomainEventHandler {
     @Subscribe
     public void handleDomainEvent(CardCreated cardCreated){
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(cardCreated.getWorkflowId()));
-        Column defaultColumn = workflow.findColumnById(cardCreated.getLaneId());
+        Column defaultColumn = workflow.findColumnById(cardCreated.getColumnId());
 
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository,domainEventBus);
-        CommitCardInput commitCardInput = new CommitCardInput(cardCreated.getSourceId(), cardCreated.getWorkflowId(), cardCreated.getLaneId(), defaultColumn.getTitle());
+        CommitCardInput commitCardInput = new CommitCardInput(cardCreated.getSourceId(), cardCreated.getWorkflowId(), cardCreated.getColumnId());
         CommitCardOutput commitCardOutput = new CommitCardOutput();
 
         commitCardUseCase.execute(commitCardInput, commitCardOutput);

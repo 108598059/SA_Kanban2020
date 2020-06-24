@@ -1,4 +1,4 @@
-package ddd.kanban.domain.model.card;
+package ddd.kanban.domain.model.card.card;
 
 import ddd.kanban.domain.model.Entity;
 
@@ -8,7 +8,6 @@ import java.util.List;
 public class Task extends Entity {
 
     private String description;
-    private CardType taskType;
     private List<String> tags;
     private List<String> assignUsers;
     private Date plannedStartDate;
@@ -21,11 +20,9 @@ public class Task extends Entity {
         super(id, title);
     }
 
-    public Task(String id, String title, String description, CardType taskType, List<String> tags, List<String> assignUsers, Date plannedStartDate, Date plannedFinishDate, String header, int priority, String externalLink){
+    public Task(String id, String title, String description, List<String> tags, List<String> assignUsers, Date plannedStartDate, Date plannedFinishDate, String header, int priority, String externalLink){
         super(id, title);
         this.description = description;
-        this.taskType = taskType;
-        this.tags = tags;
         this.assignUsers = assignUsers;
         this.plannedStartDate = plannedStartDate;
         this.plannedFinishDate = plannedFinishDate;
@@ -36,10 +33,6 @@ public class Task extends Entity {
 
     public String getDescription() {
         return description;
-    }
-
-    public CardType getTaskType() {
-        return taskType;
     }
 
     public List<String> getTags() {

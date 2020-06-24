@@ -1,4 +1,4 @@
-package ddd.kanban.domain.model.common;
+package ddd.kanban.domain.common;
 
 import java.util.Date;
 

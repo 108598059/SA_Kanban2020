@@ -1,7 +1,7 @@
-package ddd.kanban.domain.model.card;
+package ddd.kanban.domain.model.card.card;
 
 import ddd.kanban.domain.model.AggregateRoot;
-import ddd.kanban.domain.model.card.event.CardCreated;
+import ddd.kanban.domain.model.card.card.event.CardCreated;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +13,7 @@ public class Card extends AggregateRoot {
     private List<Task> tasks;
     private String boardId;
     private String workflowId;
-    private String laneId;
+    private String columnId;
     private String description;
     private CardType cardType;
     private List<String> tags;
@@ -21,20 +21,20 @@ public class Card extends AggregateRoot {
     private Date plannedStartDate;
     private Date plannedFinishDate;
     private int priority;
-    public Card(final String id, String title, String boardId, String workflowId, String laneId) {
+    public Card(final String id, String title, String boardId, String workflowId, String ColumnId) {
         super(id, title);
         this.boardId = boardId;
         this.workflowId = workflowId;
-        this.laneId = laneId;
+        this.columnId = ColumnId;
         tasks = new ArrayList<>();
-        addDomainEvent(new CardCreated(id, workflowId, laneId, title, UUID.randomUUID().toString()));
+        addDomainEvent(new CardCreated(id, workflowId, ColumnId, UUID.randomUUID().toString()));
     }
 
-    public Card(final String id, String title, String boardId, String workflowId, String laneId, List<Task> tasks) {
+    public Card(final String id, String title, String boardId, String workflowId, String ColumnId, List<Task> tasks) {
         super(id, title);
         this.boardId = boardId;
         this.workflowId = workflowId;
-        this.laneId = laneId;
+        this.columnId = ColumnId;
         this.tasks = tasks;
     }
 
@@ -124,11 +124,11 @@ public class Card extends AggregateRoot {
         return workflowId;
     }
 
-    public String getLaneId() {
-        return laneId;
+    public String getColumnId() {
+        return columnId;
     }
 
-    public void setLaneId(String laneId) {
-        this.laneId = laneId;
+    public void setColumnId(String ColumnId) {
+        this.columnId = ColumnId;
     }
 }

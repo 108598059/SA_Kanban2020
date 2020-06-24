@@ -1,4 +1,6 @@
-package ddd.kanban.usecase.card.cycleTime;
+package ddd.kanban.usecase.report.cycleTime;
+
+import ddd.kanban.domain.model.report.cycletimecalculatorservice.CycleTime;
 
 public class CalculateCycleTimeOutput {
     CycleTime cycleTime;
