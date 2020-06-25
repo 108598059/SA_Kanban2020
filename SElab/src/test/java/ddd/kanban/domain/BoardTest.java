@@ -15,5 +15,6 @@ public class BoardTest {
 
         assertEquals(1, board.getDomainEvents().size());
         board.clearDomainEvents();
+        assertEquals(0, board.getDomainEvents().size());
     }
 }

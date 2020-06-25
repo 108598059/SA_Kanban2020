@@ -37,7 +37,7 @@ public class CreateColumnUseCaseTest {
     @Test
     public void testCreateColumn(){
         CreateColumnUseCase createColumnUseCase = new CreateColumnUseCase(workflowRepository, domainEventBus);
-        CreateColumnInput createColumnInput = new CreateColumnInput("column", workflowId);
+        CreateColumnInput createColumnInput = new CreateColumnInput("columnTitle", workflowId);
         CreateColumnOutput createColumnOutput = new CreateColumnOutput();
 
         createColumnUseCase.execute(createColumnInput, createColumnOutput);
@@ -46,5 +46,6 @@ public class CreateColumnUseCaseTest {
         Column column = workflow.findColumnById(createColumnOutput.getColumnId());
 
         assertEquals(createColumnOutput.getColumnId(), column.getId());
+        assertEquals("columnTitle", column.getTitle());
     }
 }

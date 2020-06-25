@@ -17,5 +17,6 @@ public class WorkflowTest {
 
         assertEquals(1, workflow.getDomainEvents().size());
         workflow.clearDomainEvents();
+        assertEquals(0, workflow.getDomainEvents().size());
     }
 }

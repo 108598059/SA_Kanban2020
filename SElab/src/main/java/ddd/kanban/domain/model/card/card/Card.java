@@ -21,6 +21,7 @@ public class Card extends AggregateRoot {
     private Date plannedStartDate;
     private Date plannedFinishDate;
     private int priority;
+
     public Card(final String id, String title, String boardId, String workflowId, String ColumnId) {
         super(id, title);
         this.boardId = boardId;

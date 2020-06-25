@@ -54,7 +54,7 @@ public class CreateCardUseCaseTest {
 
         assertEquals(createCardOutput.getCardId(), card.getId());
         assertEquals(cardTitle, card.getTitle());
-        assertEquals(createCardOutput.getCardId(), card.getId());
+        assertEquals(defaultColumnId, card.getColumnId());
 
         Column column = workflow.findColumnById(defaultColumnId);
 

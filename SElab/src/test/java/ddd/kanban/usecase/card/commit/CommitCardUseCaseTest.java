@@ -31,8 +31,10 @@ public class CommitCardUseCaseTest {
     public void setUp(){
         workflowRepository = new InMemoryWorkflowRepository();
         boardRepository = new InMemoryBoardRepository();
+
         domainEventBus = new DomainEventBus();
         domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, domainEventBus));
+
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
         boardId = hierarchyInitial.CreateBoard();
         workflowId = hierarchyInitial.CreateWorkflow(boardId);
@@ -48,7 +50,7 @@ public class CommitCardUseCaseTest {
 
         Card card = new Card(UUID.randomUUID().toString(), "Card", boardId, workflowId, columnId);
 
-        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository,domainEventBus);
+        CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository, domainEventBus);
         CommitCardInput commitCardInput = new CommitCardInput(card.getId(), workflowId, columnId);
         CommitCardOutput commitCardOutput = new CommitCardOutput();
 

@@ -55,7 +55,6 @@ public class DomainEventHandler {
     @Subscribe
     public void handleDomainEvent(CardCreated cardCreated){
         Workflow workflow = WorkflowEntityMapper.mappingWorkflowFrom(workflowRepository.findById(cardCreated.getWorkflowId()));
-        Column defaultColumn = workflow.findColumnById(cardCreated.getColumnId());
 
         CommitCardUseCase commitCardUseCase = new CommitCardUseCase(workflowRepository,domainEventBus);
         CommitCardInput commitCardInput = new CommitCardInput(cardCreated.getSourceId(), cardCreated.getWorkflowId(), cardCreated.getColumnId());

@@ -28,5 +28,6 @@ public class CreateWorkflowUseCase {
         createWorkflowOutput.setWorkflowId(workflow.getId());
         createWorkflowOutput.setWorkflowTitle(workflow.getTitle());
         createWorkflowOutput.setDefaultColumnId(defaultColumnId);
+        createWorkflowOutput.setWorkflowBoardId(workflow.getBoardId());
     }
 }

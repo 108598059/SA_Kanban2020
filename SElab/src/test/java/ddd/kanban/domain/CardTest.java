@@ -17,5 +17,6 @@ public class CardTest {
         
         assertEquals(1, card.getDomainEvents().size());
         card.clearDomainEvents();
+        assertEquals(0, card.getDomainEvents().size());
     }
 }

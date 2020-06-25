@@ -27,8 +27,10 @@ public class CreateBoardUseCaseTest {
     public void setUp() {
         boardRepository = new InMemoryBoardRepository();
         workflowRepository = new InMemoryWorkflowRepository();
+
         domainEventBus = new DomainEventBus();
         domainEventBus.register(new DomainEventHandler(workflowRepository, boardRepository, domainEventBus));
+
         hierarchyInitial = new HierarchyInitial(boardRepository, workflowRepository, domainEventBus);
     }
 
@@ -37,7 +39,7 @@ public class CreateBoardUseCaseTest {
         assertEquals(0, boardRepository.findAll().size());
 
         CreateBoardUseCase createBoardUseCase = new CreateBoardUseCase(boardRepository, domainEventBus);
-        CreateBoardInput createBoardInput = new CreateBoardInput("TestBoard", "This is board that save in memory");
+        CreateBoardInput createBoardInput = new CreateBoardInput("TestBoard", "This is the board that be saved in memory");
         CreateBoardOutput createBoardOutput = new CreateBoardPresenter();
         createBoardUseCase.execute(createBoardInput, createBoardOutput);
 
@@ -45,7 +47,7 @@ public class CreateBoardUseCaseTest {
 
         assertEquals(createBoardOutput.getBoardId(), board.getId());
         assertEquals("TestBoard", board.getTitle());
-        assertEquals("This is board that save in memory", board.getDescription());
+        assertEquals("This is the board that be saved in memory", board.getDescription());
 
         assertEquals(1, boardRepository.findAll().size());
     }
