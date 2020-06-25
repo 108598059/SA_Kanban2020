@@ -23,7 +23,7 @@ public class Board extends Aggregate {
     public Board(String id, String name, List<String> workflows) {
         this.id = id;
         this.name = name;
-        this.workflows = workflows;
+        this.workflows = new ArrayList<String>(workflows);
     }
 
     public void add(String workflowId){

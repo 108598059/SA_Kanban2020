@@ -22,7 +22,7 @@ public class CardRepositoryImpl implements CardRepository {
         String sql;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        CardDTO card= null;
+        CardDTO cardDTO= null;
 
         try {
             this.conn = Database.getConnection();
@@ -33,7 +33,7 @@ public class CardRepositoryImpl implements CardRepository {
             resultSet = ps.executeQuery();
             resultSet.first();
 
-            card = new CardDTO(
+            cardDTO = new CardDTO(
                     resultSet.getString("id"),
                     resultSet.getString("name"));
 
@@ -48,7 +48,7 @@ public class CardRepositoryImpl implements CardRepository {
             sql = "SELECT * FROM kanban.subtask WHERE cardid=?";
             ps = conn.prepareStatement(sql);
 
-            ps.setString(1,card.getId());
+            ps.setString(1,cardDTO.getId());
             resultSet = ps.executeQuery();
 
             while(resultSet.next()){
@@ -56,7 +56,7 @@ public class CardRepositoryImpl implements CardRepository {
                 subtaskDTO.setId(resultSet.getString("id"));
                 subtaskDTO.setName(resultSet.getString("name"));
 
-                card.addSubtask(subtaskDTO);
+                cardDTO.addSubtask(subtaskDTO);
             }
 
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class CardRepositoryImpl implements CardRepository {
             }
         }
 
-        return card;
+        return cardDTO;
     }
 
     public void save(CardDTO card){
