@@ -19,8 +19,8 @@ public class TeamDTO{
 
     }
     public TeamDTO(Team team){
-        this.userIdList = team.getUserIdList();
-        this.boardIdList = team.getBoardIdList();
+        this.userIdList = new ArrayList<String>(team.getUserIdList());
+        this.boardIdList = new ArrayList<String>(team.getBoardIdList());
         this.name = team.getName();
         this.id = team.getId();
 

@@ -1,9 +1,8 @@
 package domain.adapters.repository;
 
 import domain.adapters.database.Database;
-import domain.entity.aggregate.workflow.Stage;
-import domain.entity.aggregate.workflow.Swimlane;
-import domain.entity.aggregate.workflow.Workflow;
+import domain.usecase.workflow.StageDTO;
+import domain.usecase.workflow.SwimlaneDTO;
 import domain.usecase.workflow.WorkflowDTO;
 import domain.usecase.workflow.WorkflowRepository;
 
@@ -25,7 +24,7 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
         String sql;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        WorkflowDTO workflow = null;
+        WorkflowDTO workflowDTO = null;
 
 
         try {
@@ -37,9 +36,9 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
             resultSet = ps.executeQuery();
             resultSet.first();
 
-            workflow = new WorkflowDTO(resultSet.getString("id"));
+            workflowDTO = new WorkflowDTO(resultSet.getString("id"));
 
-            workflow.setName(resultSet.getString("name"));
+            workflowDTO.setName(resultSet.getString("name"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,14 +49,14 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
             sql = "SELECT * FROM kanban.stage WHERE workflowid=?";
             ps = conn.prepareStatement(sql);
-            ps.setString(1,workflow.getId());
+            ps.setString(1,workflowDTO.getId());
             resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                Stage stage = new Stage();
-                stage.setId(resultSet.getString("id"));
-                stage.setName(resultSet.getString("name"));
-                workflow.addStage(stage);
+                StageDTO stageDTO = new StageDTO();
+                stageDTO.setId(resultSet.getString("id"));
+                stageDTO.setName(resultSet.getString("name"));
+                workflowDTO.addStage(stageDTO);
 
             }
         } catch (SQLException e) {
@@ -69,16 +68,16 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
             sql = "SELECT * FROM kanban.swimlane WHERE stageid=?";
             ps = conn.prepareStatement(sql);
 
-            for (Stage stage: workflow.getStages().values()) {
+            for (StageDTO stage: workflowDTO.getStages().values()) {
 
                 ps.setString(1, stage.getId());
                 resultSet = ps.executeQuery();
 
                 while (resultSet.next()) {
-                    Swimlane swimlane = new Swimlane();
-                    swimlane.setId(resultSet.getString("id"));
-                    swimlane.setName(resultSet.getString("name"));
-                    stage.addSwimlane(swimlane);
+                    SwimlaneDTO swimlaneDTO = new SwimlaneDTO();
+                    swimlaneDTO.setId(resultSet.getString("id"));
+                    swimlaneDTO.setName(resultSet.getString("name"));
+                    stage.addSwimlane(swimlaneDTO);
 
                 }
             }
@@ -104,7 +103,7 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
             resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                workflow.addCard(resultSet.getString("stageid"),
+                workflowDTO.addCard(resultSet.getString("stageid"),
                         resultSet.getString("swimlaneid"),
                         resultSet.getString("cardid"));
             }
@@ -129,8 +128,7 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
         }
 
 
-
-        return workflow;
+        return workflowDTO;
     }
 
     public void save(WorkflowDTO workflow) {
@@ -144,12 +142,12 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
         PreparedStatement ps = null;
         sql = "INSERT INTO kanban.stage (id,name,workflowid) VALUES (?,?,?) ON DUPLICATE KEY UPDATE name=?,workflowid=?";
         try {
-            for(Stage stage : workflow.getStages().values() ){
+            for(StageDTO stageDTO : workflow.getStages().values() ){
                 ps = conn.prepareStatement(sql);
-                ps.setString(1,stage.getId());
-                ps.setString(2,stage.getName());
+                ps.setString(1,stageDTO.getId());
+                ps.setString(2,stageDTO.getName());
                 ps.setString(3,workflow.getId());
-                ps.setString(4,stage.getName());
+                ps.setString(4,stageDTO.getName());
                 ps.setString(5,workflow.getId());
                 ps.executeUpdate();
             }
@@ -168,14 +166,14 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
         sql = "INSERT INTO kanban.swimlane (id,name,stageid) VALUES (?,?,?) ON DUPLICATE KEY UPDATE name=?,stageid=?";
         try {
-            for(Stage stage : workflow.getStages().values() ){
-                for(Swimlane swimlane : stage.getSwimlanes().values()){
+            for(StageDTO stageDTO : workflow.getStages().values() ){
+                for(SwimlaneDTO swimlaneDTO : stageDTO.getSwimlanes().values()){
                     ps = conn.prepareStatement(sql);
-                    ps.setString(1,swimlane.getId());
-                    ps.setString(2,swimlane.getName());
-                    ps.setString(3,stage.getId());
-                    ps.setString(4,swimlane.getName());
-                    ps.setString(5,stage.getId());
+                    ps.setString(1,swimlaneDTO.getId());
+                    ps.setString(2,swimlaneDTO.getName());
+                    ps.setString(3,stageDTO.getId());
+                    ps.setString(4,swimlaneDTO.getName());
+                    ps.setString(5,stageDTO.getId());
                     ps.executeUpdate();
                 }
             }
@@ -194,14 +192,14 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
         sql = "INSERT INTO kanban.r_swimlane_card (swimlaneid,cardid) VALUES (?,?) ON DUPLICATE KEY UPDATE swimlaneid=?,cardid=?";
         try {
-            for(Stage stage : workflow.getStages().values() ){
-                for(Swimlane swimlane : stage.getSwimlanes().values()){
-                    for (String cardId: swimlane.getCards()) {
+            for(StageDTO stageDTO : workflow.getStages().values() ){
+                for(SwimlaneDTO swimlaneDTO : stageDTO.getSwimlanes().values()){
+                    for (String cardId: swimlaneDTO.getCards()) {
 
                         ps = conn.prepareStatement(sql);
-                        ps.setString(1, swimlane.getId());
+                        ps.setString(1, swimlaneDTO.getId());
                         ps.setString(2, cardId);
-                        ps.setString(3, swimlane.getId());
+                        ps.setString(3, swimlaneDTO.getId());
                         ps.setString(4, cardId);
 
 
@@ -296,9 +294,9 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
         sql = "DELETE FROM kanban.swimlane WHERE stageid=?";
         try {
-                for(Stage stage : workflow.getStages().values() ){
+                for(StageDTO stageDTO : workflow.getStages().values() ){
                     ps = conn.prepareStatement(sql);
-                    ps.setString(1,stage.getId());
+                    ps.setString(1,stageDTO.getId());
                     ps.executeUpdate();
                 }
 
@@ -317,11 +315,11 @@ public class WorkflowRepositoryImpl implements WorkflowRepository {
 
         sql = "DELETE FROM kanban.r_swimlane_card WHERE swimlaneid=?";
         try {
-            for(Stage stage : workflow.getStages().values() ){
-                for(Swimlane swimlane : stage.getSwimlanes().values()){
+            for(StageDTO stageDTO : workflow.getStages().values() ){
+                for(SwimlaneDTO swimlaneDTO : stageDTO.getSwimlanes().values()){
 
                         ps = conn.prepareStatement(sql);
-                        ps.setString(1, swimlane.getId());
+                        ps.setString(1, swimlaneDTO.getId());
                         ps.executeUpdate();
 
                 }

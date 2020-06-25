@@ -54,6 +54,7 @@ public class CreateStageTest {
 
         Workflow workflow = WorkflowTransformer.toWorkflow(workflowRepository.getWorkFlowById(workflowId));
 
+
         assertEquals(1,workflow.getStages().size());
         assertEquals("backlog",workflow.getStageById(createStageOutput.getStageId()).getName());
     }

@@ -1,25 +1,24 @@
-package domain.entity.aggregate.workflow;
+package domain.usecase.workflow;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-public class Swimlane {
-
+public class SwimlaneDTO {
     private String id;
     private String name;
     private List<String> cards;
 
-
-    public Swimlane(){
+    public SwimlaneDTO(){
         cards = new ArrayList<String>();
         this.id = UUID.randomUUID().toString();
     }
 
-    public Swimlane(String id, String name, List<String> cards){
+    public SwimlaneDTO( String id , String name, List<String> cards ){
         this.id = id ;
         this.name = name ;
         this.cards = new ArrayList<String>(cards) ;
     }
-
 
     public String getId() {
         return id;
@@ -46,6 +45,4 @@ public class Swimlane {
     public List<String> getCards() {
         return this.cards;
     }
-
-
 }

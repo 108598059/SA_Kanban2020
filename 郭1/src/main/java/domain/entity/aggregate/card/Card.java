@@ -3,6 +3,7 @@ package domain.entity.aggregate.card;
 import domain.entity.aggregate.Aggregate;
 import domain.entity.aggregate.card.event.CardCreated;
 import domain.entity.aggregate.card.event.SubtaskCreated;
+import domain.usecase.card.SubtaskDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,10 +24,14 @@ public class Card extends Aggregate {
         this.taskMap = new HashMap<String, Subtask>();
         addEvent(new CardCreated(workflowId,stageId,swimlaneId,this._id));
     }
-    public Card(String id, String name, Map<String, Subtask> taskMap){
+    public Card(String id, String name, Map<String, SubtaskDTO> taskMap){
         this._id = id;
         this._name = name;
-        this.taskMap = taskMap;
+        this.taskMap = new HashMap<String, Subtask>() ;
+        for (Map.Entry<String, SubtaskDTO> entry : taskMap.entrySet()) {
+            this.taskMap.put(entry.getKey(),new Subtask(entry.getValue().getId(),entry.getValue().getName())) ;
+        }
+
     }
 
 

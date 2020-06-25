@@ -2,9 +2,10 @@ package domain.entity.aggregate.workflow;
 
 import domain.entity.aggregate.Aggregate;
 import domain.entity.aggregate.workflow.event.*;
-import domain.usecase.flowevent.FlowEventRepository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class Workflow extends Aggregate {

@@ -1,16 +1,16 @@
-package domain.entity.aggregate.card;
+package domain.usecase.card;
 
 import java.util.UUID;
 
-public class Subtask {
+public class SubtaskDTO {
     private String id;
     private String name;
 
-    public Subtask(){
+    public SubtaskDTO(){
         this.id = UUID.randomUUID().toString();
     }
 
-    public Subtask( String id , String name ) {
+    public SubtaskDTO( String id, String name ) {
         this.id = id ;
         this.name = name ;
     }
@@ -28,4 +28,5 @@ public class Subtask {
     public String getId() {
         return this.id;
     }
+
 }

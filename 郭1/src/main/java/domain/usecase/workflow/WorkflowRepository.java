@@ -1,9 +1,6 @@
 package domain.usecase.workflow;
 
 
-import domain.entity.aggregate.workflow.Workflow;
-
-
 public interface WorkflowRepository {
 
     WorkflowDTO getWorkFlowById(String id);

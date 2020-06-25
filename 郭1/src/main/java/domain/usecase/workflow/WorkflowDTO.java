@@ -1,29 +1,23 @@
 package domain.usecase.workflow;
 
-import domain.entity.aggregate.team.Team;
-import domain.entity.aggregate.workflow.Stage;
-import domain.entity.aggregate.workflow.Swimlane;
-import domain.entity.aggregate.workflow.Workflow;
-import domain.entity.aggregate.workflow.event.*;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WorkflowDTO {
     private String name;
     private String id;
-    private Map<String, Stage> stages;
+    private Map<String, StageDTO> stages;
 
-    public WorkflowDTO(Workflow workflow){
-        this.name = workflow.getName();
-        this.id = workflow.getId();
-        this.stages = workflow.getStages();
+
+    public WorkflowDTO(String id){
+        this.stages = new HashMap<String, StageDTO>();
+        this.id = id;
     }
 
-
-    public WorkflowDTO(String boardId){
-        this.stages = new HashMap<String, Stage>();
-        this.id = boardId;
-
+    public WorkflowDTO(String id, String name, Map<String, StageDTO> stages){
+        this.stages = stages;
+        this.id = id;
+        this.name = name ;
     }
 
 
@@ -39,37 +33,37 @@ public class WorkflowDTO {
         return this.id;
     }
 
-    public void addStage(Stage stage){
-        this.stages.put(stage.getId(),stage);
+    public void addStage(StageDTO stageDTO){
+        this.stages.put(stageDTO.getId(),stageDTO);
     }
 
     public void addCard(String stageId, String swimlaneId, String cardId){
-        for (Stage stage: stages.values()){
-            if(stage.getId().equals(stageId)){
-                for (Swimlane swimlane: stage.getSwimlanes().values()){
-                    if (swimlane.getId().equals(swimlaneId)) {
-                        swimlane.addCard(cardId);
+        for (StageDTO stageDTO: stages.values()){
+            if(stageDTO.getId().equals(stageId)){
+                for (SwimlaneDTO swimlaneDTO: stageDTO.getSwimlanes().values()){
+                    if (swimlaneDTO.getId().equals(swimlaneId)) {
+                        swimlaneDTO.addCard(cardId);
                     }
                 }
             }
         }
     }
 
-
+    /*
     public String createStage(String stageName) {
-        Stage stage = new Stage();
-        stage.setName(stageName);
-        this.addStage(stage);
-        return stage.getId();
+        StageDTO stageDTO = new StageDTO();
+        stageDTO.setName(stageName);
+        this.addStage(stageDTO);
+        return stageDTO.getId();
     }
 
     public String createSwimlane(String stageId, String swimlaneName){
-        Swimlane swimlane = new Swimlane();
-        swimlane.setName(swimlaneName);
+        SwimlaneDTO swimlaneDTO = new SwimlaneDTO();
+        swimlaneDTO.setName(swimlaneName);
 
-        Stage stage = stages.get(stageId);
-        stage.addSwimlane(swimlane);
-        return swimlane.getId();
+        StageDTO stageDTO = stages.get(stageId);
+        stageDTO.addSwimlane(swimlaneDTO);
+        return swimlaneDTO.getId();
     }
 
     public void moveCard(String fromStageId, String toStageId, String fromSwimLaneId, String toSwimLaneId, String cardId){
@@ -77,16 +71,17 @@ public class WorkflowDTO {
         stages.get(toStageId).getSwimlaneById(toSwimLaneId).getCards().add(cardId);
 
     }
+    */
 
     public String getName() {
         return this.name;
     }
 
-    public Stage getStageById(String id){
+    public StageDTO getStageById(String id){
         return stages.get(id);
     }
 
-    public Map<String,Stage> getStages(){
+    public Map<String,StageDTO> getStages(){
         return this.stages;
     }
 

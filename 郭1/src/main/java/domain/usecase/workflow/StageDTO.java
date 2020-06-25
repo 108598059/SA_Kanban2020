@@ -1,23 +1,25 @@
-package domain.entity.aggregate.workflow;
+package domain.usecase.workflow;
+
+import domain.entity.aggregate.workflow.Swimlane;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class Stage {
+public class StageDTO {
     private String name;
     private String id;
-    private Map<String, Swimlane> swimlanes;
+    private Map<String, SwimlaneDTO> swimlanes;
 
-    public Stage(){
-        this.swimlanes = new HashMap<String, Swimlane>();
+    public StageDTO(){
+        this.swimlanes = new HashMap<String, SwimlaneDTO>();
         this.id = UUID.randomUUID().toString();
     }
 
-    public Stage( String id , String name, Map<String,Swimlane> swimlanes ) {
-        this.id = id ;
-        this.name = name ;
-        this.swimlanes = swimlanes ;
+    public StageDTO(String id , String name, Map<String, SwimlaneDTO> swimlanes ){
+       this.id = id ;
+       this.name = name ;
+       this.swimlanes = swimlanes ;
     }
 
     public void setName(String name) {
@@ -30,7 +32,7 @@ public class Stage {
 
     public void setId(String id){this.id = id;}
 
-    public void addSwimlane(Swimlane swimlane){
+    public void addSwimlane(SwimlaneDTO swimlane){
         swimlanes.put(swimlane.getId(),swimlane);
     }
 
@@ -38,14 +40,13 @@ public class Stage {
         return this.name;
     }
 
-    public Swimlane getSwimlaneById(String id){
+    public SwimlaneDTO getSwimlaneById(String id){
 
         return swimlanes.get(id);
     }
 
-    public Map<String, Swimlane> getSwimlanes() {
+    public Map<String, SwimlaneDTO> getSwimlanes() {
         return swimlanes;
     }
-
 
 }
