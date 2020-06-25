@@ -33,6 +33,7 @@ import domain.usecase.card.move.MoveCardInput;
 import domain.usecase.card.move.MoveCardOutput;
 import domain.usecase.card.move.MoveCardUseCase;
 import domain.usecase.flowevent.FlowEventRepository;
+import domain.usecase.workflow.SwimlaneDTO;
 import domain.usecase.workflow.WorkflowTransformer;
 import domain.usecase.workflow.create.CreateStageInput;
 import domain.usecase.workflow.create.CreateStageOutput;
@@ -190,11 +191,11 @@ public class Utilities {
         return cardRepository;
     }
 
-    public Swimlane getReady() {
+    public SwimlaneDTO getReady() {
         return workflowRepository.getWorkFlowById(workflowId).getStageById(readyStageId).getSwimlaneById(readySwimlaneId);
     }
 
-    public Swimlane getAnalysis() {
+    public SwimlaneDTO getAnalysis() {
         return workflowRepository.getWorkFlowById(workflowId).getStageById(analysisStageId).getSwimlaneById(analysisSwimlaneId);
     }
 

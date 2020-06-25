@@ -1,10 +1,9 @@
 package domain.adapters.repository;
 
 import domain.adapters.database.Database;
-import domain.entity.aggregate.card.Card;
-import domain.entity.aggregate.card.Subtask;
 import domain.usecase.card.CardDTO;
 import domain.usecase.card.CardRepository;
+import domain.usecase.card.SubtaskDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,7 @@ public class CardRepositoryImpl implements CardRepository {
         String sql;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        CardDTO card= null;
+        CardDTO cardDTO= null;
 
         try {
             this.conn = Database.getConnection();
@@ -34,7 +33,7 @@ public class CardRepositoryImpl implements CardRepository {
             resultSet = ps.executeQuery();
             resultSet.first();
 
-            card = new CardDTO(
+            cardDTO = new CardDTO(
                     resultSet.getString("id"),
                     resultSet.getString("name"));
 
@@ -49,14 +48,15 @@ public class CardRepositoryImpl implements CardRepository {
             sql = "SELECT * FROM kanban.subtask WHERE cardid=?";
             ps = conn.prepareStatement(sql);
 
-            ps.setString(1,card.getId());
+            ps.setString(1,cardDTO.getId());
             resultSet = ps.executeQuery();
 
             while(resultSet.next()){
-                Subtask subtask = new Subtask();
-                subtask.setId(resultSet.getString("id"));
-                subtask.setName(resultSet.getString("name"));
-                card.addSubtask(subtask);
+                SubtaskDTO subtaskDTO = new SubtaskDTO();
+                subtaskDTO.setId(resultSet.getString("id"));
+                subtaskDTO.setName(resultSet.getString("name"));
+
+                cardDTO.addSubtask(subtaskDTO);
             }
 
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class CardRepositoryImpl implements CardRepository {
             }
         }
 
-        return card;
+        return cardDTO;
     }
 
     public void save(CardDTO card){
@@ -90,13 +90,13 @@ public class CardRepositoryImpl implements CardRepository {
         try {
             ps = conn.prepareStatement(sql);
 
-            for(Subtask subtask : card.getSubtasks().values())
+            for(SubtaskDTO subtaskDTO : card.getSubtasks().values())
             {
 
-                ps.setString(1, subtask.getId());
-                ps.setString(2, subtask.getName());
+                ps.setString(1, subtaskDTO.getId());
+                ps.setString(2, subtaskDTO.getName());
                 ps.setString(3, card.getId());
-                ps.setString(4, subtask.getName());
+                ps.setString(4, subtaskDTO.getName());
                 ps.setString(5, card.getId());
                 ps.executeUpdate();
             }

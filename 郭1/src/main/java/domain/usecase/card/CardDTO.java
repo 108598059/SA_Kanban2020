@@ -11,18 +11,24 @@ import java.util.UUID;
 public class CardDTO {
     private String _id ;
     private String _name ;
-    private Map<String, Subtask> taskMap;
+    private Map<String, SubtaskDTO> taskMap;
 
 
     public CardDTO(String id, String name, Map<String, Subtask> taskMap){
         this._id = id;
         this._name = name;
-        this.taskMap = taskMap;
+        this.taskMap = new HashMap<String, SubtaskDTO>();
+        for (Map.Entry<String, Subtask> entry : taskMap.entrySet()) {
+            this.taskMap.put(entry.getKey(),new SubtaskDTO(entry.getValue().getId(),entry.getValue().getName())) ;
+        }
+
     }
+
+
     public CardDTO(String id, String name){
         this._id = id;
         this._name = name;
-        this.taskMap = new HashMap<String, Subtask>();
+        this.taskMap = new HashMap<String, SubtaskDTO>();
     }
 
 
@@ -42,25 +48,13 @@ public class CardDTO {
         return this._id ;
     }
 
-    public Map<String, Subtask> getSubtasks(){
+    public Map<String, SubtaskDTO> getSubtasks(){
         return taskMap;
     }
 
-    public Subtask getSubtaskById(String id) {
-        return taskMap.get(id);
-    }
 
-    public String createSubtask(String taskName) {
-        Subtask newSubtask = new Subtask();
-        newSubtask.setName(taskName);
-        taskMap.put(newSubtask.getId(), newSubtask);
 
-        SubtaskCreated subtaskCreated = new SubtaskCreated(this._id, newSubtask.getId(), newSubtask.getName()) ;
-
-        return newSubtask.getId();
-    }
-
-    public void addSubtask(Subtask subtask){
-        this.taskMap.put(subtask.getId(), subtask);
+    public void addSubtask(SubtaskDTO subtaskDTO){
+        this.taskMap.put(subtaskDTO.getId(), subtaskDTO);
     }
 }

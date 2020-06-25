@@ -10,6 +10,11 @@ public class Subtask {
         this.id = UUID.randomUUID().toString();
     }
 
+    public Subtask( String id , String name ) {
+        this.id = id ;
+        this.name = name ;
+    }
+
     public void setName(String taskName) {
         this.name = taskName;
     }
