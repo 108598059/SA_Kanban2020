@@ -14,6 +14,13 @@ public class Swimlane {
         this.id = UUID.randomUUID().toString();
     }
 
+    public Swimlane(String id, String name, List<String> cards){
+        this.id = id ;
+        this.name = name ;
+        this.cards = new ArrayList<String>(cards) ;
+    }
+
+
     public String getId() {
         return id;
     }

@@ -14,6 +14,12 @@ public class Stage {
         this.id = UUID.randomUUID().toString();
     }
 
+    public Stage( String id , String name, Map<String,Swimlane> swimlanes ) {
+        this.id = id ;
+        this.name = name ;
+        this.swimlanes = swimlanes ;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

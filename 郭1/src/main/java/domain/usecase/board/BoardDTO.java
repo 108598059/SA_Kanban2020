@@ -33,6 +33,6 @@ public class BoardDTO {
     }
 
     public void setWorkflows(List<String> workflows) {
-        this.workflows = workflows;
+        this.workflows = new ArrayList<String>(workflows);
     }
 }
